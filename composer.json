@@ -1,0 +1,26 @@
+{
+    "name": "serendipity_hq/features-bundle",
+    "description": "Manage features and plans in your Symfony app.",
+    "type": "symfony-bundle",
+    "keywords": [],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adamo Aerendir Crespi",
+            "email": "hello@aerendir.me"
+        }
+    ],
+    "require": {
+        "php": "~7.0",
+        "symfony/framework-bundle": "*"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "*",
+        "symfony/var-dumper": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src"
+        }
+    }
+}
