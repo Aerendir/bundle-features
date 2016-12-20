@@ -20,21 +20,70 @@ use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
 /**
- * Methods to handle premium plans.
+ * Class to navigate the features tree.
  */
-class PremiumPlansNavigator
+class FeaturesNavigator
 {
+    const BOOLEAN = 'boolean';
+
     /** @var array */
-    private static $plans = [];
+    private $features = [];
 
     /**
-     * Checks plans are set.
+     * @param array $features
      */
-    public static function checkPlansAreNotEmpty()
+    public function __construct(array $features)
     {
-        if (empty(self::$plans)) {
-            throw  new \BadMethodCallException('No plan is set. Use PremiumPlansNavigator::setPlans() to set them.');
+        $this->features = $features;
+    }
+
+    /**
+     * @param array $features
+     * @return FeaturesNavigator
+     */
+    public static function create(array $features) : self
+    {
+        return new static($features);
+    }
+
+    /**
+     * Returns the full array of features.
+     *
+     * It returns a specific kind of features set if specified.
+     *
+     * @param string $kind
+     *
+     * @return array
+     */
+    public function getFeatures(string $kind = null) : array
+    {
+        if (null !== $kind && in_array($kind, [self::BOOLEAN])) {
+            // If features of this kind doesn't exist...
+            if (false === isset($this->features[$kind])) {
+                // ... Return an empty array
+                return [];
+            }
+
+            // Return the array with the features of the specified kind
+            return $this->features[$kind];
         }
+
+        return $this->features;
+    }
+
+    /**
+     * @param string $feature
+     * @return array
+     */
+    public function getBooleanFeature(string $feature) : array
+    {
+        if (false === isset($this->getFeatures(self::BOOLEAN)[$feature])) {
+            throw new \InvalidArgumentException(
+                sprintf('The feature "%s" doesn\'t exist.', $feature)
+            );
+        }
+
+        return $this->getFeatures(self::BOOLEAN)[$feature];
     }
 
     /**
@@ -42,17 +91,9 @@ class PremiumPlansNavigator
      *
      * @return bool
      */
-    public static function getDefaultStatusForBoolean($feature)
+    public function getDefaultStatusForBoolean(string $feature)
     {
-        self::checkPlansAreNotEmpty();
-
-        if (false === isset(self::$plans['boolean'][$feature]['enabled'])) {
-            throw new \InvalidArgumentException(
-                sprintf('The feature "%s" doesn\'t exist.', $feature)
-            );
-        }
-
-        return self::$plans['boolean'][$feature]['enabled'];
+        return $this->getBooleanFeature($feature)['enabled'];
     }
 
     /**
@@ -62,10 +103,8 @@ class PremiumPlansNavigator
      *
      * @return Money
      */
-    public static function getPriceForBoolean($feature, Currency $currency, $interval)
+    public function getPriceForBoolean($feature, Currency $currency, $interval)
     {
-        self::checkPlansAreNotEmpty();
-
         // Check interval
         if (is_int($interval) && 1 === $interval) {
             $interval = 'month';
@@ -77,25 +116,17 @@ class PremiumPlansNavigator
             );
         }
 
-        if (false === isset(self::$plans['boolean'][$feature]['price'][$currency->toString()][$interval])) {
+        if (false === isset($this->features['boolean'][$feature]['price'][$currency->toString()][$interval])) {
             throw new \InvalidArgumentException(
                 sprintf('The price of feature "%s" doesn\'t exist in the currency "%s" in the given "%s" interval.', $feature, $currency, $interval)
             );
         }
 
-        $price = self::$plans['boolean'][$feature]['price'][$currency->toString()][$interval];
+        $price = $this->features['boolean'][$feature]['price'][$currency->toString()][$interval];
 
         // If the feature is enabled by default, its price is 0, it's free! :D
-        $amount = self::$plans['boolean'][$feature]['enabled'] ? 0 : $price;
+        $amount = $this->features['boolean'][$feature]['enabled'] ? 0 : $price;
 
         return new Money(['amount' => $amount, 'currency' => $currency]);
-    }
-
-    /**
-     * @param array $plans
-     */
-    public static function setPlans(array $plans)
-    {
-        self::$plans = $plans;
     }
 }

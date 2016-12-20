@@ -2,23 +2,36 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
-use SerendipityHq\Bundle\FeaturesBundle\Util\PremiumPlansNavigator;
+use SerendipityHQ\Bundle\FeaturesBundle\Util\FeaturesNavigator;
 
 /**
  * A trait to manage common tasks in a PremiumPlansManager.
  */
 trait PremiumPlansManagerTrait
 {
-    /** @var array $plans */
+    /** @var FeaturesNavigator $featuresNavigator */
+    private $featuresNavigator;
+
+    /**
+     * @var array $plans
+     * @deprecated Use getFeaturesNavigator() instead
+     */
     private $plans;
 
     /**
-     * @param array       $plans
+     * @param array $features
      */
-    public function __construct(array $plans)
+    public function __construct(array $features)
     {
-        $this->plans       = $plans;
+        $this->featuresNavigator = FeaturesNavigator::create($features);
+        $this->plans = $features;
+    }
 
-        PremiumPlansNavigator::setPlans($this->plans);
+    /**
+     * @return FeaturesNavigator
+     */
+    public function getFeaturesNavigator() : FeaturesNavigator
+    {
+        return $this->featuresNavigator;
     }
 }
