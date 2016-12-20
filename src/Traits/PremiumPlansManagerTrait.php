@@ -13,18 +13,11 @@ trait PremiumPlansManagerTrait
     private $featuresNavigator;
 
     /**
-     * @var array $plans
-     * @deprecated Use getFeaturesNavigator() instead
-     */
-    private $plans;
-
-    /**
      * @param array $features
      */
     public function __construct(array $features)
     {
         $this->featuresNavigator = FeaturesNavigator::create($features);
-        $this->plans = $features;
     }
 
     /**
