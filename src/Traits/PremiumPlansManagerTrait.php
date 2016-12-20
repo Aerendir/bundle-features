@@ -1,7 +1,12 @@
 <?php
 
-namespace SerendipityHq\Bundle\FeaturesBundle;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
+use SerendipityHq\Bundle\FeaturesBundle\Util\PremiumPlansNavigator;
+
+/**
+ * A trait to manage common tasks in a PremiumPlansManager.
+ */
 trait PremiumPlansManagerTrait
 {
     /** @var array $plans */
@@ -14,6 +19,6 @@ trait PremiumPlansManagerTrait
     {
         $this->plans       = $plans;
 
-        PremiumPlansHelper::setPlans($this->plans);
+        PremiumPlansNavigator::setPlans($this->plans);
     }
 }

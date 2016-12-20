@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "~7.0",
+        "serendipity_hq/php_value_objects": "~3",
         "symfony/framework-bundle": "*"
     },
     "require-dev": {

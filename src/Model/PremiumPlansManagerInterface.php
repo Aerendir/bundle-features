@@ -1,6 +1,6 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 /**
  * Common interface for a PremiumPlansManager.
