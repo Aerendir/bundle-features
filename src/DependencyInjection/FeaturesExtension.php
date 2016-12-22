@@ -30,11 +30,13 @@ class FeaturesExtension extends Extension
         foreach ($config as $creatingServiceKey => $creatingService) {
             $this->createFeaturesService($creatingServiceKey, $creatingService, $container);
         }
-
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yml');
     }
 
+    /**
+     * @param string $name
+     * @param array $features
+     * @param ContainerBuilder $containerBuilder
+     */
     private function createFeaturesService(string $name, array $features, ContainerBuilder $containerBuilder)
     {
         // Create the feature handler definition

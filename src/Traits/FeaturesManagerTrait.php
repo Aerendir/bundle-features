@@ -2,9 +2,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\FormFactory;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * A trait to manage common tasks in a PremiumPlansManager.
@@ -14,15 +14,18 @@ trait FeaturesManagerTrait
     /** @var FeaturesHandler $featuresHandler */
     private $featuresHandler;
 
-    /** @var FormFactory */
+    /** @var FormFactory $formFactory */
     private $formFactory;
+
+    /** @var  SubscriptionInterface $subscription */
+    private $subscription;
 
     /**
      * @return FeaturesHandler
      */
     public function getFeaturesHandler() : FeaturesHandler
     {
-        return $this->featuresNavigator;
+        return $this->featuresHandler;
     }
 
     /**
@@ -34,11 +37,19 @@ trait FeaturesManagerTrait
     }
 
     /**
+     * @return SubscriptionInterface
+     */
+    public function getSubscription() : SubscriptionInterface
+    {
+        return $this->subscription;
+    }
+
+    /**
      * @param FeaturesHandler $featuresHandler
      */
     public function setFeaturesHandler(FeaturesHandler $featuresHandler)
     {
-        $this->featuresNavigator = $featuresHandler;
+        $this->featuresHandler = $featuresHandler;
     }
 
     /**
@@ -47,5 +58,13 @@ trait FeaturesManagerTrait
     public function setFormFactory(FormFactory $formFactory)
     {
         $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     */
+    public function setSubscription(SubscriptionInterface $subscription)
+    {
+        $this->subscription = $subscription;
     }
 }

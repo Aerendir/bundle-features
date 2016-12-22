@@ -2,11 +2,13 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
 /**
- * {@inheritdoc}
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks
  */
 class Subscription implements SubscriptionInterface
 {

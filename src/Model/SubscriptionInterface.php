@@ -3,7 +3,11 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SebastianBergmann\Money\Money;
+use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 
+/**
+ * Interface for a Subscription.
+ */
 interface SubscriptionInterface
 {
     /**
@@ -17,6 +21,11 @@ interface SubscriptionInterface
      * @return \DateTime
      */
     public function getCreatedOn() : \DateTime;
+
+    /**
+     * @return Currency
+     */
+    public function getCurrency();
 
     public function getFeatures();
 
@@ -51,6 +60,12 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setId(int $id) : SubscriptionInterface;
+
+    /**
+     * @param Currency $currency
+     * @return SubscriptionInterface
+     */
+    public function setCurrency(Currency $currency) : SubscriptionInterface;
 
     public function setFeatures(array $features);
 

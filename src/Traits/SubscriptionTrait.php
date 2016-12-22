@@ -2,8 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
+use Doctrine\ORM\Mapping as ORM;
 use SebastianBergmann\Money\Money;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 
 /**
  * Basic properties and methods to manage a subscription.
@@ -25,6 +27,13 @@ trait SubscriptionTrait
      * @ORM\Column(name="created_on", type="datetime", nullable=false)
      */
     private $createdOn;
+
+    /**
+     * @var Currency
+     *
+     * @ORM\Column(name="currency", type="string", nullable=false)
+     */
+    private $currency;
 
     /**
      * @var string
@@ -90,6 +99,16 @@ trait SubscriptionTrait
     }
 
     /**
+     * Do not set the return typecasting until a currency type is created.
+     *
+     * @return Currency
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
      * @return int
      */
     public function getInterval() : int
@@ -143,6 +162,17 @@ trait SubscriptionTrait
     public function setId(int $id) : SubscriptionInterface
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param Currency $currency
+     * @return SubscriptionInterface
+     */
+    public function setCurrency(Currency $currency) : SubscriptionInterface
+    {
+        $this->currency = $currency;
 
         return $this;
     }
@@ -256,5 +286,21 @@ trait SubscriptionTrait
     public function __toString() : string
     {
         return (string) $this->getId();
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function currencyStringToObject()
+    {
+        $this->currency = new Currency($this->currency);
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function currencyObjectToString()
+    {
+        $this->currency = $this->currency->__toString();
     }
 }

@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\VarDumper\VarDumper;
 
 /**
- * Set the appropriate FeaturesHandler for each created FeaturesManager
+ * Set the appropriate FeaturesHandler for each created FeaturesManager.
  */
 class SetHandlersCompilerPass implements CompilerPassInterface
 {

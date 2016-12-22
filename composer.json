@@ -14,9 +14,10 @@
         "php": "~7.0",
         "doctrine/common": "*",
         "serendipity_hq/php_value_objects": "~3",
-        "symfony/form": "*",
-        "symfony/framework-bundle": "*",
-        "symfony/routing": "*"
+        "symfony/form": "~2.8",
+        "symfony/framework-bundle": "~2.8",
+        "symfony/options-resolver": "~2.8",
+        "symfony/routing": "~2.8"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "*",

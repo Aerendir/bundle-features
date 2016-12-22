@@ -16,30 +16,38 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * {@inheritdoc}
  */
 class FeaturesType extends AbstractType
 {
-    private $features;
-
-    public function __construct(array $features)
-    {
-        $this->features = $features;
-    }
-
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        die(dump($options, $this->features));
-        $builder->add('ads', CheckboxType::class, ['required' => false])
-            ->add('seo', CheckboxType::class, ['required' => false])
-            ->add('social', CheckboxType::class, ['required' => false]);
+        /** @var FeaturesHandler $featuresHandler */
+        $featuresHandler = $options['features_handler'];
+        foreach ($featuresHandler->getFeatures(FeaturesHandler::BOOLEAN) as $feature => $details) {
+            $builder->add($feature, CheckboxType::class, ['required' => false]);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+
+        $resolver->setRequired([
+            'features_handler'
+        ]);
     }
 }
