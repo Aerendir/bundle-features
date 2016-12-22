@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -9,11 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 interface FeaturesManagerInterface
 {
-    /**
-     * @param array $plans
-     */
-    public function __construct(array $plans);
-
     /**
      * @param string $actionUrl
      * @param SubscriptionInterface $subscription

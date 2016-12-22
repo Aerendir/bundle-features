@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Util\FeaturesNavigator;
+use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
@@ -11,24 +11,16 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
  */
 trait FeaturesManagerTrait
 {
-    /** @var FeaturesNavigator $featuresNavigator */
-    private $featuresNavigator;
+    /** @var FeaturesHandler $featuresHandler */
+    private $featuresHandler;
 
     /** @var FormFactory */
     private $formFactory;
 
     /**
-     * @param array $features
+     * @return FeaturesHandler
      */
-    public function __construct(array $features)
-    {
-        $this->featuresNavigator = FeaturesNavigator::create($features);
-    }
-
-    /**
-     * @return FeaturesNavigator
-     */
-    public function getFeaturesNavigator() : FeaturesNavigator
+    public function getFeaturesHandler() : FeaturesHandler
     {
         return $this->featuresNavigator;
     }
@@ -39,6 +31,14 @@ trait FeaturesManagerTrait
     public function getFormFactory() : FormFactory
     {
         return $this->formFactory;
+    }
+
+    /**
+     * @param FeaturesHandler $featuresHandler
+     */
+    public function setFeaturesHandler(FeaturesHandler $featuresHandler)
+    {
+        $this->featuresNavigator = $featuresHandler;
     }
 
     /**

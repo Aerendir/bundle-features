@@ -14,7 +14,7 @@
  *            could disclose this text.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Util;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -22,7 +22,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 /**
  * Class to navigate the features tree.
  */
-class FeaturesNavigator
+final class FeaturesHandler
 {
     const BOOLEAN = 'boolean';
 
@@ -39,7 +39,7 @@ class FeaturesNavigator
 
     /**
      * @param array $features
-     * @return FeaturesNavigator
+     * @return FeaturesHandler
      */
     public static function create(array $features) : self
     {
