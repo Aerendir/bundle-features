@@ -27,6 +27,13 @@ trait SubscriptionTrait
     private $createdOn;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="features", type="json_array", nullable=false)
+     */
+    private $features;
+
+    /**
      * In number of months.
      *
      * 1 = monthly
@@ -67,6 +74,11 @@ trait SubscriptionTrait
     public function getId() : int
     {
         return $this->id;
+    }
+
+    public function getFeatures()
+    {
+        return $this->features;
     }
 
     /**
@@ -131,6 +143,13 @@ trait SubscriptionTrait
     public function setId(int $id) : SubscriptionInterface
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    public function setFeatures(array $features)
+    {
+        $this->features = $features;
 
         return $this;
     }

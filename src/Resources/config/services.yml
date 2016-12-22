@@ -1,0 +1,4 @@
+services:
+    shq.bundle.features.form.features_type:
+        class: SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType
+        arguments: ["%shq_features%"]

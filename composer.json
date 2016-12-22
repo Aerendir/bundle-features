@@ -12,8 +12,11 @@
     ],
     "require": {
         "php": "~7.0",
+        "doctrine/common": "*",
         "serendipity_hq/php_value_objects": "~3",
-        "symfony/framework-bundle": "*"
+        "symfony/form": "*",
+        "symfony/framework-bundle": "*",
+        "symfony/routing": "*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "*",

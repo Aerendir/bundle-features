@@ -3,14 +3,19 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Util\FeaturesNavigator;
+use Symfony\Component\Form\FormFactory;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * A trait to manage common tasks in a PremiumPlansManager.
  */
-trait PremiumPlansManagerTrait
+trait FeaturesManagerTrait
 {
     /** @var FeaturesNavigator $featuresNavigator */
     private $featuresNavigator;
+
+    /** @var FormFactory */
+    private $formFactory;
 
     /**
      * @param array $features
@@ -26,5 +31,21 @@ trait PremiumPlansManagerTrait
     public function getFeaturesNavigator() : FeaturesNavigator
     {
         return $this->featuresNavigator;
+    }
+
+    /**
+     * @return FormFactory
+     */
+    public function getFormFactory() : FormFactory
+    {
+        return $this->formFactory;
+    }
+
+    /**
+     * @param FormFactory $formFactory
+     */
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
     }
 }

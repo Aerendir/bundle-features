@@ -18,6 +18,8 @@ interface SubscriptionInterface
      */
     public function getCreatedOn() : \DateTime;
 
+    public function getFeatures();
+
     /**
      * @return int
      */
@@ -49,6 +51,8 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setId(int $id) : SubscriptionInterface;
+
+    public function setFeatures(array $features);
 
     /**
      * @param int $interval
