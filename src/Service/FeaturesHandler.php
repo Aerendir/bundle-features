@@ -16,6 +16,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesManagerInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 
@@ -24,26 +30,21 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 final class FeaturesHandler
 {
-    const BOOLEAN = 'boolean';
+    /** @var FeaturesCollection $features */
+    private $features;
 
-    /** @var array */
-    private $features = [];
+    /** @var FeaturesCollection $boolean */
+    private $booleans;
+
+    /** @var FeaturesCollection $rechargeables */
+    private $rechargeables;
 
     /**
      * @param array $features
      */
     public function __construct(array $features)
     {
-        $this->features = $features;
-    }
-
-    /**
-     * @param array $features
-     * @return FeaturesHandler
-     */
-    public static function create(array $features) : self
-    {
-        return new static($features);
+        $this->features = new FeaturesCollection($features);
     }
 
     /**
@@ -51,21 +52,43 @@ final class FeaturesHandler
      *
      * It returns a specific kind of features set if specified.
      *
-     * @param string $kind
+     * @param string $type
      *
-     * @return array
+     * @return FeaturesCollection
      */
-    public function getFeatures(string $kind = null) : array
+    public function getFeatures(string $type = null) : FeaturesCollection
     {
-        if (null !== $kind && in_array($kind, [self::BOOLEAN])) {
-            // If features of this kind doesn't exist...
-            if (false === isset($this->features[$kind])) {
-                // ... Return an empty array
-                return [];
-            }
+        if (null !== $type) {
+            switch ($type) {
+                case FeatureInterface::BOOLEAN:
+                    if (null === $this->booleans) {
+                        $predictate = function ($element) {
+                            if ($element instanceof BooleanFeatureInterface)
+                                return $element;
+                        };
 
-            // Return the array with the features of the specified kind
-            return $this->features[$kind];
+                        // Cache the result
+                        $this->booleans = $this->features->filter($predictate);
+                    }
+
+                    return $this->booleans;
+                    break;
+                case FeatureInterface::RECHARGEABLE:
+                    if (null === $this->rechargeables) {
+                        $predictate = function ($element) {
+                            if ($element instanceof RechargeableFeatureInterface)
+                                return $element;
+                        };
+
+                        // Cache the result
+                        $this->rechargeables = $this->features->filter($predictate);
+                    }
+
+                    return $this->rechargeables;
+                    break;
+                default:
+                    throw new \InvalidArgumentException(sprintf('The feature type "%s" does not exist.', $type));
+            }
         }
 
         return $this->features;
@@ -73,27 +96,28 @@ final class FeaturesHandler
 
     /**
      * @param string $feature
-     * @return array
+     *
+     * @return bool
      */
-    public function getBooleanFeature(string $feature) : array
+    public function getDefaultStatusForBoolean(string $feature) : bool
     {
-        if (false === isset($this->getFeatures(self::BOOLEAN)[$feature])) {
+        return $this->getBooleanFeature($feature)->isEnabled();
+    }
+
+    /**
+     * @param string $feature
+     * @return BooleanFeatureInterface
+     */
+    public function getBooleanFeature(string $feature) : BooleanFeatureInterface
+    {
+        $return = $this->getFeatures(FeatureInterface::BOOLEAN)->get($feature);
+        if (null === $return) {
             throw new \InvalidArgumentException(
                 sprintf('The feature "%s" doesn\'t exist.', $feature)
             );
         }
 
-        return $this->getFeatures(self::BOOLEAN)[$feature];
-    }
-
-    /**
-     * @param string $feature
-     *
-     * @return bool
-     */
-    public function getDefaultStatusForBoolean(string $feature)
-    {
-        return $this->getBooleanFeature($feature)['enabled'];
+        return $return;
     }
 
     /**
@@ -102,7 +126,7 @@ final class FeaturesHandler
      * @param string   $interval
      *
      * @return Money
-     */
+     *
     public function getPriceForBoolean($feature, Currency $currency, $interval)
     {
         // Check interval
@@ -129,4 +153,5 @@ final class FeaturesHandler
 
         return new Money(['amount' => $amount, 'currency' => $currency]);
     }
+     * */
 }

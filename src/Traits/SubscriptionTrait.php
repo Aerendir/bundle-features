@@ -2,8 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use SebastianBergmann\Money\Money;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 
@@ -22,21 +24,14 @@ trait SubscriptionTrait
     private $id;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_on", type="datetime", nullable=false)
-     */
-    private $createdOn;
-
-    /**
      * @var Currency
      *
-     * @ORM\Column(name="currency", type="string", nullable=false)
+     * @ORM\Column(name="currency", type="string", nullable=true)
      */
     private $currency;
 
     /**
-     * @var string
+     * @var FeturesCollection
      *
      * @ORM\Column(name="features", type="json_array", nullable=false)
      */
@@ -50,30 +45,59 @@ trait SubscriptionTrait
      *
      * @var int
      *
-     * @ORM\Column(name="`interval`", type="integer", nullable=false)
+     * @ORM\Column(name="`interval`", type="integer", nullable=true)
      */
     private $interval = 1;
 
     /**
      * @var Money
      *
-     * @ORM\Column(name="next_payment_amount", type="money", nullable=false)
+     * @ORM\Column(name="next_payment_amount", type="money", nullable=true)
      */
     private $nextPaymentAmount;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="next_payment_on", type="datetime", nullable=false)
+     * @ORM\Column(name="next_payment_on", type="datetime", nullable=true)
      */
     private $nextPaymentOn;
 
+    public static function calculateActiveUntil(string $interval) : \DateTime
+    {
+        self::checkIntervalExists($interval);
+
+        $now = new \DateTime();
+        switch ($interval) {
+            case SubscriptionInterface::MONTHLY:
+                return $now->modify('+1 month');
+                break;
+
+            case SubscriptionInterface::YEARLY:
+                return $now->modify('+1 year');
+                break;
+        }
+    }
+
     /**
-     * @var \DateTime
+     * @param string $interval
      *
-     * @ORM\Column(name="updated_on", type="datetime", nullable=false)
+     * @throws \InvalidArgumentException If the $interval does not exist
      */
-    private $updatedOn;
+    public function checkIntervalExists(string $interval)
+    {
+        if (false === self::intervalExists($interval))
+            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $timeInterval));
+    }
+
+    /**
+     * @param string $interval
+     * @return bool
+     */
+    public static function intervalExists(string $interval)
+    {
+        return in_array($interval, [SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY]);
+    }
 
     /**
      * Get id.
@@ -88,14 +112,6 @@ trait SubscriptionTrait
     public function getFeatures()
     {
         return $this->features;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedOn() : \DateTime
-    {
-        return $this->createdOn;
     }
 
     /**
@@ -147,14 +163,6 @@ trait SubscriptionTrait
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getUpdatedOn() : \DateTime
-    {
-        return $this->updatedOn;
-    }
-
-    /**
      * @param int $id
      *
      * @return SubscriptionInterface
@@ -177,6 +185,10 @@ trait SubscriptionTrait
         return $this;
     }
 
+    /**
+     * @param array $features
+     * @return $this
+     */
     public function setFeatures(array $features)
     {
         $this->features = $features;
@@ -269,15 +281,24 @@ trait SubscriptionTrait
     }
 
     /**
-     * @param \DateTime $updatedOn
-     *
-     * @return SubscriptionInterface
+     * @param string $feature
+     * @return bool
      */
-    public function setUpdatedOn(\DateTime $updatedOn) : SubscriptionInterface
+    public function has(string $feature) : bool
     {
-        $this->updatedOn = $updatedOn;
+        return $this->features->containsKey($feature);
+    }
 
-        return $this;
+    /**
+     * @param string $feature
+     * @return bool
+     */
+    public function isStillActive(string $feature) : bool
+    {
+        if (false === $this->has($feature))
+            return false;
+
+        return $this->features->get($feature)->isStillActive();
     }
 
     /**
@@ -301,6 +322,25 @@ trait SubscriptionTrait
      */
     public function currencyObjectToString()
     {
+        if (null === $this->currency)
+            return null;
+
         $this->currency = $this->currency->__toString();
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function featuresJsonToObject()
+    {
+        $this->features = new FeaturesCollection($this->features);
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function featuresObjectToJson()
+    {
+
     }
 }

@@ -35,49 +35,42 @@ class Configuration implements ConfigurationInterface
             ->prototype('array')
                 ->children()
                     ->arrayNode('features')
-                        ->children()
-                            ->arrayNode('boolean') // Boolean type features
-                                ->useAttributeAsKey('name')
-                                ->prototype('array')
-                                    ->children()
-                                        ->scalarNode('enabled')->defaultFalse()->end()
-                                        ->arrayNode('price')
-                                            // @todo Validate currency code
-                                            ->useAttributeAsKey('name')
-                                            ->prototype('array')
-                                                ->children()
-                                                    // @todo Set this as section
-                                                    ->scalarNode('month')->defaultNull()->end()
-                                                    ->scalarNode('year')->defaultNull()->end()
-                                                ->end()
-                                            ->end()
+                    ->useAttributeAsKey('name')
+                        ->prototype('array')
+                            ->children()
+                                ->enumNode('type')->values(['boolean', 'rechargeable'])->end()
+                                ->scalarNode('enabled')->defaultFalse()->end()
+                                // @todo Only if type === Rechargeable
+                                ->scalarNode('free_recharge')->defaultNull()->end()
+                                // @todo Only if type === Rechargeable
+                                ->arrayNode('unitary_prices')
+                                    // @todo Validate currency code
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('integer')->end()
+                                ->end()
+                                // @todo Only if type === Rechargeable
+                                ->arrayNode('packs')
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('array')
+                                        // @todo Validate currency code
+                                        ->useAttributeAsKey('name')
+                                        ->prototype('integer')->end()
+                                    ->end()
+                                ->end()
+                                ->arrayNode('prices')
+                                    // @todo Validate currency code
+                                    ->useAttributeAsKey('name')
+                                    ->prototype('array')
+                                        ->children()
+                                            // @todo Set this as section
+                                            ->scalarNode('monthly')->defaultNull()->end()
+                                            ->scalarNode('yearly')->defaultNull()->end()
                                         ->end()
                                     ->end()
                                 ->end()
-                            ->end() // End Boolean type features
-                            ->arrayNode('rechargeable') // Rechargeable type features
-                                ->useAttributeAsKey('name')
-                                ->prototype('array')
-                                    ->children()
-                                        ->scalarNode('free_recharge')->defaultValue(0)->end()
-                                        ->arrayNode('unitary_price')
-                                            // @todo Validate currency code
-                                            ->useAttributeAsKey('name')
-                                            ->prototype('integer')->end()
-                                        ->end()
-                                        ->arrayNode('packs')
-                                            ->useAttributeAsKey('name')
-                                            ->prototype('array')
-                                                // @todo Validate currency code
-                                                ->useAttributeAsKey('name')
-                                                ->prototype('integer')->end()
-                                            ->end()
-                                        ->end()
-                                    ->end()
-                                ->end()
-                            ->end() // End Rechargeable type features
+                            ->end()
                         ->end()
-                    ->end()
+                    ->end() // End features
                 ->end()
             ->end();
 

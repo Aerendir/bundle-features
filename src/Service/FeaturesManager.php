@@ -3,9 +3,13 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 
+use AppBundle\Entity\StoreSubscription;
+use SerendipityHQ\Bundle\FeaturesBundle\Entity\Subscription;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Traits\FeaturesManagerTrait;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesManagerInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -18,6 +22,25 @@ use Symfony\Component\Form\FormBuilderInterface;
 class FeaturesManager implements FeaturesManagerInterface
 {
     use FeaturesManagerTrait;
+
+    /**
+     * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
+     *
+     * @return array
+     */
+    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval, Currency $currency = null)
+    {
+        $activeUntil = SubscriptionTrait::calculateActiveUntil($subscriptionInterval);
+        $features = [];
+
+        foreach ($this->getFeaturesHandler()->getFeatures(FeatureInterface::BOOLEAN) as $name => $details) {
+            $features[$name] = [
+                'active_until' => false === $this->getFeaturesHandler()->getDefaultStatusForBoolean('ads') ? null : $activeUntil
+            ];
+        }
+
+        return $features;
+    }
 
     /**
      * @param string $actionUrl

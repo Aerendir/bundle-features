@@ -10,17 +10,15 @@ use SerendipityHQ\Component\ValueObjects\Currency\Currency;
  */
 interface SubscriptionInterface
 {
+    const MONTHLY = 'monthly';
+    const YEARLY  = 'yearly';
+
     /**
      * Get id.
      *
      * @return int
      */
     public function getId() : int;
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedOn() : \DateTime;
 
     /**
      * @return Currency
@@ -48,11 +46,6 @@ interface SubscriptionInterface
      * @return \DateTime
      */
     public function getNextPaymentOn() : \DateTime;
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedOn() : \DateTime;
 
     /**
      * @param int $id
@@ -113,13 +106,6 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setNextPaymentInTwelveMonths() : SubscriptionInterface;
-
-    /**
-     * @param \DateTime $updatedOn
-     *
-     * @return SubscriptionInterface
-     */
-    public function setUpdatedOn(\DateTime $updatedOn) : SubscriptionInterface;
 
     /**
      * @return string

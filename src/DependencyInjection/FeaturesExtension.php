@@ -32,6 +32,13 @@ class FeaturesExtension extends Extension
         }
     }
 
+    private function groupByType(array $config) : array
+    {
+        $features = [];
+
+        die(VarDumper::dump($config));
+    }
+
     /**
      * @param string $name
      * @param array $features
