@@ -33,9 +33,15 @@ class FeaturesManager implements FeaturesManagerInterface
         $activeUntil = SubscriptionTrait::calculateActiveUntil($subscriptionInterval);
         $features = [];
 
+        /**
+         * @var string $name
+         * @var FeatureInterface $details
+         */
         foreach ($this->getFeaturesHandler()->getFeatures(FeatureInterface::BOOLEAN) as $name => $details) {
             $features[$name] = [
-                'active_until' => false === $this->getFeaturesHandler()->getDefaultStatusForBoolean('ads') ? null : $activeUntil
+                'active_until' => false === $this->getFeaturesHandler()->getDefaultStatusForBoolean($name) ? null : $activeUntil,
+                'type' => $details->getType(),
+                'enabled' => $details->isEnabled()
             ];
         }
 
@@ -55,7 +61,7 @@ class FeaturesManager implements FeaturesManagerInterface
             'method' => 'POST',
         ])
             ->add('features', FeaturesType::class, [
-                'data' => $subscription->getFeatures(),
+                'data' => $subscription->getFeatures()->toArray(),
                 'features_handler' => $this->getFeaturesHandler()
             ]);
 
@@ -70,8 +76,10 @@ class FeaturesManager implements FeaturesManagerInterface
         $return = [];
 
         // Process boolean features
-        foreach ($this->getFeaturesHandler()->getFeatures(FeaturesHandler::BOOLEAN) as $feature => $details) {
+        foreach ($this->getFeaturesHandler()->getFeatures() as $feature => $details) {
+            dump($feature, $details);
             // Process prices
+            /*
             foreach ($details['price'] as $currency => $prices) {
                 $amountMonth = $details['enabled'] ? 0 : $prices['month'];
                 $amountYear = $details['enabled'] ? 0 : $prices['year'];
@@ -80,7 +88,9 @@ class FeaturesManager implements FeaturesManagerInterface
                 $instantMont = $this->calculateInstantPrice($this->getSubscription(), $feature);
                 $return[$feature][$currency]['instantMonth'] = new Money(['amount' => $instantMont, 'currency' => new Currency($currency)]);
             }
+            */
         }
+        die;
 
         return $return;
     }

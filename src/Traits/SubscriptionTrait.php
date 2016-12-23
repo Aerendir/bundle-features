@@ -84,7 +84,7 @@ trait SubscriptionTrait
      *
      * @throws \InvalidArgumentException If the $interval does not exist
      */
-    public function checkIntervalExists(string $interval)
+    public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval))
             throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $timeInterval));
@@ -314,6 +314,9 @@ trait SubscriptionTrait
      */
     public function currencyStringToObject()
     {
+        if (null === $this->currency)
+            return null;
+
         $this->currency = new Currency($this->currency);
     }
 
@@ -334,13 +337,5 @@ trait SubscriptionTrait
     public function featuresJsonToObject()
     {
         $this->features = new FeaturesCollection($this->features);
-    }
-
-    /**
-     * @ORM\PreFlush()
-     */
-    public function featuresObjectToJson()
-    {
-
     }
 }

@@ -58,40 +58,39 @@ final class FeaturesHandler
      */
     public function getFeatures(string $type = null) : FeaturesCollection
     {
-        if (null !== $type) {
-            switch ($type) {
-                case FeatureInterface::BOOLEAN:
-                    if (null === $this->booleans) {
-                        $predictate = function ($element) {
-                            if ($element instanceof BooleanFeatureInterface)
-                                return $element;
-                        };
+        if (null === $type)
+            return $this->features;
 
-                        // Cache the result
-                        $this->booleans = $this->features->filter($predictate);
-                    }
+        switch ($type) {
+            case FeatureInterface::BOOLEAN:
+                if (null === $this->booleans) {
+                    $predictate = function ($element) {
+                        if ($element instanceof BooleanFeatureInterface)
+                            return $element;
+                    };
 
-                    return $this->booleans;
-                    break;
-                case FeatureInterface::RECHARGEABLE:
-                    if (null === $this->rechargeables) {
-                        $predictate = function ($element) {
-                            if ($element instanceof RechargeableFeatureInterface)
-                                return $element;
-                        };
+                    // Cache the result
+                    $this->booleans = $this->features->filter($predictate);
+                }
 
-                        // Cache the result
-                        $this->rechargeables = $this->features->filter($predictate);
-                    }
+                return $this->booleans;
+                break;
+            case FeatureInterface::RECHARGEABLE:
+                if (null === $this->rechargeables) {
+                    $predictate = function ($element) {
+                        if ($element instanceof RechargeableFeatureInterface)
+                            return $element;
+                    };
 
-                    return $this->rechargeables;
-                    break;
-                default:
-                    throw new \InvalidArgumentException(sprintf('The feature type "%s" does not exist.', $type));
-            }
+                    // Cache the result
+                    $this->rechargeables = $this->features->filter($predictate);
+                }
+
+                return $this->rechargeables;
+                break;
+            default:
+                throw new \InvalidArgumentException(sprintf('The feature type "%s" does not exist.', $type));
         }
-
-        return $this->features;
     }
 
     /**

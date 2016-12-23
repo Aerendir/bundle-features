@@ -20,6 +20,11 @@ interface FeatureInterface
     public function getName() : string;
 
     /**
+     * @return string
+     */
+    public function getType() : string;
+
+    /**
      * @return bool
      */
     public function isEnabled() : bool;

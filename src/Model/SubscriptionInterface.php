@@ -25,6 +25,9 @@ interface SubscriptionInterface
      */
     public function getCurrency();
 
+    /**
+     * @return FeaturesCollection
+     */
     public function getFeatures();
 
     /**

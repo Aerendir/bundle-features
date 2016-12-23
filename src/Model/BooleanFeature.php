@@ -13,7 +13,10 @@ class BooleanFeature extends AbstractFeature implements BooleanFeatureInterface
 
     public function __construct(string $name, array $details = [])
     {
-        if (0 < count($details['prices'])) {
+        // Set the type
+        $details['type'] = self::BOOLEAN;
+
+        if (isset($details['prices']) && is_array($details['prices']) && 0 < count($details['prices'])) {
             foreach ($details['prices'] as $currency => $price) {
                 $currency = new Currency($currency);
 
@@ -33,18 +36,21 @@ class BooleanFeature extends AbstractFeature implements BooleanFeatureInterface
     }
 
     /**
-     * @param Currency $currency
-     * @param string $timeInterval
+     * @param string|Currency $currency This is not typecasted so the method can be called from inside Twig templates.
+     * @param string $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
-     * @return Money
+     * @return Money|null if the price is not set in the required currency
      */
-    public function getPrice(Currency $currency, string $subscriptionInterval) : Money
+    public function getPrice($currency, string $subscriptionInterval)
     {
+        if (is_string($currency))
+            $currency = new Currency($currency);
+
         SubscriptionTrait::checkIntervalExists($subscriptionInterval);
 
-        return $this->getPrices()[$currency->getCurrencyCode()][$timeInterval] ?? null;
+        return $this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval] ?? null;
     }
 
     /**
@@ -57,7 +63,7 @@ class BooleanFeature extends AbstractFeature implements BooleanFeatureInterface
 
     /**
      * @param Currency $currency
-     * @param string $timeInterval
+     * @param string $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -67,6 +73,6 @@ class BooleanFeature extends AbstractFeature implements BooleanFeatureInterface
     {
         SubscriptionTrait::checkIntervalExists($subscriptionInterval);
 
-        return isset($this->getPrices()[$currency->getCurrencyCode()][$timeInterval]);
+        return isset($this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval]);
     }
 }
