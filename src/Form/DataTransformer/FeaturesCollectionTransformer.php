@@ -19,54 +19,35 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * {@inheritdoc}
  */
-class FeatureModelTransformer implements DataTransformerInterface
+class FeaturesCollectionTransformer implements DataTransformerInterface
 {
-    /** @var string $field */
-    private $featureName;
-
-    /**
-     * @param string $featureName
-     */
-    public function __construct(string $featureName)
-    {
-        $this->featureName = $featureName;
-    }
-
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
-     * @param FeatureInterface|null $feature
+     * @param array $features
      *
-     * @return string
+     * @return FeaturesCollection
      */
-    public function transform($feature)
+    public function transform($features)
     {
-        if ($feature instanceof BooleanFeatureInterface)
-            return $feature->isEnabled();
-
-        throw new \RuntimeException('Unknown feature type :( .');
+        return new FeaturesCollection($features);
     }
 
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param string $feature
+     * @param FeaturesCollection $features
      *
-     * @return FeatureInterface
+     * @return array
      */
-    public function reverseTransform($feature)
+    public function reverseTransform($features)
     {
-        switch (gettype($feature)) {
-            case 'boolean':
-                return new BooleanFeature($this->featureName);
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Features of kind "%s" are not supported.', gettype($feature)));
-        }
+        return $features;
     }
 }

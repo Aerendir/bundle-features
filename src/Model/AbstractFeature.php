@@ -13,6 +13,9 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 abstract class AbstractFeature implements FeatureInterface
 {
+    /** @var bool $fromConfiguration This is set to true only if the feature is loaded from a subscription object */
+    private $fromConfiguration = false;
+
     /** @var  \DateTime $activeUntil */
     private $activeUntil;
 
@@ -66,6 +69,15 @@ abstract class AbstractFeature implements FeatureInterface
                         'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency
                     ]);
             }
+        }
+
+        /*
+         * This property defines if the feature is loading from the configuration file or from a subscription object.
+         *
+         * If it is loaded from a subscription object, in fact, some features, like the instant prices, are disabled.
+         */
+        if (isset($details['from_configuration'])) {
+            $this->fromConfiguration = true;
         }
 
         $this->type = $details['type'];
@@ -147,6 +159,9 @@ abstract class AbstractFeature implements FeatureInterface
      */
     public function getPrices() : array
     {
+        if (false === $this->fromConfiguration)
+            throw new \LogicException('You cannot get all prices, a single price or calculate instant prices from a Feature loaded from a subscription object and this is loaded from one of it. Use only Feature objects loaded directly from configuration files.');
+
         return $this->prices;
     }
 

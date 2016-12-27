@@ -41,11 +41,11 @@ trait SubscriptionTrait
      * 1 = monthly
      * 12 = yearly
      *
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="`interval`", type="integer", nullable=true)
+     * @ORM\Column(name="`interval`", type="string", nullable=true)
      */
-    private $interval = 1;
+    private $interval;
 
     /**
      * @var Money
@@ -132,13 +132,13 @@ trait SubscriptionTrait
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getInterval() : int
+    public function getInterval() : string
     {
         if (null === $this->interval) {
             // By default the plan is monthly
-            $this->interval = 1;
+            $this->interval = SubscriptionInterface::MONTHLY;
         }
 
         return $this->interval;
@@ -206,15 +206,13 @@ trait SubscriptionTrait
     }
 
     /**
-     * @param int $interval
+     * @param string $interval
      *
      * @return SubscriptionInterface
      */
-    public function setInterval($interval) : SubscriptionInterface
+    public function setInterval(string $interval) : SubscriptionInterface
     {
-        if (false === array_search($interval, [1, 12])) {
-            throw new \InvalidArgumentException('The interval MUST have a value of (int) 1 or (int) 12.');
-        }
+        self::intervalExists($interval);
 
         $this->interval = $interval;
 
@@ -226,7 +224,7 @@ trait SubscriptionTrait
      */
     public function setMonthly() : SubscriptionInterface
     {
-        $this->setInterval(1);
+        $this->setInterval(SubscriptionInterface::MONTHLY);
 
         return $this;
     }
@@ -236,7 +234,7 @@ trait SubscriptionTrait
      */
     public function setYearly() : SubscriptionInterface
     {
-        $this->setInterval(12);
+        $this->setInterval(SubscriptionInterface::YEARLY);
 
         return $this;
     }

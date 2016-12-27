@@ -39,6 +39,8 @@ class FeaturesExtension extends Extension
      */
     private function createFeaturesService(string $name, array $features, ContainerBuilder $containerBuilder)
     {
+        $features['features'] = $this->setAsFromConfiguration($features['features']);
+
         // Create the feature handler definition
         $featureHandlerDefinition = new Definition(FeaturesHandler::class, [$features['features']]);
         $serviceName = 'shq_features.handler.' . $name;
@@ -48,5 +50,23 @@ class FeaturesExtension extends Extension
         $featureManagerDefinition = new Definition(FeaturesManager::class);
         $serviceName = 'shq_features.manager.' . $name;
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
+    }
+
+    /**
+     * Adds a property to distinguish the features loaded from the configuration from the features loaded from a
+     * subscription object.
+     *
+     * @param array $features
+     * @return array
+     */
+    private function setAsFromConfiguration(array $features)
+    {
+        $return = [];
+        foreach ($features as $featureName => $featureDetails) {
+            $featureDetails['from_configuration'] = true;
+            $return[$featureName] = $featureDetails;
+        }
+
+        return $return;
     }
 }

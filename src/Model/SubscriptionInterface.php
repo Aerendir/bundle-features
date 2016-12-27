@@ -31,9 +31,9 @@ interface SubscriptionInterface
     public function getFeatures();
 
     /**
-     * @return int
+     * @return string
      */
-    public function getInterval() : int ;
+    public function getInterval() : string ;
 
     /**
      * @return Money
@@ -69,11 +69,11 @@ interface SubscriptionInterface
     public function setFeatures(array $features);
 
     /**
-     * @param int $interval
+     * @param string $interval
      *
      * @return SubscriptionInterface
      */
-    public function setInterval($interval) : SubscriptionInterface;
+    public function setInterval(string $interval) : SubscriptionInterface;
 
     /**
      * @return SubscriptionInterface
