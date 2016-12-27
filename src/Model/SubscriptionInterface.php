@@ -48,7 +48,7 @@ interface SubscriptionInterface
      *
      * @return \DateTime
      */
-    public function getNextPaymentOn() : \DateTime;
+    public function getNextPaymentOn();
 
     /**
      * @param int $id
@@ -63,6 +63,9 @@ interface SubscriptionInterface
      */
     public function setCurrency(Currency $currency) : SubscriptionInterface;
 
+    /**
+     * @param array $features
+     */
     public function setFeatures(array $features);
 
     /**

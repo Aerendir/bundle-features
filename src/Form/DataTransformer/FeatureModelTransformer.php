@@ -16,14 +16,27 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * {@inheritdoc}
  */
-class FeatureTransformer implements DataTransformerInterface
+class FeatureModelTransformer implements DataTransformerInterface
 {
+    /** @var string $field */
+    private $featureName;
+
+    /**
+     * @param string $featureName
+     */
+    public function __construct(string $featureName)
+    {
+        $this->featureName = $featureName;
+    }
+
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
@@ -44,12 +57,16 @@ class FeatureTransformer implements DataTransformerInterface
      *
      * @param string $feature
      *
-     * @return DomainEmbeddable|null
+     * @return FeatureInterface
      */
     public function reverseTransform($feature)
     {
-        die(dump($feature));
-
-        return $feature;
+        switch (gettype($feature)) {
+            case 'boolean':
+                return new BooleanFeature($this->featureName);
+                break;
+            default:
+                throw new \InvalidArgumentException(sprintf('Features of kind "%s" are not supported.', gettype($feature)));
+        }
     }
 }

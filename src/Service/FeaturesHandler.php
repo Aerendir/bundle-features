@@ -16,14 +16,11 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesManagerInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Money\Money;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
 /**
  * Class to navigate the features tree.
@@ -38,6 +35,9 @@ final class FeaturesHandler
 
     /** @var FeaturesCollection $rechargeables */
     private $rechargeables;
+
+    /** @var  SubscriptionInterface $subscription */
+    private $subscription;
 
     /**
      * @param array $features
@@ -120,37 +120,14 @@ final class FeaturesHandler
     }
 
     /**
-     * @param string   $feature
-     * @param Currency $currency
-     * @param string   $interval
-     *
-     * @return Money
-     *
-    public function getPriceForBoolean($feature, Currency $currency, $interval)
+     * @param SubscriptionInterface $subscription
+     */
+    public function setSubscription(SubscriptionInterface $subscription)
     {
-        // Check interval
-        if (is_int($interval) && 1 === $interval) {
-            $interval = 'month';
-        } elseif (is_int($interval) && 12 === $interval) {
-            $interval = 'year';
-        } elseif ('month' !== $interval && 'year' !== $interval) {
-            throw new \InvalidArgumentException(
-                sprintf('The interval "%s" you requested doesn\'t exist. Allowed intervals are "month" and "year".', $interval)
-            );
+        /** @var FeatureInterface $feature */
+        foreach ($this->features as $feature) {
+            if (null !== $subscription->getNextPaymentOn())
+                $feature->setNextPaymentOn($subscription->getNextPaymentOn());
         }
-
-        if (false === isset($this->features['boolean'][$feature]['price'][$currency->toString()][$interval])) {
-            throw new \InvalidArgumentException(
-                sprintf('The price of feature "%s" doesn\'t exist in the currency "%s" in the given "%s" interval.', $feature, $currency, $interval)
-            );
-        }
-
-        $price = $this->features['boolean'][$feature]['price'][$currency->toString()][$interval];
-
-        // If the feature is enabled by default, its price is 0, it's free! :D
-        $amount = $this->features['boolean'][$feature]['enabled'] ? 0 : $price;
-
-        return new Money(['amount' => $amount, 'currency' => $currency]);
     }
-     * */
 }

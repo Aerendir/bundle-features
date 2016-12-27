@@ -2,12 +2,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Money\Money;
-
+/**
+ * {@inheritdoc}
+ */
 class RechargeableFeature extends AbstractFeature implements RechargeableFeatureInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type

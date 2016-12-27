@@ -59,12 +59,4 @@ trait FeaturesManagerTrait
     {
         $this->formFactory = $formFactory;
     }
-
-    /**
-     * @param SubscriptionInterface $subscription
-     */
-    public function setSubscription(SubscriptionInterface $subscription)
-    {
-        $this->subscription = $subscription;
-    }
 }

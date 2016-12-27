@@ -16,7 +16,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeatureTransformer;
+use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeatureModelTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\AbstractType;
@@ -38,7 +38,7 @@ class FeaturesType extends AbstractType
         $featuresHandler = $options['features_handler'];
         foreach ($featuresHandler->getFeatures(FeatureInterface::BOOLEAN) as $feature => $details) {
             $builder->add($feature, CheckboxType::class, ['required' => false]);
-            $builder->get($feature)->addModelTransformer(new FeatureTransformer());
+            $builder->get($feature)->addModelTransformer(new FeatureModelTransformer($feature));
         }
     }
 

@@ -3,8 +3,10 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 
+/**
+ * {@inheritdoc}
+ */
 class FeaturesCollection extends ArrayCollection
 {
     /** @var FeaturesCollection $boolean */
@@ -13,6 +15,9 @@ class FeaturesCollection extends ArrayCollection
     /** @var FeaturesCollection $rechargeables */
     private $rechargeables;
 
+    /**
+     * @param array $elements
+     */
     public function __construct(array $elements = array())
     {
         if (0 < count($elements)) {

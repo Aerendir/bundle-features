@@ -2,8 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use SebastianBergmann\Money\Money;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
@@ -31,7 +29,7 @@ trait SubscriptionTrait
     private $currency;
 
     /**
-     * @var FeturesCollection
+     * @var FeaturesCollection
      *
      * @ORM\Column(name="features", type="json_array", nullable=false)
      */
@@ -63,20 +61,26 @@ trait SubscriptionTrait
      */
     private $nextPaymentOn;
 
+    /**
+     * @param string $interval
+     * @return \DateTime
+     */
     public static function calculateActiveUntil(string $interval) : \DateTime
     {
         self::checkIntervalExists($interval);
 
-        $now = new \DateTime();
+        $activeUntil = new \DateTime();
         switch ($interval) {
             case SubscriptionInterface::MONTHLY:
-                return $now->modify('+1 month');
+                $activeUntil->modify('+1 month');
                 break;
 
             case SubscriptionInterface::YEARLY:
-                return $now->modify('+1 year');
+                $activeUntil->modify('+1 year');
                 break;
         }
+
+        return $activeUntil;
     }
 
     /**
@@ -87,7 +91,7 @@ trait SubscriptionTrait
     public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval))
-            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $timeInterval));
+            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
     }
 
     /**
@@ -109,6 +113,9 @@ trait SubscriptionTrait
         return $this->id;
     }
 
+    /**
+     * @return FeaturesCollection
+     */
     public function getFeatures()
     {
         return $this->features;
@@ -153,11 +160,13 @@ trait SubscriptionTrait
      *
      * @return \DateTime
      */
-    public function getNextPaymentOn() : \DateTime
+    public function getNextPaymentOn()
     {
+        /*
         if (null === $this->nextPaymentOn) {
             $this->nextPaymentOn = clone $this->getCreatedOn();
         }
+        */
 
         return $this->nextPaymentOn;
     }
