@@ -17,8 +17,6 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeatureTransformer;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;

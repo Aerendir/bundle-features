@@ -16,9 +16,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
@@ -44,7 +41,7 @@ class FeaturesCollectionTransformer implements DataTransformerInterface
      *
      * @param FeaturesCollection $features
      *
-     * @return array
+     * @return FeaturesCollection
      */
     public function reverseTransform($features)
     {

@@ -4,7 +4,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Set the appropriate FeaturesHandler for each created FeaturesManager.

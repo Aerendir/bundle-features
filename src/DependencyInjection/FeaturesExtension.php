@@ -2,16 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
-use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\SetManagersCompilerPass;
-use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\VarDumper\VarDumper;
-
 
 /**
  * {@inheritdoc}

@@ -7,7 +7,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\FeaturesManagerTrait;
 use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -15,13 +14,21 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormFactory;
 
 /**
  * Contains method to manage features plans.
  */
 class FeaturesManager
 {
-    use FeaturesManagerTrait;
+    /** @var  FeaturesCollection $configuredFeatures */
+    private $configuredFeatures;
+
+    /** @var FormFactory $formFactory */
+    private $formFactory;
+
+    /** @var  SubscriptionInterface $subscription */
+    private $subscription;
 
     /**
      * @param array $configuredFeatures
@@ -39,12 +46,11 @@ class FeaturesManager
 
     /**
      * @param string $subscriptionInterval
-     * @param CurrencyInterface $currency
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return array
      */
-    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval, CurrencyInterface $currency = null)
+    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval)
     {
         $activeUntil = SubscriptionTrait::calculateActiveUntil($subscriptionInterval);
         $features = [];
@@ -53,7 +59,7 @@ class FeaturesManager
          * @var string $name
          * @var FeatureInterface $details
          */
-        foreach ($this->getConfiguredFeatures(FeatureInterface::BOOLEAN) as $name => $details) {
+        foreach ($this->getConfiguredFeatures() as $name => $details) {
             $features[$name] = [
                 'active_until' => false === $this->getConfiguredFeatures()->get($name) ? null : $activeUntil,
                 'type' => $details->getType(),
@@ -133,10 +139,9 @@ class FeaturesManager
     /**
      * @param string $actionUrl
      * @param SubscriptionInterface $subscription
-     * @param array $options
      * @return FormBuilderInterface
      */
-    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription, array $options = [])
+    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription)
     {
         $form = $this->getFormFactory()->createBuilder(FormType::class, [
             'action' => $actionUrl,
@@ -285,5 +290,53 @@ class FeaturesManager
             // ... It is for sure a feature not still active
             return false;
         }
+
+        throw new \RuntimeException('Complete the implementation');
+    }
+
+    /**
+     * Returns all the configured features.
+     *
+     * @return FeaturesCollection
+     */
+    public function getConfiguredFeatures() : FeaturesCollection
+    {
+        return $this->configuredFeatures;
+    }
+
+    /**
+     * @return FormFactory
+     */
+    public function getFormFactory() : FormFactory
+    {
+        return $this->formFactory;
+    }
+
+    /**
+     * @return SubscriptionInterface
+     */
+    public function getSubscription() : SubscriptionInterface
+    {
+        return $this->subscription;
+    }
+
+    /**
+     * @param FormFactory $formFactory
+     */
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     *
+     * @return FeaturesManager
+     */
+    public function setSubscription(SubscriptionInterface $subscription) : self
+    {
+        $this->subscription = $subscription;
+
+        return $this;
     }
 }
