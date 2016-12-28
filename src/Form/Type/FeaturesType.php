@@ -34,9 +34,7 @@ class FeaturesType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var FeaturesHandler $featuresHandler */
-        $featuresHandler = $options['features_handler'];
-        foreach ($featuresHandler->getFeatures(FeatureInterface::BOOLEAN) as $feature => $details) {
+        foreach ($options['configured_features']->getBooleanFeatures() as $feature => $details) {
             $builder->add($feature, CheckboxType::class, ['required' => false]);
             $builder->get($feature)->addModelTransformer(new FeatureTransformer($feature));
         }
@@ -50,7 +48,7 @@ class FeaturesType extends AbstractType
         parent::setDefaultOptions($resolver);
 
         $resolver->setRequired([
-            'features_handler'
+            'configured_features'
         ]);
     }
 }

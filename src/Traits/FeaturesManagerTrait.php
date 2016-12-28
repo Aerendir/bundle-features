@@ -2,8 +2,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesManagerInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
+use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -11,8 +17,14 @@ use Symfony\Component\Form\FormFactory;
  */
 trait FeaturesManagerTrait
 {
-    /** @var FeaturesHandler $featuresHandler */
-    private $featuresHandler;
+    /** @var  FeaturesCollection $configuredFeatures */
+    private $configuredFeatures;
+
+    /** @var FeaturesCollection $boolean */
+    private $configuredBooleans;
+
+    /** @var FeaturesCollection $configuredRechargeables */
+    private $configuredRechargeables;
 
     /** @var FormFactory $formFactory */
     private $formFactory;
@@ -21,11 +33,13 @@ trait FeaturesManagerTrait
     private $subscription;
 
     /**
-     * @return FeaturesHandler
+     * Returns all the configured features.
+     *
+     * @return FeaturesCollection
      */
-    public function getFeaturesHandler() : FeaturesHandler
+    public function getConfiguredFeatures() : FeaturesCollection
     {
-        return $this->featuresHandler;
+        return $this->configuredFeatures;
     }
 
     /**
@@ -45,18 +59,23 @@ trait FeaturesManagerTrait
     }
 
     /**
-     * @param FeaturesHandler $featuresHandler
-     */
-    public function setFeaturesHandler(FeaturesHandler $featuresHandler)
-    {
-        $this->featuresHandler = $featuresHandler;
-    }
-
-    /**
      * @param FormFactory $formFactory
      */
     public function setFormFactory(FormFactory $formFactory)
     {
         $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     *
+     * @return FeaturesManagerInterface
+     */
+    public function setSubscription(SubscriptionInterface $subscription) : FeaturesManager
+    {
+        //$this->getFeaturesHandler()->setSubscription($subscription);
+        $this->subscription = $subscription;
+
+        return $this;
     }
 }

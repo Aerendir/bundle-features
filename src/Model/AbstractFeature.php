@@ -28,9 +28,6 @@ abstract class AbstractFeature implements FeatureInterface
     /** @var  string $name */
     private $name;
 
-    /** @var  \DateTime $nextPaymentOn */
-    private $nextPaymentOn;
-
     /** @var  array $prices */
     private $prices = [];
 
@@ -49,7 +46,7 @@ abstract class AbstractFeature implements FeatureInterface
         $this->disable();
 
         if (isset($details['active_until'])) {
-            $this->activeUntil = new \DateTime($details['active_until']['date'], new \DateTimeZone($details['active_until']['timezone']));
+            $this->activeUntil = $details['active_until'] instanceof \DateTime ? $details['active_until'] : new \DateTime($details['active_until']['date'], new \DateTimeZone($details['active_until']['timezone']));
         }
 
         if (isset($details['enabled']) && true === $details['enabled'])
@@ -131,14 +128,6 @@ abstract class AbstractFeature implements FeatureInterface
             $this->instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval);
 
         return $this->instantPrices[$currency][$subscriptionInterval];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getValidUntil()
-    {
-        return $this->nextPaymentOn;
     }
 
     /**
@@ -252,9 +241,9 @@ abstract class AbstractFeature implements FeatureInterface
     /**
      * {@inheritdoc}
      */
-    public function setValidUntil(\DateTime $nextPaymentOn) : FeatureInterface
+    public function setActiveUntil(\DateTime $activeUntil) : FeatureInterface
     {
-        $this->nextPaymentOn = $nextPaymentOn;
+        $this->activeUntil = $activeUntil;
 
         return $this;
     }
@@ -289,25 +278,23 @@ abstract class AbstractFeature implements FeatureInterface
 
         switch ($subscriptionInterval) {
             case SubscriptionInterface::MONTHLY:
-                $subscriptionInterval = 1;
                 // Our ideal month is ever of 31 days
                 $daysInInterval = 31;
                 break;
             case SubscriptionInterface::YEARLY:
-                $subscriptionInterval = 12;
                 // Our ideal year is ever of 365 days
                 $daysInInterval = 365;
                 break;
-            deafult:
+            default:
                 throw new \InvalidArgumentException(sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
         }
 
         $pricePerDay = (int) floor($price->getAmount() / $daysInInterval);
 
         // Calculate the remaining days
-        $remainingDays = clone $this->nextPaymentOn;
+        $remainingDays = clone $this->activeUntil;
 
-        /** \DateInterval */
+        /** @var \DateInterval $remainingDays */
         $remainingDays->diff(new \DateTime());
 
         $instantPrice = $pricePerDay * $remainingDays->days;

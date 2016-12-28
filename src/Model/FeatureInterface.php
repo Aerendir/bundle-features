@@ -32,6 +32,8 @@ interface FeatureInterface
     public function enable() : FeatureInterface;
 
     /**
+     * The date until which the feature is active.
+     *
      * @return \DateTime
      */
     public function getActiveUntil();
@@ -50,13 +52,6 @@ interface FeatureInterface
      * @return MoneyInterface|null if the price is not set in the required currency
      */
     public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface;
-
-    /**
-     * The date until which the feature is active.
-     *
-     * @return \DateTime
-     */
-    public function getValidUntil();
 
     /**
      * @param string|Currency $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string.
@@ -106,20 +101,20 @@ interface FeatureInterface
     public function isStillActive() : bool;
 
     /**
+     * Sets the date until which the feature is active.
+     *
+     * @param \DateTime $nextPaymentOn
+     * @return FeatureInterface
+     */
+    public function setActiveUntil(\DateTime $nextPaymentOn) : FeatureInterface;
+
+    /**
      * Sets the date on which the feature were subscribed.
      *
      * @param \DateTime $subscribedOn
      * @return FeatureInterface
      */
     public function setSubscribedOn(\DateTime $subscribedOn) : FeatureInterface;
-
-    /**
-     * Sets the date until which the feature is active.
-     *
-     * @param \DateTime $nextPaymentOn
-     * @return FeatureInterface
-     */
-    public function setValidUntil(\DateTime $nextPaymentOn) : FeatureInterface;
 
     /**
      * Converts a Feature object into an array.

@@ -12,14 +12,14 @@ class FeaturesCollection extends ArrayCollection
     /** @var FeaturesCollection $boolean */
     private $booleans;
 
-    /** @var FeaturesCollection $rechargeables */
-    private $rechargeables;
-
     /**
      * @param array $elements
      */
-    public function __construct(array $elements = array())
+    public function __construct($elements = array())
     {
+        if (null === $elements)
+            $elements = [];
+
         if (0 < count($elements)) {
             foreach ($elements as $feature => $details) {
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
@@ -41,6 +41,24 @@ class FeaturesCollection extends ArrayCollection
         }
 
         parent::__construct($elements);
+    }
+
+    /**
+     * @return FeaturesCollection
+     */
+    public function getBooleanFeatures()
+    {
+        if (null === $this->booleans) {
+            $predictate = function ($element) {
+                if ($element instanceof BooleanFeatureInterface)
+                    return $element;
+            };
+
+            // Cache the result
+            $this->booleans = $this->filter($predictate);
+        }
+
+        return $this->booleans;
     }
 
     /**

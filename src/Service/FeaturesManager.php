@@ -8,7 +8,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Traits\FeaturesManagerTrait;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesManagerInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -20,9 +19,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * Contains method to manage features plans.
  */
-class FeaturesManager implements FeaturesManagerInterface
+class FeaturesManager
 {
     use FeaturesManagerTrait;
+
+    /**
+     * @param array $configuredFeatures
+     */
+    public function __construct(array $configuredFeatures)
+    {
+        $this->configuredFeatures = new FeaturesCollection($configuredFeatures);
+    }
 
     /** @var array $differences The added and removed features */
     private $differences = [
@@ -46,9 +53,9 @@ class FeaturesManager implements FeaturesManagerInterface
          * @var string $name
          * @var FeatureInterface $details
          */
-        foreach ($this->getFeaturesHandler()->getFeatures(FeatureInterface::BOOLEAN) as $name => $details) {
+        foreach ($this->getConfiguredFeatures(FeatureInterface::BOOLEAN) as $name => $details) {
             $features[$name] = [
-                'active_until' => false === $this->getFeaturesHandler()->getDefaultStatusForBoolean($name) ? null : $activeUntil,
+                'active_until' => false === $this->getConfiguredFeatures()->get($name) ? null : $activeUntil,
                 'type' => $details->getType(),
                 'enabled' => $details->isEnabled()
             ];
@@ -69,7 +76,7 @@ class FeaturesManager implements FeaturesManagerInterface
         foreach ($subscription->getFeatures() as $feature)
         {
             if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
-                $price = $this->getFeaturesHandler()->getBooleanFeature($feature->getName())->getPrice($subscription->getCurrency(), $subscription->getInterval());
+                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($subscription->getCurrency(), $subscription->getInterval());
                 $total = $total->add($price);
             }
         }
@@ -96,7 +103,7 @@ class FeaturesManager implements FeaturesManagerInterface
          */
         foreach ($this->getDifferences('added') as $feature) {
             if (false === $this->isStillActive($feature, $subscription->getFeatures())) {
-                $instantPrice = $this->getFeaturesHandler()->getFeatures()->get($feature)->getInstantPrice($currency, $subscription->getInterval());
+                $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($currency, $subscription->getInterval());
 
                 $totalCharges = $totalCharges->add($instantPrice);
             }
@@ -137,7 +144,7 @@ class FeaturesManager implements FeaturesManagerInterface
         ])
             ->add('features', FeaturesType::class, [
                 'data' => $subscription->getFeatures()->toArray(),
-                'features_handler' => $this->getFeaturesHandler()
+                'configured_features' => $this->getConfiguredFeatures()
             ]);
 
         $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
@@ -146,15 +153,21 @@ class FeaturesManager implements FeaturesManagerInterface
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * Returns the premium features activated and not activated.
      *
-     * @return FeaturesManagerInterface
+     * Given a Subscription object, intersect it with configured features.
+     * Of configured features, this takes care only of the Premium ones (the ones that has at least one price set).
+     * So, if a Premium configured feature is not present in the given Subscription, it is set as not enabled, while, if
+     * it exists in the given Subscription, it has its same status (if enabled in the Subscription, it will be enabled,
+     * disabled instead).
+     *
+     * @return FeaturesCollection
+     *
+     * @todo Method to implement.
      */
-    public function setSubscription(SubscriptionInterface $subscription) : FeaturesManagerInterface
+    public function getPremiumFeaturesReview()
     {
-        $this->getFeaturesHandler()->setSubscription($subscription);
-
-        return $this;
+        return $this->getConfiguredFeatures();
     }
 
     /**
@@ -181,13 +194,13 @@ class FeaturesManager implements FeaturesManagerInterface
         foreach ($this->getDifferences('added') as $feature) {
             if (false === $subscription->has($feature)) {
                 $subscription->addFeature(
-                    $feature, $this->getFeaturesHandler()->getFeatures()->get($feature)
+                    $feature, $this->getConfiguredFeatures()->get($feature)
                 );
             }
 
             /** @var FeatureInterface $updatingFeature */
             $updatingFeature = $subscription->getFeatures()->get($feature);
-            $updatingFeature->setValidUntil($validUntil);
+            $updatingFeature->setActiveUntil($validUntil);
         }
     }
 
@@ -260,6 +273,11 @@ class FeaturesManager implements FeaturesManagerInterface
         return $this->getDifferences();
     }
 
+    /**
+     * @param string $featureName
+     * @param FeaturesCollection $oldFeatures
+     * @return bool
+     */
     private function isStillActive(string $featureName, FeaturesCollection $oldFeatures)
     {
         // If is a feature that was not present in the old plan or, if present, has the activeUntil property === null...
@@ -267,7 +285,5 @@ class FeaturesManager implements FeaturesManagerInterface
             // ... It is for sure a feature not still active
             return false;
         }
-
-        die(dump($oldFeatures));
     }
 }

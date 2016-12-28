@@ -73,6 +73,8 @@ trait SubscriptionTrait
      */
     public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface
     {
+        if (is_array($this->features))
+            $this->featuresArrayToCollectionPostLoad();
         $this->features->set($featureName, $feature);
 
         /** @var SubscriptionInterface $this */
@@ -185,6 +187,21 @@ trait SubscriptionTrait
         }
 
         return $this->nextPaymentOn;
+    }
+
+    /**
+     * @param string $feature
+     * @return bool
+     */
+    public function has(string $feature) : bool
+    {
+        if (0 >= count($this->features))
+            return false;
+
+        if (is_array($this->features))
+            $this->featuresArrayToCollectionPostLoad();
+
+        return $this->features->containsKey($feature);
     }
 
     /**
@@ -316,15 +333,6 @@ trait SubscriptionTrait
      * @param string $feature
      * @return bool
      */
-    public function has(string $feature) : bool
-    {
-        return $this->features->containsKey($feature);
-    }
-
-    /**
-     * @param string $feature
-     * @return bool
-     */
     public function isStillActive(string $feature) : bool
     {
         if (false === $this->has($feature))
@@ -343,30 +351,25 @@ trait SubscriptionTrait
 
     /**
      * @ORM\PostLoad()
+     * @ORM\PostUpdate()
+     * @ORM\PostPersist()
      */
     public function featuresArrayToCollectionPostLoad()
     {
-        if (is_array($this->features))
-            $this->features = new FeaturesCollection($this->features);
+        $this->features = new FeaturesCollection($this->features);
     }
 
     /**
-     * @ORM\PostUpdate()
-     */
-    public function featuresArrayToCollectionPostUpdate()
-    {
-        if (is_array($this->features))
-            $this->features = new FeaturesCollection($this->features);
-
-
-    }
-
-    /**
-     * @ ORM\PreFlush()
+     * @ORM\PreFlush()
      */
     public function featuresObjectToArray()
     {
-        if ($this->features instanceof FeaturesCollection)
-            $this->features = $this->features->toArray();
+        if (null === $this->features)
+            return [];
+
+        if (is_array($this->features))
+            $this->featuresArrayToCollectionPostLoad();
+
+        $this->features = $this->features->toArray();
     }
 }

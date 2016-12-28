@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
-use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\SetHandlersCompilerPass;
+use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\SetManagersCompilerPass;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesHandler;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
 use Symfony\Component\Config\FileLocator;
@@ -41,13 +41,8 @@ class FeaturesExtension extends Extension
     {
         $features['features'] = $this->setAsFromConfiguration($features['features']);
 
-        // Create the feature handler definition
-        $featureHandlerDefinition = new Definition(FeaturesHandler::class, [$features['features']]);
-        $serviceName = 'shq_features.handler.' . $name;
-        $containerBuilder->setDefinition($serviceName, $featureHandlerDefinition);
-
         // Create the feature manager definition
-        $featureManagerDefinition = new Definition(FeaturesManager::class);
+        $featureManagerDefinition = new Definition(FeaturesManager::class, [$features['features']]);
         $serviceName = 'shq_features.manager.' . $name;
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
     }

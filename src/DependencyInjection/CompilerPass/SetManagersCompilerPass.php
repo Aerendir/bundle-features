@@ -9,7 +9,7 @@ use Symfony\Component\VarDumper\VarDumper;
 /**
  * Set the appropriate FeaturesHandler for each created FeaturesManager.
  */
-class SetHandlersCompilerPass implements CompilerPassInterface
+class SetManagersCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritDoc}
@@ -27,9 +27,7 @@ class SetHandlersCompilerPass implements CompilerPassInterface
             }
 
             $managerDefinition = $container->findDefinition($alias);
-            $handlerDefinition = $container->findDefinition('shq_features.handler.' . end($aliasIdParts));
             $formFactoryDefinition = $container->findDefinition('form.factory');
-            $managerDefinition->addMethodCall('setFeaturesHandler', [$handlerDefinition]);
             $managerDefinition->addMethodCall('setFormFactory', [$formFactoryDefinition]);
         }
     }
