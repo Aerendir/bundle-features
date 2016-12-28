@@ -42,4 +42,21 @@ class FeaturesCollection extends ArrayCollection
 
         parent::__construct($elements);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        $return = [];
+        /**
+         * @var string $featureName
+         * @var FeatureInterface $featureDetils
+         */
+        foreach (parent::toArray() as $featureName => $featureDetils) {
+            $return[$featureName] = $featureDetils->toArray();
+        }
+
+        return $return;
+    }
 }

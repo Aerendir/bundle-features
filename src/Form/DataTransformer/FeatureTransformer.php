@@ -49,7 +49,7 @@ class FeatureTransformer implements DataTransformerInterface
         if ($feature instanceof BooleanFeatureInterface)
             return $feature->isEnabled();
 
-        throw new \RuntimeException('Unknown feature type :( .');
+        return false;
     }
 
     /**

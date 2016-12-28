@@ -13,7 +13,7 @@
     "require": {
         "php": "~7.0",
         "doctrine/common": "*",
-        "gedmo/doctrine-extensions": "*",
+        "doctrine/orm": "*",
         "serendipity_hq/php_value_objects": "~3",
         "symfony/form": "~2.8",
         "symfony/framework-bundle": "~2.8",

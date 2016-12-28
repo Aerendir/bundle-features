@@ -2,13 +2,18 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
 
-use SebastianBergmann\Money\Money;
+
+use Doctrine\ORM\Mapping as ORM;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
+use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * Basic properties and methods to manage a subscription.
+ *
+ * This trait can be used only in a SubscriptionInterface object.
  */
 trait SubscriptionTrait
 {
@@ -22,16 +27,16 @@ trait SubscriptionTrait
     private $id;
 
     /**
-     * @var Currency
+     * @var CurrencyInterface
      *
-     * @ORM\Column(name="currency", type="string", nullable=true)
+     * @ORM\Column(name="currency", type="currency", nullable=true)
      */
     private $currency;
 
     /**
      * @var FeaturesCollection
      *
-     * @ORM\Column(name="features", type="json_array", nullable=false)
+     * @ORM\Column(name="features", type="json_array", nullable=true)
      */
     private $features;
 
@@ -48,7 +53,7 @@ trait SubscriptionTrait
     private $interval;
 
     /**
-     * @var Money
+     * @var MoneyInterface
      *
      * @ORM\Column(name="next_payment_amount", type="money", nullable=true)
      */
@@ -60,6 +65,19 @@ trait SubscriptionTrait
      * @ORM\Column(name="next_payment_on", type="datetime", nullable=true)
      */
     private $nextPaymentOn;
+
+    /**
+     * @param string $featureName
+     * @param FeatureInterface $feature
+     * @return SubscriptionInterface
+     */
+    public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface
+    {
+        $this->features->set($featureName, $feature);
+
+        /** @var SubscriptionInterface $this */
+        return $this;
+    }
 
     /**
      * @param string $interval
@@ -124,7 +142,7 @@ trait SubscriptionTrait
     /**
      * Do not set the return typecasting until a currency type is created.
      *
-     * @return Currency
+     * @return CurrencyInterface
      */
     public function getCurrency()
     {
@@ -145,9 +163,9 @@ trait SubscriptionTrait
     }
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getNextPaymentAmount() : Money
+    public function getNextPaymentAmount() : MoneyInterface
     {
         return $this->nextPaymentAmount;
     }
@@ -162,11 +180,9 @@ trait SubscriptionTrait
      */
     public function getNextPaymentOn()
     {
-        /*
         if (null === $this->nextPaymentOn) {
-            $this->nextPaymentOn = clone $this->getCreatedOn();
+            $this->nextPaymentOn = new \DateTime();
         }
-        */
 
         return $this->nextPaymentOn;
     }
@@ -180,17 +196,19 @@ trait SubscriptionTrait
     {
         $this->id = $id;
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
     /**
-     * @param Currency $currency
+     * @param CurrencyInterface $currency
      * @return SubscriptionInterface
      */
-    public function setCurrency(Currency $currency) : SubscriptionInterface
+    public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface
     {
         $this->currency = $currency;
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -216,6 +234,7 @@ trait SubscriptionTrait
 
         $this->interval = $interval;
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -226,6 +245,7 @@ trait SubscriptionTrait
     {
         $this->setInterval(SubscriptionInterface::MONTHLY);
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -236,18 +256,20 @@ trait SubscriptionTrait
     {
         $this->setInterval(SubscriptionInterface::YEARLY);
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
     /**
-     * @param Money $amount
+     * @param MoneyInterface $amount
      *
      * @return SubscriptionInterface
      */
-    public function setNextPaymentAmount(Money $amount) : SubscriptionInterface
+    public function setNextPaymentAmount(MoneyInterface $amount) : SubscriptionInterface
     {
         $this->nextPaymentAmount = $amount;
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -260,6 +282,7 @@ trait SubscriptionTrait
     {
         $this->nextPaymentOn = $nextPaymentOn;
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -272,6 +295,7 @@ trait SubscriptionTrait
     {
         $this->getNextPaymentOn()->modify('+1 month');
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -284,6 +308,7 @@ trait SubscriptionTrait
     {
         $this->getNextPaymentOn()->modify('+1 year');
 
+        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -319,30 +344,29 @@ trait SubscriptionTrait
     /**
      * @ORM\PostLoad()
      */
-    public function currencyStringToObject()
+    public function featuresArrayToCollectionPostLoad()
     {
-        if (null === $this->currency)
-            return null;
-
-        $this->currency = new Currency($this->currency);
+        if (is_array($this->features))
+            $this->features = new FeaturesCollection($this->features);
     }
 
     /**
-     * @ORM\PreFlush()
+     * @ORM\PostUpdate()
      */
-    public function currencyObjectToString()
+    public function featuresArrayToCollectionPostUpdate()
     {
-        if (null === $this->currency)
-            return null;
+        if (is_array($this->features))
+            $this->features = new FeaturesCollection($this->features);
 
-        $this->currency = $this->currency->__toString();
+
     }
 
     /**
-     * @ORM\PostLoad()
+     * @ ORM\PreFlush()
      */
-    public function featuresJsonToObject()
+    public function featuresObjectToArray()
     {
-        $this->features = new FeaturesCollection($this->features);
+        if ($this->features instanceof FeaturesCollection)
+            $this->features = $this->features->toArray();
     }
 }

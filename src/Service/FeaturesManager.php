@@ -25,7 +25,10 @@ class FeaturesManager implements FeaturesManagerInterface
     use FeaturesManagerTrait;
 
     /** @var array $differences The added and removed features */
-    private $differences;
+    private $differences = [
+            'added'   => [],
+            'removed' => [],
+        ];
 
     /**
      * @param string $subscriptionInterval
@@ -56,7 +59,7 @@ class FeaturesManager implements FeaturesManagerInterface
 
     /**
      * @param SubscriptionInterface $subscription
-     * @return Money
+     * @return MoneyInterface
      */
     public function calculateSubscriptionAmount(SubscriptionInterface $subscription) : MoneyInterface
     {
@@ -168,6 +171,27 @@ class FeaturesManager implements FeaturesManagerInterface
     }
 
     /**
+     * @param SubscriptionInterface $subscription
+     */
+    public function updateUntilDates(SubscriptionInterface $subscription)
+    {
+        $validUntil = $subscription->getNextPaymentOn();
+
+        /** @var string $feature */
+        foreach ($this->getDifferences('added') as $feature) {
+            if (false === $subscription->has($feature)) {
+                $subscription->addFeature(
+                    $feature, $this->getFeaturesHandler()->getFeatures()->get($feature)
+                );
+            }
+
+            /** @var FeatureInterface $updatingFeature */
+            $updatingFeature = $subscription->getFeatures()->get($feature);
+            $updatingFeature->setValidUntil($validUntil);
+        }
+    }
+
+    /**
      * Calculate differences between two FeaturesCollections.
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
@@ -179,11 +203,6 @@ class FeaturesManager implements FeaturesManagerInterface
      */
     private function findDifferences(FeaturesCollection $oldFeatures, FeaturesCollection $newFeatures)
     {
-        $differences = [
-            'added'   => [],
-            'removed' => [],
-        ];
-
         /**
          * Calculate the removed features.
          *
@@ -197,7 +216,7 @@ class FeaturesManager implements FeaturesManagerInterface
             // If the feature is in the old collection but doesn't exist in the new collection...
             if (false === $newFeatures->containsKey($oldFeature->getName())) {
                 // ... It was removed
-                $differences['removed'][] = $oldFeature->getName();
+                $this->differences['removed'][] = $oldFeature->getName();
                 continue;
             }
 
@@ -207,7 +226,7 @@ class FeaturesManager implements FeaturesManagerInterface
                 && false === $newFeatures->get($oldFeature->getName())->isEnabled()
             ) {
                 // ... It was removed
-                $differences['removed'][] = $oldFeature->getName();
+                $this->differences['removed'][] = $oldFeature->getName();
             }
         }
 
@@ -224,7 +243,7 @@ class FeaturesManager implements FeaturesManagerInterface
             // If the feature was not in the old collection but exists in the new collection...
             if (false === $oldFeatures->containsKey($newFeature->getName())) {
                 // ... It was added
-                $differences['added'][] = $newFeature->getName();
+                $this->differences['added'][] = $newFeature->getName();
                 continue;
             }
 
@@ -234,11 +253,9 @@ class FeaturesManager implements FeaturesManagerInterface
                 && false === $oldFeatures->get($newFeature->getName())->isEnabled()
             ) {
                 // ... It was added
-                $differences['added'][] = $newFeature->getName();
+                $this->differences['added'][] = $newFeature->getName();
             }
         }
-
-        $this->differences = $differences;
 
         return $this->getDifferences();
     }

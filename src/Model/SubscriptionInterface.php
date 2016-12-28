@@ -2,8 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SebastianBergmann\Money\Money;
+
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
+use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * Interface for a Subscription.
@@ -12,6 +14,13 @@ interface SubscriptionInterface
 {
     const MONTHLY = 'monthly';
     const YEARLY  = 'yearly';
+
+    /**
+     * @param string $featureName
+     * @param FeatureInterface $feature
+     * @return SubscriptionInterface
+     */
+    public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface;
 
     /**
      * Get id.
@@ -36,9 +45,9 @@ interface SubscriptionInterface
     public function getInterval() : string ;
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getNextPaymentAmount() : Money;
+    public function getNextPaymentAmount() : MoneyInterface;
 
     /**
      * If the date of the next payment is not set, use the creation date.
@@ -51,6 +60,12 @@ interface SubscriptionInterface
     public function getNextPaymentOn();
 
     /**
+     * @param string $feature
+     * @return bool
+     */
+    public function has(string $feature) : bool;
+
+    /**
      * @param int $id
      *
      * @return SubscriptionInterface
@@ -58,10 +73,10 @@ interface SubscriptionInterface
     public function setId(int $id) : SubscriptionInterface;
 
     /**
-     * @param Currency $currency
+     * @param CurrencyInterface $currency
      * @return SubscriptionInterface
      */
-    public function setCurrency(Currency $currency) : SubscriptionInterface;
+    public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface;
 
     /**
      * @param array $features
@@ -86,11 +101,11 @@ interface SubscriptionInterface
     public function setYearly() : SubscriptionInterface;
 
     /**
-     * @param Money $amount
+     * @param MoneyInterface $amount
      *
      * @return SubscriptionInterface
      */
-    public function setNextPaymentAmount(Money $amount) : SubscriptionInterface;
+    public function setNextPaymentAmount(MoneyInterface $amount) : SubscriptionInterface;
 
     /**
      * @param \DateTime $nextPaymentOn

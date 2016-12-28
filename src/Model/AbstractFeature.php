@@ -136,7 +136,7 @@ abstract class AbstractFeature implements FeatureInterface
     /**
      * {@inheritdoc}
      */
-    public function getNextPaymentOn()
+    public function getValidUntil()
     {
         return $this->nextPaymentOn;
     }
@@ -252,11 +252,23 @@ abstract class AbstractFeature implements FeatureInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextPaymentOn(\DateTime $nextPaymentOn) : FeatureInterface
+    public function setValidUntil(\DateTime $nextPaymentOn) : FeatureInterface
     {
         $this->nextPaymentOn = $nextPaymentOn;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        return [
+            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
+            'type' => $this->getType(),
+            'enabled' => $this->isEnabled()
+        ];
     }
 
     /**

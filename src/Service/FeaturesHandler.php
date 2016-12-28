@@ -127,7 +127,7 @@ final class FeaturesHandler
         /** @var FeatureInterface $feature */
         foreach ($this->features as $feature) {
             if (null !== $subscription->getNextPaymentOn())
-                $feature->setNextPaymentOn($subscription->getNextPaymentOn());
+                $feature->setValidUntil($subscription->getNextPaymentOn());
         }
     }
 }

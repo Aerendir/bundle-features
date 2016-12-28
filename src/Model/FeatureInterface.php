@@ -52,11 +52,11 @@ interface FeatureInterface
     public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface;
 
     /**
-     * The date of the next payment for this feature.
+     * The date until which the feature is active.
      *
      * @return \DateTime
      */
-    public function getNextPaymentOn();
+    public function getValidUntil();
 
     /**
      * @param string|Currency $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string.
@@ -114,10 +114,17 @@ interface FeatureInterface
     public function setSubscribedOn(\DateTime $subscribedOn) : FeatureInterface;
 
     /**
-     * Sets the the next time date on which the feature has to be payed.
+     * Sets the date until which the feature is active.
      *
      * @param \DateTime $nextPaymentOn
      * @return FeatureInterface
      */
-    public function setNextPaymentOn(\DateTime $nextPaymentOn) : FeatureInterface;
+    public function setValidUntil(\DateTime $nextPaymentOn) : FeatureInterface;
+
+    /**
+     * Converts a Feature object into an array.
+     *
+     * @return array
+     */
+    public function toArray();
 }
