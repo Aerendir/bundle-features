@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -138,7 +137,7 @@ abstract class AbstractFeature implements FeatureInterface
         if (is_string($currency))
             $currency = new Currency($currency);
 
-        SubscriptionTrait::checkIntervalExists($subscriptionInterval);
+        Subscription::checkIntervalExists($subscriptionInterval);
 
         return $this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => $currency]);
     }
@@ -175,7 +174,7 @@ abstract class AbstractFeature implements FeatureInterface
      */
     public function hasPrice(CurrencyInterface $currency, string $subscriptionInterval) : bool
     {
-        SubscriptionTrait::checkIntervalExists($subscriptionInterval);
+        Subscription::checkIntervalExists($subscriptionInterval);
 
         return isset($this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval]);
     }

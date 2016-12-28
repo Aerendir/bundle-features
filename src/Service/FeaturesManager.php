@@ -6,8 +6,8 @@ use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionT
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SubscriptionTrait;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
@@ -52,7 +52,7 @@ class FeaturesManager
      */
     public function buildDefaultSubscriptionFeatures(string $subscriptionInterval)
     {
-        $activeUntil = SubscriptionTrait::calculateActiveUntil($subscriptionInterval);
+        $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
         $features = [];
 
         /**

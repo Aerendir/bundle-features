@@ -1,31 +1,18 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
-
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * Basic properties and methods to manage a subscription.
  *
- * This trait can be used only in a SubscriptionInterface object.
+ * @ORM\MappedSuperclass
  */
-trait SubscriptionTrait
+class Subscription implements SubscriptionInterface
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
-
     /**
      * @var CurrencyInterface
      *
@@ -41,11 +28,6 @@ trait SubscriptionTrait
     private $features;
 
     /**
-     * In number of months.
-     *
-     * 1 = monthly
-     * 12 = yearly
-     *
      * @var string
      *
      * @ORM\Column(name="`interval`", type="string", nullable=true)
@@ -77,7 +59,6 @@ trait SubscriptionTrait
             $this->featuresArrayToCollectionPostLoad();
         $this->features->set($featureName, $feature);
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -121,16 +102,6 @@ trait SubscriptionTrait
     public static function intervalExists(string $interval)
     {
         return in_array($interval, [SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY]);
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() : int
-    {
-        return $this->id;
     }
 
     /**
@@ -180,7 +151,7 @@ trait SubscriptionTrait
      *
      * @return \DateTime
      */
-    public function getNextPaymentOn()
+    public function getNextPaymentOn() : \DateTime
     {
         if (null === $this->nextPaymentOn) {
             $this->nextPaymentOn = new \DateTime();
@@ -205,19 +176,6 @@ trait SubscriptionTrait
     }
 
     /**
-     * @param int $id
-     *
-     * @return SubscriptionInterface
-     */
-    public function setId(int $id) : SubscriptionInterface
-    {
-        $this->id = $id;
-
-        /** @var SubscriptionInterface $this */
-        return $this;
-    }
-
-    /**
      * @param CurrencyInterface $currency
      * @return SubscriptionInterface
      */
@@ -225,7 +183,6 @@ trait SubscriptionTrait
     {
         $this->currency = $currency;
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -251,7 +208,6 @@ trait SubscriptionTrait
 
         $this->interval = $interval;
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -262,7 +218,6 @@ trait SubscriptionTrait
     {
         $this->setInterval(SubscriptionInterface::MONTHLY);
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -273,7 +228,6 @@ trait SubscriptionTrait
     {
         $this->setInterval(SubscriptionInterface::YEARLY);
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -286,7 +240,6 @@ trait SubscriptionTrait
     {
         $this->nextPaymentAmount = $amount;
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -299,7 +252,6 @@ trait SubscriptionTrait
     {
         $this->nextPaymentOn = $nextPaymentOn;
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -312,7 +264,6 @@ trait SubscriptionTrait
     {
         $this->getNextPaymentOn()->modify('+1 month');
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -325,7 +276,6 @@ trait SubscriptionTrait
     {
         $this->getNextPaymentOn()->modify('+1 year');
 
-        /** @var SubscriptionInterface $this */
         return $this;
     }
 
@@ -339,14 +289,6 @@ trait SubscriptionTrait
             return false;
 
         return $this->features->get($feature)->isStillActive();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return (string) $this->getId();
     }
 
     /**
@@ -365,7 +307,7 @@ trait SubscriptionTrait
     public function featuresObjectToArray()
     {
         if (null === $this->features)
-            return [];
+            $this->features = [];
 
         if (is_array($this->features))
             $this->featuresArrayToCollectionPostLoad();

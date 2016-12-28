@@ -23,13 +23,6 @@ interface SubscriptionInterface
     public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface;
 
     /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId() : int;
-
-    /**
      * @return Currency
      */
     public function getCurrency();
@@ -64,13 +57,6 @@ interface SubscriptionInterface
      * @return bool
      */
     public function has(string $feature) : bool;
-
-    /**
-     * @param int $id
-     *
-     * @return SubscriptionInterface
-     */
-    public function setId(int $id) : SubscriptionInterface;
 
     /**
      * @param CurrencyInterface $currency
@@ -127,9 +113,4 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setNextPaymentInTwelveMonths() : SubscriptionInterface;
-
-    /**
-     * @return string
-     */
-    public function __toString() : string;
 }
