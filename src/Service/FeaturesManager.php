@@ -368,6 +368,48 @@ class FeaturesManager
     }
 
     /**
+     * Calculates the bitmask of the boolean features selected
+     * by the merchant and returns the corresponding value in binary format.
+     *
+     * @param  $features
+     * @param array                  $options
+     *
+     * @return int
+     */
+    /*
+    protected function calculatePlanId(PremiumStoreEmbeddable $features, array $options)
+    {
+        // No feature is selected
+        $booleanBitmask = 0;
+        $amount = 0;
+
+        if ($features->hasAds()) {
+            $amount += $this->plans['boolean']['ads']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::ADS;
+        }
+
+        if ($features->hasSeo()) {
+            $amount += $this->plans['boolean']['seo']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::SEO;
+        }
+
+        if ($features->hasSocial()) {
+            $amount += $this->plans['boolean']['social']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::SOCIAL;
+        }
+
+        $booleanBitmask = decbin($booleanBitmask);
+
+        return
+            $booleanBitmask
+            . '_' . $options['interval']
+            . '_' . $options['trial_period_days']
+            . '_' . $options['currency']
+            . '_' . $amount;
+    }
+    */
+
+    /**
      * Sets the general configurations (as prices, for examples) in the FeatureINterface objects loaded from a
      * SubscriptionInterface object.
      *
