@@ -56,7 +56,7 @@ class Subscription implements SubscriptionInterface
     public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface
     {
         if (is_array($this->features))
-            $this->featuresArrayToCollectionPostLoad();
+            $this->featuresArrayToCollection();
         $this->features->set($featureName, $feature);
 
         return $this;
@@ -174,7 +174,7 @@ class Subscription implements SubscriptionInterface
             return false;
 
         if (is_array($this->features))
-            $this->featuresArrayToCollectionPostLoad();
+            $this->featuresArrayToCollection();
 
         return $this->features->containsKey($feature);
     }
@@ -300,7 +300,7 @@ class Subscription implements SubscriptionInterface
      * @ORM\PostUpdate()
      * @ORM\PostPersist()
      */
-    public function featuresArrayToCollectionPostLoad()
+    public function featuresArrayToCollection()
     {
         $this->features = new FeaturesCollection($this->features);
     }
@@ -314,7 +314,7 @@ class Subscription implements SubscriptionInterface
             $this->features = [];
 
         if (is_array($this->features))
-            $this->featuresArrayToCollectionPostLoad();
+            $this->featuresArrayToCollection();
 
         $this->features = $this->features->toArray();
     }
