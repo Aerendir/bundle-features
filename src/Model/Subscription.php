@@ -269,4 +269,14 @@ class Subscription implements SubscriptionInterface
 
         return $this;
     }
+
+    /**
+     * Synchronizes the $featuresArray with the FeatureCollection of $features.
+     *
+     * @ORM\PreFlush()
+     */
+    public function updateFeaturesArray()
+    {
+        $this->featuresArray = $this->getFeatures()->toArray();
+    }
 }
