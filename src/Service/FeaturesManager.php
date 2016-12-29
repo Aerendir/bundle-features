@@ -8,7 +8,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -48,9 +47,9 @@ class FeaturesManager
      * @param string $subscriptionInterval
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
-     * @return array
+     * @return FeaturesCollection
      */
-    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval)
+    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval) : FeaturesCollection
     {
         $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
         $features = [];
@@ -67,31 +66,30 @@ class FeaturesManager
             ];
         }
 
-        return $features;
+        return new FeaturesCollection($features);
     }
 
     /**
-     * @param CurrencyInterface $currency
-     * @param SubscriptionInterface $subscription
-     * @param FeaturesCollection $newFeatures
+     * @param FeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
+     *                                        not yet synced with these new Features!
      * @return Money
      */
-    public function calculateTotalChargesForNewFeatures(CurrencyInterface $currency, SubscriptionInterface $subscription, FeaturesCollection $newFeatures)
+    public function calculateTotalChargesForNewFeatures(FeaturesCollection $newFeatures)
     {
-        $totalCharges = new Money(['amount' => 0, 'currency' => $currency]);
+        $totalCharges = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
 
         // Calculate the added and removed features
-        $this->findDifferences($subscription->getFeatures(), $newFeatures);
+        $this->findDifferences($this->getSubscription()->getFeatures(), $newFeatures);
 
         /*
          * May happen that a premium feature is activate and paid, then is deactivated but it is still in the subscription interval.
          * If it is activated again during the subscription interval, it were already paid, so it hasn't to be paid again.
          */
         foreach ($this->getDifferences('added') as $feature) {
-            if (false === $subscription->getFeatures()->get($feature)->isStillActive()) {
-                $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($currency, $subscription->getInterval());
+            if (false === $this->getSubscription()->getFeatures()->get($feature)->isStillActive()) {
+                $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
-                if (null !== $instantPrice)
+                if ($instantPrice instanceof MoneyInterface)
                     $totalCharges = $totalCharges->add($instantPrice);
             }
         }
@@ -290,9 +288,31 @@ class FeaturesManager
      * Update the subscription object after features are added or removed.
      *
      * It updates the next payment amount and the dates untile the features are active.
+     *
+     * If a FeaturesCollection is passed, it sets their statuses to the features already existent in the Subscription.
+     *
+     * @param FeaturesCollection|null $newFeatures
      */
-    public function updateSubscription()
+    public function updateSubscription(FeaturesCollection $newFeatures = null)
     {
+        /**
+         * Before all, update the features, setting the new enabled status or adding the feature if not already present.
+         *
+         * @var FeatureInterface $newFeature
+         */
+        foreach ($newFeatures as $newFeature) {
+            $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
+
+            if ($existentFeature instanceof FeatureInterface) {
+                $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
+                $existentFeature->$toggle();
+            }
+
+            if (false === $this->getSubscription()->has($newFeature->getName())) {
+                $this->getSubscription()->addFeature($newFeature->getName(), $newFeature);
+            }
+        }
+
         $this->updateNextPaymentAmount();
         $this->updateUntilDates();
     }
@@ -310,7 +330,7 @@ class FeaturesManager
             if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
-                if (null !== $price)
+                if ($price instanceof MoneyInterface)
                     $total = $total->add($price);
             }
         }
