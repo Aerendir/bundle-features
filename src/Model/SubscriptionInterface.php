@@ -86,6 +86,13 @@ interface SubscriptionInterface
     public function has(string $feature) : bool;
 
     /**
+     * Shortcut method to check if a Feature in the subscription is still active.
+     * @param string $feature
+     * @return bool
+     */
+    public function isStillActive(string $feature) : bool;
+
+    /**
      * @param CurrencyInterface $currency
      * @return SubscriptionInterface
      */

@@ -169,6 +169,17 @@ class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
+    public function isStillActive(string $feature) : bool
+    {
+        if (false === $this->has($feature))
+            return false;
+
+        return $this->getFeatures()->get($feature)->isStillActive();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface
     {
         $this->currency = $currency;
