@@ -123,6 +123,10 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
+     * Get the current subscription interval.
+     *
+     * By default it is set to "monthly".
+     *
      * @return string
      */
     public function getInterval() : string
@@ -154,7 +158,7 @@ class Subscription implements SubscriptionInterface
     public function getNextPaymentOn() : \DateTime
     {
         if (null === $this->nextPaymentOn) {
-            $this->nextPaymentOn = new \DateTime();
+            $this->nextPaymentOn = self::calculateActiveUntil($this->getInterval());
         }
 
         return $this->nextPaymentOn;

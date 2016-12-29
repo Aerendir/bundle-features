@@ -109,6 +109,11 @@ interface FeatureInterface
     public function setActiveUntil(\DateTime $nextPaymentOn) : FeatureInterface;
 
     /**
+     * @param array $prices
+     */
+    //public function setPrices(array $prices);
+
+    /**
      * Sets the date on which the feature were subscribed.
      *
      * @param \DateTime $subscribedOn

@@ -61,7 +61,7 @@ class FeaturesManager
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             $features[$name] = [
-                'active_until' => false === $this->getConfiguredFeatures()->get($name) ? null : $activeUntil,
+                'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                 'type' => $details->getType(),
                 'enabled' => $details->isEnabled()
             ];
@@ -108,7 +108,7 @@ class FeaturesManager
          * If it is activated again during the subscription interval, it were already paid, so it hasn't to be paid again.
          */
         foreach ($this->getDifferences('added') as $feature) {
-            if (false === $this->isStillActive($feature, $subscription->getFeatures())) {
+            if (false === $subscription->getFeatures()->get($feature)->isStillActive()) {
                 $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($currency, $subscription->getInterval());
 
                 $totalCharges = $totalCharges->add($instantPrice);
@@ -279,22 +279,6 @@ class FeaturesManager
     }
 
     /**
-     * @param string $featureName
-     * @param FeaturesCollection $oldFeatures
-     * @return bool
-     */
-    private function isStillActive(string $featureName, FeaturesCollection $oldFeatures)
-    {
-        // If is a feature that was not present in the old plan or, if present, has the activeUntil property === null...
-        if (false === $oldFeatures->containsKey($featureName) || null === $oldFeatures->get($featureName)->getActiveUntil()) {
-            // ... It is for sure a feature not still active
-            return false;
-        }
-
-        throw new \RuntimeException('Complete the implementation');
-    }
-
-    /**
      * Returns all the configured features.
      *
      * @return FeaturesCollection
@@ -337,6 +321,25 @@ class FeaturesManager
     {
         $this->subscription = $subscription;
 
+        //$this->configurePricesInSubscriptionFeatures($subscription);
+
         return $this;
     }
+
+    /**
+     * Sets the general configurations (as prices, for examples) in the FeatureINterface objects loaded from a
+     * SubscriptionInterface object.
+     *
+     * @param SubscriptionInterface $subscription
+     */
+    /*
+    private function configurePricesInSubscriptionFeatures(SubscriptionInterface $subscription)
+    {
+        /** @var FeatureInterface $feature *
+        foreach ($subscription->getFeatures() as $feature) {
+            $prices = $this->getConfiguredFeatures()->get($feature->getName())->getPrices();
+            $feature->setPrices($prices);
+        }
+    }
+    */
 }

@@ -51,20 +51,8 @@ abstract class AbstractFeature implements FeatureInterface
         if (isset($details['enabled']) && true === $details['enabled'])
             $this->enable();
 
-        if (isset($details['prices']) && is_array($details['prices']) && 0 < count($details['prices'])) {
-            foreach ($details['prices'] as $currency => $price) {
-                $currency = new Currency($currency);
-
-                if (isset($price[SubscriptionInterface::MONTHLY]))
-                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::MONTHLY] = new Money([
-                        'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency
-                    ]);
-
-                if (isset($price[SubscriptionInterface::YEARLY]))
-                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::YEARLY] = new Money([
-                        'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency
-                    ]);
-            }
+        if (isset($details['prices'])) {
+            $this->setPrices($details['prices']);
         }
 
         /*
@@ -245,6 +233,38 @@ abstract class AbstractFeature implements FeatureInterface
         $this->activeUntil = $activeUntil;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function setPrices(array $prices)
+    {
+        if (0 < count($prices)) {
+            foreach ($prices as $currency => $price) {
+                $currency = new Currency($currency);
+
+                if (isset($price[SubscriptionInterface::MONTHLY])) {
+                    $amount = $price[SubscriptionInterface::MONTHLY];
+                    if (!$amount instanceof MoneyInterface) {
+                        $amount = new Money([
+                            'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency
+                        ]);
+                    }
+                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::MONTHLY] = $amount;
+                }
+
+                if (isset($price[SubscriptionInterface::YEARLY])) {
+                    $amount = $price[SubscriptionInterface::YEARLY];
+                    if (!$amount instanceof MoneyInterface) {
+                        $amount = new Money([
+                            'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency
+                        ]);
+                    }
+                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::YEARLY] = $amount;
+                }
+            }
+        }
     }
 
     /**
