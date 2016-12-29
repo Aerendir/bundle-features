@@ -71,26 +71,6 @@ class FeaturesManager
     }
 
     /**
-     * @param SubscriptionInterface $subscription
-     * @return MoneyInterface
-     */
-    public function calculateSubscriptionAmount(SubscriptionInterface $subscription) : MoneyInterface
-    {
-        $total = new Money(['amount' => 0, 'currency' => $subscription->getCurrency()]);
-
-        /** @var FeatureInterface $feature */
-        foreach ($subscription->getFeatures() as $feature)
-        {
-            if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
-                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($subscription->getCurrency(), $subscription->getInterval());
-                $total = $total->add($price);
-            }
-        }
-
-        return $total;
-    }
-
-    /**
      * @param CurrencyInterface $currency
      * @param SubscriptionInterface $subscription
      * @param FeaturesCollection $newFeatures
@@ -111,7 +91,8 @@ class FeaturesManager
             if (false === $subscription->getFeatures()->get($feature)->isStillActive()) {
                 $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($currency, $subscription->getInterval());
 
-                $totalCharges = $totalCharges->add($instantPrice);
+                if (null !== $instantPrice)
+                    $totalCharges = $totalCharges->add($instantPrice);
             }
         }
 
@@ -185,27 +166,6 @@ class FeaturesManager
         {
             $toggle = $feature->isEnabled() ? 'enable' : 'disable';
             $subscription->getFeatures()->get($featureName)->$toggle();
-        }
-    }
-
-    /**
-     * @param SubscriptionInterface $subscription
-     */
-    public function updateUntilDates(SubscriptionInterface $subscription)
-    {
-        $validUntil = $subscription->getNextPaymentOn();
-
-        /** @var string $feature */
-        foreach ($this->getDifferences('added') as $feature) {
-            if (false === $subscription->has($feature)) {
-                $subscription->addFeature(
-                    $feature, $this->getConfiguredFeatures()->get($feature)
-                );
-            }
-
-            /** @var FeatureInterface $updatingFeature */
-            $updatingFeature = $subscription->getFeatures()->get($feature);
-            $updatingFeature->setActiveUntil($validUntil);
         }
     }
 
@@ -324,6 +284,67 @@ class FeaturesManager
         //$this->configurePricesInSubscriptionFeatures($subscription);
 
         return $this;
+    }
+
+    /**
+     * Update the subscription object after features are added or removed.
+     *
+     * It updates the next payment amount and the dates untile the features are active.
+     */
+    public function updateSubscription()
+    {
+        $this->updateNextPaymentAmount();
+        $this->updateUntilDates();
+    }
+
+    /**
+     * @return MoneyInterface
+     */
+    private function calculateSubscriptionAmount() : MoneyInterface
+    {
+        $total = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
+
+        /** @var FeatureInterface $feature */
+        foreach ($this->getSubscription()->getFeatures() as $feature)
+        {
+            if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
+                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+
+                if (null !== $price)
+                    $total = $total->add($price);
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * Updates the amount of the next payment for the provided subscription object.
+     */
+    private function updateNextPaymentAmount()
+    {
+        $this->getSubscription()->setNextPaymentAmount($this->calculateSubscriptionAmount());
+    }
+
+    /**
+     * Updates the date until the features in the Subscription are active.
+     */
+    private function updateUntilDates()
+    {
+        $validUntil = $this->getSubscription()->getNextPaymentOn();
+
+        /** @var string $feature */
+        foreach ($this->getDifferences('added') as $feature) {
+            if (false === $this->getSubscription()->has($feature)) {
+                $this->getSubscription()->addFeature(
+                    $feature, $this->getConfiguredFeatures()->get($feature)
+                );
+            }
+
+            /** @var FeatureInterface $updatingFeature */
+            $updatingFeature = $this->getSubscription()->getFeatures()->get($feature);
+            $updatingFeature->setActiveUntil($validUntil);
+        }
     }
 
     /**
