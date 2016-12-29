@@ -21,9 +21,16 @@ class Subscription implements SubscriptionInterface
     private $currency;
 
     /**
-     * @var FeaturesCollection
+     * @var array
      *
      * @ORM\Column(name="features", type="json_array", nullable=true)
+     */
+    private $featuresArray;
+
+    /**
+     * Contains the $featuresArray as a FeatureCollection.
+     *
+     * @var FeaturesCollection $featuresCollection
      */
     private $features;
 
@@ -49,22 +56,17 @@ class Subscription implements SubscriptionInterface
     private $nextPaymentOn;
 
     /**
-     * @param string $featureName
-     * @param FeatureInterface $feature
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface
     {
-        if (is_array($this->features))
-            $this->featuresArrayToCollection();
-        $this->features->set($featureName, $feature);
+        $this->getFeatures()->set($featureName, $feature);
 
         return $this;
     }
 
     /**
-     * @param string $interval
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public static function calculateActiveUntil(string $interval) : \DateTime
     {
@@ -85,9 +87,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param string $interval
-     *
-     * @throws \InvalidArgumentException If the $interval does not exist
+     * {@inheritdoc}
      */
     public static function checkIntervalExists(string $interval)
     {
@@ -96,26 +96,15 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param string $interval
-     * @return bool
+     * {@inheritdoc}
      */
-    public static function intervalExists(string $interval)
+    public static function intervalExists(string $interval) : bool
     {
         return in_array($interval, [SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY]);
     }
 
     /**
-     * @return FeaturesCollection
-     */
-    public function getFeatures()
-    {
-        return $this->features;
-    }
-
-    /**
-     * Do not set the return typecasting until a currency type is created.
-     *
-     * @return CurrencyInterface
+     * {@inheritdoc}
      */
     public function getCurrency()
     {
@@ -123,11 +112,18 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Get the current subscription interval.
-     *
-     * By default it is set to "monthly".
-     *
-     * @return string
+     * {@inheritdoc}
+     */
+    public function getFeatures() : FeaturesCollection
+    {
+        if (null === $this->features)
+            $this->features = new FeaturesCollection($this->featuresArray);
+
+        return $this->features;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getInterval() : string
     {
@@ -140,7 +136,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @return MoneyInterface
+     * {@inheritdoc}
      */
     public function getNextPaymentAmount() : MoneyInterface
     {
@@ -148,12 +144,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * If the date of the next payment is not set, use the creation date.
-     * If it is not set, is because this is a new subscription, so the next payment is immediate.
-     *
-     * The logic of the app will set this date one month or one year in the future.
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getNextPaymentOn() : \DateTime
     {
@@ -165,23 +156,18 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param string $feature
-     * @return bool
+     * {@inheritdoc}
      */
     public function has(string $feature) : bool
     {
-        if (0 >= count($this->features))
+        if (0 >= count($this->getFeatures()))
             return false;
 
-        if (is_array($this->features))
-            $this->featuresArrayToCollection();
-
-        return $this->features->containsKey($feature);
+        return $this->getFeatures()->containsKey($feature);
     }
 
     /**
-     * @param CurrencyInterface $currency
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface
     {
@@ -191,20 +177,18 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param array $features
-     * @return $this
+     * {@inheritdoc}
      */
-    public function setFeatures(array $features)
+    public function setFeatures(FeaturesCollection $features) : SubscriptionInterface
     {
         $this->features = $features;
+        $this->featuresArray = $this->getFeatures()->toArray();
 
         return $this;
     }
 
     /**
-     * @param string $interval
-     *
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setInterval(string $interval) : SubscriptionInterface
     {
@@ -216,7 +200,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setMonthly() : SubscriptionInterface
     {
@@ -226,7 +210,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setYearly() : SubscriptionInterface
     {
@@ -236,9 +220,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param MoneyInterface $amount
-     *
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setNextPaymentAmount(MoneyInterface $amount) : SubscriptionInterface
     {
@@ -248,9 +230,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @param \DateTime $nextPaymentOn
-     *
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setNextPaymentOn(\DateTime $nextPaymentOn) : SubscriptionInterface
     {
@@ -260,9 +240,7 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Sets the next payment in one month.
-     *
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
     public function setNextPaymentInOneMonth() : SubscriptionInterface
     {
@@ -272,50 +250,12 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Sets the next payment in one month.
-     *
-     * @return SubscriptionInterface
+     * {@inheritdoc}
      */
-    public function setNextPaymentInTwelveMonths() : SubscriptionInterface
+    public function setNextPaymentInOneYear() : SubscriptionInterface
     {
         $this->getNextPaymentOn()->modify('+1 year');
 
         return $this;
-    }
-
-    /**
-     * @param string $feature
-     * @return bool
-     */
-    public function isStillActive(string $feature) : bool
-    {
-        if (false === $this->has($feature))
-            return false;
-
-        return $this->features->get($feature)->isStillActive();
-    }
-
-    /**
-     * @ORM\PostLoad()
-     * @ORM\PostUpdate()
-     * @ORM\PostPersist()
-     */
-    public function featuresArrayToCollection()
-    {
-        $this->features = new FeaturesCollection($this->features);
-    }
-
-    /**
-     * @ORM\PreFlush()
-     */
-    public function featuresObjectToArray()
-    {
-        if (null === $this->features)
-            $this->features = [];
-
-        if (is_array($this->features))
-            $this->featuresArrayToCollection();
-
-        $this->features = $this->features->toArray();
     }
 }
