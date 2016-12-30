@@ -25,9 +25,17 @@ class SetManagersCompilerPass implements CompilerPassInterface
                 continue;
             }
 
-            $managerDefinition = $container->findDefinition($alias);
-            $formFactoryDefinition = $container->findDefinition('form.factory');
-            $managerDefinition->addMethodCall('setFormFactory', [$formFactoryDefinition]);
+            // This is the FeaturesManager
+            if ('features' === $aliasIdParts[3]) {
+                $managerDefinition = $container->findDefinition($alias);
+
+                $formFactoryDefinition = $container->findDefinition('form.factory');
+                $managerDefinition->addMethodCall('setFormFactory', [$formFactoryDefinition]);
+
+                $invoicesManagerAlias = $aliasIdParts[0] . '.' . $aliasIdParts[1] . '.' . $aliasIdParts[2] . '.invoices';
+                $invoicesManagerDefinition = $container->findDefinition($invoicesManagerAlias);
+                $managerDefinition->addMethodCall('setInvoicesManager', [$invoicesManagerDefinition]);
+            }
         }
     }
 }

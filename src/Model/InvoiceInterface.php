@@ -42,4 +42,14 @@ interface InvoiceInterface
      * @return MoneyInterface
      */
     public function getTotal() : MoneyInterface;
+
+    /**
+     * Generates the number of the Invoice.
+     *
+     * The concrete implementation of this method is left to the iplementer as there are so many cases that is
+     * impossible to abstract them and generalize the process.
+     *
+     * @return string|int
+     */
+    public function generateNumber();
 }

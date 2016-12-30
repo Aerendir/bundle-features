@@ -26,6 +26,9 @@ class FeaturesManager
     /** @var FormFactory $formFactory */
     private $formFactory;
 
+    /** @var  InvoicesManager $invoicesManager */
+    private $invoicesManager;
+
     /** @var  SubscriptionInterface $subscription */
     private $subscription;
 
@@ -42,6 +45,39 @@ class FeaturesManager
             'added'   => [],
             'removed' => [],
         ];
+
+    /**
+     * Returns all the configured features.
+     *
+     * @return FeaturesCollection
+     */
+    public function getConfiguredFeatures() : FeaturesCollection
+    {
+        return $this->configuredFeatures;
+    }
+
+    /**
+     * @return SubscriptionInterface
+     */
+    public function getSubscription() : SubscriptionInterface
+    {
+        return $this->subscription;
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     *
+     * @return FeaturesManager
+     */
+    public function setSubscription(SubscriptionInterface $subscription) : self
+    {
+        $this->subscription = $subscription;
+        $this->getInvoicesManager()->setSubscription($this->getSubscription());
+
+        //$this->configurePricesInSubscriptionFeatures($subscription);
+
+        return $this;
+    }
 
     /**
      * @param string $subscriptionInterval
@@ -168,6 +204,60 @@ class FeaturesManager
     }
 
     /**
+     * Update the subscription object after features are added or removed.
+     *
+     * It updates the next payment amount and the dates untile the features are active.
+     *
+     * If a FeaturesCollection is passed, it sets their statuses to the features already existent in the Subscription.
+     *
+     * @param FeaturesCollection|null $newFeatures
+     */
+    public function updateSubscription(FeaturesCollection $newFeatures = null)
+    {
+        /**
+         * Before all, update the features, setting the new enabled status or adding the feature if not already present.
+         *
+         * @var FeatureInterface $newFeature
+         */
+        foreach ($newFeatures as $newFeature) {
+            $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
+
+            if ($existentFeature instanceof FeatureInterface) {
+                $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
+                $existentFeature->$toggle();
+            }
+
+            if (false === $this->getSubscription()->has($newFeature->getName())) {
+                $this->getSubscription()->addFeature($newFeature->getName(), $newFeature);
+            }
+        }
+
+        $this->updateNextPaymentAmount();
+        $this->updateUntilDates();
+    }
+
+    /**
+     * @return MoneyInterface
+     */
+    private function calculateSubscriptionAmount() : MoneyInterface
+    {
+        $total = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
+
+        /** @var FeatureInterface $feature */
+        foreach ($this->getSubscription()->getFeatures() as $feature)
+        {
+            if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
+                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+
+                if ($price instanceof MoneyInterface)
+                    $total = $total->add($price);
+            }
+        }
+
+        return $total;
+    }
+
+    /**
      * Calculate differences between two FeaturesCollections.
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
@@ -234,108 +324,6 @@ class FeaturesManager
         }
 
         return $this->getDifferences();
-    }
-
-    /**
-     * Returns all the configured features.
-     *
-     * @return FeaturesCollection
-     */
-    public function getConfiguredFeatures() : FeaturesCollection
-    {
-        return $this->configuredFeatures;
-    }
-
-    /**
-     * @return FormFactory
-     */
-    public function getFormFactory() : FormFactory
-    {
-        return $this->formFactory;
-    }
-
-    /**
-     * @return SubscriptionInterface
-     */
-    public function getSubscription() : SubscriptionInterface
-    {
-        return $this->subscription;
-    }
-
-    /**
-     * @param FormFactory $formFactory
-     */
-    public function setFormFactory(FormFactory $formFactory)
-    {
-        $this->formFactory = $formFactory;
-    }
-
-    /**
-     * @param SubscriptionInterface $subscription
-     *
-     * @return FeaturesManager
-     */
-    public function setSubscription(SubscriptionInterface $subscription) : self
-    {
-        $this->subscription = $subscription;
-
-        //$this->configurePricesInSubscriptionFeatures($subscription);
-
-        return $this;
-    }
-
-    /**
-     * Update the subscription object after features are added or removed.
-     *
-     * It updates the next payment amount and the dates untile the features are active.
-     *
-     * If a FeaturesCollection is passed, it sets their statuses to the features already existent in the Subscription.
-     *
-     * @param FeaturesCollection|null $newFeatures
-     */
-    public function updateSubscription(FeaturesCollection $newFeatures = null)
-    {
-        /**
-         * Before all, update the features, setting the new enabled status or adding the feature if not already present.
-         *
-         * @var FeatureInterface $newFeature
-         */
-        foreach ($newFeatures as $newFeature) {
-            $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
-
-            if ($existentFeature instanceof FeatureInterface) {
-                $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
-                $existentFeature->$toggle();
-            }
-
-            if (false === $this->getSubscription()->has($newFeature->getName())) {
-                $this->getSubscription()->addFeature($newFeature->getName(), $newFeature);
-            }
-        }
-
-        $this->updateNextPaymentAmount();
-        $this->updateUntilDates();
-    }
-
-    /**
-     * @return MoneyInterface
-     */
-    private function calculateSubscriptionAmount() : MoneyInterface
-    {
-        $total = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
-
-        /** @var FeatureInterface $feature */
-        foreach ($this->getSubscription()->getFeatures() as $feature)
-        {
-            if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
-                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
-
-                if ($price instanceof MoneyInterface)
-                    $total = $total->add($price);
-            }
-        }
-
-        return $total;
     }
 
     /**
@@ -425,4 +413,36 @@ class FeaturesManager
         }
     }
     */
+
+    /**
+     * @return FormFactory
+     */
+    public function getFormFactory() : FormFactory
+    {
+        return $this->formFactory;
+    }
+
+    /**
+     * @return InvoicesManager
+     */
+    public function getInvoicesManager() : InvoicesManager
+    {
+        return $this->invoicesManager;
+    }
+
+    /**
+     * @param FormFactory $formFactory
+     */
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param InvoicesManager $invoicesManager
+     */
+    public function setInvoicesManager(InvoicesManager $invoicesManager)
+    {
+        $this->invoicesManager = $invoicesManager;
+    }
 }

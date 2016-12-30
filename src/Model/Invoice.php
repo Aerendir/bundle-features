@@ -12,7 +12,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * @ORM\MappedSuperclass
  */
-class Invoice implements InvoiceInterface
+abstract class Invoice implements InvoiceInterface
 {
     /**
      * @var CurrencyInterface
@@ -60,6 +60,9 @@ class Invoice implements InvoiceInterface
         if (null === $this->total) {
             $this->total = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
         }
+
+        // Generate the Invoice number
+        $this->generateNumber();
     }
 
     /**

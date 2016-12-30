@@ -3,6 +3,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
+use SerendipityHQ\Bundle\FeaturesBundle\Service\InvoicesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -21,8 +22,10 @@ class FeaturesExtension extends Extension
         $config        = $this->processConfiguration($configuration, $configs);
 
         // Create services for features
-        foreach ($config as $creatingServiceKey => $creatingService) {
-            $this->createFeaturesService($creatingServiceKey, $creatingService, $container);
+        foreach ($config as $creatingServiceKey => $features) {
+            $features = $this->setAsFromConfiguration($features['features']);
+            $this->createFeaturesServices($creatingServiceKey, $features, $container);
+            $this->createInvoicesServices($creatingServiceKey, $features, $container);
         }
     }
 
@@ -31,14 +34,24 @@ class FeaturesExtension extends Extension
      * @param array $features
      * @param ContainerBuilder $containerBuilder
      */
-    private function createFeaturesService(string $name, array $features, ContainerBuilder $containerBuilder)
+    private function createFeaturesServices(string $name, array $features, ContainerBuilder $containerBuilder)
     {
-        $features['features'] = $this->setAsFromConfiguration($features['features']);
-
         // Create the feature manager definition
-        $featureManagerDefinition = new Definition(FeaturesManager::class, [$features['features']]);
-        $serviceName = 'shq_features.manager.' . $name;
+        $featureManagerDefinition = new Definition(FeaturesManager::class, [$features]);
+        $serviceName = 'shq_features.manager.' . $name . '.features';
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
+    }
+
+    /**
+     * @param string $name
+     * @param array $features
+     * @param ContainerBuilder $containerBuilder
+     */
+    private function createInvoicesServices(string $name, array $features, ContainerBuilder $containerBuilder)
+    {
+        $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$features]);
+        $serviceName = 'shq_features.manager.' . $name . '.invoices';
+        $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);
     }
 
     /**
