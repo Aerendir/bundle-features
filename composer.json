@@ -21,12 +21,15 @@
         "symfony/routing": "~2.8"
     },
     "require-dev": {
+        "codeclimate/php-test-reporter": "dev-master",
         "friendsofphp/php-cs-fixer": "*",
+        "phpunit/phpunit": "*",
         "symfony/var-dumper": "*"
     },
     "autoload": {
         "psr-4": {
-            "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src"
+            "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src",
+            "SerendipityHQ\\Bundle\\FeaturesBundle\\Tests\\": "tests"
         }
     }
 }
