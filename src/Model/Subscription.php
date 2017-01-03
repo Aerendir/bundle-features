@@ -10,8 +10,9 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  * Basic properties and methods to manage a subscription.
  *
  * @ORM\MappedSuperclass
+ * @ORM\HasLifecycleCallbacks
  */
-class Subscription implements SubscriptionInterface
+abstract class Subscription implements SubscriptionInterface
 {
     /**
      * @var CurrencyInterface
@@ -21,16 +22,11 @@ class Subscription implements SubscriptionInterface
     private $currency;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="features", type="json_array", nullable=true)
-     */
-    private $featuresArray;
-
-    /**
      * Contains the $featuresArray as a FeatureCollection.
      *
      * @var FeaturesCollection $featuresCollection
+     *
+     * @ORM\Column(name="features", type="json_array", nullable=true)
      */
     private $features;
 
@@ -116,9 +112,6 @@ class Subscription implements SubscriptionInterface
      */
     public function getFeatures() : FeaturesCollection
     {
-        if (null === $this->features)
-            $this->features = new FeaturesCollection($this->featuresArray);
-
         return $this->features;
     }
 
@@ -193,7 +186,6 @@ class Subscription implements SubscriptionInterface
     public function setFeatures(FeaturesCollection $features) : SubscriptionInterface
     {
         $this->features = $features;
-        $this->featuresArray = $this->getFeatures()->toArray();
 
         return $this;
     }
@@ -271,12 +263,10 @@ class Subscription implements SubscriptionInterface
     }
 
     /**
-     * Synchronizes the $featuresArray with the FeatureCollection of $features.
-     *
-     * @ORM\PreFlush()
+     * @ORM\PostLoad()
      */
-    public function updateFeaturesArray()
+    public function hydrateFeatures()
     {
-        $this->featuresArray = $this->getFeatures()->toArray();
+        $this->features = new FeaturesCollection($this->features);
     }
 }

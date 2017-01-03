@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * {@inheritdoc}
  */
-class FeaturesCollection extends ArrayCollection
+class FeaturesCollection extends ArrayCollection implements \JsonSerializable
 {
     /** @var FeaturesCollection $boolean */
     private $booleans;
@@ -76,5 +76,13 @@ class FeaturesCollection extends ArrayCollection
         }
 
         return $return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
