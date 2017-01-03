@@ -9,7 +9,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * Interface of an Invoice object.
  */
-interface InvoiceInterface
+interface InvoiceInterface extends \JsonSerializable
 {
     /**
      * @param CurrencyInterface|string $currency
@@ -17,11 +17,91 @@ interface InvoiceInterface
     public function __construct($currency);
 
     /**
+     * @return null|InvoiceLineHeader
+     */
+    public function getHeader();
+
+    /**
+     * @return bool
+     */
+    public function hasHeader();
+
+    /**
+     * @return bool|InvoiceLineHeader
+     */
+    public function removeHeader();
+
+    /**
+     * @param InvoiceLineHeader $header
+     */
+    public function setHeader(InvoiceLineHeader $header);
+
+    /**
+     * Adds an Invoice line to the _default section of this invoice.
+     *
      * @param InvoiceLine $line
+     * @param string $id The ID of the line to make it identifiable so it can be retrieved with the getLine method.
      *
      * @return InvoiceInterface
      */
-    public function addLine(InvoiceLine $line) : InvoiceInterface;
+    public function addLine(InvoiceLine $line, string $id = null) : InvoiceInterface;
+
+    /**
+     * Returns a specifiv line of the _default section of the Invoice.
+     *
+     * @param string!int $id
+     * @return InvoiceLine
+     */
+    public function getLine($id);
+
+    /**
+     * @return array
+     */
+    public function getLines() : array;
+
+    /**
+     * @param string|int $id
+     * @return bool
+     */
+    public function hasLine($id);
+
+    /**
+     * @param string| int $id
+     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found.
+     */
+    public function removeLine($id);
+
+    /**
+     * @param InvoiceInterface $section
+     * @param string|null $id
+     * @return $this
+     */
+    public function addSection(InvoiceInterface $section, string $id = null);
+
+    /**
+     * Do not typecast as it can be also an integer
+     * {@inheritdoc}
+     */
+    public function getSection($id);
+
+    /**
+     * Get the sections of the Invoice.
+     *
+     * @return array
+     */
+    public function getSections() : array;
+
+    /**
+     * @param string|int $id
+     * @return bool
+     */
+    public function hasSection($id);
+
+    /**
+     * @param string|int $id
+     * @return bool|InvoiceInterface
+     */
+    public function removeSection($id);
 
     /**
      * @return CurrencyInterface
@@ -32,11 +112,6 @@ interface InvoiceInterface
      * @return \DateTime
      */
     public function getIssuedOn() : \DateTime;
-
-    /**
-     * @return array
-     */
-    public function getLines() : array;
 
     /**
      * @return MoneyInterface
@@ -52,4 +127,9 @@ interface InvoiceInterface
      * @return string|int
      */
     public function generateNumber();
+
+    /**
+     * Rehydrate the object when loaded from the database.
+     */
+    public function jsonUnserialize();
 }

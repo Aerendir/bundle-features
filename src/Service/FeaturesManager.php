@@ -122,7 +122,8 @@ class FeaturesManager
          * If it is activated again during the subscription interval, it were already paid, so it hasn't to be paid again.
          */
         foreach ($this->getDifferences('added') as $feature) {
-            if (false === $this->getSubscription()->getFeatures()->get($feature)->isStillActive()) {
+            $checkingFeature = $this->getSubscription()->getFeatures()->get($feature);
+            if (null !== $checkingFeature && false === $checkingFeature->isStillActive()) {
                 $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
                 if ($instantPrice instanceof MoneyInterface)
