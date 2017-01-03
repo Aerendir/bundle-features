@@ -36,8 +36,10 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                         ->prototype('array')
                             ->children()
-                                ->enumNode('type')->values(['boolean', 'rechargeable'])->end()
+                                ->enumNode('type')->values(['boolean', 'countable', 'rechargeable'])->end()
                                 ->scalarNode('enabled')->defaultFalse()->end()
+                                // @todo Only if type === Countable
+                                ->scalarNode('free_amount')->defaultNull()->end()
                                 // @todo Only if type === Rechargeable
                                 ->scalarNode('free_recharge')->defaultNull()->end()
                                 // @todo Only if type === Rechargeable

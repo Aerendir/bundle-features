@@ -9,13 +9,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class FeaturesCollection extends ArrayCollection implements \JsonSerializable
 {
-    /** @var FeaturesCollection $boolean */
+    /** @var FeaturesCollection $booleans */
     private $booleans;
+
+    /** @var FeaturesCollection $countables */
+    private $countables;
+
+    /** @var FeaturesCollection $rechargeables */
+    private $rechargeables;
 
     /**
      * @param array $elements
      */
-    public function __construct($elements = array())
+    public function __construct($elements = [])
     {
         if (null === $elements) {
             $elements = [];
@@ -28,6 +34,10 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
                     switch ($details['type']) {
                         case FeatureInterface::BOOLEAN:
                             $elements[$feature] = new BooleanFeature($feature, $details);
+                            break;
+
+                        case FeatureInterface::COUNTABLE:
+                            $elements[$feature] = new CountableFeature($feature, $details);
                             break;
 
                         case FeatureInterface::RECHARGEABLE:
@@ -61,6 +71,44 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
         }
 
         return $this->booleans;
+    }
+
+    /**
+     * @return FeaturesCollection
+     */
+    public function getCountableFeatures()
+    {
+        if (null === $this->countables) {
+            $predictate = function ($element) {
+                if ($element instanceof CountableFeatureInterface) {
+                    return $element;
+                }
+            };
+
+            // Cache the result
+            $this->countables = $this->filter($predictate);
+        }
+
+        return $this->countables;
+    }
+
+    /**
+     * @return FeaturesCollection
+     */
+    public function getRechargeableFeatures()
+    {
+        if (null === $this->rechargeables) {
+            $predictate = function ($element) {
+                if ($element instanceof RechargeableFeatureInterface) {
+                    return $element;
+                }
+            };
+
+            // Cache the result
+            $this->rechargeables = $this->filter($predictate);
+        }
+
+        return $this->rechargeables;
     }
 
     /**

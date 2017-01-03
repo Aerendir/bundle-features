@@ -4,8 +4,11 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\CountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -93,14 +96,31 @@ class FeaturesManager
 
         /**
          * @var string
-         * @var FeatureInterface $details
+         * @var FeatureInterface|BooleanFeatureInterface|CountableFeatureInterface|RechargeableFeatureInterface $details
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
-            $features[$name] = [
-                'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
-                'type' => $details->getType(),
-                'enabled' => $details->isEnabled(),
-            ];
+            switch ($details->getType()) {
+                case 'boolean':
+                    /** @var BooleanFeatureInterface $details */
+                    $features[$name] = [
+                        'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
+                        'type' => $details->getType(),
+                        'enabled' => $details->isEnabled(),
+                    ];
+                    break;
+                case 'countable':
+                    /** @var CountableFeatureInterface $details */
+                    $features[$name] = [
+                        'type' => $details->getType()
+                    ];
+                    break;
+                case 'rechargeable':
+                    /** @var RechargeableFeatureInterface $details */
+                    $features[$name] = [
+                        'type' => $details->getType()
+                    ];
+                    break;
+            }
         }
 
         return new FeaturesCollection($features);

@@ -15,6 +15,8 @@ class RechargeableFeature extends AbstractFeature implements RechargeableFeature
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
+        die(dump($details));
+
         parent::__construct($name, $details);
     }
 }
