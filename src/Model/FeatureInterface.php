@@ -16,8 +16,9 @@ interface FeatureInterface
 
     /**
      * FeatureInterface constructor.
+     *
      * @param string $name
-     * @param array $details
+     * @param array  $details
      */
     public function __construct(string $name, array $details = []);
 
@@ -44,8 +45,8 @@ interface FeatureInterface
     public function getName() : string;
 
     /**
-     * @param string|Currency $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string.
-     * @param string $subscriptionInterval
+     * @param string|Currency $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -54,8 +55,8 @@ interface FeatureInterface
     public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface;
 
     /**
-     * @param string|Currency $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string.
-     * @param string $subscriptionInterval
+     * @param string|Currency $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -82,7 +83,7 @@ interface FeatureInterface
 
     /**
      * @param CurrencyInterface $currency
-     * @param string $subscriptionInterval
+     * @param string            $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -104,6 +105,7 @@ interface FeatureInterface
      * Sets the date until which the feature is active.
      *
      * @param \DateTime $nextPaymentOn
+     *
      * @return FeatureInterface
      */
     public function setActiveUntil(\DateTime $nextPaymentOn) : FeatureInterface;
@@ -117,6 +119,7 @@ interface FeatureInterface
      * Sets the date on which the feature were subscribed.
      *
      * @param \DateTime $subscribedOn
+     *
      * @return FeatureInterface
      */
     public function setSubscribedOn(\DateTime $subscribedOn) : FeatureInterface;

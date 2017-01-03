@@ -17,8 +17,9 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
      */
     public function __construct($elements = array())
     {
-        if (null === $elements)
+        if (null === $elements) {
             $elements = [];
+        }
 
         if (0 < count($elements)) {
             foreach ($elements as $feature => $details) {
@@ -50,8 +51,9 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
     {
         if (null === $this->booleans) {
             $predictate = function ($element) {
-                if ($element instanceof BooleanFeatureInterface)
+                if ($element instanceof BooleanFeatureInterface) {
                     return $element;
+                }
             };
 
             // Cache the result
@@ -68,7 +70,7 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
     {
         $return = [];
         /**
-         * @var string $featureName
+         * @var string
          * @var FeatureInterface $featureDetils
          */
         foreach (parent::toArray() as $featureName => $featureDetils) {

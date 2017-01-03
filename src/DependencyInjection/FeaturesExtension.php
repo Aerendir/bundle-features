@@ -19,7 +19,7 @@ class FeaturesExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
         // Create services for features
         foreach ($config as $creatingServiceKey => $features) {
@@ -30,27 +30,27 @@ class FeaturesExtension extends Extension
     }
 
     /**
-     * @param string $name
-     * @param array $features
+     * @param string           $name
+     * @param array            $features
      * @param ContainerBuilder $containerBuilder
      */
     private function createFeaturesServices(string $name, array $features, ContainerBuilder $containerBuilder)
     {
         // Create the feature manager definition
         $featureManagerDefinition = new Definition(FeaturesManager::class, [$features]);
-        $serviceName = 'shq_features.manager.' . $name . '.features';
+        $serviceName = 'shq_features.manager.'.$name.'.features';
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
     }
 
     /**
-     * @param string $name
-     * @param array $features
+     * @param string           $name
+     * @param array            $features
      * @param ContainerBuilder $containerBuilder
      */
     private function createInvoicesServices(string $name, array $features, ContainerBuilder $containerBuilder)
     {
         $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$features]);
-        $serviceName = 'shq_features.manager.' . $name . '.invoices';
+        $serviceName = 'shq_features.manager.'.$name.'.invoices';
         $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);
     }
 
@@ -59,6 +59,7 @@ class FeaturesExtension extends Extension
      * subscription object.
      *
      * @param array $features
+     *
      * @return array
      */
     private function setAsFromConfiguration(array $features)

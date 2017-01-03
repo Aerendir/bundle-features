@@ -70,8 +70,9 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getHeader()
     {
-        if ($this->hasHeader())
+        if ($this->hasHeader()) {
             return $this->sections['_default']['_header'];
+        }
 
         return null;
     }
@@ -92,6 +93,7 @@ abstract class Invoice implements InvoiceInterface
         if ($this->hasHeader()) {
             $return = $this->getHeader();
             unset($this->sections['_default']['_header']);
+
             return $return;
         }
 
@@ -118,8 +120,9 @@ abstract class Invoice implements InvoiceInterface
                     throw new \InvalidArgumentException('You cannot add a line with id "_header" as it is a reserved word.');
                 }
 
-            if ($this->hasLine($id))
+            if ($this->hasLine($id)) {
                 throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
+            }
 
                 $this->sections['_default'][$id] = $line;
                 break;
@@ -154,6 +157,7 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * @param string|int $id
+     *
      * @return bool
      */
     public function hasLine($id)
@@ -167,13 +171,15 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * @param string| int $id
-     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found.
+     *
+     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found
      */
     public function removeLine($id)
     {
         if ($this->hasLine($id)) {
             $return = $this->sections['_default'][$id];
             unset($this->sections['_default'][$id]);
+
             return $return;
         }
 
@@ -182,7 +188,8 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * @param InvoiceInterface $section
-     * @param string|null $id
+     * @param string|null      $id
+     *
      * @return $this
      */
     public function addSection(InvoiceInterface $section, string $id = null)
@@ -194,8 +201,9 @@ abstract class Invoice implements InvoiceInterface
                     throw new \InvalidArgumentException('You cannot add a section with id "_default" as it is a reserved word.');
                 }
 
-                if ($this->hasSection($id))
+                if ($this->hasSection($id)) {
                     throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
+                }
 
                 $this->sections[$id] = $section;
                 break;
@@ -249,6 +257,7 @@ abstract class Invoice implements InvoiceInterface
         if ($this->hasSection($id)) {
             $return = $this->sections[$id];
             unset($this->sections[$id]);
+
             return $return;
         }
 
@@ -289,6 +298,7 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * {@inheritdoc}
+     *
      * @ORM\PostLoad()
      */
     public function jsonUnserialize()

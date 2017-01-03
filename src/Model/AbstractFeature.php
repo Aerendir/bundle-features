@@ -15,22 +15,22 @@ abstract class AbstractFeature implements FeatureInterface
     /** @var bool $fromConfiguration This is set to true only if the feature is loaded from a subscription object */
     private $fromConfiguration = false;
 
-    /** @var  \DateTime $activeUntil */
+    /** @var \DateTime $activeUntil */
     private $activeUntil;
 
-    /** @var  bool $enabled */
+    /** @var bool $enabled */
     private $enabled = false;
 
     /** @var array $instantPrices */
     private $instantPrices = [];
 
-    /** @var  string $name */
+    /** @var string $name */
     private $name;
 
-    /** @var  array $prices */
+    /** @var array $prices */
     private $prices = [];
 
-    /** @var  \DateTime $subscribedOn */
+    /** @var \DateTime $subscribedOn */
     private $subscribedOn;
 
     /** @var string $type */
@@ -48,8 +48,9 @@ abstract class AbstractFeature implements FeatureInterface
             $this->activeUntil = $details['active_until'] instanceof \DateTime ? $details['active_until'] : new \DateTime($details['active_until']['date'], new \DateTimeZone($details['active_until']['timezone']));
         }
 
-        if (isset($details['enabled']) && true === $details['enabled'])
+        if (isset($details['enabled']) && true === $details['enabled']) {
             $this->enable();
+        }
 
         if (isset($details['prices'])) {
             $this->setPrices($details['prices']);
@@ -108,11 +109,13 @@ abstract class AbstractFeature implements FeatureInterface
      */
     public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface
     {
-        if ($currency instanceof CurrencyInterface)
+        if ($currency instanceof CurrencyInterface) {
             $currency = $currency->getCurrencyCode();
+        }
 
-        if (false === isset($this->instantPrices[$currency][$subscriptionInterval]))
+        if (false === isset($this->instantPrices[$currency][$subscriptionInterval])) {
             $this->instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval);
+        }
 
         return $this->instantPrices[$currency][$subscriptionInterval];
     }
@@ -122,8 +125,9 @@ abstract class AbstractFeature implements FeatureInterface
      */
     public function getPrice($currency, string $subscriptionInterval)
     {
-        if (is_string($currency))
+        if (is_string($currency)) {
             $currency = new Currency($currency);
+        }
 
         Subscription::checkIntervalExists($subscriptionInterval);
 
@@ -135,8 +139,9 @@ abstract class AbstractFeature implements FeatureInterface
      */
     public function getPrices() : array
     {
-        if (false === $this->fromConfiguration)
+        if (false === $this->fromConfiguration) {
             throw new \LogicException('You cannot get all prices, a single price or calculate instant prices from a Feature loaded from a subscription object and this is loaded from one of it. Use only Feature objects loaded directly from configuration files.');
+        }
 
         return $this->prices;
     }
@@ -189,30 +194,6 @@ abstract class AbstractFeature implements FeatureInterface
 
     /**
      * @return array
-     *
-    public function getPrices()
-    {
-        $return = [];
-
-        // Process boolean features
-        foreach ($this->getFeaturesHandler()->getFeatures() as $feature => $details) {
-            dump($feature, $details);
-            // Process prices
-            /*
-            foreach ($details['price'] as $currency => $prices) {
-                $amountMonth = $details['enabled'] ? 0 : $prices['month'];
-                $amountYear = $details['enabled'] ? 0 : $prices['year'];
-                $return[$feature][$currency]['month'] = new Money(['amount' => $amountMonth, 'currency' => new Currency($currency)]);
-                $return[$feature][$currency]['year'] = new Money(['amount' => $amountYear, 'currency' => new Currency($currency)]);
-                $instantMont = $this->calculateInstantPrice($this->getSubscription(), $feature);
-                $return[$feature][$currency]['instantMonth'] = new Money(['amount' => $instantMont, 'currency' => new Currency($currency)]);
-            }
-            *
-        }
-        die;
-
-        return $return;
-    }
      */
 
     /**
@@ -248,7 +229,7 @@ abstract class AbstractFeature implements FeatureInterface
                     $amount = $price[SubscriptionInterface::MONTHLY];
                     if (!$amount instanceof MoneyInterface) {
                         $amount = new Money([
-                            'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency
+                            'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency,
                         ]);
                     }
                     $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::MONTHLY] = $amount;
@@ -258,7 +239,7 @@ abstract class AbstractFeature implements FeatureInterface
                     $amount = $price[SubscriptionInterface::YEARLY];
                     if (!$amount instanceof MoneyInterface) {
                         $amount = new Money([
-                            'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency
+                            'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency,
                         ]);
                     }
                     $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::YEARLY] = $amount;
@@ -275,7 +256,7 @@ abstract class AbstractFeature implements FeatureInterface
         return [
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
             'type' => $this->getType(),
-            'enabled' => $this->isEnabled()
+            'enabled' => $this->isEnabled(),
         ];
     }
 
@@ -313,7 +294,7 @@ abstract class AbstractFeature implements FeatureInterface
         // Calculate the remaining days
         $remainingDays = clone $this->activeUntil;
 
-        /** @var \DateInterval $remainingDays */
+        /* @var \DateInterval $remainingDays */
         $remainingDays->diff(new \DateTime());
 
         $instantPrice = $pricePerDay * $remainingDays->days;

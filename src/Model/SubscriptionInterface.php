@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
@@ -13,10 +12,11 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface SubscriptionInterface
 {
     const MONTHLY = 'monthly';
-    const YEARLY  = 'yearly';
+    const YEARLY = 'yearly';
 
     /**
      * @param string $interval
+     *
      * @return \DateTime
      */
     public static function calculateActiveUntil(string $interval) : \DateTime;
@@ -30,13 +30,15 @@ interface SubscriptionInterface
 
     /**
      * @param string $interval
+     *
      * @return bool
      */
     public static function intervalExists(string $interval) : bool;
 
     /**
-     * @param string $featureName
+     * @param string           $featureName
      * @param FeatureInterface $feature
+     *
      * @return SubscriptionInterface
      */
     public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface;
@@ -62,7 +64,7 @@ interface SubscriptionInterface
      *
      * @return string
      */
-    public function getInterval() : string ;
+    public function getInterval() : string;
 
     /**
      * @return MoneyInterface
@@ -81,25 +83,30 @@ interface SubscriptionInterface
 
     /**
      * @param string $feature
+     *
      * @return bool
      */
     public function has(string $feature) : bool;
 
     /**
      * Shortcut method to check if a Feature in the subscription is still active.
+     *
      * @param string $feature
+     *
      * @return bool
      */
     public function isStillActive(string $feature) : bool;
 
     /**
      * @param CurrencyInterface $currency
+     *
      * @return SubscriptionInterface
      */
     public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface;
 
     /**
      * @param FeaturesCollection $features
+     *
      * @return SubscriptionInterface
      */
     public function setFeatures(FeaturesCollection $features) : SubscriptionInterface;

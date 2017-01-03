@@ -2,9 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Money\Money;
-
 /**
  * This entity will never be persisted.
  *
@@ -53,7 +50,7 @@ class InvoiceLineHeader implements \JsonSerializable
     public function __toArray()
     {
         return [
-            'header' => $this->getHeader()
+            'header' => $this->getHeader(),
         ];
     }
 }

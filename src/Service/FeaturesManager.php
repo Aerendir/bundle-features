@@ -20,16 +20,16 @@ use Symfony\Component\Form\FormFactory;
  */
 class FeaturesManager
 {
-    /** @var  FeaturesCollection $configuredFeatures */
+    /** @var FeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
     /** @var FormFactory $formFactory */
     private $formFactory;
 
-    /** @var  InvoicesManager $invoicesManager */
+    /** @var InvoicesManager $invoicesManager */
     private $invoicesManager;
 
-    /** @var  SubscriptionInterface $subscription */
+    /** @var SubscriptionInterface $subscription */
     private $subscription;
 
     /**
@@ -42,7 +42,7 @@ class FeaturesManager
 
     /** @var array $differences The added and removed features */
     private $differences = [
-            'added'   => [],
+            'added' => [],
             'removed' => [],
         ];
 
@@ -81,6 +81,7 @@ class FeaturesManager
 
     /**
      * @param string $subscriptionInterval
+     *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return FeaturesCollection
@@ -91,14 +92,14 @@ class FeaturesManager
         $features = [];
 
         /**
-         * @var string $name
+         * @var string
          * @var FeatureInterface $details
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             $features[$name] = [
                 'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                 'type' => $details->getType(),
-                'enabled' => $details->isEnabled()
+                'enabled' => $details->isEnabled(),
             ];
         }
 
@@ -108,6 +109,7 @@ class FeaturesManager
     /**
      * @param FeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
      *                                        not yet synced with these new Features!
+     *
      * @return Money
      */
     public function calculateTotalChargesForNewFeatures(FeaturesCollection $newFeatures)
@@ -126,8 +128,9 @@ class FeaturesManager
             if (null !== $checkingFeature && false === $checkingFeature->isStillActive()) {
                 $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
-                if ($instantPrice instanceof MoneyInterface)
+                if ($instantPrice instanceof MoneyInterface) {
                     $totalCharges = $totalCharges->add($instantPrice);
+                }
             }
         }
 
@@ -153,8 +156,9 @@ class FeaturesManager
     }
 
     /**
-     * @param string $actionUrl
+     * @param string                $actionUrl
      * @param SubscriptionInterface $subscription
+     *
      * @return FormBuilderInterface
      */
     public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription)
@@ -165,7 +169,7 @@ class FeaturesManager
         ])
             ->add('features', FeaturesType::class, [
                 'data' => $subscription->getFeatures()->toArray(),
-                'configured_features' => $this->getConfiguredFeatures()
+                'configured_features' => $this->getConfiguredFeatures(),
             ]);
 
         $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
@@ -184,7 +188,7 @@ class FeaturesManager
      *
      * @return FeaturesCollection
      *
-     * @todo Method to implement.
+     * @todo Method to implement
      */
     public function getPremiumFeaturesReview()
     {
@@ -193,12 +197,11 @@ class FeaturesManager
 
     /**
      * @param SubscriptionInterface $subscription
-     * @param FeaturesCollection $features
+     * @param FeaturesCollection    $features
      */
     public function syncSubscription(SubscriptionInterface $subscription, FeaturesCollection $features)
     {
-        foreach ($features as $featureName => $feature)
-        {
+        foreach ($features as $featureName => $feature) {
             $toggle = $feature->isEnabled() ? 'enable' : 'disable';
             $subscription->getFeatures()->get($featureName)->$toggle();
         }
@@ -218,7 +221,7 @@ class FeaturesManager
         /**
          * Before all, update the features, setting the new enabled status or adding the feature if not already present.
          *
-         * @var FeatureInterface $newFeature
+         * @var FeatureInterface
          */
         foreach ($newFeatures as $newFeature) {
             $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
@@ -245,13 +248,13 @@ class FeaturesManager
         $total = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
 
         /** @var FeatureInterface $feature */
-        foreach ($this->getSubscription()->getFeatures() as $feature)
-        {
+        foreach ($this->getSubscription()->getFeatures() as $feature) {
             if ($feature->isEnabled() && $feature instanceof BooleanFeature) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
-                if ($price instanceof MoneyInterface)
+                if ($price instanceof MoneyInterface) {
                     $total = $total->add($price);
+                }
             }
         }
 
@@ -277,7 +280,7 @@ class FeaturesManager
          * 1. It was in the old collection but doesn't exist in the new collection;
          * 2. It was in the old collection and was enabled and is in the new collection but is not enabled
          *
-         * @var FeatureInterface $oldFeatures
+         * @var FeatureInterface
          */
         foreach ($oldFeatures as $oldFeature) {
             // If the feature is in the old collection but doesn't exist in the new collection...
@@ -304,7 +307,7 @@ class FeaturesManager
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
          *
-         * @var FeatureInterface $newFeatures
+         * @var FeatureInterface
          */
         foreach ($newFeatures as $newFeature) {
             // If the feature was not in the old collection but exists in the new collection...
@@ -361,7 +364,7 @@ class FeaturesManager
      * by the merchant and returns the corresponding value in binary format.
      *
      * @param  $features
-     * @param array                  $options
+     * @param array $options
      *
      * @return int
      */

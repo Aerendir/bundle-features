@@ -14,10 +14,10 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 class InvoicesManager
 {
-    /** @var  FeaturesCollection $configuredFeatures */
+    /** @var FeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
-    /** @var  SubscriptionInterface $subscription */
+    /** @var SubscriptionInterface $subscription */
     private $subscription;
 
     /**
@@ -64,7 +64,7 @@ class InvoicesManager
      * If the second argument $addedFeatures is passed, the invoice is populated only with new features added.
      *
      * @param InvoiceInterface $invoice
-     * @param array $addedFeatures
+     * @param array            $addedFeatures
      *
      * @return InvoiceInterface
      */
@@ -72,8 +72,9 @@ class InvoicesManager
     {
         /** @var FeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
-            if (false === $feature->isEnabled())
+            if (false === $feature->isEnabled()) {
                 continue;
+            }
 
             /*
              * If $addedFeatures is passed we have to create an invoice for the new features only.
@@ -81,7 +82,7 @@ class InvoicesManager
              * So, if the current processing feature is not in the $addedFeatures array, we don't have to include it in
              * the new Invoice.
              */
-            if (null !== $addedFeatures && false  === in_array($feature->getName(), $addedFeatures)) {
+            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures)) {
                 continue;
             }
 

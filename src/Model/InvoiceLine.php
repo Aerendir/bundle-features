@@ -102,10 +102,10 @@ class InvoiceLine implements \JsonSerializable
     public function __toArray()
     {
         return [
-            'amount'      => $this->getAmount()->getAmount(),
-            'currency'    => $this->getAmount()->getCurrency()->getCurrencyCode(),
+            'amount' => $this->getAmount()->getAmount(),
+            'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
             'description' => $this->getDescription(),
-            'quantity'    => $this->getQuantity(),
+            'quantity' => $this->getQuantity(),
         ];
     }
 }

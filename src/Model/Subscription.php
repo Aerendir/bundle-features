@@ -24,7 +24,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var FeaturesCollection $featuresCollection
+     * @var FeaturesCollection
      *
      * @ORM\Column(name="features", type="json_array", nullable=true)
      */
@@ -87,8 +87,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public static function checkIntervalExists(string $interval)
     {
-        if (false === self::intervalExists($interval))
+        if (false === self::intervalExists($interval)) {
             throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
+        }
     }
 
     /**
@@ -153,8 +154,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function has(string $feature) : bool
     {
-        if (0 >= count($this->getFeatures()))
+        if (0 >= count($this->getFeatures())) {
             return false;
+        }
 
         return $this->getFeatures()->containsKey($feature);
     }
@@ -164,8 +166,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function isStillActive(string $feature) : bool
     {
-        if (false === $this->has($feature))
+        if (false === $this->has($feature)) {
             return false;
+        }
 
         return $this->getFeatures()->get($feature)->isStillActive();
     }

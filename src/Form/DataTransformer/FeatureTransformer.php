@@ -46,8 +46,9 @@ class FeatureTransformer implements DataTransformerInterface
      */
     public function transform($feature)
     {
-        if ($feature instanceof BooleanFeatureInterface)
+        if ($feature instanceof BooleanFeatureInterface) {
             return $feature->isEnabled();
+        }
 
         return false;
     }

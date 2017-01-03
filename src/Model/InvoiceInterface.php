@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use Doctrine\ORM\Mapping as ORM;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -40,7 +39,7 @@ interface InvoiceInterface extends \JsonSerializable
      * Adds an Invoice line to the _default section of this invoice.
      *
      * @param InvoiceLine $line
-     * @param string $id The ID of the line to make it identifiable so it can be retrieved with the getLine method.
+     * @param string      $id   The ID of the line to make it identifiable so it can be retrieved with the getLine method
      *
      * @return InvoiceInterface
      */
@@ -50,6 +49,7 @@ interface InvoiceInterface extends \JsonSerializable
      * Returns a specifiv line of the _default section of the Invoice.
      *
      * @param string!int $id
+     *
      * @return InvoiceLine
      */
     public function getLine($id);
@@ -61,19 +61,22 @@ interface InvoiceInterface extends \JsonSerializable
 
     /**
      * @param string|int $id
+     *
      * @return bool
      */
     public function hasLine($id);
 
     /**
      * @param string| int $id
-     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found.
+     *
+     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found
      */
     public function removeLine($id);
 
     /**
      * @param InvoiceInterface $section
-     * @param string|null $id
+     * @param string|null      $id
+     *
      * @return $this
      */
     public function addSection(InvoiceInterface $section, string $id = null);
@@ -93,12 +96,14 @@ interface InvoiceInterface extends \JsonSerializable
 
     /**
      * @param string|int $id
+     *
      * @return bool
      */
     public function hasSection($id);
 
     /**
      * @param string|int $id
+     *
      * @return bool|InvoiceInterface
      */
     public function removeSection($id);

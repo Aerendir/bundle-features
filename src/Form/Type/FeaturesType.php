@@ -46,7 +46,7 @@ class FeaturesType extends AbstractType
         parent::setDefaultOptions($resolver);
 
         $resolver->setRequired([
-            'configured_features'
+            'configured_features',
         ]);
     }
 }

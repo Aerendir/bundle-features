@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 class SetManagersCompilerPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -32,7 +32,7 @@ class SetManagersCompilerPass implements CompilerPassInterface
                 $formFactoryDefinition = $container->findDefinition('form.factory');
                 $managerDefinition->addMethodCall('setFormFactory', [$formFactoryDefinition]);
 
-                $invoicesManagerAlias = $aliasIdParts[0] . '.' . $aliasIdParts[1] . '.' . $aliasIdParts[2] . '.invoices';
+                $invoicesManagerAlias = $aliasIdParts[0].'.'.$aliasIdParts[1].'.'.$aliasIdParts[2].'.invoices';
                 $invoicesManagerDefinition = $container->findDefinition($invoicesManagerAlias);
                 $managerDefinition->addMethodCall('setInvoicesManager', [$invoicesManagerDefinition]);
             }
