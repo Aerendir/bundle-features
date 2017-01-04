@@ -2,11 +2,21 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Traits\SimplePricesTrait;
+
 /**
  * {@inheritdoc}
  */
 class RechargeableFeature extends AbstractFeature implements RechargeableFeatureInterface
 {
+    use SimplePricesTrait;
+
+    /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
+    private $freeRecharge;
+
+    /** @var  array $packs */
+    private $packs;
+
     /**
      * {@inheritdoc}
      */
@@ -15,8 +25,44 @@ class RechargeableFeature extends AbstractFeature implements RechargeableFeature
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
-        die(dump($details));
+        $this->freeRecharge = $details['free_recharge'] ?? 0;
+
+        if (isset($details['packs']))
+            $this->setPacks($details['packs']);
+
+        if (isset($details['unitary_prices']))
+            $this->setPrices($details['unitary_prices']);
 
         parent::__construct($name, $details);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFreeRecharge() : int
+    {
+        return $this->freeRecharge;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setFreeRecharge(int $freeRecharge) : RechargeableFeatureInterface
+    {
+        $this->freeRecharge = $freeRecharge;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPacks(array $packs) : RechargeableFeatureInterface
+    {
+        foreach ($packs as $numOfUnits => $prices) {
+            $this->packs[(int) $numOfUnits] = new RechargeableFeaturePack($numOfUnits, $prices);
+        }
+
+        return $this;
     }
 }

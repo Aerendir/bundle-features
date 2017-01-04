@@ -72,13 +72,13 @@ trait RecurringFeatureTrait
      */
     public function getPrice($currency, string $subscriptionInterval)
     {
-        if (is_string($currency)) {
-            $currency = new Currency($currency);
+        if ($currency instanceof CurrencyInterface) {
+            $currency = $currency->getCurrencyCode();
         }
 
         Subscription::checkIntervalExists($subscriptionInterval);
 
-        return $this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => $currency]);
+        return $this->getPrices()[$currency][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
     }
 
     /**
@@ -104,11 +104,15 @@ trait RecurringFeatureTrait
     /**
      * {@inheritdoc}
      */
-    public function hasPrice(CurrencyInterface $currency, string $subscriptionInterval) : bool
+    public function hasPrice($currency, string $subscriptionInterval) : bool
     {
         Subscription::checkIntervalExists($subscriptionInterval);
 
-        return isset($this->getPrices()[$currency->getCurrencyCode()][$subscriptionInterval]);
+        if ($currency instanceof CurrencyInterface) {
+            $currency = $currency->getCurrencyCode();
+        }
+
+        return isset($this->getPrices()[$currency][$subscriptionInterval]);
     }
 
     /**

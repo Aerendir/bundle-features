@@ -49,14 +49,14 @@ interface RecurringFeatureInterface extends FeatureInterface
     public function getSubscribedOn() : \DateTime;
 
     /**
-     * @param CurrencyInterface $currency
+     * @param CurrencyInterface|string $currency
      * @param string            $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return bool
      */
-    public function hasPrice(CurrencyInterface $currency, string $subscriptionInterval) : bool;
+    public function hasPrice($currency, string $subscriptionInterval) : bool;
 
     /**
      * @return bool
