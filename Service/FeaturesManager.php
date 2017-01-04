@@ -8,7 +8,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -117,7 +119,9 @@ class FeaturesManager
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
-                        'type' => $details->getType()
+                        'type' => $details->getType(),
+                        'recharge_amount' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'active_until' => $activeUntil
                     ];
                     break;
             }
@@ -269,7 +273,7 @@ class FeaturesManager
 
         /** @var FeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
-            if ($feature->isEnabled() && $feature instanceof SubscribedBooleanFeatureInterface) {
+            if ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled()) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
                 if ($price instanceof MoneyInterface) {
@@ -375,7 +379,9 @@ class FeaturesManager
 
             /** @var FeatureInterface $updatingFeature */
             $updatingFeature = $this->getSubscription()->getFeatures()->get($feature);
-            $updatingFeature->setActiveUntil($validUntil);
+
+            if ($updatingFeature instanceof SubscribedRecurringFeatureInterface)
+                $updatingFeature->setActiveUntil($validUntil);
         }
     }
 

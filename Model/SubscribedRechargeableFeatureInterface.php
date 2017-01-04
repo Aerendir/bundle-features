@@ -2,21 +2,19 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
-
 /**
  * {@inheritdoc}
  */
-interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, HasUnatantumPricesInterface
+interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
 {
     /**
      * @return int
      */
-    public function getFreeRecharge() : int;
+    public function getRechargeAmount() : int;
 
     /**
      * @param int $freeRecharge
      * @return SubscribedRechargeableFeatureInterface
      */
-    public function setFreeRecharge(int $freeRecharge) : SubscribedRechargeableFeatureInterface;
+    public function setRechargeAmount(int $freeRecharge) : SubscribedRechargeableFeatureInterface;
 }

@@ -2,17 +2,19 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
 class SubscribedRechargeableFeature extends AbstractFeature implements SubscribedRechargeableFeatureInterface
 {
-    use UnatantumPricesProperty;
+    use RecurringFeatureProperty {
+        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
+    }
 
-    /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
-    private $freeRecharge;
+    /** @var  int $rechargeAmount The amount of free units of this feature recharged each time */
+    private $rechargeAmount;
 
     /**
      * {@inheritdoc}
@@ -22,26 +24,38 @@ class SubscribedRechargeableFeature extends AbstractFeature implements Subscribe
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
-        $this->freeRecharge = $details['free_recharge'] ?? 0;
+        $this->rechargeAmount = $details['recharge_amount'] ?? 0;
 
+        $this->RecurringFeatureConstruct($details);
         parent::__construct($name, $details);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getFreeRecharge() : int
+    public function getRechargeAmount() : int
     {
-        return $this->freeRecharge;
+        return $this->rechargeAmount;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setFreeRecharge(int $freeRecharge) : SubscribedRechargeableFeatureInterface
+    public function setRechargeAmount(int $rechargeAmount) : SubscribedRechargeableFeatureInterface
     {
-        $this->freeRecharge = $freeRecharge;
+        $this->rechargeAmount = $rechargeAmount;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        return array_merge([
+            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
+            'recharge_amount' => $this->getRechargeAmount()
+        ], parent::toArray());
     }
 }
