@@ -78,8 +78,7 @@ class FeaturesManager
     {
         $this->subscription = $subscription;
         $this->getInvoicesManager()->setSubscription($this->getSubscription());
-
-        //$this->configurePricesInSubscriptionFeatures($subscription);
+        $this->getConfiguredFeatures()->setSubscription($this->getSubscription());
 
         return $this;
     }
