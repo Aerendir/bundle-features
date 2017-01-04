@@ -13,17 +13,29 @@ class CountableFeature extends AbstractFeature implements CountableFeatureInterf
         RecurringFeatureProperty::__construct as RecurringConstruct;
     }
 
+    private $freeAmount;
+
     /**
      * {@inheritdoc}
      */
     public function __construct(string $name, array $details = [])
     {
+        $this->freeAmount = $details['free_amount'] ?? 0;
+
         // Set the type
         $details['type'] = self::COUNTABLE;
 
         $this->RecurringConstruct($details);
 
         parent::__construct($name, $details);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFreeAmount() : int
+    {
+        return $this->freeAmount;
     }
 
     /**

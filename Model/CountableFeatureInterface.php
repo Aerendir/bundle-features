@@ -7,4 +7,8 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 interface CountableFeatureInterface extends RecurringFeatureInterface
 {
+    /**
+     * @return int
+     */
+    public function getFreeAmount() : int;
 }

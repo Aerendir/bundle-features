@@ -18,56 +18,45 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\CountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeature;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * {@inheritdoc}
  */
-class FeatureTransformer implements DataTransformerInterface
+class RechargeableFeatureTransformer extends AbstractFeatureTransformer
 {
-    /** @var string $field */
-    private $featureName;
-
-    /**
-     * @param string $featureName
-     */
-    public function __construct(string $featureName)
-    {
-        $this->featureName = $featureName;
-    }
-
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
-     * @param FeatureInterface|null $feature
+     * @param RechargeableFeature|null $feature
      *
      * @return string
      */
     public function transform($feature)
     {
-        if ($feature instanceof BooleanFeatureInterface) {
-            return $feature->isEnabled();
+        if ($feature instanceof RechargeableFeature) {
+            return $feature->getFreeRecharge();
         }
 
-        return false;
+        if (null === $feature) {
+            return 0;
+        }
+
+        return $feature;
     }
 
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param string $feature
+     * @param string $enabled
      *
      * @return FeatureInterface
      */
-    public function reverseTransform($feature)
+    public function reverseTransform($enabled)
     {
-        switch (gettype($feature)) {
-            case 'boolean':
-                return new BooleanFeature($this->featureName, ['enabled' => $feature]);
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Features of kind "%s" are not supported.', gettype($feature)));
-        }
+        die(dump($enabled));
     }
 }
