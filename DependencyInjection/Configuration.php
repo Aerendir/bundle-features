@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                         ->prototype('array')
                             ->children()
-                                ->enumNode('type')->values(['boolean', 'countable', 'rechargeable'])->end()
+                                ->enumNode('type')->values(['boolean', 'countable', 'rechargeable'])->isRequired()->cannotBeEmpty()->end()
                                 ->scalarNode('enabled')->defaultFalse()->end()
                                 // @todo Only if type === Countable
                                 ->scalarNode('free_amount')->defaultNull()->end()
