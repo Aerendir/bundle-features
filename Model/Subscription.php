@@ -24,7 +24,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var FeaturesCollection
+     * @var ConfiguredFeaturesCollection
      *
      * @ORM\Column(name="features", type="json_array", nullable=true)
      */
@@ -111,7 +111,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getFeatures() : FeaturesCollection
+    public function getFeatures() : ConfiguredFeaturesCollection
     {
         return $this->features;
     }
@@ -186,7 +186,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setFeatures(FeaturesCollection $features) : SubscriptionInterface
+    public function setFeatures(ConfiguredFeaturesCollection $features) : SubscriptionInterface
     {
         $this->features = $features;
 
@@ -270,6 +270,6 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function hydrateFeatures()
     {
-        $this->features = new FeaturesCollection($this->features);
+        $this->features = new ConfiguredFeaturesCollection($this->features);
     }
 }

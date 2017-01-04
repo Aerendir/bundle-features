@@ -5,7 +5,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * {@inheritdoc}
  */
-interface BooleanFeatureInterface extends RecurringFeatureInterface
+interface ConfiguredBooleanFeatureInterface extends ConfiguredRecurringFeatureInterface
 {
     /**
      * @return FeatureInterface

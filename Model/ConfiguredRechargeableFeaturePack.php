@@ -7,9 +7,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesProperty;
 /**
  * RechargeableFeatures can be bought in packs.
  *
- * A Pack represents an amount of units of the RechargeableFeature with a corrispondent price.
+ * A Pack represents an amount of units of the ConfiguredConfiguredRechargeableFeature with a corrispondent price.
  */
-class RechargeableFeaturePack
+class ConfiguredRechargeableFeaturePack
 {
     use SimplePricesProperty;
 

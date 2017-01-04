@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 /**
  * {@inheritdoc}
  */
-class CountableFeature extends AbstractFeature implements CountableFeatureInterface
+class ConfiguredConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterfaceConfigured
 {
     use RecurringFeatureProperty {
         RecurringFeatureProperty::__construct as RecurringConstruct;

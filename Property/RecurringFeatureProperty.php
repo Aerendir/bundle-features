@@ -11,7 +11,7 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
- * Common properties and methods of a RecurringFeatureInterface.
+ * Common properties and methods of a ConfiguredRecurringFeatureInterface.
  *
  * @method isFromConfiguration() Is contained in AbstractFeature
  */

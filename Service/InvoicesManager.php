@@ -3,7 +3,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
@@ -14,7 +14,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 class InvoicesManager
 {
-    /** @var FeaturesCollection $configuredFeatures */
+    /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
     /** @var SubscriptionInterface $subscription */
@@ -25,15 +25,15 @@ class InvoicesManager
      */
     public function __construct(array $configuredFeatures)
     {
-        $this->configuredFeatures = new FeaturesCollection($configuredFeatures);
+        $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
     }
 
     /**
      * Returns all the configured features.
      *
-     * @return FeaturesCollection
+     * @return ConfiguredFeaturesCollection
      */
-    public function getConfiguredFeatures() : FeaturesCollection
+    public function getConfiguredFeatures() : ConfiguredFeaturesCollection
     {
         return $this->configuredFeatures;
     }

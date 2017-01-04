@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesProperty;
 /**
  * {@inheritdoc}
  */
-class RechargeableFeature extends AbstractFeature implements RechargeableFeatureInterface
+class ConfiguredConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
 {
     use SimplePricesProperty;
 
@@ -47,7 +47,7 @@ class RechargeableFeature extends AbstractFeature implements RechargeableFeature
     /**
      * {@inheritdoc}
      */
-    public function setFreeRecharge(int $freeRecharge) : RechargeableFeatureInterface
+    public function setFreeRecharge(int $freeRecharge) : ConfiguredRechargeableFeatureInterface
     {
         $this->freeRecharge = $freeRecharge;
 
@@ -57,10 +57,10 @@ class RechargeableFeature extends AbstractFeature implements RechargeableFeature
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs) : RechargeableFeatureInterface
+    public function setPacks(array $packs) : ConfiguredRechargeableFeatureInterface
     {
         foreach ($packs as $numOfUnits => $prices) {
-            $this->packs[(int) $numOfUnits] = new RechargeableFeaturePack($numOfUnits, $prices);
+            $this->packs[(int) $numOfUnits] = new ConfiguredRechargeableFeaturePack($numOfUnits, $prices);
         }
 
         return $this;

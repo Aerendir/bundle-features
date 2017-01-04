@@ -51,11 +51,11 @@ interface SubscriptionInterface
     public function getCurrency();
 
     /**
-     * Forces the features to be returned as a FeaturesCollection.
+     * Forces the features to be returned as a ConfiguredFeaturesCollection.
      *
-     * @return FeaturesCollection
+     * @return ConfiguredFeaturesCollection
      */
-    public function getFeatures() : FeaturesCollection;
+    public function getFeatures() : ConfiguredFeaturesCollection;
 
     /**
      * Get the current subscription interval.
@@ -105,11 +105,11 @@ interface SubscriptionInterface
     public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface;
 
     /**
-     * @param FeaturesCollection $features
+     * @param ConfiguredFeaturesCollection $features
      *
      * @return SubscriptionInterface
      */
-    public function setFeatures(FeaturesCollection $features) : SubscriptionInterface;
+    public function setFeatures(ConfiguredFeaturesCollection $features) : SubscriptionInterface;
 
     /**
      * @param string $interval

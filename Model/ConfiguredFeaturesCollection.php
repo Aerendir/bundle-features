@@ -7,15 +7,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * {@inheritdoc}
  */
-class FeaturesCollection extends ArrayCollection implements \JsonSerializable
+class ConfiguredFeaturesCollection extends ArrayCollection implements \JsonSerializable
 {
-    /** @var FeaturesCollection $booleans */
+    /** @var ConfiguredFeaturesCollection $booleans */
     private $booleans;
 
-    /** @var FeaturesCollection $countables */
+    /** @var ConfiguredFeaturesCollection $countables */
     private $countables;
 
-    /** @var FeaturesCollection $rechargeables */
+    /** @var ConfiguredFeaturesCollection $rechargeables */
     private $rechargeables;
 
     /**
@@ -33,15 +33,15 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
                 if (is_array($details)) {
                     switch ($details['type']) {
                         case FeatureInterface::BOOLEAN:
-                            $elements[$feature] = new BooleanFeature($feature, $details);
+                            $elements[$feature] = new ConfiguredBooleanFeatureBooleanFeatureInterface($feature, $details);
                             break;
 
                         case FeatureInterface::COUNTABLE:
-                            $elements[$feature] = new CountableFeature($feature, $details);
+                            $elements[$feature] = new ConfiguredConfiguredCountableFeature($feature, $details);
                             break;
 
                         case FeatureInterface::RECHARGEABLE:
-                            $elements[$feature] = new RechargeableFeature($feature, $details);
+                            $elements[$feature] = new ConfiguredConfiguredRechargeableFeature($feature, $details);
                             break;
 
                         default:
@@ -55,13 +55,13 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
     }
 
     /**
-     * @return FeaturesCollection
+     * @return ConfiguredFeaturesCollection
      */
     public function getBooleanFeatures()
     {
         if (null === $this->booleans) {
             $predictate = function ($element) {
-                if ($element instanceof BooleanFeatureInterface) {
+                if ($element instanceof ConfiguredBooleanFeatureInterface) {
                     return $element;
                 }
             };
@@ -74,13 +74,13 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
     }
 
     /**
-     * @return FeaturesCollection
+     * @return ConfiguredFeaturesCollection
      */
     public function getCountableFeatures()
     {
         if (null === $this->countables) {
             $predictate = function ($element) {
-                if ($element instanceof CountableFeatureInterface) {
+                if ($element instanceof ConfiguredCountableFeatureInterfaceConfigured) {
                     return $element;
                 }
             };
@@ -93,13 +93,13 @@ class FeaturesCollection extends ArrayCollection implements \JsonSerializable
     }
 
     /**
-     * @return FeaturesCollection
+     * @return ConfiguredFeaturesCollection
      */
     public function getRechargeableFeatures()
     {
         if (null === $this->rechargeables) {
             $predictate = function ($element) {
-                if ($element instanceof RechargeableFeatureInterface) {
+                if ($element instanceof ConfiguredRechargeableFeatureInterface) {
                     return $element;
                 }
             };

@@ -7,7 +7,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * {@inheritdoc}
  */
-interface RecurringFeatureInterface extends FeatureInterface
+interface ConfiguredRecurringFeatureInterface extends FeatureInterface
 {
     /**
      * The date until which the feature is active.

@@ -16,11 +16,11 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\CountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredConfiguredRechargeableFeature;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -31,13 +31,13 @@ class RechargeableFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
-     * @param RechargeableFeature|null $feature
+     * @param ConfiguredConfiguredRechargeableFeature|null $feature
      *
      * @return string
      */
     public function transform($feature)
     {
-        if ($feature instanceof RechargeableFeature) {
+        if ($feature instanceof ConfiguredConfiguredRechargeableFeature) {
             return $feature->getFreeRecharge();
         }
 

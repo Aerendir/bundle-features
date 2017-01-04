@@ -2,8 +2,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -33,7 +33,7 @@ interface SimplePricesInterface
 
     /**
      * @param array $prices
-     * @return RechargeableFeatureInterface|RechargeableFeaturePack
+     * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
      */
     public function setPrices(array $prices);
 }

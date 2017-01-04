@@ -2,8 +2,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -57,7 +57,7 @@ trait SimplePricesProperty
 
     /**
      * @param array $prices
-     * @return RechargeableFeatureInterface|RechargeableFeaturePack
+     * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
      */
     public function setPrices(array $prices)
     {
@@ -65,7 +65,7 @@ trait SimplePricesProperty
             $this->prices[$currency] = new Money(['amount' => $price, 'currency' => new Currency($currency)]);
         }
 
-        /** @var RechargeableFeatureInterface|RechargeableFeaturePack $this */
+        /** @var ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack $this */
         return $this;
     }
 }

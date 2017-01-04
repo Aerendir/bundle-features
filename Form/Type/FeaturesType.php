@@ -19,10 +19,10 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\BooleanFeatureTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\CountableFeatureTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\RechargeableFeatureTransformer;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\BooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\CountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredConfiguredRechargeableFeature;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -42,15 +42,15 @@ class FeaturesType extends AbstractType
         /** @var FeatureInterface $feature */
         foreach ($options['configured_features']->getValues() as $feature) {
             switch (get_class($feature)) {
-                case BooleanFeature::class:
+                case ConfiguredBooleanFeatureBooleanFeatureInterface::class:
                     $builder->add($feature->getName(), CheckboxType::class, ['required' => false]);
                     $builder->get($feature->getName())->addModelTransformer(new BooleanFeatureTransformer($feature->getName()));
                     break;
-                case CountableFeature::class:
+                case ConfiguredConfiguredCountableFeature::class:
                     $builder->add($feature->getName(), IntegerType::class, ['required' => false]);
                     $builder->get($feature->getName())->addModelTransformer(new CountableFeatureTransformer($feature->getName()));
                     break;
-                case RechargeableFeature::class:
+                case ConfiguredConfiguredRechargeableFeature::class:
                     $builder->add($feature->getName(), IntegerType::class, ['required' => false]);
                     $builder->get($feature->getName())->addModelTransformer(new RechargeableFeatureTransformer($feature->getName()));
                     break;
