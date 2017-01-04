@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SimplePricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesInterface;
 
 /**
  * {@inheritdoc}

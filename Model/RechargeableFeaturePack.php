@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SimplePricesTrait;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesProperty;
 
 /**
  * RechargeableFeatures can be bought in packs.
@@ -11,7 +11,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Traits\SimplePricesTrait;
  */
 class RechargeableFeaturePack
 {
-    use SimplePricesTrait;
+    use SimplePricesProperty;
 
     /** @var  int $numOfUnits How many units are contained in this Pack */
     private $numOfUnits;

@@ -1,6 +1,6 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeaturePack;

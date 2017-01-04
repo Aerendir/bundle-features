@@ -1,6 +1,6 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
@@ -15,7 +15,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * @method isFromConfiguration() Is contained in AbstractFeature
  */
-trait RecurringFeatureTrait
+trait RecurringFeatureProperty
 {
     /** @var \DateTime $activeUntil */
     private $activeUntil;

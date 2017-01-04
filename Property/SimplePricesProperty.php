@@ -1,6 +1,6 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Traits;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\RechargeableFeaturePack;
@@ -14,7 +14,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * Simple prices don't have a subscription interval and are a simple pair of currency => money value.
  */
-trait SimplePricesTrait
+trait SimplePricesProperty
 {
     /** @var  array $prices */
     private $prices = [];

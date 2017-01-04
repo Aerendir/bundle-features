@@ -2,15 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\RecurringFeatureTrait;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
 class CountableFeature extends AbstractFeature implements CountableFeatureInterface
 {
-    use RecurringFeatureTrait {
-        RecurringFeatureTrait::__construct as RecurringConstruct;
+    use RecurringFeatureProperty {
+        RecurringFeatureProperty::__construct as RecurringConstruct;
     }
 
     /**

@@ -2,14 +2,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Traits\SimplePricesTrait;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesProperty;
 
 /**
  * {@inheritdoc}
  */
 class RechargeableFeature extends AbstractFeature implements RechargeableFeatureInterface
 {
-    use SimplePricesTrait;
+    use SimplePricesProperty;
 
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
