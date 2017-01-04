@@ -9,7 +9,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredConfiguredRechargeableFeature with a corrispondent price.
  */
-class ConfiguredRechargeableFeaturePack
+class SubscribedRechargeableFeaturePack
 {
     use UnatantumPricesProperty;
 

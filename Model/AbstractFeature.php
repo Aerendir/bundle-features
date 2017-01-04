@@ -12,9 +12,6 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 abstract class AbstractFeature implements FeatureInterface
 {
-    /** @var bool $fromConfiguration This is set to true only if the feature is loaded from a subscription object */
-    private $fromConfiguration = false;
-
     /** @var string $name */
     private $name;
 
@@ -27,16 +24,6 @@ abstract class AbstractFeature implements FeatureInterface
     public function __construct(string $name, array $details = [])
     {
         $this->name = $name;
-
-        /*
-         * This property defines if the feature is loading from the configuration file or from a subscription object.
-         *
-         * If it is loaded from a subscription object, in fact, some features, like the instant prices, are disabled.
-         */
-        if (isset($details['from_configuration'])) {
-            $this->fromConfiguration = true;
-        }
-
         $this->type = $details['type'];
     }
 
@@ -68,15 +55,5 @@ abstract class AbstractFeature implements FeatureInterface
         return [
             'type' => $this->getType()
         ];
-    }
-
-    /**
-     * True if the feature is loaded from configuration, false if it is loaded from a subscription object.
-     *
-     * @return bool
-     */
-    protected function isFromConfiguration() : bool
-    {
-        return $this->fromConfiguration;
     }
 }

@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -53,9 +52,9 @@ interface SubscriptionInterface
     /**
      * Forces the features to be returned as a ConfiguredFeaturesCollection.
      *
-     * @return ConfiguredFeaturesCollection
+     * @return SubscribedFeaturesCollection
      */
-    public function getFeatures() : ConfiguredFeaturesCollection;
+    public function getFeatures() : SubscribedFeaturesCollection;
 
     /**
      * Get the current subscription interval.
@@ -82,6 +81,13 @@ interface SubscriptionInterface
     public function getNextPaymentOn();
 
     /**
+     * The date on which the feature were subscribed on.
+     *
+     * @return \DateTime
+     */
+    public function getSubscribedOn() : \DateTime;
+
+    /**
      * @param string $feature
      *
      * @return bool
@@ -105,11 +111,11 @@ interface SubscriptionInterface
     public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface;
 
     /**
-     * @param ConfiguredFeaturesCollection $features
+     * @param SubscribedFeaturesCollection $features
      *
      * @return SubscriptionInterface
      */
-    public function setFeatures(ConfiguredFeaturesCollection $features) : SubscriptionInterface;
+    public function setFeatures(SubscribedFeaturesCollection $features) : SubscriptionInterface;
 
     /**
      * @param string $interval
@@ -155,4 +161,13 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setNextPaymentInOneYear() : SubscriptionInterface;
+
+    /**
+     * Sets the date on which the feature were subscribed.
+     *
+     * @param \DateTime $subscribedOn
+     *
+     * @return SubscriptionInterface
+     */
+    public function setSubscribedOn(\DateTime $subscribedOn) : SubscriptionInterface;
 }

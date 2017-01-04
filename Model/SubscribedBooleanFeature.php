@@ -2,15 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
-class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBooleanFeatureInterface
+class SubscribedBooleanFeature extends AbstractFeature implements SubscribedBooleanFeatureInterface
 {
-    use RecurringPricesProperty {
-        RecurringPricesProperty::__construct as RecurringConstruct;
+    use RecurringFeatureProperty {
+        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
     /** @var bool $enabled */
@@ -29,7 +29,7 @@ class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBool
             $this->enable();
         }
 
-        $this->RecurringConstruct($details);
+        $this->RecurringFeatureConstruct($details);
 
         parent::__construct($name, $details);
     }

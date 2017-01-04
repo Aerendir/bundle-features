@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterfaceSimple;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
@@ -14,7 +14,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * Simple prices don't have a subscription interval and are a simple pair of currency => money value.
  */
-trait SimplePricesProperty
+trait UnatantumPricesProperty
 {
     /** @var  array $prices */
     private $prices = [];
@@ -57,7 +57,7 @@ trait SimplePricesProperty
 
     /**
      * @param array $prices
-     * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
+     * @return ConfiguredRechargeableFeatureInterfaceSimple|ConfiguredRechargeableFeaturePack
      */
     public function setPrices(array $prices)
     {
@@ -65,7 +65,7 @@ trait SimplePricesProperty
             $this->prices[$currency] = new Money(['amount' => $price, 'currency' => new Currency($currency)]);
         }
 
-        /** @var ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack $this */
+        /** @var ConfiguredRechargeableFeatureInterfaceSimple|ConfiguredRechargeableFeaturePack $this */
         return $this;
     }
 }

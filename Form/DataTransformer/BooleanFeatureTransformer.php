@@ -16,10 +16,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use Symfony\Component\Form\DataTransformerInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 
 /**
  * {@inheritdoc}
@@ -35,7 +34,7 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
      */
     public function transform($feature)
     {
-        if ($feature instanceof ConfiguredBooleanFeatureInterface) {
+        if ($feature instanceof SubscribedBooleanFeatureInterface) {
             return $feature->isEnabled();
         }
 
@@ -51,6 +50,6 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
      */
     public function reverseTransform($enabled)
     {
-        return new ConfiguredBooleanFeatureBooleanFeatureInterface($this->getFeatureName(), ['enabled' => $enabled]);
+        return new SubscribedBooleanFeature($this->getFeatureName(), ['enabled' => $enabled]);
     }
 }

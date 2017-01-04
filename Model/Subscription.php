@@ -24,7 +24,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var ConfiguredFeaturesCollection
+     * @var SubscribedFeaturesCollection
      *
      * @ORM\Column(name="features", type="json_array", nullable=true)
      */
@@ -50,6 +50,13 @@ abstract class Subscription implements SubscriptionInterface
      * @ORM\Column(name="next_payment_on", type="datetime", nullable=true)
      */
     private $nextPaymentOn;
+
+    /**
+     * @var \DateTime $subscribedOn
+     *
+     * @ORM\Column(name="subscribed_on", type="datetime", nullable=true)
+     */
+    private $subscribedOn;
 
     /**
      * {@inheritdoc}
@@ -111,7 +118,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getFeatures() : ConfiguredFeaturesCollection
+    public function getFeatures() : SubscribedFeaturesCollection
     {
         return $this->features;
     }
@@ -152,6 +159,17 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
+    public function getSubscribedOn() : \DateTime
+    {
+        if (null === $this->subscribedOn)
+            $this->subscribedOn = new \DateTime();
+
+        return $this->subscribedOn;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function has(string $feature) : bool
     {
         if (0 >= count($this->getFeatures())) {
@@ -186,7 +204,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setFeatures(ConfiguredFeaturesCollection $features) : SubscriptionInterface
+    public function setFeatures(SubscribedFeaturesCollection $features) : SubscriptionInterface
     {
         $this->features = $features;
 
@@ -266,10 +284,20 @@ abstract class Subscription implements SubscriptionInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function setSubscribedOn(\DateTime $subscribedOn) : SubscriptionInterface
+    {
+        $this->subscribedOn = $subscribedOn;
+
+        return $this;
+    }
+
+    /**
      * @ORM\PostLoad()
      */
     public function hydrateFeatures()
     {
-        $this->features = new ConfiguredFeaturesCollection($this->features);
+        $this->features = new SubscribedFeaturesCollection($this->features);
     }
 }

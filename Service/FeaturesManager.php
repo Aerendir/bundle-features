@@ -3,12 +3,12 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterfaceConfigured;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -87,16 +87,16 @@ class FeaturesManager
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
-     * @return ConfiguredFeaturesCollection
+     * @return SubscribedFeaturesCollection
      */
-    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval) : ConfiguredFeaturesCollection
+    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval) : SubscribedFeaturesCollection
     {
         $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
         $features = [];
 
         /**
          * @var string
-         * @var FeatureInterface|ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterfaceConfigured|ConfiguredRechargeableFeatureInterface $details
+         * @var FeatureInterface|ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $details
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             switch ($details->getType()) {
@@ -109,7 +109,7 @@ class FeaturesManager
                     ];
                     break;
                 case 'countable':
-                    /** @var ConfiguredCountableFeatureInterfaceConfigured $details */
+                    /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType()
                     ];
@@ -123,16 +123,16 @@ class FeaturesManager
             }
         }
 
-        return new ConfiguredFeaturesCollection($features);
+        return new SubscribedFeaturesCollection($features);
     }
 
     /**
-     * @param ConfiguredFeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
+     * @param SubscribedFeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
      *                                        not yet synced with these new Features!
      *
      * @return Money
      */
-    public function calculateTotalChargesForNewFeatures(ConfiguredFeaturesCollection $newFeatures)
+    public function calculateTotalChargesForNewFeatures(SubscribedFeaturesCollection $newFeatures)
     {
         $totalCharges = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
 
@@ -189,7 +189,7 @@ class FeaturesManager
         ])
             ->add('features', FeaturesType::class, [
                 'data' => $subscription->getFeatures()->toArray(),
-                'configured_features' => $this->getConfiguredFeatures(),
+                'configured_features' => $this->getConfiguredFeatures()->setSubscription($subscription),
             ]);
 
         $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
@@ -217,9 +217,9 @@ class FeaturesManager
 
     /**
      * @param SubscriptionInterface $subscription
-     * @param ConfiguredFeaturesCollection    $features
+     * @param SubscribedFeaturesCollection    $features
      */
-    public function syncSubscription(SubscriptionInterface $subscription, ConfiguredFeaturesCollection $features)
+    public function syncSubscription(SubscriptionInterface $subscription, SubscribedFeaturesCollection $features)
     {
         foreach ($features as $featureName => $feature) {
             $toggle = $feature->isEnabled() ? 'enable' : 'disable';
@@ -234,9 +234,9 @@ class FeaturesManager
      *
      * If a ConfiguredFeaturesCollection is passed, it sets their statuses to the features already existent in the Subscription.
      *
-     * @param ConfiguredFeaturesCollection|null $newFeatures
+     * @param SubscribedFeaturesCollection|null $newFeatures
      */
-    public function updateSubscription(ConfiguredFeaturesCollection $newFeatures = null)
+    public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null)
     {
         /**
          * Before all, update the features, setting the new enabled status or adding the feature if not already present.
@@ -269,7 +269,7 @@ class FeaturesManager
 
         /** @var FeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
-            if ($feature->isEnabled() && $feature instanceof ConfiguredBooleanFeatureBooleanFeatureInterface) {
+            if ($feature->isEnabled() && $feature instanceof SubscribedBooleanFeatureInterface) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
                 if ($price instanceof MoneyInterface) {
@@ -286,12 +286,12 @@ class FeaturesManager
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
      *
-     * @param ConfiguredFeaturesCollection $oldFeatures
-     * @param ConfiguredFeaturesCollection $newFeatures
+     * @param SubscribedFeaturesCollection $oldFeatures
+     * @param SubscribedFeaturesCollection $newFeatures
      *
      * @return array
      */
-    private function findDifferences(ConfiguredFeaturesCollection $oldFeatures, ConfiguredFeaturesCollection $newFeatures)
+    private function findDifferences(SubscribedFeaturesCollection $oldFeatures, SubscribedFeaturesCollection $newFeatures)
     {
         /**
          * Calculate the removed features.

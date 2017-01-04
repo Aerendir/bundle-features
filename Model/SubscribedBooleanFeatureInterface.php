@@ -2,12 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-
 /**
  * {@inheritdoc}
  */
-interface ConfiguredBooleanFeatureInterface extends HasRecurringPricesInterface, ConfiguredFeatureInterface
+interface SubscribedBooleanFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
 {
     /**
      * @return FeatureInterface

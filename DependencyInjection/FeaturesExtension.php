@@ -23,9 +23,8 @@ class FeaturesExtension extends Extension
 
         // Create services for features
         foreach ($config as $creatingServiceKey => $features) {
-            $features = $this->setAsFromConfiguration($features['features']);
-            $this->createFeaturesServices($creatingServiceKey, $features, $container);
-            $this->createInvoicesServices($creatingServiceKey, $features, $container);
+            $this->createFeaturesServices($creatingServiceKey, $features['features'], $container);
+            $this->createInvoicesServices($creatingServiceKey, $features['features'], $container);
         }
     }
 
@@ -52,24 +51,5 @@ class FeaturesExtension extends Extension
         $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$features]);
         $serviceName = 'shq_features.manager.'.$name.'.invoices';
         $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);
-    }
-
-    /**
-     * Adds a property to distinguish the features loaded from the configuration from the features loaded from a
-     * subscription object.
-     *
-     * @param array $features
-     *
-     * @return array
-     */
-    private function setAsFromConfiguration(array $features)
-    {
-        $return = [];
-        foreach ($features as $featureName => $featureDetails) {
-            $featureDetails['from_configuration'] = true;
-            $return[$featureName] = $featureDetails;
-        }
-
-        return $return;
     }
 }

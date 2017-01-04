@@ -2,12 +2,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\SimplePricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 
 /**
  * {@inheritdoc}
  */
-interface ConfiguredRechargeableFeatureInterface extends FeatureInterface, SimplePricesInterface
+interface ConfiguredRechargeableFeatureInterface extends ConfiguredFeatureInterface, HasUnatantumPricesInterface
 {
     /**
      * @return int

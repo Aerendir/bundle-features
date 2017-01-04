@@ -8,9 +8,9 @@ use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
- * Common methods of a SimplePrices object.
+ * Common methods to manage feature prices.
  */
-interface SimplePricesInterface
+interface HasUnatantumPricesInterface
 {
     /**
      * @param string|CurrencyInterface $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string

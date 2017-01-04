@@ -2,15 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
-class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterface
+class SubscribedCountableFeature extends AbstractFeature implements SubscribedCountableFeatureInterface
 {
-    use RecurringPricesProperty {
-        RecurringPricesProperty::__construct as RecurringConstruct;
+    use RecurringFeatureProperty {
+        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
     private $freeAmount;
@@ -25,7 +25,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
         // Set the type
         $details['type'] = self::COUNTABLE;
 
-        $this->RecurringConstruct($details);
+        $this->RecurringFeatureConstruct($details);
 
         parent::__construct($name, $details);
     }

@@ -16,7 +16,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -29,19 +29,19 @@ class FeaturesCollectionTransformer implements DataTransformerInterface
      *
      * @param array $features
      *
-     * @return ConfiguredFeaturesCollection
+     * @return SubscribedFeaturesCollection
      */
     public function transform($features)
     {
-        return new ConfiguredFeaturesCollection($features);
+        return new SubscribedFeaturesCollection($features);
     }
 
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param ConfiguredFeaturesCollection $features
+     * @param SubscribedFeaturesCollection $features
      *
-     * @return ConfiguredFeaturesCollection
+     * @return SubscribedFeaturesCollection
      */
     public function reverseTransform($features)
     {

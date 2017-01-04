@@ -7,15 +7,12 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
 /**
  * {@inheritdoc}
  */
-class ConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
+class SubscribedRechargeableFeature extends AbstractFeature implements SubscribedRechargeableFeatureInterface
 {
     use UnatantumPricesProperty;
 
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
-
-    /** @var  array $packs */
-    private $packs;
 
     /**
      * {@inheritdoc}
@@ -26,12 +23,6 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
         $details['type'] = self::RECHARGEABLE;
 
         $this->freeRecharge = $details['free_recharge'] ?? 0;
-
-        if (isset($details['packs']))
-            $this->setPacks($details['packs']);
-
-        if (isset($details['unitary_prices']))
-            $this->setPrices($details['unitary_prices']);
 
         parent::__construct($name, $details);
     }
@@ -47,21 +38,9 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function setFreeRecharge(int $freeRecharge) : ConfiguredRechargeableFeatureInterface
+    public function setFreeRecharge(int $freeRecharge) : SubscribedRechargeableFeatureInterface
     {
         $this->freeRecharge = $freeRecharge;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPacks(array $packs) : ConfiguredRechargeableFeatureInterface
-    {
-        foreach ($packs as $numOfUnits => $prices) {
-            $this->packs[(int) $numOfUnits] = new ConfiguredRechargeableFeaturePack($numOfUnits, $prices);
-        }
 
         return $this;
     }

@@ -32,11 +32,4 @@ interface FeatureInterface
      * @return string
      */
     public function getType() : string;
-
-    /**
-     * Converts a Feature object into an array.
-     *
-     * @return array
-     */
-    public function toArray();
 }
