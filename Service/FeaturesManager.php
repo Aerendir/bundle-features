@@ -119,7 +119,9 @@ class FeaturesManager
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType(),
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge()
+                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'last_recharge_on' => new \DateTime(),
+                        'last_recharge_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge()
                     ];
                     break;
             }
