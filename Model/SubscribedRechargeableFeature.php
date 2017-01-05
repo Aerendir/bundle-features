@@ -2,19 +2,16 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
-
 /**
  * {@inheritdoc}
  */
 class SubscribedRechargeableFeature extends AbstractFeature implements SubscribedRechargeableFeatureInterface
 {
-    use RecurringFeatureProperty {
-        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
-    }
+    /** @var  int $remainedQuantity The amount of free units of this feature recharged each time */
+    private $remainedQuantity;
 
-    /** @var  int $rechargeAmount The amount of free units of this feature recharged each time */
-    private $rechargeAmount;
+    /** @var  \DateTime $lastRecharge The last time a recharge was done */
+    private $lastRechargeOn;
 
     /**
      * {@inheritdoc}
@@ -24,26 +21,38 @@ class SubscribedRechargeableFeature extends AbstractFeature implements Subscribe
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
-        $this->rechargeAmount = $details['recharge_amount'] ?? 0;
+        $this->remainedQuantity = $details['remained_quantity'] ?? 0;
+        $this->lastRechargeOn   = $details['last_recharge_on'] ?? new \DateTime;
 
-        $this->RecurringFeatureConstruct($details);
+        if (!$this->lastRechargeOn instanceof \DateTime)
+            $this->lastRechargeOn = new \DateTime($this->lastRechargeOn['date'], new \DateTimeZone($this->lastRechargeOn['timezone']));
+
         parent::__construct($name, $details);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getRechargeAmount() : int
+    public function getLastRechargeOn() : \DateTime
     {
-        return $this->rechargeAmount;
+        return $this->lastRechargeOn;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setRechargeAmount(int $rechargeAmount) : SubscribedRechargeableFeatureInterface
+    public function getRemainedQuantity() : int
     {
-        $this->rechargeAmount = $rechargeAmount;
+        return $this->remainedQuantity;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRemainedQuantity(int $remainedQuantity) : SubscribedRechargeableFeatureInterface
+    {
+        $this->remainedQuantity = $remainedQuantity;
+        $this->lastRechargeOn = new \DateTime();
 
         return $this;
     }
@@ -54,8 +63,8 @@ class SubscribedRechargeableFeature extends AbstractFeature implements Subscribe
     public function toArray()
     {
         return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'recharge_amount' => $this->getRechargeAmount()
+            'remained_quantity' => $this->getRemainedQuantity(),
+            'last_recharge_on' => json_decode(json_encode($this->getLastRechargeOn()), true),
         ], parent::toArray());
     }
 }

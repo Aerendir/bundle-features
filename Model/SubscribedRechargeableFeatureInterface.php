@@ -5,16 +5,21 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * {@inheritdoc}
  */
-interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
+interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface
 {
+    /**
+     * @return \DateTime
+     */
+    public function getLastRechargeOn() : \DateTime;
+
     /**
      * @return int
      */
-    public function getRechargeAmount() : int;
+    public function getRemainedQuantity() : int;
 
     /**
      * @param int $freeRecharge
      * @return SubscribedRechargeableFeatureInterface
      */
-    public function setRechargeAmount(int $freeRecharge) : SubscribedRechargeableFeatureInterface;
+    public function setRemainedQuantity(int $freeRecharge) : SubscribedRechargeableFeatureInterface;
 }
