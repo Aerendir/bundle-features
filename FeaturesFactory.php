@@ -20,6 +20,16 @@ final class FeaturesFactory
     private static $kind;
 
     /**
+     * @return string
+     */
+    public static function getKind() : string
+    {
+        self::checkKindIsSet();
+
+        return self::$kind;
+    }
+
+    /**
      * @param string $kind
      */
     public static function setKind(string $kind)

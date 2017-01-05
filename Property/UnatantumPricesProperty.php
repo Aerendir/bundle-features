@@ -2,7 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterfaceSimple;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
@@ -57,7 +57,7 @@ trait UnatantumPricesProperty
 
     /**
      * @param array $prices
-     * @return ConfiguredRechargeableFeatureInterfaceSimple|ConfiguredRechargeableFeaturePack
+     * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
      */
     public function setPrices(array $prices)
     {
@@ -65,7 +65,7 @@ trait UnatantumPricesProperty
             $this->prices[$currency] = new Money(['amount' => $price, 'currency' => new Currency($currency)]);
         }
 
-        /** @var ConfiguredRechargeableFeatureInterfaceSimple|ConfiguredRechargeableFeaturePack $this */
+        /** @var ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack $this */
         return $this;
     }
 }

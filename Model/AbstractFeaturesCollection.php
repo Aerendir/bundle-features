@@ -8,7 +8,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 /**
  * {@inheritdoc}
  */
-abstract class AbstractFeaturesCollection extends ArrayCollection implements \JsonSerializable
+abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     const KIND = null;
 
@@ -63,14 +63,8 @@ abstract class AbstractFeaturesCollection extends ArrayCollection implements \Js
     public function getBooleanFeatures()
     {
         if (null === $this->booleans) {
-            $predictate = function ($element) {
-                if ($element instanceof ConfiguredBooleanFeatureInterface) {
-                    return $element;
-                }
-            };
-
             // Cache the result
-            $this->booleans = $this->filter($predictate);
+            $this->booleans = $this->filter($this->getFilterPredictate('boolean'));
         }
 
         return $this->booleans;
@@ -82,14 +76,8 @@ abstract class AbstractFeaturesCollection extends ArrayCollection implements \Js
     public function getCountableFeatures()
     {
         if (null === $this->countables) {
-            $predictate = function ($element) {
-                if ($element instanceof ConfiguredCountableFeatureInterfaceConfigured) {
-                    return $element;
-                }
-            };
-
             // Cache the result
-            $this->countables = $this->filter($predictate);
+            $this->countables = $this->filter($this->getFilterPredictate('countable'));
         }
 
         return $this->countables;
@@ -101,41 +89,38 @@ abstract class AbstractFeaturesCollection extends ArrayCollection implements \Js
     public function getRechargeableFeatures()
     {
         if (null === $this->rechargeables) {
-            $predictate = function ($element) {
-                if ($element instanceof ConfiguredRechargeableFeatureInterfaceSimple) {
-                    return $element;
-                }
-            };
-
             // Cache the result
-            $this->rechargeables = $this->filter($predictate);
+            $this->rechargeables = $this->filter($this->getFilterPredictate('rechargeable'));
         }
 
         return $this->rechargeables;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $type
+     * @return \Closure
      */
-    public function toArray()
+    private function getFilterPredictate(string $type)
     {
-        $return = [];
-        /**
-         * @var string
-         * @var FeatureInterface $featureDetils
-         */
-        foreach (parent::toArray() as $featureName => $featureDetils) {
-            $return[$featureName] = $featureDetils->toArray();
-        }
+        $featureClass = $this->getFeatureClass($type);
 
-        return $return;
+        return function ($element) use ($featureClass) {
+            if ($element instanceof $featureClass) {
+                return $element;
+            }
+        };
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $type
+     * @return string
      */
-    public function jsonSerialize()
+    private function getFeatureClass(string $type)
     {
-        return $this->toArray();
+        switch ($type) {
+            case 'boolean':
+        }
+
+        return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . ucfirst(FeaturesFactory::getKind()) . ucfirst($type) . 'Feature';
     }
 }

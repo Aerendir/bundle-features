@@ -119,8 +119,7 @@ class FeaturesManager
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType(),
-                        'recharge_amount' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
-                        'active_until' => $activeUntil
+                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge()
                     ];
                     break;
             }
