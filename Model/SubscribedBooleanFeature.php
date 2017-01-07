@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 /**
  * {@inheritdoc}
  */
-class SubscribedBooleanFeature extends AbstractFeature implements SubscribedBooleanFeatureInterface
+class SubscribedBooleanFeature extends AbstractSubscribedFeature implements SubscribedBooleanFeatureInterface
 {
     use RecurringFeatureProperty {
         RecurringFeatureProperty::__construct as RecurringFeatureConstruct;

@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
 
 /**
@@ -11,9 +12,15 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
 {
     use RecurringPricesProperty {
         RecurringPricesProperty::__construct as RecurringConstruct;
+        RecurringPricesProperty::setSubscription as setRecurringSubscription;
     }
 
     private $freeAmount;
+
+    /**
+     * @var
+     */
+    private $packs;
 
     /**
      * {@inheritdoc}
@@ -24,6 +31,9 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
 
         // Set the type
         $details['type'] = self::COUNTABLE;
+
+        if (isset($details['packs']))
+            $this->setPacks($details['packs']);
 
         $this->RecurringConstruct($details);
 
@@ -41,10 +51,37 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function setPacks(array $packs) : ConfiguredCountableFeatureInterface
     {
-        return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true)
-        ], parent::toArray());
+        foreach ($packs as $numOfUnits => $prices) {
+            $pack = new ConfiguredCountableFeaturePack($numOfUnits, $prices);
+
+            // If the subscription is set, set it in the pack, too
+            if (null !== $this->subscription) {
+                $pack->setSubscription($this->subscription);
+            }
+
+            $this->packs[$numOfUnits] = $pack;
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSubscription(SubscriptionInterface $subscription): HasRecurringPricesInterface
+    {
+        $this->setRecurringSubscription($subscription);
+
+        // If there are packs, set subscription in them, too
+        if (false === empty($this->packs)) {
+            /** @var ConfiguredCountableFeaturePack $pack */
+            foreach ($this->packs as $pack) {
+                $pack->setSubscription($subscription);
+            }
+        }
+
+        return $this;
     }
 }

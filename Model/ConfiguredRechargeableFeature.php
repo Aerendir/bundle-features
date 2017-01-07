@@ -64,7 +64,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     public function setPacks(array $packs) : ConfiguredRechargeableFeatureInterface
     {
         foreach ($packs as $numOfUnits => $prices) {
-            $this->packs[(int) $numOfUnits] = new ConfiguredRechargeableFeaturePack($numOfUnits, $prices);
+            $this->packs[$numOfUnits] = new ConfiguredRechargeableFeaturePack($numOfUnits, $prices);
         }
 
         return $this;

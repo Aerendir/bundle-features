@@ -5,7 +5,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * {@inheritdoc}
  */
-final class SubscribedRechargeableFeature extends AbstractFeature implements SubscribedRechargeableFeatureInterface
+final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedRechargeableFeatureInterface
 {
     /** @var  int $remainedQuantity The amount of free units of this feature recharged each time */
     private $remainedQuantity;

@@ -10,5 +10,5 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     /**
      * @return int
      */
-    public function getFreeAmount() : int;
+    public function getRemainedQuantity() : int;
 }

@@ -61,15 +61,4 @@ class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBool
     {
         return $this->enabled;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'enabled' => $this->isEnabled(),
-        ], parent::toArray());
-    }
 }

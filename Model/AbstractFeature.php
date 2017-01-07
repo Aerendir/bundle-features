@@ -46,14 +46,4 @@ abstract class AbstractFeature implements FeatureInterface
     /**
      * @return array
      */
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        return [
-            'type' => $this->getType()
-        ];
-    }
 }

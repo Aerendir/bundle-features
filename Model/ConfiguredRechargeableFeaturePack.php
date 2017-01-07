@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
 /**
  * RechargeableFeatures can be bought in packs.
  *
- * A Pack represents an amount of units of the ConfiguredConfiguredRechargeableFeature with a corrispondent price.
+ * A Pack represents an amount of units of the ConfiguredRechargeableFeature with a corrispondent price.
  */
 class ConfiguredRechargeableFeaturePack
 {

@@ -7,23 +7,24 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
 /**
  * {@inheritdoc}
  */
-class SubscribedCountableFeature extends AbstractFeature implements SubscribedCountableFeatureInterface
+class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedCountableFeatureInterface
 {
     use RecurringFeatureProperty {
         RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    private $freeAmount;
+    /** @var  int $remainedQuantity The amount of free units of this feature recharged each time */
+    private $remainedQuantity;
 
     /**
      * {@inheritdoc}
      */
     public function __construct(string $name, array $details = [])
     {
-        $this->freeAmount = $details['free_amount'] ?? 0;
-
         // Set the type
         $details['type'] = self::COUNTABLE;
+
+        $this->remainedQuantity = $details['remained_quantity'] ?? 0;
 
         $this->RecurringFeatureConstruct($details);
 
@@ -33,9 +34,9 @@ class SubscribedCountableFeature extends AbstractFeature implements SubscribedCo
     /**
      * {@inheritdoc}
      */
-    public function getFreeAmount() : int
+    public function getRemainedQuantity() : int
     {
-        return $this->freeAmount;
+        return $this->remainedQuantity;
     }
 
     /**
@@ -44,7 +45,8 @@ class SubscribedCountableFeature extends AbstractFeature implements SubscribedCo
     public function toArray()
     {
         return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true)
+            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
+            'remained_quantity' => $this->getRemainedQuantity()
         ], parent::toArray());
     }
 }

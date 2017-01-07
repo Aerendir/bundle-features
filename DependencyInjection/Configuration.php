@@ -12,6 +12,7 @@ use SebastianBergmann\Money\Currency;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
@@ -190,7 +191,7 @@ class Configuration implements ConfigurationInterface
     private function validateBoolean(string $set, string $feature, array $config)
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
-        $this->validateSubscriptionPrice($set, $feature . '.price', $config['price']);
+        $this->validateRecurringPrice($set, $feature . '.price', $config['price']);
     }
 
     /**
@@ -201,7 +202,7 @@ class Configuration implements ConfigurationInterface
     private function validateCountable(string $set, string $feature, array $config)
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
-        $this->validateSubscriptionPrice($set, $feature . '.packs.', $config['unitary_price']);
+        $this->validateRecurringPrice($set, $feature . '.packs.', $config['unitary_price']);
 
         // Validate the packages
         $this->validatePackages($set, $feature, $config['packs'], 'subscription');
@@ -226,7 +227,7 @@ class Configuration implements ConfigurationInterface
      * @param string $feature
      * @param array $price
      */
-    private function validateSubscriptionPrice(string $set, string $feature, array $price)
+    private function validateRecurringPrice(string $set, string $feature, array $price)
     {
         // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
         if (false === empty($price)) {
@@ -289,6 +290,7 @@ class Configuration implements ConfigurationInterface
     {
         // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
         if (false === empty($packs)) {
+            $alreadyHasFreepack = false;
             // ... It contains packages: validate the number of units and their prices
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
@@ -304,13 +306,17 @@ class Configuration implements ConfigurationInterface
                 switch ($subscriptionType) {
                     case 'subscription':
                         // Validate the price
-                        $this->validateSubscriptionPrice($set, $feature . '.packs.' . $numOfUnits, $price);
+                        $this->validateRecurringPrice($set, $feature . '.packs.' . $numOfUnits, $price);
                         break;
                     case 'unatantum':
                         // Validate the price
                         $this->validateUnatantumPrice($set, $feature . '.packs.' . $numOfUnits, $price);
                         break;
                 }
+
+                // Check if the current pack is free
+
+                /** @todo Check there is only one free package **/
             }
         }
     }
@@ -408,7 +414,7 @@ class Configuration implements ConfigurationInterface
             $config['free_recharge']
         );
 
-        $config['unitary_price'] = $this->processSubscriptionPrice($config['unitary_price']);
+        $config['prices'] = $this->processRecurringPrice($config['unitary_price']);
         $config['packs'] = $this->processPackages($config['packs'], 'subscription');
 
         return $config;
@@ -436,17 +442,15 @@ class Configuration implements ConfigurationInterface
      * @param array $prices
      * @return array
      */
-    private function processSubscriptionPrice(array $prices)
+    private function processRecurringPrice(array $prices)
     {
         // If no prices are specified, the feature is free
-        if (empty($prices)) {
-            return null;
-        }
-
-        foreach ($prices as $currency => $price) {
-            unset(
-                $prices[$currency]['_']
-            );
+        if (false === empty($prices)) {
+            foreach ($prices as $currency => $price) {
+                unset(
+                    $prices[$currency]['_']
+                );
+            }
         }
 
         return $prices;
@@ -462,7 +466,7 @@ class Configuration implements ConfigurationInterface
         foreach ($packs as $numOfUnits => $prices) {
             switch ($subscriptionType) {
                 case 'subscription':
-                    $packs[$numOfUnits] = $this->processSubscriptionPrice($prices);
+                    $packs[$numOfUnits] = $this->processRecurringPrice($prices);
                     break;
                 case 'unatantum':
                     $packs[$numOfUnits] = $this->processUnatantumPrice($prices);

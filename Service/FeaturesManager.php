@@ -112,7 +112,8 @@ class FeaturesManager
                 case 'countable':
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
-                        'type' => $details->getType()
+                        'type' => $details->getType(),
+                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeAmount()
                     ];
                     break;
                 case 'rechargeable':
