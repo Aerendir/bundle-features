@@ -18,7 +18,7 @@ Each Merchant has a Company and each Company has one or more Stores (the self-ho
 
 Lets go to analyze the features (not all of them, but only the ones required to illustrate how SerendipityHQ Features Bundle works).
  
-- The merchant can buy the invites at Company level, so the Sotores of each Company use the invites bought by the merchant for the whole Company.
+- The merchant can buy the invites at Company level, so the Stores of each Company use the invites bought by the merchant for the whole Company.
 - Each Store Profile can be boosted:
     - Removing Ads
     - Activating SEO functionalities
@@ -107,6 +107,10 @@ Now you can access four services to manage your features and the invoices for th
 - `shq_features.manager.company.features`;
 - `shq_features.manager.company.features`;
 
-Continue reading the documentation to know how to use them.
+Continue reading the documentation to know how to use them or read the specifications for each type of feature:
+
+- [Boolean Feature config details](Specification-Boolean.md)
+- [Countable Feature config details](Specification-Countable.md)
+- [Rechargeable Feature config details](Specification-Rechargeable.md)
 
 ([Go back to index](Index.md)) | Next step: To write
