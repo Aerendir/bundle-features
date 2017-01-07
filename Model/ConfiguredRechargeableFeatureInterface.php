@@ -2,12 +2,13 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 
 /**
  * {@inheritdoc}
  */
-interface ConfiguredRechargeableFeatureInterface extends ConfiguredFeatureInterface, HasUnatantumPricesInterface
+interface ConfiguredRechargeableFeatureInterface extends ConfiguredFeatureInterface, HasUnatantumPricesInterface, HasPacksInterface
 {
     /**
      * @return int
@@ -19,10 +20,4 @@ interface ConfiguredRechargeableFeatureInterface extends ConfiguredFeatureInterf
      * @return ConfiguredRechargeableFeatureInterface
      */
     public function setFreeRecharge(int $freeRecharge) : ConfiguredRechargeableFeatureInterface;
-
-    /**
-     * @param array $packs
-     * @return ConfiguredRechargeableFeatureInterface
-     */
-    public function setPacks(array $packs) : ConfiguredRechargeableFeatureInterface;
 }

@@ -12,7 +12,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * Common methods to manage a feature that is bought in a recurring subscription.
  */
-interface HasRecurringPricesInterface
+interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
     /**
      * @param string|CurrencyInterface $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string

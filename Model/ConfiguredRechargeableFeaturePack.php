@@ -2,6 +2,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
 
 /**
@@ -9,9 +11,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredRechargeableFeature with a corrispondent price.
  */
-class ConfiguredRechargeableFeaturePack
+class ConfiguredRechargeableFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
 {
     use UnatantumPricesProperty;
+    use CanBeFreeProperty;
 
     /** @var  int $numOfUnits How many units are contained in this Pack */
     private $numOfUnits;

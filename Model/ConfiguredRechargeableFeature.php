@@ -2,6 +2,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\PacksProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
 
 /**
@@ -9,16 +12,17 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
  */
 class ConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
 {
+    use PacksProperty {
+        PacksProperty::setPacks as setPacksProperty;
+    }
     use UnatantumPricesProperty;
+    use CanBeFreeProperty;
 
     /** @var  bool $cumulable If true, the new recharge is added to the existing quantity. If false, is substituted to the existent quantity */
     private $cumulable;
 
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
-
-    /** @var  array $packs */
-    private $packs;
 
     /**
      * {@inheritdoc}
@@ -61,12 +65,8 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs) : ConfiguredRechargeableFeatureInterface
+    public function setPacks(array $packs, string $class = null) : HasPacksInterface
     {
-        foreach ($packs as $numOfUnits => $prices) {
-            $this->packs[$numOfUnits] = new ConfiguredRechargeableFeaturePack($numOfUnits, $prices);
-        }
-
-        return $this;
+        return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }
 }

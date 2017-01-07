@@ -2,7 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\PacksProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
 
 /**
@@ -10,10 +13,14 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
  */
 class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterface
 {
+    use PacksProperty {
+        PacksProperty::setPacks as setPacksProperty;
+    }
     use RecurringPricesProperty {
         RecurringPricesProperty::__construct as RecurringConstruct;
         RecurringPricesProperty::setSubscription as setRecurringSubscription;
     }
+    use CanBeFreeProperty;
 
     private $freeAmount;
 
@@ -51,20 +58,9 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs) : ConfiguredCountableFeatureInterface
+    public function setPacks(array $packs, string $class = null) : HasPacksInterface
     {
-        foreach ($packs as $numOfUnits => $prices) {
-            $pack = new ConfiguredCountableFeaturePack($numOfUnits, $prices);
-
-            // If the subscription is set, set it in the pack, too
-            if (null !== $this->subscription) {
-                $pack->setSubscription($this->subscription);
-            }
-
-            $this->packs[$numOfUnits] = $pack;
-        }
-
-        return $this;
+        return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }
 
     /**

@@ -10,7 +10,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * Common methods to manage feature prices.
  */
-interface HasUnatantumPricesInterface
+interface HasUnatantumPricesInterface extends CanBeFreeInterface
 {
     /**
      * @param string|CurrencyInterface $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string

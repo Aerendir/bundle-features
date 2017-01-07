@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
 
 /**
@@ -12,6 +13,7 @@ class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBool
     use RecurringPricesProperty {
         RecurringPricesProperty::__construct as RecurringConstruct;
     }
+    use CanBeFreeProperty;
 
     /** @var bool $enabled */
     private $enabled = false;

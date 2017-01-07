@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
 
@@ -10,9 +11,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredCountableFeature with a corrispondent price.
  */
-class ConfiguredCountableFeaturePack implements HasRecurringPricesInterface
+class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
 {
     use RecurringPricesProperty;
+    use CanBeFreeProperty;
 
     /** @var  int $numOfUnits How many units are contained in this Pack */
     private $numOfUnits;
