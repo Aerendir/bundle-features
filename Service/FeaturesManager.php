@@ -113,14 +113,15 @@ class FeaturesManager
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType(),
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeAmount()
+                        'initial_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeAmount(),
+                        'subscribed_pack' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()
                     ];
                     break;
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType(),
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'initial_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                         'last_recharge_on' => new \DateTime(),
                         'last_recharge_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge()
                     ];

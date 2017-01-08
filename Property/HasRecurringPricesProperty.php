@@ -14,7 +14,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * @method isFromConfiguration() Is contained in AbstractFeature
  */
-trait RecurringPricesProperty
+trait HasRecurringPricesProperty
 {
     /** @var array $instantPrices */
     private $instantPrices = [];

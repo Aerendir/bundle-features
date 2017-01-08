@@ -3,19 +3,19 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\PacksProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
 
 /**
  * {@inheritdoc}
  */
 class ConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
 {
-    use PacksProperty {
-        PacksProperty::setPacks as setPacksProperty;
+    use HasConfiguredPacksProperty {
+        HasConfiguredPacksProperty::setPacks as setPacksProperty;
     }
-    use UnatantumPricesProperty;
+    use HasUnatantumPricesProperty;
     use CanBeFreeProperty;
 
     /** @var  bool $cumulable If true, the new recharge is added to the existing quantity. If false, is substituted to the existent quantity */
@@ -65,7 +65,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs, string $class = null) : HasPacksInterface
+    public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }

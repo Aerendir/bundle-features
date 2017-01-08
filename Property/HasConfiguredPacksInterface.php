@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface;
 /**
  * Implemented by Features that have packages.
  */
-interface HasPacksInterface
+interface HasConfiguredPacksInterface
 {
     /**
      * @return ConfiguredFeaturePackInterface
@@ -15,14 +15,26 @@ interface HasPacksInterface
     public function getFreePack() : ConfiguredFeaturePackInterface;
 
     /**
+     * @param int $numOfUnits
+     * @return null|ConfiguredFeaturePackInterface
+     */
+    public function getPack(int $numOfUnits);
+
+    /**
      * @return bool
      */
     public function hasFreePack() : bool;
 
     /**
+     * @param int $numOfUnits
+     * @return bool
+     */
+    public function hasPack(int $numOfUnits) : bool;
+
+    /**
      * @param array $packs
      * @param string|null $packClass
-     * @return HasPacksInterface
+     * @return HasConfiguredPacksInterface
      */
-    public function setPacks(array $packs, string $packClass = null) : HasPacksInterface;
+    public function setPacks(array $packs, string $packClass = null) : HasConfiguredPacksInterface;
 }

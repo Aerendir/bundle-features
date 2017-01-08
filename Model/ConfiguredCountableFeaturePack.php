@@ -4,7 +4,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
 
 /**
  * CountableFeatures can be bought in packs on each subscription period.
@@ -13,7 +13,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
  */
 class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
 {
-    use RecurringPricesProperty;
+    use HasRecurringPricesProperty;
     use CanBeFreeProperty;
 
     /** @var  int $numOfUnits How many units are contained in this Pack */
@@ -27,5 +27,10 @@ class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, 
     {
         $this->numOfUnits = $numOfUnits;
         $this->setPrices($prices);
+    }
+
+    public function getNumOfUnits() : int
+    {
+        return $this->numOfUnits;
     }
 }

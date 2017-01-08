@@ -3,22 +3,22 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\PacksProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
 
 /**
  * {@inheritdoc}
  */
 class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterface
 {
-    use PacksProperty {
-        PacksProperty::setPacks as setPacksProperty;
+    use HasConfiguredPacksProperty {
+        HasConfiguredPacksProperty::setPacks as setPacksProperty;
     }
-    use RecurringPricesProperty {
-        RecurringPricesProperty::__construct as RecurringConstruct;
-        RecurringPricesProperty::setSubscription as setRecurringSubscription;
+    use HasRecurringPricesProperty {
+        HasRecurringPricesProperty::__construct as RecurringConstruct;
+        HasRecurringPricesProperty::setSubscription as setRecurringSubscription;
     }
     use CanBeFreeProperty;
 
@@ -58,7 +58,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs, string $class = null) : HasPacksInterface
+    public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }

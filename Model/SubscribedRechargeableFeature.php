@@ -2,13 +2,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesProperty;
+
 /**
  * {@inheritdoc}
  */
 final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedRechargeableFeatureInterface
 {
-    /** @var  int $remainedQuantity The amount of free units of this feature recharged each time */
-    private $remainedQuantity;
+    use HasQuantitiesProperty;
 
     /** @var  \DateTime $lastRecharge The last time a recharge was done */
     private $lastRechargeOn;
@@ -27,12 +28,13 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
-        $this->remainedQuantity = $details['remained_quantity'];
         $this->lastRechargeOn   = $details['last_recharge_on'];
         $this->lastRechargeQuantity = $details['last_recharge_quantity'];
 
         if (null !== $this->lastRechargeOn && !$this->lastRechargeOn instanceof \DateTime)
             $this->lastRechargeOn = new \DateTime($this->lastRechargeOn['date'], new \DateTimeZone($this->lastRechargeOn['timezone']));
+
+        $this->setQuanity($details);
 
         parent::__construct($name, $details);
     }
@@ -51,14 +53,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function getLastRechargeQuantity() : int
     {
         return $this->lastRechargeQuantity;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRemainedQuantity() : int
-    {
-        return $this->remainedQuantity;
     }
 
     /**

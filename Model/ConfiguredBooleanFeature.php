@@ -3,15 +3,15 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
 
 /**
  * {@inheritdoc}
  */
 class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBooleanFeatureInterface
 {
-    use RecurringPricesProperty {
-        RecurringPricesProperty::__construct as RecurringConstruct;
+    use HasRecurringPricesProperty {
+        HasRecurringPricesProperty::__construct as RecurringConstruct;
     }
     use CanBeFreeProperty;
 

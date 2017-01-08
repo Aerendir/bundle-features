@@ -2,13 +2,13 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
 
 /**
  * {@inheritdoc}
  */
-interface ConfiguredCountableFeatureInterface extends HasRecurringPricesInterface, HasPacksInterface, ConfiguredFeatureInterface
+interface ConfiguredCountableFeatureInterface extends HasRecurringPricesInterface, HasConfiguredPacksInterface, ConfiguredFeatureInterface
 {
     /**
      * @return int

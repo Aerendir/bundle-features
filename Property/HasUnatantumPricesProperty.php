@@ -14,7 +14,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * Simple prices don't have a subscription interval and are a simple pair of currency => money value.
  */
-trait UnatantumPricesProperty
+trait HasUnatantumPricesProperty
 {
     /** @var  array $prices */
     private $prices = [];

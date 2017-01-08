@@ -2,19 +2,22 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
 class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedCountableFeatureInterface
 {
-    use RecurringFeatureProperty {
-        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
+    use HasRecurringFeatureProperty {
+        HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    /** @var  int $remainedQuantity The amount of free units of this feature recharged each time */
-    private $remainedQuantity;
+    use HasQuantitiesProperty;
+
+    /** @var  int $subscribedPack */
+    private $subscribedPack;
 
     /**
      * {@inheritdoc}
@@ -24,19 +27,21 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         // Set the type
         $details['type'] = self::COUNTABLE;
 
-        $this->remainedQuantity = $details['remained_quantity'] ?? 0;
-
         $this->RecurringFeatureConstruct($details);
+        $this->setQuanity($details);
+
+        if (isset($details['subscribed_pack']))
+            $this->subscribedPack = $details['subscribed_pack'];
 
         parent::__construct($name, $details);
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
-    public function getRemainedQuantity() : int
+    public function getSubscribedPack()
     {
-        return $this->remainedQuantity;
+        return $this->subscribedPack;
     }
 
     /**
@@ -46,7 +51,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     {
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'remained_quantity' => $this->getRemainedQuantity()
+            'initial_quantity' => $this->getInitialQuantity(),
+            'remained_quantity' => $this->getRemainedQuantity(),
+            'subscribed_pack' => $this->getSubscribedPack()
         ], parent::toArray());
     }
 }

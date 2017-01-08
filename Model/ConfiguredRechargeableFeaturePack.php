@@ -4,7 +4,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
 
 /**
  * RechargeableFeatures can be bought in packs.
@@ -13,7 +13,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\UnatantumPricesProperty;
  */
 class ConfiguredRechargeableFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
 {
-    use UnatantumPricesProperty;
+    use HasUnatantumPricesProperty;
     use CanBeFreeProperty;
 
     /** @var  int $numOfUnits How many units are contained in this Pack */

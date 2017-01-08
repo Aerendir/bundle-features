@@ -2,15 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\RecurringFeatureProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
 class SubscribedBooleanFeature extends AbstractSubscribedFeature implements SubscribedBooleanFeatureInterface
 {
-    use RecurringFeatureProperty {
-        RecurringFeatureProperty::__construct as RecurringFeatureConstruct;
+    use HasRecurringFeatureProperty {
+        HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
     /** @var bool $enabled */

@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterfac
 /**
  * Manages properties of a Recurring feature.
  */
-trait RecurringFeatureProperty
+trait HasRecurringFeatureProperty
 {
     /** @var \DateTime $activeUntil */
     private $activeUntil;

@@ -2,13 +2,11 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesInterface;
+
 /**
  * {@inheritdoc}
  */
-interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
+interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface, HasQuantitiesInterface
 {
-    /**
-     * @return int
-     */
-    public function getRemainedQuantity() : int;
 }

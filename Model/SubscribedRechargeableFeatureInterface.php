@@ -2,10 +2,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesInterface;
+
 /**
  * {@inheritdoc}
  */
-interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface
+interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, HasQuantitiesInterface
 {
     /**
      * @return \DateTime
@@ -16,11 +18,6 @@ interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterf
      * @return int
      */
     public function getLastRechargeQuantity() : int;
-
-    /**
-     * @return int
-     */
-    public function getRemainedQuantity() : int;
 
     /**
      * @param int $freeRecharge
