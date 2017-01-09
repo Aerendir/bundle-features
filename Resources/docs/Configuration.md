@@ -109,8 +109,8 @@ Now you can access four services to manage your features and the invoices for th
 
 Continue reading the documentation to know how to use them or read the specifications for each type of feature:
 
-- [Boolean Feature config details](Specification-Boolean.md)
-- [Countable Feature config details](Specification-Countable.md)
-- [Rechargeable Feature config details](Specification-Rechargeable.md)
+- [Boolean Feature config details](Features/Specification-Boolean.md)
+- [Countable Feature config details](Features/Specification-Countable.md)
+- [Rechargeable Feature config details](Features/Specification-Rechargeable.md)
 
 ([Go back to index](Index.md)) | Next step: To write

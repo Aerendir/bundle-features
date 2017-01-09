@@ -144,9 +144,6 @@ class FeaturesManager
             }
         }
 
-        //if ('automatic_reminders' === $name)
-        //    die(dump($features));
-
         return new SubscribedFeaturesCollection($features);
     }
 
