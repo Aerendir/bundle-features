@@ -21,10 +21,14 @@ use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\CountableFeatureTra
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\RechargeableFeatureTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -47,7 +51,8 @@ class FeaturesType extends AbstractType
                     $builder->get($feature->getName())->addModelTransformer(new BooleanFeatureTransformer($feature->getName()));
                     break;
                 case ConfiguredCountableFeature::class:
-                    $builder->add($feature->getName(), IntegerType::class, ['required' => false]);
+                    /** @var ConfiguredCountableFeatureInterface $feature */
+                    $builder->add($feature->getName(), ChoiceType::class, ['required' => false, 'choices' => $this->getCountableFeaturePacks($feature)]);
                     $builder->get($feature->getName())->addModelTransformer(new CountableFeatureTransformer($feature->getName()));
                     break;
                 case ConfiguredRechargeableFeature::class:
@@ -68,5 +73,21 @@ class FeaturesType extends AbstractType
         $resolver->setRequired([
             'configured_features',
         ]);
+    }
+
+    /**
+     * @param ConfiguredCountableFeatureInterface $feature
+     *
+     * @return array
+     */
+    private function getCountableFeaturePacks(ConfiguredCountableFeatureInterface $feature)
+    {
+        $choices = [];
+        /** @var ConfiguredCountableFeaturePack $pack */
+        foreach ($feature->getPacks() as $pack) {
+            $choices[$pack->getNumOfUnits()] = $pack->getNumOfUnits();
+        }
+
+        return $choices;
     }
 }

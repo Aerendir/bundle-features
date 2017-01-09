@@ -33,6 +33,14 @@ trait HasConfiguredPacksProperty
     }
 
     /**
+     * @return array
+     */
+    public function getPacks() : array
+    {
+        return $this->packs;
+    }
+
+    /**
      * @param int $numOfUnits
      * @return bool
      */

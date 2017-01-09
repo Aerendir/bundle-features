@@ -21,6 +21,11 @@ interface HasConfiguredPacksInterface
     public function getPack(int $numOfUnits);
 
     /**
+     * @return array
+     */
+    public function getPacks() : array;
+
+    /**
      * @return bool
      */
     public function hasFreePack() : bool;

@@ -16,8 +16,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
 
 /**
  * {@inheritdoc}
@@ -27,21 +27,17 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
-     * @param ConfiguredCountableFeature|null $feature
+     * @param SubscribedCountableFeature|null $feature
      *
      * @return string
      */
     public function transform($feature)
     {
-        if ($feature instanceof ConfiguredCountableFeature) {
-            return $feature->getFreeAmount();
+        if ($feature instanceof SubscribedCountableFeature) {
+            return $feature->getSubscribedPack();
         }
 
-        if (null === $feature) {
-            return 0;
-        }
-
-        return $feature;
+        return 0;
     }
 
     /**
