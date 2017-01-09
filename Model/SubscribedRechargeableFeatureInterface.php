@@ -2,8 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesInterface;
-
 /**
  * {@inheritdoc}
  */

@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringFeatureProperty;
 
 /**
@@ -14,17 +13,17 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    /**
-     * @todo but here the initial quantity is not required as there is ever a subscribed pack to which reference to get
-     * the available quantity in the subscription period.
-     */
-    use HasQuantitiesProperty;
-
-    /** @var  int $previousRemainedQuantity Internal variable used when cumulate() is called */
-    private $previousRemainedQuantity;
-
     /** @var  int $subscribedPack */
     private $subscribedPack;
+
+    /** @var int $consumedQuantity How many units are consumed at this time */
+    private $consumedQuantity = 0;
+
+    /** @var int $remaining The num of units remained from the last subscription cycle */
+    private $remainedQuantity;
+
+    /** @var int $previousRemainedQuantity Internally used by cumulate() */
+    private $previousRemainedQuantity = 0;
 
     /**
      * {@inheritdoc}
@@ -35,16 +34,79 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $details['type'] = self::COUNTABLE;
 
         $this->RecurringFeatureConstruct($details);
-        $this->setQuanity($details);
 
-        if (isset($details['subscribed_pack']))
-            $this->subscribedPack = $details['subscribed_pack'];
+        $this->subscribedPack = $details['subscribed_pack'];
+        $this->remainedQuantity = $details['remained_quantity'];
+
+        if (isset($details['consumed_quantity'])) {
+            $this->consumedQuantity = $details['consumed_quantity'];
+        }
 
         parent::__construct($name, $details);
     }
 
     /**
+     * Method to consume the given quantity of this feature.
+     *
+     * @param int $quantity
+     * @return SubscribedCountableFeatureInterface
+     */
+    public function consume(int $quantity) : SubscribedCountableFeatureInterface
+    {
+        $this->consumedQuantity += $quantity;
+        $this->remainedQuantity -= $quantity;
+
+        return $this;
+    }
+
+    /**
+     * Method to consume one unit of this feature.
+     *
+     * @return SubscribedCountableFeatureInterface
+     */
+    public function consumeOne() : SubscribedCountableFeatureInterface
+    {
+        return $this->consume(1);
+    }
+
+    /**
+     * Adds the previous remained amount to the refreshed subscription quantity.
+     *
+     * So, if the current quantity is 4 and a recharge(5) is made, the new $remainedQuantity is 5.
+     * But if cumulate() is called, the new $remainedQuantity is 9:
+     *
+     *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
+     *
+     * @return SubscribedCountableFeatureInterface
+     */
+    public function cumulate() : SubscribedCountableFeatureInterface
+    {
+        if (null === $this->previousRemainedQuantity)
+            throw new \LogicException('You cannot use cumulate() before refreshing the subscription with refresh().');
+
+        $this->remainedQuantity = $this->getRemainedQuantity() + $this->previousRemainedQuantity;
+
+        return $this;
+    }
+
+    /**
      * @return int
+     */
+    public function getConsumedQuantity() : int
+    {
+        return $this->consumedQuantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRemainedQuantity() : int
+    {
+        return $this->remainedQuantity;
+    }
+
+    /**
+     * @return int|ConfiguredCountableFeaturePack
      */
     public function getSubscribedPack()
     {
@@ -66,29 +128,16 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * Adds the new recharge amount to the already existent quantity.
-     *
-     * So, if the current quantity is 4 and a recharge(5) is made, the new $remainedQuantity is 5.
-     * But if cumulate() is called, the new $remainedQuantity is 9:
-     *
-     *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
-     *
-     * @return SubscribedCountableFeatureInterface
+     * At the end of the subscription period, use this method to refresh the quantities.
      */
-    public function cumulate() : SubscribedCountableFeatureInterface
+    public function refreshSubscription() : SubscribedCountableFeatureInterface
     {
-        $this->remainedQuantity += $this->previousRemainedQuantity;
+        $this->previousRemainedQuantity = $this->getRemainedQuantity();
+
+        $this->consumedQuantity = 0;
+        $this->remainedQuantity = $this->getSubscribedPack()->getNumOfUnits();
 
         return $this;
-    }
-
-    /**
-     * @todo method to implement
-     */
-    public function updatePreviousRemainedQuantity()
-    {
-        $this->previousRemainedQuantity = $this->remainedQuantity;
-        //$this->remainedQuantity = $rechargeQuantity;
     }
 
     /**
@@ -105,7 +154,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'subscribed_pack' => $subscribedPack
+            'subscribed_pack' => $subscribedPack,
+            'remained_quantity' => $this->getRemainedQuantity(),
+            'consumed_quantity' => $this->getConsumedQuantity()
         ], parent::toArray());
     }
 }
