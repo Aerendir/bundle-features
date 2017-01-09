@@ -207,6 +207,7 @@ class FeaturesManager
             ->add('features', FeaturesType::class, [
                 'data' => $subscription->getFeatures()->toArray(),
                 'configured_features' => $this->getConfiguredFeatures()->setSubscription($subscription),
+                'subscription' => $subscription
             ]);
 
         $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());

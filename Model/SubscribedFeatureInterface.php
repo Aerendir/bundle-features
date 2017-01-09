@@ -8,7 +8,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 interface SubscribedFeatureInterface extends FeatureInterface
 {
     /**
-     * @return ConfiguredFeatureInterface
+     * @return ConfiguredFeatureInterface|ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface
      */
     public function getConfiguredFeature() : ConfiguredFeatureInterface;
 

@@ -23,9 +23,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -47,12 +48,13 @@ class FeaturesType extends AbstractType
         foreach ($options['configured_features']->getValues() as $feature) {
             switch (get_class($feature)) {
                 case ConfiguredBooleanFeature::class:
-                    $builder->add($feature->getName(), CheckboxType::class, ['required' => false]);
+                    $subscribedFeature = $options['subscription']->getFeatures()->get($feature->getName());
+                    $builder->add($feature->getName(), CheckboxType::class, $this->getBooleanFeatureOptions($options['subscription'], $subscribedFeature));
                     $builder->get($feature->getName())->addModelTransformer(new BooleanFeatureTransformer($feature->getName()));
                     break;
                 case ConfiguredCountableFeature::class:
                     /** @var ConfiguredCountableFeatureInterface $feature */
-                    $builder->add($feature->getName(), ChoiceType::class, ['required' => false, 'choices' => $this->getCountableFeaturePacks($feature)]);
+                    $builder->add($feature->getName(), ChoiceType::class, ['required' => false, 'choices' => $this->getCountableFeaturePacks($feature)/*, 'choice_attr' => $this->setCountableFeaturePacksPrices()*/]);
                     $builder->get($feature->getName())->addModelTransformer(new CountableFeatureTransformer($feature->getName()));
                     break;
                 case ConfiguredRechargeableFeature::class:
@@ -72,7 +74,27 @@ class FeaturesType extends AbstractType
 
         $resolver->setRequired([
             'configured_features',
+            'subscription'
         ]);
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     * @param SubscribedBooleanFeatureInterface|null $feature
+     * @return array
+     */
+    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $feature = null) : array
+    {
+        return [
+            'required' => false,
+            'attr' => [
+                'class' => 'feature',
+                'data-toggle' => 'toggle',
+                'data-already-active' => $feature->isStillActive(),
+                'data-amount' => $feature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
+                'data-instant-amount' => $feature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount()
+            ]
+        ];
     }
 
     /**
@@ -89,5 +111,12 @@ class FeaturesType extends AbstractType
         }
 
         return $choices;
+    }
+
+    private function setCountableFeaturePacksPrices()
+    {
+        return function($val, $key, $index) {
+            dump($val, $key, $index);
+        };
     }
 }
