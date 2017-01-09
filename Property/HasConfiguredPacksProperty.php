@@ -46,7 +46,7 @@ trait HasConfiguredPacksProperty
      */
     public function hasFreePack() : bool
     {
-        return null === $this->freePack;
+        return null !== $this->freePack;
     }
 
     /**
