@@ -52,7 +52,7 @@ This is because the `RechargeableFeature` is meant to be bought each time the Us
 `free_recharge` and FreePack
 ----------------------------
 
-While it is possible to set in the default subscription the initial quantity of a `RechargeableFeature` units, this is not possible for a `CountableFeature`.
+While it is possible to set in the default subscription the initial quantity of a `RechargeableFeature` units, this is not possible in for a `CountableFeature`.
 
 But for a `CountableFeature` is possible to set a FreePack while this is not possible for a `RechargeableFeature`.
  

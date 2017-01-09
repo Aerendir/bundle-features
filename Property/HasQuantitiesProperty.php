@@ -8,7 +8,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 trait HasQuantitiesProperty
 {
     /** @var  int $initialQuantity The initial amount of units */
-    private $initialQuantity = 0;
+    //private $initialQuantity = 0;
 
     /** @var  int $remainedQuantity The amount of remained units */
     private $remainedQuantity = 0;
@@ -16,10 +16,12 @@ trait HasQuantitiesProperty
     /**
      * {@inheritdoc}
      */
+    /*
     public function getInitialQuantity() : int
     {
         return $this->initialQuantity;
     }
+    */
 
     /**
      * {@inheritdoc}
@@ -34,9 +36,9 @@ trait HasQuantitiesProperty
      */
     private function setQuanity(array $details)
     {
-        $this->initialQuantity = $details['initial_quantity'] ?? 0;
+        //$this->initialQuantity = $details['initial_quantity'] ?? 0;
 
-        $this->remainedQuantity = $this->initialQuantity;
+        //$this->remainedQuantity = $this->initialQuantity;
         if (isset($details['remained_quantity'])) {
             $this->remainedQuantity = $details['remained_quantity'];
         }

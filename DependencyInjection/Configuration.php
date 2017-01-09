@@ -17,8 +17,6 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  *
  * {@inheritdoc}
- *
- * Thanks to Alex Blex for the good advice (http://stackoverflow.com/a/41491901/1399706)
  */
 class Configuration implements ConfigurationInterface
 {
@@ -202,7 +200,7 @@ class Configuration implements ConfigurationInterface
         $this->validateRecurringPrice($set, $feature . '.packs.', $config['unitary_price']);
 
         // Validate the packages
-        $this->validatePackages($set, $feature, $config['packs'], 'subscription');
+        $this->validatePackages($set, $feature, $config['packs'], 'recurring');
     }
 
     /**
@@ -301,11 +299,19 @@ class Configuration implements ConfigurationInterface
                 }
 
                 switch ($subscriptionType) {
-                    case 'subscription':
+                    case 'recurring':
                         // Validate the price
                         $this->validateRecurringPrice($set, $feature . '.packs.' . $numOfUnits, $price);
                         break;
                     case 'unatantum':
+                        // If this is a free package
+                        if (empty($price)) {
+                            // We have to throw an exception as RechargeableFeatures cannot have a free package (it is useless)
+                            throw new InvalidConfigurationException(
+                                sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.',
+                                    $set, $feature, $numOfUnits));
+                        }
+
                         // Validate the price
                         $this->validateUnatantumPrice($set, $feature . '.packs.' . $numOfUnits, $price);
                         break;
@@ -389,7 +395,6 @@ class Configuration implements ConfigurationInterface
     private function processBoolean(array $config)
     {
         unset(
-            $config['free_amount'],
             $config['cumulable'],
             $config['free_recharge'],
             $config['unitary_price'],
@@ -412,7 +417,7 @@ class Configuration implements ConfigurationInterface
         );
 
         $config['prices'] = $this->processRecurringPrice($config['unitary_price']);
-        $config['packs'] = $this->processPackages($config['packs'], 'subscription');
+        $config['packs'] = $this->processPackages($config['packs'], 'recurring');
 
         return $config;
     }
@@ -426,7 +431,6 @@ class Configuration implements ConfigurationInterface
         unset(
             $config['cumulable'],
             $config['enabled'],
-            $config['free_amount'],
             $config['price']
         );
 
@@ -461,15 +465,28 @@ class Configuration implements ConfigurationInterface
      */
     private function processPackages(array $packs, $subscriptionType)
     {
+        $subscriptionHasFreePackage = false;
         foreach ($packs as $numOfUnits => $prices) {
             switch ($subscriptionType) {
-                case 'subscription':
+                case 'recurring':
                     $packs[$numOfUnits] = $this->processRecurringPrice($prices);
+
+                    // If this is a free package
+                    if (empty($prices)) {
+                        // We have a free package so we haven't to create it
+                        $subscriptionHasFreePackage = true;
+                    }
                     break;
                 case 'unatantum':
                     $packs[$numOfUnits] = $this->processUnatantumPrice($prices);
                     break;
             }
+        }
+
+        // If we are processing a recurring feature that hasn't a free package...
+        if ('recurring' === $subscriptionType && false === $subscriptionHasFreePackage) {
+            // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
+            $packs[0] = [];
         }
 
         return $packs;

@@ -14,6 +14,10 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
+    /**
+     * @todo but here the initial quantity is not required as there is ever a subscribed pack to which reference to get
+     * the available quantity in the subscription period.
+     */
     use HasQuantitiesProperty;
 
     /** @var  int $previousRemainedQuantity Internal variable used when cumulate() is called */
@@ -101,8 +105,6 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'initial_quantity' => $this->getInitialQuantity(),
-            'remained_quantity' => $this->getRemainedQuantity(),
             'subscribed_pack' => $subscribedPack
         ], parent::toArray());
     }

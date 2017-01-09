@@ -2,12 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesInterface;
-
 /**
  * {@inheritdoc}
  */
-interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface, HasQuantitiesInterface
+interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
 {
     /**
      * It is an integer when the feature is loaded from the database.

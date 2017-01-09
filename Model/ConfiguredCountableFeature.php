@@ -50,14 +50,6 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function getFreeAmount() : int
-    {
-        return $this->freeAmount;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);

@@ -9,8 +9,6 @@ This is the full configuration of a Countable feature:
         type: countable
         # If true, on each subscription cycle the num of units is summed up to the already existent num of units
         cumulable: false
-        # The amount of free units. In this case, the user start paying additional units from the fourth one.
-        free_amount: 3
         # Required: The price of a single unit of this feature (ex.: the cost of one more user)
         unitary_price:
             # Currency code in ISO 4217 format

@@ -10,8 +10,4 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
  */
 interface ConfiguredCountableFeatureInterface extends HasRecurringPricesInterface, HasConfiguredPacksInterface, ConfiguredFeatureInterface
 {
-    /**
-     * @return int
-     */
-    public function getFreeAmount() : int;
 }

@@ -17,8 +17,6 @@ This is the full configuration of a Rechargeable feature:
             EUR: 100
         # Optional: if not set the feature is free
         packs:
-            # The num of units: empty for a free feature
-            10: ~
             50:
                 # Optional. Currency code in ISO 4217 format. If not set the pack is free
                 EUR: 500

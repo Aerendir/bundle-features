@@ -7,6 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Service\InvoicesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * {@inheritdoc}

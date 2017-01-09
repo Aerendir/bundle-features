@@ -123,8 +123,7 @@ class FeaturesManager
                 case 'countable':
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
-                        'type' => $details->getType(),
-                        'initial_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeAmount(),
+                        'type' => $details->getType()
                     ];
 
                     // If a free pack is configured, set it as the default subscribed one

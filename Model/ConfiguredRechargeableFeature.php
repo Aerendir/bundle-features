@@ -18,9 +18,6 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     use HasUnatantumPricesProperty;
     use CanBeFreeProperty;
 
-    /** @var  bool $cumulable If true, the new recharge is added to the existing quantity. If false, is substituted to the existent quantity */
-    private $cumulable;
-
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
 
@@ -33,7 +30,6 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
         $details['type'] = self::RECHARGEABLE;
 
         $this->freeRecharge = $details['free_recharge'];
-        $this->cumulable = $details['cumulable'];
 
         if (isset($details['packs']))
             $this->setPacks($details['packs']);

@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasQuantitiesInterface;
 /**
  * {@inheritdoc}
  */
-interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, HasQuantitiesInterface
+interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface
 {
     /**
      * @return \DateTime
