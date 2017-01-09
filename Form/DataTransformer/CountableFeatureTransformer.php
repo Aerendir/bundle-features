@@ -16,11 +16,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * {@inheritdoc}
@@ -30,13 +27,13 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
-     * @param ConfiguredConfiguredCountableFeature|null $feature
+     * @param ConfiguredCountableFeature|null $feature
      *
      * @return string
      */
     public function transform($feature)
     {
-        if ($feature instanceof ConfiguredConfiguredCountableFeature) {
+        if ($feature instanceof ConfiguredCountableFeature) {
             return $feature->getFreeAmount();
         }
 

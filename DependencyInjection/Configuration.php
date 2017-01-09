@@ -12,7 +12,6 @@ use SebastianBergmann\Money\Currency;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
