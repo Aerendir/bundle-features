@@ -16,6 +16,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
     use HasQuantitiesProperty;
 
+    /** @var  int $previousRemainedQuantity Internal variable used when cumulate() is called */
+    private $previousRemainedQuantity;
+
     /** @var  int $subscribedPack */
     private $subscribedPack;
 
@@ -56,6 +59,32 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $this->subscribedPack = $configuredPack;
 
         parent::setConfiguredFeature($configuredFeature);
+    }
+
+    /**
+     * Adds the new recharge amount to the already existent quantity.
+     *
+     * So, if the current quantity is 4 and a recharge(5) is made, the new $remainedQuantity is 5.
+     * But if cumulate() is called, the new $remainedQuantity is 9:
+     *
+     *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
+     *
+     * @return SubscribedCountableFeatureInterface
+     */
+    public function cumulate() : SubscribedCountableFeatureInterface
+    {
+        $this->remainedQuantity += $this->previousRemainedQuantity;
+
+        return $this;
+    }
+
+    /**
+     * @todo method to implement
+     */
+    public function updatePreviousRemainedQuantity()
+    {
+        $this->previousRemainedQuantity = $this->remainedQuantity;
+        //$this->remainedQuantity = $rechargeQuantity;
     }
 
     /**

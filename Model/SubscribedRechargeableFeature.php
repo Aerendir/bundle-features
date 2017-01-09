@@ -17,9 +17,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /** @var  int $lastRechargeQuantity The quantity of units recharged last time */
     private $lastRechargeQuantity;
 
-    /** @var  int $previousRemainedQuantity Internal variable used when cumulate() is called */
-    private $previousRemainedQuantity;
-
     /**
      * {@inheritdoc}
      */
@@ -60,27 +57,9 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
      */
     public function recharge(int $rechargeQuantity) : SubscribedRechargeableFeatureInterface
     {
-        $this->previousRemainedQuantity = $this->remainedQuantity;
-        $this->remainedQuantity = $rechargeQuantity;
+        $this->remainedQuantity += $rechargeQuantity;
         $this->lastRechargeOn = new \DateTime();
         $this->lastRechargeQuantity = $rechargeQuantity;
-
-        return $this;
-    }
-
-    /**
-     * Adds the new recharge amount to the already existent quantity.
-     *
-     * So, if the current quantity is 4 and a recharge(5) is made, the new $remainedQuantity is 5.
-     * But if cumulate() is called, the new $remainedQuantity is 9:
-     *
-     *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
-     *
-     * @return SubscribedRechargeableFeatureInterface
-     */
-    public function cumulate() : SubscribedRechargeableFeatureInterface
-    {
-        $this->remainedQuantity += $this->previousRemainedQuantity;
 
         return $this;
     }

@@ -42,8 +42,6 @@ class Configuration implements ConfigurationInterface
                                 ->end()
                                 // type === Boolean
                                 ->scalarNode('enabled')->defaultFalse()->end()
-                                // type === Countable
-                                ->integerNode('free_amount')->defaultValue(0)->end()
                                 // type === Rechargeable
                                 ->scalarNode('cumulable')->defaultFalse()->end()
                                 // type === Rechargeable
@@ -426,6 +424,7 @@ class Configuration implements ConfigurationInterface
     private function processRechargeable(array $config)
     {
         unset(
+            $config['cumulable'],
             $config['enabled'],
             $config['free_amount'],
             $config['price']
