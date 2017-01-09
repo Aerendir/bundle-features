@@ -30,8 +30,8 @@ trait HasRecurringPricesProperty
      */
     public function __construct(array $details = [])
     {
-        if (isset($details['prices'])) {
-            $this->setPrices($details['prices']);
+        if (isset($details['price'])) {
+            $this->setPrices($details['price']);
         }
     }
 
