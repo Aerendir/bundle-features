@@ -63,11 +63,18 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
      */
     public function toArray()
     {
+        $subscribedPack = $this->getSubscribedPack();
+
+        // If it is an object, transofmr it
+        if ($subscribedPack instanceof ConfiguredCountableFeaturePack) {
+            $subscribedPack = $subscribedPack->getNumOfUnits();
+        }
+
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
             'initial_quantity' => $this->getInitialQuantity(),
             'remained_quantity' => $this->getRemainedQuantity(),
-            'subscribed_pack' => $this->getSubscribedPack()
+            'subscribed_pack' => $subscribedPack
         ], parent::toArray());
     }
 }
