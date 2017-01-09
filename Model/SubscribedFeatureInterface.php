@@ -8,6 +8,16 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 interface SubscribedFeatureInterface extends FeatureInterface
 {
     /**
+     * @return ConfiguredFeatureInterface
+     */
+    public function getConfiguredFeature() : ConfiguredFeatureInterface;
+
+    /**
+     * @param ConfiguredFeatureInterface $configuredFeature
+     */
+    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature);
+
+    /**
      * Converts a Feature object into an array.
      *
      * @return array

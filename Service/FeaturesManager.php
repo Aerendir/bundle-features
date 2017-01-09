@@ -9,6 +9,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInter
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
@@ -80,6 +81,16 @@ class FeaturesManager
         $this->getInvoicesManager()->setSubscription($this->getSubscription());
         $this->getConfiguredFeatures()->setSubscription($this->getSubscription());
 
+        /**
+         * Set the Configured feature in each subscribed feature
+         *
+         * @var SubscribedFeatureInterface $subscribedFeature
+         */
+        foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
+            $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
+            $subscribedFeature->setConfiguredFeature($configuredFeature);
+        }
+
         return $this;
     }
 
@@ -114,8 +125,12 @@ class FeaturesManager
                     $features[$name] = [
                         'type' => $details->getType(),
                         'initial_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeAmount(),
-                        'subscribed_pack' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()
                     ];
+
+                    // If a free pack is configured, set it as the default subscribed one
+                    if ($this->getConfiguredFeatures()->get($name)->hasFreePack()) {
+                        $features[$name]['subscribed_pack'] = $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits();
+                    }
                     break;
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
@@ -128,6 +143,9 @@ class FeaturesManager
                     break;
             }
         }
+
+        //if ('automatic_reminders' === $name)
+        //    die(dump($features));
 
         return new SubscribedFeaturesCollection($features);
     }

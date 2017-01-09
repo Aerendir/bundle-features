@@ -45,6 +45,20 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
+     * Transforms the $subscribedPack integer into the correspondent ConfiguredFeaturePackInterface object.
+     *
+     * {@inheritdoc}
+     */
+    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
+    {
+        /** @var ConfiguredCountableFeatureInterface $configuredFeature */
+        $configuredPack = $configuredFeature->getPack($this->subscribedPack);
+        $this->subscribedPack = $configuredPack;
+
+        parent::setConfiguredFeature($configuredFeature);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function toArray()
