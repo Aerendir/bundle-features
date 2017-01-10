@@ -66,6 +66,8 @@ $(document).ready(function() {
     $('.feature.feature-countable')
     // Find countable features
         .each(function() {
+            featureName = 'feature-' + $(this).data('name');
+            console.log(featureName);
             // Find the subscribed pack (is an option in the select)
             selected = $(this).find("option[selected='selected']");
             markOptionAsCurrentlySelected(selected);
@@ -75,11 +77,12 @@ $(document).ready(function() {
                 amount += selected.data('amount');
 
                 // Write the price and the instant price in the front-end
-                $('.feature.feature-countable.feature-details.feature-amount').text(currencyMask(selected.data('amount')));
-                $('.feature.feature-countable.feature-details.feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-amount').text(currencyMask(selected.data('amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
             }
         })
         .change(function() {
+            featureName = 'feature-' + $(this).data('name');
             // Get the new selected option and the unselected one
             selected = $(this).find(':selected');
             deselected = $(this).find('.currently-selected');
@@ -87,8 +90,8 @@ $(document).ready(function() {
             // Update the prices shown for the current selected option/pack
             if (typeof selected.data('amount') !== 'undefined') {
                 // Write the price and the instant price in the front-end
-                $('.feature.feature-countable.feature-details.feature-amount').text(currencyMask(selected.data('amount')));
-                $('.feature.feature-countable.feature-details.feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-amount').text(currencyMask(selected.data('amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
             }
 
             // Subtract the amount of the deselected option and add the amount of the newly selected option

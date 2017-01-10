@@ -109,7 +109,8 @@ class FeaturesType extends AbstractType
         return [
             'required' => false,
             'attr' => [
-                'class' => 'feature feature-countable'
+                'class' => 'feature feature-countable',
+                'data-name' => $configuredFeature->getName()
             ],
             'choices' => $this->getCountableFeaturePacks($configuredFeature),
             'choice_attr' => $this->setCountableFeaturePacksPrices($subscription, $configuredFeature)
