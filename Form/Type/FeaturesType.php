@@ -25,7 +25,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -54,7 +57,7 @@ class FeaturesType extends AbstractType
                     break;
                 case ConfiguredCountableFeature::class:
                     /** @var ConfiguredCountableFeatureInterface $feature */
-                    $builder->add($feature->getName(), ChoiceType::class, ['required' => false, 'choices' => $this->getCountableFeaturePacks($feature)/*, 'choice_attr' => $this->setCountableFeaturePacksPrices()*/]);
+                    $builder->add($feature->getName(), ChoiceType::class, $this->getCountableFeatureOptions($options['subscription'], $feature));
                     $builder->get($feature->getName())->addModelTransformer(new CountableFeatureTransformer($feature->getName()));
                     break;
                 case ConfiguredRechargeableFeature::class:
@@ -88,12 +91,28 @@ class FeaturesType extends AbstractType
         return [
             'required' => false,
             'attr' => [
-                'class' => 'feature',
+                'class' => 'feature feature-boolean',
                 'data-toggle' => 'toggle',
                 'data-already-active' => $feature->isStillActive(),
                 'data-amount' => $feature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
                 'data-instant-amount' => $feature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount()
             ]
+        ];
+    }
+
+    /**
+     * @param ConfiguredCountableFeatureInterface $configuredFeature
+     * @return array
+     */
+    private function getCountableFeatureOptions(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature) : array
+    {
+        return [
+            'required' => false,
+            'attr' => [
+                'class' => 'feature feature-countable'
+            ],
+            'choices' => $this->getCountableFeaturePacks($configuredFeature),
+            'choice_attr' => $this->setCountableFeaturePacksPrices($subscription, $configuredFeature)
         ];
     }
 
@@ -113,10 +132,31 @@ class FeaturesType extends AbstractType
         return $choices;
     }
 
-    private function setCountableFeaturePacksPrices()
+    /**
+     * @return \Closure
+     */
+    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature)
     {
-        return function($val, $key, $index) {
-            dump($val, $key, $index);
+        return function($val, $key, $index) use ($subscription, $configuredFeature) {
+            /** @var ConfiguredCountableFeaturePack $pack */
+            $pack = $configuredFeature->getPack($val);
+
+            /** @var SubscribedCountableFeatureInterface $subscribedFeature */
+            $subscribedFeature = $subscription->getFeatures()->get($configuredFeature->getName());
+
+            $subscribedPack = $subscribedFeature->getSubscribedPack();
+
+            if ($subscribedPack instanceof ConfiguredCountableFeaturePack) {
+                $subscribedPack = $subscribedPack->getNumOfUnits();
+            }
+
+            $isPackAlreadyActive = $subscribedPack === $val;
+
+            return [
+                'data-amount' => $pack->getPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
+                'data-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
+                'data-already-subscribed' => $isPackAlreadyActive
+            ];
         };
     }
 }

@@ -29,6 +29,9 @@ class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, 
         $this->setPrices($prices);
     }
 
+    /**
+     * @return int
+     */
     public function getNumOfUnits() : int
     {
         return $this->numOfUnits;
