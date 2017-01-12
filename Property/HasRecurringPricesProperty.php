@@ -30,8 +30,8 @@ trait HasRecurringPricesProperty
      */
     public function __construct(array $details = [])
     {
-        if (isset($details['price'])) {
-            $this->setPrices($details['price']);
+        if (isset($details['prices'])) {
+            $this->setPrices($details['prices']);
         }
     }
 
@@ -136,8 +136,6 @@ trait HasRecurringPricesProperty
      * @param string $subscriptionInterval
      *
      * @return MoneyInterface
-     *
-     * @todo pass directly a Subscription object.
      */
     private function calculateInstantPrice(string $currency, string $subscriptionInterval) : MoneyInterface
     {

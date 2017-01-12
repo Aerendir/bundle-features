@@ -16,14 +16,32 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 
 /**
  * {@inheritdoc}
  */
 class CountableFeatureTransformer extends AbstractFeatureTransformer
 {
+    /** @var  ConfiguredCountableFeaturePack[] */
+    private $configuredPacks;
+
+    /**
+     * @param string $featureName
+     * @param SubscribedFeaturesCollection $subscribedFeatures
+     * @param array $configuredPacks
+     */
+    public function __construct($featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks)
+    {
+        $this->configuredPacks = $configuredPacks;
+
+        parent::__construct($featureName, $subscribedFeatures);
+    }
+
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
@@ -34,7 +52,7 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
     public function transform($feature)
     {
         if ($feature instanceof SubscribedCountableFeature) {
-            return $feature->getSubscribedPack();
+            return $feature->getSubscribedPack()->getNumOfUnits();
         }
 
         return 0;
@@ -43,12 +61,21 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param string $enabled
+     * @param int $pack
      *
-     * @return FeatureInterface
+     * @return SubscribedCountableFeatureInterface
      */
-    public function reverseTransform($enabled)
+    public function reverseTransform($pack)
     {
-        die(dump($enabled));
+        // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
+        // future here will be set also the price at which the pack were bought
+        $configuredPack = $this->configuredPacks[$pack];
+        $subscribedPack = new SubscribedCountableFeaturePack(['num_of_units' => $configuredPack->getNumOfUnits()]);
+
+        /** @var SubscribedCountableFeatureInterface $subscribedFeature */
+        $subscribedFeature = $this->getCurrentTransformingFeature();
+        $subscribedFeature->setSubscribedPack($subscribedPack);
+
+        return $subscribedFeature;
     }
 }

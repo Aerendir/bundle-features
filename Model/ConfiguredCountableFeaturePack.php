@@ -11,13 +11,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredCountableFeature with a corrispondent price.
  */
-class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
+class ConfiguredCountableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
 {
     use HasRecurringPricesProperty;
     use CanBeFreeProperty;
-
-    /** @var  int $numOfUnits How many units are contained in this Pack */
-    private $numOfUnits;
 
     /**
      * @param int $numOfUnits
@@ -25,15 +22,8 @@ class ConfiguredCountableFeaturePack implements ConfiguredFeaturePackInterface, 
      */
     public function __construct(int $numOfUnits, array $prices)
     {
-        $this->numOfUnits = $numOfUnits;
         $this->setPrices($prices);
-    }
 
-    /**
-     * @return int
-     */
-    public function getNumOfUnits() : int
-    {
-        return $this->numOfUnits;
+        parent::__construct(['num_of_units' => $numOfUnits]);
     }
 }

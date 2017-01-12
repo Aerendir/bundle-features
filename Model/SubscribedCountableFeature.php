@@ -13,14 +13,14 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    /** @var  int $subscribedPack */
+    /** @var  SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
 
     /** @var int $consumedQuantity How many units are consumed at this time */
     private $consumedQuantity = 0;
 
     /** @var int $remaining The num of units remained from the last subscription cycle */
-    private $remainedQuantity;
+    private $remainedQuantity = 0;
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
     private $previousRemainedQuantity = 0;
@@ -35,21 +35,14 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         $this->RecurringFeatureConstruct($details);
 
-        $this->subscribedPack = $details['subscribed_pack'];
+        $this->subscribedPack = new SubscribedCountableFeaturePack($details['subscribed_pack']);
         $this->remainedQuantity = $details['remained_quantity'];
-
-        if (isset($details['consumed_quantity'])) {
-            $this->consumedQuantity = $details['consumed_quantity'];
-        }
 
         parent::__construct($name, $details);
     }
 
     /**
-     * Method to consume the given quantity of this feature.
-     *
-     * @param int $quantity
-     * @return SubscribedCountableFeatureInterface
+     * {@inheritdoc}
      */
     public function consume(int $quantity) : SubscribedCountableFeatureInterface
     {
@@ -60,9 +53,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * Method to consume one unit of this feature.
-     *
-     * @return SubscribedCountableFeatureInterface
+     * {@inheritdoc}
      */
     public function consumeOne() : SubscribedCountableFeatureInterface
     {
@@ -70,14 +61,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * Adds the previous remained amount to the refreshed subscription quantity.
-     *
-     * So, if the current quantity is 4 and a recharge(5) is made, the new $remainedQuantity is 5.
-     * But if cumulate() is called, the new $remainedQuantity is 9:
-     *
-     *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
-     *
-     * @return SubscribedCountableFeatureInterface
+     * {@inheritdoc}
      */
     public function cumulate() : SubscribedCountableFeatureInterface
     {
@@ -90,7 +74,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function getConsumedQuantity() : int
     {
@@ -98,7 +82,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function getRemainedQuantity() : int
     {
@@ -106,29 +90,15 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * @return int|ConfiguredCountableFeaturePack
+     * @return SubscribedCountableFeaturePack
      */
-    public function getSubscribedPack()
+    public function getSubscribedPack() : SubscribedCountableFeaturePack
     {
         return $this->subscribedPack;
     }
 
     /**
-     * Transforms the $subscribedPack integer into the correspondent ConfiguredFeaturePackInterface object.
-     *
      * {@inheritdoc}
-     */
-    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
-    {
-        /** @var ConfiguredCountableFeatureInterface $configuredFeature */
-        $configuredPack = $configuredFeature->getPack($this->subscribedPack);
-        $this->subscribedPack = $configuredPack;
-
-        parent::setConfiguredFeature($configuredFeature);
-    }
-
-    /**
-     * At the end of the subscription period, use this method to refresh the quantities.
      */
     public function refreshSubscription() : SubscribedCountableFeatureInterface
     {
@@ -138,6 +108,37 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $this->remainedQuantity = $this->getSubscribedPack()->getNumOfUnits();
 
         return $this;
+    }
+
+    /**
+     * Transforms the $subscribedPack integer into the correspondent ConfiguredFeaturePackInterface object.
+     *
+     * {@inheritdoc}
+     */
+    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
+    {
+        parent::setConfiguredFeature($configuredFeature);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSubscribedPack(SubscribedCountableFeaturePack $pack)
+    {
+        // The remained quantity we had at the begininning of the subscription period
+        $this->remainedQuantity += $this->consumedQuantity;
+
+        // The perevious remained quantity
+        $this->remainedQuantity -= $this->subscribedPack->getNumOfUnits();
+
+        // The new remained quantity
+        $this->remainedQuantity += $pack->getNumOfUnits();
+
+        // The actual remained quantity
+        $this->remainedQuantity -= $this->consumedQuantity;
+
+        // Set the new subscribed pack
+        $this->subscribedPack = $pack;
     }
 
     /**
@@ -154,7 +155,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'subscribed_pack' => $subscribedPack,
+            'subscribed_pack' => $subscribedPack->toArray(),
             'remained_quantity' => $this->getRemainedQuantity(),
             'consumed_quantity' => $this->getConsumedQuantity()
         ], parent::toArray());

@@ -123,4 +123,11 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
 
         return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . ucfirst(FeaturesFactory::getKind()) . ucfirst($type) . 'Feature';
     }
+
+    public function __clone()
+    {
+        foreach ($this as $key => $element) {
+            $this->set($key, clone $element);
+        }
+    }
 }

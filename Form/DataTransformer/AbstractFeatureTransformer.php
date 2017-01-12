@@ -16,6 +16,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
@@ -26,12 +28,17 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     /** @var string $field */
     private $featureName;
 
+    /** @var null|SubscribedFeaturesCollection $subscribedFeatures */
+    private $subscribedFeatures;
+
     /**
      * @param string $featureName
+     * @param SubscribedFeaturesCollection $subscribedFeatures
      */
-    public function __construct(string $featureName)
+    public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures)
     {
         $this->featureName = $featureName;
+        $this->subscribedFeatures = $subscribedFeatures;
     }
 
     /**
@@ -40,5 +47,21 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     public function getFeatureName() : string
     {
         return $this->featureName;
+    }
+
+    /**
+     * @return SubscribedFeatureInterface
+     */
+    public function getCurrentTransformingFeature() : SubscribedFeatureInterface
+    {
+        return $this->getSubscribedFeatures()->get($this->getFeatureName());
+    }
+
+    /**
+     * @return SubscribedFeaturesCollection
+     */
+    public function getSubscribedFeatures() : SubscribedFeaturesCollection
+    {
+        return $this->subscribedFeatures;
     }
 }

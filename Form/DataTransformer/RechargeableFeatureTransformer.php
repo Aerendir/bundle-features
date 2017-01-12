@@ -47,12 +47,12 @@ class RechargeableFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param string $enabled
+     * @param string $pack
      *
      * @return FeatureInterface
      */
-    public function reverseTransform($enabled)
+    public function reverseTransform($pack)
     {
-        die(dump($enabled));
+        die(dump($pack));
     }
 }

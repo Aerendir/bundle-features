@@ -44,12 +44,23 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param string $enabled
+     * @param boolean $enabled
      *
      * @return FeatureInterface
      */
     public function reverseTransform($enabled)
     {
-        return new SubscribedBooleanFeature($this->getFeatureName(), ['enabled' => $enabled]);
+        /** @var SubscribedBooleanFeatureInterface $subscribedFeature */
+        $subscribedFeature = $this->getCurrentTransformingFeature();
+
+        switch ($enabled) {
+            case true:
+                $subscribedFeature->enable();
+                break;
+            case false:
+                $subscribedFeature->disable();
+        }
+
+        return $subscribedFeature;
     }
 }

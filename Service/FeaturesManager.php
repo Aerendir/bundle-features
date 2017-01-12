@@ -8,12 +8,17 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -37,6 +42,9 @@ class FeaturesManager
 
     /** @var SubscriptionInterface $subscription */
     private $subscription;
+
+    /** @var SubscriptionInterface $subscription This is use to calculate added and removed boolean features and the changed packs of CountableFeatures */
+    private $oldSubscription;
 
     /**
      * @param array $configuredFeatures
@@ -124,7 +132,7 @@ class FeaturesManager
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
                         'type' => $details->getType(),
-                        'subscribed_pack' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
+                        'subscribed_pack' => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
                         'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()
                     ];
                     break;
@@ -153,17 +161,31 @@ class FeaturesManager
     {
         $totalCharges = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
 
-        // Calculate the added and removed features
-        $this->findDifferences($this->getSubscription()->getFeatures(), $newFeatures);
+        // Calculate the added and removed Boolena features and the changed packages in Countable features
+        $this->findDifferences($newFeatures);
 
         /*
          * May happen that a premium feature is activate and paid, then is deactivated but it is still in the subscription interval.
          * If it is activated again during the subscription interval, it were already paid, so it hasn't to be paid again.
          */
         foreach ($this->getDifferences('added') as $feature) {
-            $checkingFeature = $this->getSubscription()->getFeatures()->get($feature);
+            $featureName = is_array($feature) ? key($feature) : $feature;
+            /** @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface $checkingFeature */
+            $checkingFeature = $this->getSubscription()->getFeatures()->get($featureName);
+
             if (null !== $checkingFeature && false === $checkingFeature->isStillActive()) {
-                $instantPrice = $this->getConfiguredFeatures()->get($feature)->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
+                $instantPrice = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+
+                // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
+                if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
+                    /**
+                     * For the moment force the code to get the pack's instant price
+                     *
+                     * @var SubscribedCountableFeatureInterface $checkingFeature
+                     */
+                    $instantPrice = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                }
 
                 if ($instantPrice instanceof MoneyInterface) {
                     $totalCharges = $totalCharges->add($instantPrice);
@@ -200,6 +222,9 @@ class FeaturesManager
      */
     public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription)
     {
+        // Clone the $subscription so we can use it to compare changes
+        $this->oldSubscription = clone $subscription;
+
         $form = $this->getFormFactory()->createBuilder(FormType::class, [
             'action' => $actionUrl,
             'method' => 'POST',
@@ -248,9 +273,7 @@ class FeaturesManager
     /**
      * Update the subscription object after features are added or removed.
      *
-     * It updates the next payment amount and the dates untile the features are active.
-     *
-     * If a ConfiguredFeaturesCollection is passed, it sets their statuses to the features already existent in the Subscription.
+     * It updates the next payment amount and the dates until the features are active.
      *
      * @param SubscribedFeaturesCollection|null $newFeatures
      */
@@ -264,7 +287,7 @@ class FeaturesManager
         foreach ($newFeatures as $newFeature) {
             $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
 
-            if ($existentFeature instanceof FeatureInterface) {
+            if ($existentFeature instanceof SubscribedBooleanFeatureInterface) {
                 $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
                 $existentFeature->$toggle();
             }
@@ -304,13 +327,15 @@ class FeaturesManager
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
      *
-     * @param SubscribedFeaturesCollection $oldFeatures
      * @param SubscribedFeaturesCollection $newFeatures
      *
      * @return array
      */
-    private function findDifferences(SubscribedFeaturesCollection $oldFeatures, SubscribedFeaturesCollection $newFeatures)
+    private function findDifferences(SubscribedFeaturesCollection $newFeatures)
     {
+        // Get the features from the cloned subscription
+        $oldFeatures = $this->oldSubscription->getFeatures();
+
         /**
          * Calculate the removed features.
          *
@@ -321,20 +346,49 @@ class FeaturesManager
          * @var FeatureInterface
          */
         foreach ($oldFeatures as $oldFeature) {
-            // If the feature is in the old collection but doesn't exist in the new collection...
+            // If the Feature is in the old collection but doesn't exist in the new collection...
             if (false === $newFeatures->containsKey($oldFeature->getName())) {
-                // ... It was removed
+                // ... It was removed and in this case we can simply set it as removed as we don't need much details
                 $this->differences['removed'][] = $oldFeature->getName();
                 continue;
             }
 
-            // If it was in the old collection and was enabled and is in the new collection but is not enabled...
-            if (true === $oldFeature->isEnabled()
-                && true === $newFeatures->containsKey($oldFeature->getName())
-                && false === $newFeatures->get($oldFeature->getName())->isEnabled()
-            ) {
-                // ... It was removed
-                $this->differences['removed'][] = $oldFeature->getName();
+            switch (get_class($oldFeature)) {
+                // If is a BooleanFeature...
+                case SubscribedBooleanFeature::class:
+                    // ... and was in the old collection and was enabled and is in the new collection but is not enabled...
+                    if (true === $oldFeature->isEnabled()
+                        && true === $newFeatures->containsKey($oldFeature->getName())
+                        && false === $newFeatures->get($oldFeature->getName())->isEnabled()
+                    ) {
+                        // ... It was removed
+                        $this->differences['removed'][] = $oldFeature->getName();
+                    }
+                    break;
+                // If is a CountableFeature...
+                case SubscribedCountableFeature::class:
+                    /**
+                     * ... and was in the old collection and in the new collection, too ...
+                     *
+                     * @var SubscribedCountableFeatureInterface $oldFeature
+                     */
+                    if (true === $newFeatures->containsKey($oldFeature->getName())) {
+                        /**
+                         * We first get the subscribed packages...
+                         *
+                         * @var SubscribedCountableFeaturePack $oldSubscribedPack
+                         * @var SubscribedCountableFeaturePack $newSubscribedPack
+                         */
+                        $oldSubscribedPack = $oldFeature->getSubscribedPack();
+                        $newSubscribedPack = $newFeatures->get($oldFeature->getName())->getSubscribedPack();
+
+                        // ... and then we compare them. If they are not equal...
+                        if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
+                            // ... the pack was removed (changed)
+                            $this->differences['removed'][] = [$oldFeature->getName() => $oldSubscribedPack->getNumOfUnits()];
+                        }
+                    }
+                    break;
             }
         }
 
@@ -345,23 +399,68 @@ class FeaturesManager
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
          *
-         * @var FeatureInterface
+         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface $newFeature
          */
         foreach ($newFeatures as $newFeature) {
-            // If the feature was not in the old collection but exists in the new collection...
+            /*
+             * Here we first build the value to add as we need to distinguish immediately between the two kind of
+             * features, boolean and countable, because if a CountableFeature is added, we need to know the subscribed
+             * plan.
+             */
+            $featureDetails = '';
+            switch (get_class($newFeature)) {
+                // If is a BooleanFeature...
+                case SubscribedBooleanFeature::class:
+                    // ... we simply need its name
+                    $featureDetails = $newFeature->getName();
+                    break;
+                // If is a CountableFeature...
+                case SubscribedCountableFeature::class:
+                    /** @var SubscribedCountableFeatureInterface $featureDetails */
+                    $featureDetails = [$newFeature->getName() => $newFeature->getSubscribedPack()->getNumOfUnits()];
+                    break;
+            }
+
+            // ... If the feature was not in the old collection but exists in the new collection...
             if (false === $oldFeatures->containsKey($newFeature->getName())) {
-                // ... It was added
-                $this->differences['added'][] = $newFeature->getName();
+                // ... It was added for sure
+                $this->differences['added'][] = $featureDetails;
                 continue;
             }
 
-            // If it was in the old collection and was not enabled and is in the new collection too but is enabled
-            if (true === $newFeature->isEnabled()
-                && true === $oldFeatures->containsKey($newFeature->getName())
-                && false === $oldFeatures->get($newFeature->getName())->isEnabled()
-            ) {
-                // ... It was added
-                $this->differences['added'][] = $newFeature->getName();
+            // If the new feature already was in the old collection...
+            if (true === $oldFeatures->containsKey($newFeature->getName())) {
+                // We need to know which kind of feature we are checking to know how to do the check
+                switch (get_class($newFeature)) {
+                    // If is a BooleanFeature...
+                    case SubscribedBooleanFeature::class:
+                        // If now, in the new subscription, is enabled...
+                        if (true === $newFeature->isEnabled()
+                            // ... But were not enabled in the old subscription
+                            && false === $oldFeatures->get($newFeature->getName())->isEnabled()
+                        ) {
+                            // ... then, it was added
+                            $this->differences['added'][] = $featureDetails;
+                        }
+                        break;
+                    // If is a CountableFeature...
+                    case SubscribedCountableFeature::class:
+                        /**
+                         * We first get the subscribed packages...
+                         *
+                         * @var SubscribedCountableFeaturePack $oldSubscribedPack
+                         * @var SubscribedCountableFeaturePack $newSubscribedPack
+                         */
+                        $newSubscribedPack = $newFeature->getSubscribedPack();
+                        $oldSubscribedPack = $oldFeatures->get($newFeature->getName())->getSubscribedPack();
+
+                        // ... and then we compare them. If they are not equal...
+                        if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
+                            // ... the pack was removed (changed)
+                            $this->differences['added'][] = $featureDetails;
+                        }
+                        break;
+                }
             }
         }
 
@@ -385,6 +484,12 @@ class FeaturesManager
 
         /** @var string $feature */
         foreach ($this->getDifferences('added') as $feature) {
+            // If this is an array, this is a Package...
+            if (is_array($feature)) {
+                // So we need the key of the array that is the feature's name
+                $feature = key($feature);
+            }
+
             if (false === $this->getSubscription()->has($feature)) {
                 $this->getSubscription()->addFeature(
                     $feature, $this->getConfiguredFeatures()->get($feature)
@@ -394,8 +499,9 @@ class FeaturesManager
             /** @var FeatureInterface $updatingFeature */
             $updatingFeature = $this->getSubscription()->getFeatures()->get($feature);
 
-            if ($updatingFeature instanceof SubscribedRecurringFeatureInterface)
+            if ($updatingFeature instanceof SubscribedRecurringFeatureInterface) {
                 $updatingFeature->setActiveUntil($validUntil);
+            }
         }
     }
 

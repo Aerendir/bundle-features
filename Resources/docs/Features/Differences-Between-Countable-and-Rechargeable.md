@@ -72,3 +72,8 @@ Cumulability
 Cumulability is not settable for `RechargeableFeatures` as, by design, when the user buys new quantities of it, the new quantity is added to the existent quantity.
 
 Cumulability, is, instead, settable for `CountableFeatures` as in this case, you, as developer, may want to sum to the still existent quantity the new quantity set by the new subscription cycle.
+
+Unitary price
+-------------
+
+Currently `CountableFeature`s don't support `unitary_price` (but there is [an issue opened](https://github.com/Aerendir/bundle-features/issues/1) to support it).

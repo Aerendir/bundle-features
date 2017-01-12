@@ -6,6 +6,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -70,9 +71,9 @@ class InvoicesManager
      */
     public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null)
     {
-        /** @var FeatureInterface $feature */
+        /** @var SubscribedBooleanFeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
-            if (false === $feature->isEnabled()) {
+            if ($feature instanceof SubscribedBooleanFeatureInterface && false === $feature->isEnabled()) {
                 continue;
             }
 

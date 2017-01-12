@@ -2,7 +2,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 
 /**
  * Implemented by Features that have packages.
@@ -16,7 +18,7 @@ interface HasConfiguredPacksInterface
 
     /**
      * @param int $numOfUnits
-     * @return null|ConfiguredFeaturePackInterface
+     * @return null|ConfiguredFeaturePackInterface|ConfiguredCountableFeaturePack|ConfiguredRechargeableFeaturePack
      */
     public function getPack(int $numOfUnits);
 

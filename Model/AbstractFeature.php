@@ -37,8 +37,4 @@ abstract class AbstractFeature implements FeatureInterface
     {
         return $this->type;
     }
-
-    /**
-     * @return array
-     */
 }

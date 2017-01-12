@@ -3,8 +3,8 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 /**
- * Common interface for Features packages.
+ * Common interface for Configured Features packages.
  */
-interface ConfiguredFeaturePackInterface
+interface ConfiguredFeaturePackInterface extends FeaturePackInterface
 {
 }

@@ -394,9 +394,12 @@ class Configuration implements ConfigurationInterface
      */
     private function processBoolean(array $config)
     {
+        $config['prices'] = $config['price'];
+
         unset(
             $config['cumulable'],
             $config['free_recharge'],
+            $config['price'],
             $config['unitary_price'],
             $config['packs']
         );
@@ -410,14 +413,14 @@ class Configuration implements ConfigurationInterface
      */
     private function processCountable(array $config)
     {
+        $config['packs'] = $this->processPackages($config['packs'], 'recurring');
+
         unset(
             $config['enabled'],
             $config['price'],
+            $config['unitary_price'],
             $config['free_recharge']
         );
-
-        $config['prices'] = $this->processRecurringPrice($config['unitary_price']);
-        $config['packs'] = $this->processPackages($config['packs'], 'recurring');
 
         return $config;
     }
@@ -431,7 +434,7 @@ class Configuration implements ConfigurationInterface
         unset(
             $config['cumulable'],
             $config['enabled'],
-            $config['price']
+            $config['prices']
         );
 
         $config['unitary_price'] = $this->processUnatantumPrice($config['unitary_price']);

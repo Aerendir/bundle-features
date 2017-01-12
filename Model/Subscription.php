@@ -300,4 +300,9 @@ abstract class Subscription implements SubscriptionInterface
     {
         $this->features = new SubscribedFeaturesCollection($this->features);
     }
+
+    public function __clone()
+    {
+        $this->features = clone $this->features;
+    }
 }

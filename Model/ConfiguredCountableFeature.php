@@ -22,8 +22,6 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     }
     use CanBeFreeProperty;
 
-    private $freeAmount;
-
     /**
      * @var
      */
@@ -34,8 +32,6 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
      */
     public function __construct(string $name, array $details = [])
     {
-        $this->freeAmount = $details['free_amount'] ?? 0;
-
         // Set the type
         $details['type'] = self::COUNTABLE;
 

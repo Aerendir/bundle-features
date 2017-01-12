@@ -28,7 +28,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     public function setSubscription(SubscriptionInterface $subscription)
     {
         foreach ($this->getValues() as $feature) {
-            if ($feature instanceof HasRecurringPricesInterface)
+            if ($feature instanceof HasRecurringPricesInterface || $feature instanceof ConfiguredCountableFeatureInterface)
                 $feature->setSubscription($subscription);
         }
 

@@ -49,7 +49,7 @@ trait HasRecurringFeatureProperty
     {
         $this->activeUntil = $activeUntil;
 
-        /** @var HasRecurringPricesInterface $this */
+        /** @var SubscribedRecurringFeatureInterface $this */
         return $this;
     }
 }

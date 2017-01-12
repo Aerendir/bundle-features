@@ -11,7 +11,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredRechargeableFeature with a corrispondent price.
  */
-class ConfiguredRechargeableFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
+class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
 {
     use HasUnatantumPricesProperty;
     use CanBeFreeProperty;
@@ -25,7 +25,8 @@ class ConfiguredRechargeableFeaturePack implements ConfiguredFeaturePackInterfac
      */
     public function __construct(int $numOfUnits, array $prices)
     {
-        $this->numOfUnits = $numOfUnits;
         $this->setPrices($prices);
+
+        parent::__construct(['num_of_units' => $numOfUnits]);
     }
 }
