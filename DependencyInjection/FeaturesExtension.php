@@ -4,8 +4,10 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
 use SerendipityHQ\Bundle\FeaturesBundle\Service\InvoicesManager;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\VarDumper\VarDumper;
 
@@ -21,6 +23,9 @@ class FeaturesExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
+
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.yml');
 
         // Create services for features
         foreach ($config as $creatingServiceKey => $features) {
@@ -49,7 +54,8 @@ class FeaturesExtension extends Extension
      */
     private function createInvoicesServices(string $name, array $features, ContainerBuilder $containerBuilder)
     {
-        $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$features]);
+        $arrayWriterDefinition = $containerBuilder->findDefinition('shq_features.array_writer');
+        $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$features, $arrayWriterDefinition]);
         $serviceName = 'shq_features.manager.'.$name.'.invoices';
         $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);
     }

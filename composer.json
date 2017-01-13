@@ -14,6 +14,7 @@
         "php": "~7.0",
         "doctrine/common": "*",
         "doctrine/orm": "*",
+        "serendipity_hq/php_array_writer": "*",
         "serendipity_hq/php_value_objects": "~3",
         "symfony/form": "~2.8",
         "symfony/framework-bundle": "~2.8",

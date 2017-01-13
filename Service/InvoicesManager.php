@@ -2,19 +2,31 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
+use SHQ\Component\ArrayWriter\ArrayWriter;
 
 /**
  * Manages the Invoices.
  */
 class InvoicesManager
 {
+    /** @var ArrayWriter $arrayWriter */
+    private $arrayWriter;
+
     /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
@@ -24,8 +36,9 @@ class InvoicesManager
     /**
      * @param array $configuredFeatures
      */
-    public function __construct(array $configuredFeatures)
+    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter)
     {
+        $this->arrayWriter = $arrayWriter;
         $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
     }
 
@@ -63,6 +76,9 @@ class InvoicesManager
      * Returns an Invoice Object.
      *
      * If the second argument $addedFeatures is passed, the invoice is populated only with new features added.
+     * If it is not passed, the invoice is populated with the current Subscription and takes into account only the
+     * IsRecurringFeature(s).
+     * This is useful to show the user his next invoice amount.
      *
      * @param InvoiceInterface $invoice
      * @param array            $addedFeatures
@@ -73,25 +89,57 @@ class InvoicesManager
     {
         /** @var SubscribedBooleanFeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
+            // If this is a BooleanFeature, then we check if it is currently enabled and if...
             if ($feature instanceof SubscribedBooleanFeatureInterface && false === $feature->isEnabled()) {
+                // ... it isn't enabled, we have for sure exclude it from the Invoice
                 continue;
             }
 
-            /*
-             * If $addedFeatures is passed we have to create an invoice for the new features only.
-             *
-             * So, if the current processing feature is not in the $addedFeatures array, we don't have to include it in
-             * the new Invoice.
-             */
-            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures)) {
+            // If this is a recurring feature, then we check if it is currently active and if...
+            if ($feature instanceof IsRecurringFeatureInterface && false === $feature->isStillActive()) {
+                // ... it isn't active, we have for sure exclude it from the Invoice
                 continue;
             }
 
-            $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($invoice->getCurrency(), $this->getSubscription()->getInterval());
+            // If $addedFeatures is passed we have to create an invoice for the new features only, so...
+            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures) && false === $this->arrayWriter->keyExistsNested($addedFeatures, $feature->getName())) {
+                // ... if the current processing feature is not in the $addedFeatures array, we don't have to include it in the new Invoice.
+                continue;
+            }
+
+            // The feature has to be added
+            switch (get_class($feature)) {
+                case SubscribedBooleanFeature::class:
+                    // The price is recurrent, so we need to pass the subscription interval
+                    $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($invoice->getCurrency(), $this->getSubscription()->getInterval());
+                    break;
+                case SubscribedCountableFeature::class:
+                    /**
+                     * @var ConfiguredCountableFeatureInterface $configuredFeature
+                     * @var SubscribedCountableFeatureInterface $feature
+                     */
+                    $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
+
+                    // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
+                    $price = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($invoice->getCurrency(), $this->getSubscription()->getInterval());
+                    $quantity = $feature->getSubscribedPack()->getNumOfUnits();
+                    break;
+                case SubscribedRechargeableFeature::class:
+                    /**
+                     * @var ConfiguredRechargeableFeatureInterface $configuredFeature
+                     * @var SubscribedRechargeableFeatureInterface $feature
+                     */
+                    $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
+
+                    // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
+                    $price = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($invoice->getCurrency());
+                    $quantity = $feature->getRechargingPack()->getNumOfUnits();
+                    break;
+            }
 
             if ($price instanceof MoneyInterface) {
                 $invoiceLine = new InvoiceLine();
-                $invoiceLine->setAmount($price)->setDescription($feature->getName());
+                $invoiceLine->setAmount($price)->setDescription($feature->getName())->setQuantity($quantity ?? null);
                 $invoice->addLine($invoiceLine, $feature->getName());
             }
         }

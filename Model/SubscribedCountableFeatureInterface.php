@@ -2,6 +2,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
+
 /**
  * {@inheritdoc}
  */

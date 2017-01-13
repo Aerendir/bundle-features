@@ -7,7 +7,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 /**
  * {@inheritdoc}
  */
-interface SubscribedBooleanFeatureInterface extends IsRecurringFeatureInterface, SubscribedFeatureInterface, IsRecurringFeatureInterface
+interface SubscribedBooleanFeatureInterface extends IsRecurringFeatureInterface, SubscribedFeatureInterface
 {
     /**
      * @return FeatureInterface
