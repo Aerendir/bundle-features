@@ -2,10 +2,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
+
 /**
  * {@inheritdoc}
  */
-interface SubscribedBooleanFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
+interface SubscribedBooleanFeatureInterface extends IsRecurringFeatureInterface, SubscribedFeatureInterface, IsRecurringFeatureInterface
 {
     /**
      * @return FeatureInterface

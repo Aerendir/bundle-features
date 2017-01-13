@@ -2,15 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringFeatureProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureProperty;
 
 /**
  * {@inheritdoc}
  */
 class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedCountableFeatureInterface
 {
-    use HasRecurringFeatureProperty {
-        HasRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
+    use IsRecurringFeatureProperty {
+        IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
     /** @var  SubscribedCountableFeaturePack $subscribedPack */

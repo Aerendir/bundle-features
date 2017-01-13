@@ -2,12 +2,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
-
 /**
  * Manages properties of a Recurring feature.
  */
-trait HasRecurringFeatureProperty
+trait IsRecurringFeatureProperty
 {
     /** @var \DateTime $activeUntil */
     private $activeUntil;
@@ -45,11 +43,11 @@ trait HasRecurringFeatureProperty
     /**
      * {@inheritdoc}
      */
-    public function setActiveUntil(\DateTime $activeUntil) : SubscribedRecurringFeatureInterface
+    public function setActiveUntil(\DateTime $activeUntil) : IsRecurringFeatureInterface
     {
         $this->activeUntil = $activeUntil;
 
-        /** @var SubscribedRecurringFeatureInterface $this */
+        /** @var IsRecurringFeatureInterface $this */
         return $this;
     }
 }

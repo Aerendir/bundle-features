@@ -3,6 +3,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 
 /**
  * {@inheritdoc}

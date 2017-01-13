@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -542,7 +542,7 @@ class FeaturesManager
             /** @var FeatureInterface $updatingFeature */
             $updatingFeature = $this->getSubscription()->getFeatures()->get($feature);
 
-            if ($updatingFeature instanceof SubscribedRecurringFeatureInterface) {
+            if ($updatingFeature instanceof IsRecurringFeatureInterface) {
                 $updatingFeature->setActiveUntil($validUntil);
             }
         }

@@ -33,6 +33,10 @@ trait HasRecurringPricesProperty
         if (isset($details['prices'])) {
             $this->setPrices($details['prices']);
         }
+
+        if ($this instanceof SubscribedFeatureInterface && !$this instanceof IsRecurringFeatureInterface) {
+            throw new \LogicException('To have recurring prices, a Feature MUST implement IsRecurringFeatureInterface.');
+        }
     }
 
     /**

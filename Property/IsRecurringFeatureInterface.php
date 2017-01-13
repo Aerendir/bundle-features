@@ -1,11 +1,11 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 /**
  * {@inheritdoc}
  */
-interface SubscribedRecurringFeatureInterface extends FeatureInterface
+interface IsRecurringFeatureInterface
 {
     /**
      * The date until which the feature is active.
@@ -24,7 +24,7 @@ interface SubscribedRecurringFeatureInterface extends FeatureInterface
      *
      * @param \DateTime $activeUntil
      *
-     * @return SubscribedRecurringFeatureInterface
+     * @return IsRecurringFeatureInterface
      */
-    public function setActiveUntil(\DateTime $activeUntil) : SubscribedRecurringFeatureInterface;
+    public function setActiveUntil(\DateTime $activeUntil) : IsRecurringFeatureInterface;
 }

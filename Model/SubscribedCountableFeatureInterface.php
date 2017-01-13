@@ -5,7 +5,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * {@inheritdoc}
  */
-interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, SubscribedRecurringFeatureInterface
+interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, IsRecurringFeatureInterface
 {
     /**
      * Method to consume the given quantity of this feature.
