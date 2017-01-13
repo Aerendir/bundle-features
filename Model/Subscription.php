@@ -3,7 +3,9 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -112,6 +114,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function getCurrency()
     {
+        if (null === $this->currency)
+            $this->currency = new Currency('EUR');
+
         return $this->currency;
     }
 
@@ -141,6 +146,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function getNextPaymentAmount() : MoneyInterface
     {
+        if (null === $this->nextPaymentAmount)
+            $this->nextPaymentAmount = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+
         return $this->nextPaymentAmount;
     }
 
