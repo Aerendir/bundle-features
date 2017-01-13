@@ -18,8 +18,28 @@ interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterf
     public function getLastRechargeQuantity() : int;
 
     /**
-     * @param int $freeRecharge
+     * @return SubscribedRechargeableFeaturePack
+     */
+    public function getRechargingPack() : SubscribedRechargeableFeaturePack;
+
+    /**
+     * @return int
+     */
+    public function getRemainedQuantity() : int;
+
+    /**
+     * @return bool
+     */
+    public function hasRechargingPack() : bool;
+
+    /**
      * @return SubscribedRechargeableFeatureInterface
      */
-    public function recharge(int $freeRecharge) : SubscribedRechargeableFeatureInterface;
+    public function recharge() : SubscribedRechargeableFeatureInterface;
+
+    /**
+     * @param SubscribedRechargeableFeaturePack $rechargingPack
+     * @return SubscribedRechargeableFeatureInterface
+     */
+    public function setRecharginPack(SubscribedRechargeableFeaturePack $rechargingPack) : SubscribedRechargeableFeatureInterface;
 }

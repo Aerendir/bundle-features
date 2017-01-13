@@ -16,9 +16,6 @@ class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implements C
     use HasUnatantumPricesProperty;
     use CanBeFreeProperty;
 
-    /** @var  int $numOfUnits How many units are contained in this Pack */
-    private $numOfUnits;
-
     /**
      * @param int $numOfUnits
      * @param array $prices

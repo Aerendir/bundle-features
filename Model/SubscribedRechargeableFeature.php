@@ -13,6 +13,9 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /** @var  int $lastRechargeQuantity The quantity of units recharged last time */
     private $lastRechargeQuantity;
 
+    /** @var  SubscribedRechargeableFeaturePack */
+    private $rechargingPack;
+
     /** @var  int $remainedQuantity The amount of remained units */
     private $remainedQuantity = 0;
 
@@ -53,6 +56,18 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /**
      * {@inheritdoc}
      */
+    public function getRechargingPack() : SubscribedRechargeableFeaturePack
+    {
+        if (false === $this->hasRechargingPack()) {
+            throw new \LogicException(sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this->getName()));
+        }
+
+        return $this->rechargingPack;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getRemainedQuantity() : int
     {
         return $this->remainedQuantity;
@@ -61,11 +76,30 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /**
      * {@inheritdoc}
      */
-    public function recharge(int $rechargeQuantity) : SubscribedRechargeableFeatureInterface
+    public function hasRechargingPack() : bool
     {
+        return isset($this->rechargingPack);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function recharge() : SubscribedRechargeableFeatureInterface
+    {
+        $rechargeQuantity = $this->getRechargingPack()->getNumOfUnits();
         $this->remainedQuantity += $rechargeQuantity;
         $this->lastRechargeOn = new \DateTime();
         $this->lastRechargeQuantity = $rechargeQuantity;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRecharginPack(SubscribedRechargeableFeaturePack $rechargingPack) : SubscribedRechargeableFeatureInterface
+    {
+        $this->rechargingPack = $rechargingPack;
 
         return $this;
     }

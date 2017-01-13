@@ -27,21 +27,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
  */
 class CountableFeatureTransformer extends AbstractFeatureTransformer
 {
-    /** @var  ConfiguredCountableFeaturePack[] */
-    private $configuredPacks;
-
-    /**
-     * @param string $featureName
-     * @param SubscribedFeaturesCollection $subscribedFeatures
-     * @param array $configuredPacks
-     */
-    public function __construct($featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks)
-    {
-        $this->configuredPacks = $configuredPacks;
-
-        parent::__construct($featureName, $subscribedFeatures);
-    }
-
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
@@ -68,8 +53,8 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
     public function reverseTransform($pack)
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
-        // future here will be set also the price at which the pack were bought
-        $configuredPack = $this->configuredPacks[$pack];
+        // future here will set also the price at which the pack were bought
+        $configuredPack = $this->getConfiguredPack($pack);
         $subscribedPack = new SubscribedCountableFeaturePack(['num_of_units' => $configuredPack->getNumOfUnits()]);
 
         /** @var SubscribedCountableFeatureInterface $subscribedFeature */

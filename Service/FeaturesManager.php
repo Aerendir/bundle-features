@@ -15,10 +15,11 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -170,25 +171,49 @@ class FeaturesManager
          */
         foreach ($this->getDifferences('added') as $feature) {
             $featureName = is_array($feature) ? key($feature) : $feature;
-            /** @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface $checkingFeature */
+            /** @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface $checkingFeature */
             $checkingFeature = $this->getSubscription()->getFeatures()->get($featureName);
 
-            if (null !== $checkingFeature && false === $checkingFeature->isStillActive()) {
+            if (null !== $checkingFeature) {
+                /** @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $configuredFeature */
                 $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
-                $instantPrice = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
-                // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
-                if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
-                    /**
-                     * For the moment force the code to get the pack's instant price
-                     *
-                     * @var SubscribedCountableFeatureInterface $checkingFeature
-                     */
-                    $instantPrice = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
-                }
+                switch (get_class($checkingFeature)) {
+                    // These two have recurring features, so they can or cannot be still active
+                    case SubscribedBooleanFeature::class:
+                    // Ignore the editor alert
+                    case SubscribedCountableFeature::class:
+                        if (true === $checkingFeature->isStillActive()) {
+                            // If it is still active, we have to charge nothing, so continue processing next feature
+                            continue;
+                        }
 
-                if ($instantPrice instanceof MoneyInterface) {
-                    $totalCharges = $totalCharges->add($instantPrice);
+                        $instantPrice = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+
+                        // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
+                        if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
+                            /**
+                             * For the moment force the code to get the pack's instant price
+                             *
+                             * @var SubscribedCountableFeatureInterface $checkingFeature
+                             */
+                            $instantPrice = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                        }
+
+                        if ($instantPrice instanceof MoneyInterface) {
+                            $totalCharges = $totalCharges->add($instantPrice);
+                        }
+                        break;
+                    // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
+                    case SubscribedRechargeableFeature::class:
+                        /**
+                         * For the moment force the code to get the pack's instant price
+                         *
+                         * @var SubscribedRechargeableFeatureInterface $checkingFeature
+                         */
+                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency());
+                        $totalCharges = $totalCharges->add($price);
+                        break;
                 }
             }
         }
@@ -287,6 +312,7 @@ class FeaturesManager
         foreach ($newFeatures as $newFeature) {
             $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
 
+            // @todo Is this required? Didn't the form already updated the Subscription object? In fact I have an oldSubscription
             if ($existentFeature instanceof SubscribedBooleanFeatureInterface) {
                 $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
                 $existentFeature->$toggle();
@@ -389,6 +415,10 @@ class FeaturesManager
                         }
                     }
                     break;
+                case SubscribedRechargeableFeature::class:
+                    // Just as a placeholder for clarity. A RechargeableFeature cannot be removed.
+                    continue;
+                    break;
             }
         }
 
@@ -399,7 +429,7 @@ class FeaturesManager
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
          *
-         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface $newFeature
+         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface $newFeature
          */
         foreach ($newFeatures as $newFeature) {
             /*
@@ -418,6 +448,11 @@ class FeaturesManager
                 case SubscribedCountableFeature::class:
                     /** @var SubscribedCountableFeatureInterface $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getSubscribedPack()->getNumOfUnits()];
+                    break;
+                // If is a CountableFeature...
+                case SubscribedRechargeableFeature::class:
+                    /** @var SubscribedRechargeableFeatureInterface $featureDetails */
+                    $featureDetails = [$newFeature->getName() => $newFeature->getRechargingPack()->getNumOfUnits()];
                     break;
             }
 
@@ -457,6 +492,14 @@ class FeaturesManager
                         // ... and then we compare them. If they are not equal...
                         if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
                             // ... the pack was removed (changed)
+                            $this->differences['added'][] = $featureDetails;
+                        }
+                        break;
+                    // If it is a RechargeableFeature...
+                    case SubscribedRechargeableFeature::class:
+                        // ... if a rechargin pack exists...
+                        if ($newFeature->hasRechargingPack()) {
+                            // ... We are simply recharging the feature
                             $this->differences['added'][] = $featureDetails;
                         }
                         break;

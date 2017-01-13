@@ -24,15 +24,17 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -66,8 +68,9 @@ class FeaturesType extends AbstractType
                     $builder->get($configuredFeature->getName())->addModelTransformer(new CountableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
                     break;
                 case ConfiguredRechargeableFeature::class:
-                    $builder->add($configuredFeature->getName(), IntegerType::class, ['required' => false]);
-                    $builder->get($configuredFeature->getName())->addModelTransformer(new RechargeableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures));
+                    /** @var ConfiguredRechargeableFeature $configuredFeature */
+                    $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getRechargeableFeaturePacksOptions($options['subscription'], $subscribedFeature));
+                    $builder->get($configuredFeature->getName())->addModelTransformer(new RechargeableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
                     break;
             }
         }
@@ -124,6 +127,24 @@ class FeaturesType extends AbstractType
     }
 
     /**
+     * @param SubscriptionInterface $subscription
+     * @param SubscribedRechargeableFeatureInterface $subscribedFeature
+     * @return array
+     */
+    private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature) : array
+    {
+        return [
+            'required' => true,
+            'attr' => [
+                'class' => 'feature feature-rechargeable',
+                'data-name' => $subscribedFeature->getName()
+            ],
+            'choices' => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
+            'choice_attr' => $this->setRechargeableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature())
+        ];
+    }
+
+    /**
      * @param ConfiguredCountableFeatureInterface $feature
      *
      * @return array
@@ -132,6 +153,22 @@ class FeaturesType extends AbstractType
     {
         $choices = [];
         /** @var ConfiguredCountableFeaturePack $pack */
+        foreach ($feature->getPacks() as $pack) {
+            $choices[$pack->getNumOfUnits()] = $pack->getNumOfUnits();
+        }
+
+        return $choices;
+    }
+
+    /**
+     * @param ConfiguredRechargeableFeatureInterface $feature
+     *
+     * @return array
+     */
+    private function getRechargeableFeaturePacks(ConfiguredRechargeableFeatureInterface $feature)
+    {
+        $choices = [];
+        /** @var ConfiguredRechargeableFeaturePack $pack */
         foreach ($feature->getPacks() as $pack) {
             $choices[$pack->getNumOfUnits()] = $pack->getNumOfUnits();
         }
@@ -165,6 +202,23 @@ class FeaturesType extends AbstractType
                 'data-amount' => $pack->getPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
                 'data-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getInterval())->getConvertedAmount(),
                 'data-already-subscribed' => $isPackAlreadyActive
+            ];
+        };
+    }
+
+    /**
+     * @param SubscriptionInterface $subscription
+     * @param ConfiguredRechargeableFeatureInterface $configuredFeature
+     * @return \Closure
+     */
+    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature)
+    {
+        return function($val) use ($subscription, $configuredFeature) {
+            /** @var ConfiguredRechargeableFeaturePack $pack */
+            $pack = $configuredFeature->getPack($val);
+
+            return [
+                'data-amount' => $pack->getPrice($subscription->getCurrency())->getConvertedAmount()
             ];
         };
     }
