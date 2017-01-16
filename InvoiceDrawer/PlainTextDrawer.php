@@ -4,6 +4,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 
 /**
@@ -21,10 +22,24 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
      */
     public function draw(InvoiceInterface $invoice) : array
     {
-        $detailsTable = $this->buildInvoiceTextTable($invoice);
+        $detailsTables = [];
+        foreach ($invoice->getSections() as $sectionId => $section) {
+            $detailsTables[$sectionId] = $this->buildInvoiceTextTable($section);
+        }
 
+        $dash_separator         = $this->drawSeparator('-', $this->tableWidth);
         $equals_separator_short = $this->drawSeparator('=', $this->tableWidth - (40 % $this->tableWidth));
         $equals_separator_short = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($equals_separator_short)) . $equals_separator_short;
+
+        $detailsTable = '';
+        foreach ($detailsTables as $sectionId => $sectionContent) {
+            if ($invoice->getSection($sectionId)->hasHeader()) {
+                $detailsTable .= $invoice->getSection($sectionId)->getHeader()->getHeader() . "\n";
+                $detailsTable .= $dash_separator . "\n";
+            }
+
+            $detailsTable .= $sectionContent . "\n";
+        }
 
         $total_amount = $this->getTranslator()->trans('company.invoice.total.label', [], 'company')
             . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getTotal()->getConvertedAmount(), $invoice->getTotal()->getCurrency());
@@ -51,11 +66,11 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
     }
 
     /**
-     * @param InvoiceInterface $invoice
+     * @param InvoiceSection $section
      *
      * @return string
      */
-    private function buildInvoiceTextTable(InvoiceInterface $invoice) : string
+    private function buildInvoiceTextTable(InvoiceSection $section) : string
     {
         $tableData = [
             [
@@ -64,8 +79,9 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
                 'amount'      => $this->getTranslator()->trans('company.invoice.amount.label', [], 'company'),
             ],
         ];
+
         /** @var InvoiceLine $line */
-        foreach ($invoice->getLines() as $line) {
+        foreach ($section->getLines() as $line) {
             $lineData = [
                 'quantity'    => $line->getQuantity(),
                 'description' => $line->getDescription(),
@@ -106,6 +122,13 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         $this->tableWidth = $table->getTableWidth();
 
         return $return;
+    }
+
+    /**
+     * @param InvoiceInterface $section
+     */
+    private function getSectionData(InvoiceInterface $section) {
+
     }
 
     /**

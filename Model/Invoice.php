@@ -70,11 +70,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getHeader()
     {
-        if ($this->hasHeader()) {
-            return $this->sections['_default']['_header'];
-        }
-
-        return null;
+        return $this->sections['_default']->getHeader();
     }
 
     /**
@@ -82,7 +78,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function hasHeader()
     {
-        return isset($this->sections['_default']['_header']);
+        return $this->sections['_default']->hasHeader();
     }
 
     /**
@@ -90,51 +86,27 @@ abstract class Invoice implements InvoiceInterface
      */
     public function removeHeader()
     {
-        if ($this->hasHeader()) {
-            $return = $this->getHeader();
-            unset($this->sections['_default']['_header']);
-
-            return $return;
-        }
-
-        return false;
+        return $this->sections['_default']->removeHeader();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setHeader(InvoiceLineHeader $header)
+    public function setHeader(InvoiceSectionHeader $header)
     {
-        $this->sections['_default']['_header'] = $header;
+        $this->sections['_default']->setHeader($header);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addLine(InvoiceLine $line, string $id = null) : InvoiceInterface
+    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface
     {
-        switch (gettype($id)) {
-            case 'string':
-            case 'integer':
-                if ('_header' === $id) {
-                    throw new \InvalidArgumentException('You cannot add a line with id "_header" as it is a reserved word.');
-                }
-
-            if ($this->hasLine($id)) {
-                throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
-            }
-
-                $this->sections['_default'][$id] = $line;
-                break;
-            case 'NULL':
-                $this->sections['_default'][] = $line;
-                break;
-            default:
-                throw new \InvalidArgumentException(sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', gettype($id)));
+        if (false === isset($this->sections['_default'])) {
+            $this->sections['_default'] = new InvoiceSection($this->getCurrency());
         }
 
-        // Set the new Total
-        $this->total = $this->getTotal()->add($line->getAmount());
+        $this->sections['_default']->addLine($line, $id);
 
         return $this;
     }
@@ -144,63 +116,55 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getLine($id)
     {
-        return isset($this->sections['_default'][$id]) ? $this->sections['_default'][$id] : null;
+        return $this->sections['_default']->getLine($id);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getLines() : InvoiceInterface
+    public function getLines(): array
     {
-        return $this->sections['_default'];
+        return $this->sections['_default']->getLines();
     }
 
     /**
-     * @param string|int $id
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasLine($id)
     {
-        if (false === is_string($id) && false === is_int($id)) {
-            throw new \InvalidArgumentException(sprintf('Only strings or integers are accepted as $id. "%s" passed.', gettype($id)));
-        }
-
-        return isset($this->sections['_default'][$id]);
+        return $this->sections['_default']->hasLine($id);
     }
 
     /**
-     * @param string| int $id
-     *
-     * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found
+     * {@inheritdoc}
      */
     public function removeLine($id)
     {
-        if ($this->hasLine($id)) {
-            $return = $this->sections['_default'][$id];
-            unset($this->sections['_default'][$id]);
+        $return = $this->sections['_default']->removeLine($id);
 
-            return $return;
-        }
+        $this->recalculateTotal();
 
-        return false;
+        return $return;
     }
 
     /**
-     * @param InvoiceInterface $section
-     * @param string|null      $id
-     *
-     * @return $this
+     * {@inheritdoc}
      */
-    public function addSection(InvoiceInterface $section, string $id = null)
+    public function addSection(InvoiceSection $section, string $id = null): self
     {
+        if ($this->getCurrency()->getCurrencyCode() !== $section->getCurrency()->getCurrencyCode()) {
+            throw new \LogicException(
+                sprintf(
+                    'The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".',
+                    $this->getCurrency()->getCurrencyCode(),
+                    $section->getCurrency()->getCurrencyCode()
+                )
+            );
+        }
+
         switch (gettype($id)) {
             case 'string':
             case 'integer':
-                if ('_default' === $id) {
-                    throw new \InvalidArgumentException('You cannot add a section with id "_default" as it is a reserved word.');
-                }
-
                 if ($this->hasSection($id)) {
                     throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
                 }
@@ -221,18 +185,21 @@ abstract class Invoice implements InvoiceInterface
     }
 
     /**
-     * Do not typecast as it can be also an integer
      * {@inheritdoc}
      */
     public function getSection($id)
     {
-        return isset($this->sections[$id]) ? $this->sections[$id] : null;
+        if ('_default' === $id && false === isset($this->sections['_default'])) {
+            $this->sections['_default'] = new InvoiceSection($this->getCurrency());
+        }
+
+        return $this->sections[$id] ?? null;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getSections() : array
+    public function getSections(): array
     {
         return $this->sections;
     }
@@ -240,7 +207,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function hasSection($id)
+    public function hasSection($id): bool
     {
         if (false === is_string($id) && false === is_int($id)) {
             throw new \InvalidArgumentException(sprintf('Only strings or integers are accepted as $id. "%s" passed.', gettype($id)));
@@ -258,6 +225,8 @@ abstract class Invoice implements InvoiceInterface
             $return = $this->sections[$id];
             unset($this->sections[$id]);
 
+            $this->recalculateTotal();
+
             return $return;
         }
 
@@ -267,7 +236,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrency() : CurrencyInterface
+    public function getCurrency(): CurrencyInterface
     {
         return $this->currency;
     }
@@ -275,7 +244,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getIssuedOn() : \DateTime
+    public function getIssuedOn(): \DateTime
     {
         return $this->issuedOn;
     }
@@ -283,7 +252,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getTotal() : MoneyInterface
+    public function getTotal(): MoneyInterface
     {
         return $this->total;
     }
@@ -303,22 +272,30 @@ abstract class Invoice implements InvoiceInterface
      */
     public function jsonUnserialize()
     {
-        $sections = [];
-        foreach ($this->sections[0] as $sectionId => $section) {
-            $hydtratingSectionClass = get_class($this);
-
-            /** @var InvoiceInterface $hydrtratingSection */
-            $hydrtratingSection = new $hydtratingSectionClass($this->currency);
-
-            foreach ($section as $lineId => $line) {
+        foreach ($this->sections as $sectionId => $section) {
+            $hydratingSection = new InvoiceSection($this->getCurrency());
+            foreach ($section['lines'] as $lineId => $line) {
                 $lineObject = new InvoiceLine();
                 $lineObject->hydrate($line);
-                $hydrtratingSection->addLine($lineObject, $lineId);
+                $hydratingSection->addLine($lineObject, $lineId);
             }
 
-            $sections[$sectionId] = $hydrtratingSection;
+            $this->sections[$sectionId] = $hydratingSection;
         }
 
-        $this->sections = $sections;
+        $this->recalculateTotal();
+    }
+
+    /**
+     * Recalculates the total of the invoice.
+     */
+    private function recalculateTotal()
+    {
+        $this->total = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+
+        /** @var InvoiceSection $section */
+        foreach ($this->getSections() as $section) {
+            $this->total = $this->total->add($section->getTotal());
+        }
     }
 }

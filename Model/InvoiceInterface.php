@@ -16,7 +16,7 @@ interface InvoiceInterface extends \JsonSerializable
     public function __construct($currency);
 
     /**
-     * @return null|InvoiceLineHeader
+     * @return null|InvoiceSectionHeader
      */
     public function getHeader();
 
@@ -26,14 +26,14 @@ interface InvoiceInterface extends \JsonSerializable
     public function hasHeader();
 
     /**
-     * @return bool|InvoiceLineHeader
+     * @return bool|InvoiceSectionHeader
      */
     public function removeHeader();
 
     /**
-     * @param InvoiceLineHeader $header
+     * @param InvoiceSectionHeader $header
      */
-    public function setHeader(InvoiceLineHeader $header);
+    public function setHeader(InvoiceSectionHeader $header);
 
     /**
      * Adds an Invoice line to the _default section of this invoice.
@@ -46,7 +46,7 @@ interface InvoiceInterface extends \JsonSerializable
     public function addLine(InvoiceLine $line, string $id = null) : InvoiceInterface;
 
     /**
-     * Returns a specifiv line of the _default section of the Invoice.
+     * Returns a specific line of the _default section of the Invoice.
      *
      * @param string!int $id
      *
@@ -55,9 +55,9 @@ interface InvoiceInterface extends \JsonSerializable
     public function getLine($id);
 
     /**
-     * @return InvoiceInterface
+     * @return array
      */
-    public function getLines() : InvoiceInterface;
+    public function getLines() : array;
 
     /**
      * @param string|int $id
@@ -74,16 +74,16 @@ interface InvoiceInterface extends \JsonSerializable
     public function removeLine($id);
 
     /**
-     * @param InvoiceInterface $section
+     * @param InvoiceSection $section
      * @param string|null      $id
      *
-     * @return $this
+     * @return InvoiceInterface
      */
-    public function addSection(InvoiceInterface $section, string $id = null);
+    public function addSection(InvoiceSection $section, string $id = null);
 
     /**
-     * Do not typecast as it can be also an integer
-     * {@inheritdoc}
+     * @param string|int $id
+     * @return InvoiceSection
      */
     public function getSection($id);
 
@@ -99,7 +99,7 @@ interface InvoiceInterface extends \JsonSerializable
      *
      * @return bool
      */
-    public function hasSection($id);
+    public function hasSection($id) : bool;
 
     /**
      * @param string|int $id

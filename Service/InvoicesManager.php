@@ -8,6 +8,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInter
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
@@ -152,6 +153,17 @@ class InvoicesManager
      */
     public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null)
     {
+        $this->populateSection($invoice->getSection('_default'), $addedFeatures);
+
+        return $invoice;
+    }
+
+    /**
+     * @param InvoiceSection $section
+     * @param array|null $addedFeatures
+     */
+    public function populateSection(InvoiceSection $section, $addedFeatures = null)
+    {
         /** @var SubscribedBooleanFeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
             // If this is a BooleanFeature, then we check if it is currently enabled and if...
@@ -177,7 +189,7 @@ class InvoicesManager
             switch (get_class($feature)) {
                 case SubscribedBooleanFeature::class:
                     // The price is recurrent, so we need to pass the subscription interval
-                    $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($invoice->getCurrency(), $this->getSubscription()->getInterval());
+                    $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
                     break;
                 case SubscribedCountableFeature::class:
                     /**
@@ -187,7 +199,7 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $price = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($invoice->getCurrency(), $this->getSubscription()->getInterval());
+                    $price = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
                     $quantity = $feature->getSubscribedPack()->getNumOfUnits();
                     break;
                 case SubscribedRechargeableFeature::class:
@@ -198,7 +210,7 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $price = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($invoice->getCurrency());
+                    $price = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency());
                     $quantity = $feature->getRechargingPack()->getNumOfUnits();
                     break;
             }
@@ -206,10 +218,8 @@ class InvoicesManager
             if ($price instanceof MoneyInterface) {
                 $invoiceLine = new InvoiceLine();
                 $invoiceLine->setAmount($price)->setDescription($feature->getName())->setQuantity($quantity ?? null);
-                $invoice->addLine($invoiceLine, $feature->getName());
+                $section->addLine($invoiceLine, $feature->getName());
             }
         }
-
-        return $invoice;
     }
 }

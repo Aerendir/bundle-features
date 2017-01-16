@@ -3,11 +3,11 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 /**
- * This entity will never be persisted.
+ * This entity will never be persisted but only serialized.
  *
  * An Header line to use to draw an header in the invoice lines.
  */
-class InvoiceLineHeader implements \JsonSerializable
+class InvoiceSectionHeader implements \JsonSerializable
 {
     /** @var string $header */
     private $header;
