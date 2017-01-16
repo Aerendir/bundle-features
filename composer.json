@@ -13,9 +13,9 @@
     "require": {
         "php": "~7.0",
         "ext-intl": "*",
-        "doctrine/common": "*",
-        "doctrine/orm": "*",
-        "serendipity_hq/php_array_writer": "*",
+        "doctrine/common": "^2.5",
+        "doctrine/orm": "^2.5",
+        "serendipity_hq/php_array_writer": "^1.2",
         "serendipity_hq/php_value_objects": "~3",
         "symfony/form": "~2.8",
         "symfony/framework-bundle": "~2.8",
@@ -29,7 +29,7 @@
         "symfony/var-dumper": "*"
     },
     "suggest": {
-        "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer.",
+        "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer."
     },
     "autoload": {
         "psr-4": {
