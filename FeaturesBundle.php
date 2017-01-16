@@ -2,7 +2,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle;
 
-use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\SetManagersCompilerPass;
+use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\FeaturesManagersCompilerPass;
+use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\DrawersCompilerPass;
+use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\InvoiceManagersCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -20,6 +22,8 @@ class FeaturesBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new SetManagersCompilerPass());
+        $container->addCompilerPass(new FeaturesManagersCompilerPass());
+        $container->addCompilerPass(new InvoiceManagersCompilerPass());
+        $container->addCompilerPass(new DrawersCompilerPass());
     }
 }

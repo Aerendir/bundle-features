@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "~7.0",
+        "ext-intl": "*",
         "doctrine/common": "*",
         "doctrine/orm": "*",
         "serendipity_hq/php_array_writer": "*",
@@ -24,7 +25,11 @@
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
         "phpunit/phpunit": "*",
+        "serendipity_hq/php_text_matrix": "*",
         "symfony/var-dumper": "*"
+    },
+    "suggest": {
+        "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer.",
     },
     "autoload": {
         "psr-4": {

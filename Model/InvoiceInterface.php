@@ -55,9 +55,9 @@ interface InvoiceInterface extends \JsonSerializable
     public function getLine($id);
 
     /**
-     * @return array
+     * @return InvoiceInterface
      */
-    public function getLines() : array;
+    public function getLines() : InvoiceInterface;
 
     /**
      * @param string|int $id

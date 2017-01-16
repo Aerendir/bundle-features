@@ -2,9 +2,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
+use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\InvoiceDrawerInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
@@ -18,6 +18,8 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use SHQ\Component\ArrayWriter\ArrayWriter;
+use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Form\Test\FormInterface;
 
 /**
  * Manages the Invoices.
@@ -30,16 +32,29 @@ class InvoicesManager
     /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
+    /** @var  string|null $defaultDrawer */
+    private $defaultDrawer;
+
+    /** @var  InvoiceDrawerInterface[] $drawers */
+    private $drawers;
+
+    /** @var  string $locale */
+    private $locale;
+
     /** @var SubscriptionInterface $subscription */
     private $subscription;
 
+
     /**
      * @param array $configuredFeatures
+     * @param ArrayWriter $arrayWriter
+     * @param string|null $defaultFormatter
      */
-    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter)
+    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, string $defaultFormatter = null)
     {
         $this->arrayWriter = $arrayWriter;
         $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
+        $this->defaultDrawer = $defaultFormatter;
     }
 
     /**
@@ -70,6 +85,56 @@ class InvoicesManager
         $this->subscription = $subscription;
 
         return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param InvoiceDrawerInterface $drawer
+     */
+    public function addDrawer(string $name, InvoiceDrawerInterface $drawer)
+    {
+        // If this is the default drawer
+        if ($this->defaultDrawer === $name) {
+            $this->defaultDrawer = $drawer;
+        }
+
+        $this->drawers[$name] = $drawer;
+    }
+
+    /**
+     * @param InvoiceInterface $invoice
+     * @param string|null $drawer
+     * @return mixed
+     */
+    public function drawInvoice(InvoiceInterface $invoice, string $drawer = null)
+    {
+        return $this->getDrawer($drawer)->draw($invoice);
+    }
+
+    /**
+     * @param string|null $drawer
+     * @return InvoiceDrawerInterface
+     */
+    public function getDrawer(string $drawer = null) : InvoiceDrawerInterface
+    {
+        // If a Drawer were passed and it exists
+        if (null !== $drawer && in_array($drawer, $this->drawers)) {
+            // Use it
+            $drawer = $this->drawers[$drawer];
+        }
+
+        // If a drawer were not passed...
+        if (null === $drawer) {
+            // ... check for the existence of a default one and it doesn't exist...
+            if (null === $this->defaultDrawer) {
+                // ... Throw an error
+                throw new \LogicException('To draw an Invoice you have to pass an InvoiceDrawerInterface drawer or either set a default drawer in the features set.');
+            }
+
+            $drawer = $this->defaultDrawer;
+        }
+
+        return $drawer;
     }
 
     /**
@@ -107,6 +172,7 @@ class InvoicesManager
                 continue;
             }
 
+            $price = null;
             // The feature has to be added
             switch (get_class($feature)) {
                 case SubscribedBooleanFeature::class:

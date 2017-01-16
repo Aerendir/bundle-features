@@ -150,7 +150,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getLines() : array
+    public function getLines() : InvoiceInterface
     {
         return $this->sections['_default'];
     }

@@ -9,6 +9,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use SebastianBergmann\Money\Currency;
+use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -20,99 +21,161 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  */
 class Configuration implements ConfigurationInterface
 {
+    /** @var array $allowedDrawers The allowed drawers */
+    private $allowedDrawers = ['plain_text'];
+
+    /** @var array $foundDrawers The drawers found as default ones in features sets */
+    private $foundDrawers = [];
+
     /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('features')->useAttributeAsKey('name')
-            ->prototype('array')
+        $treeBuilder->root('features')
                 ->children()
-                    ->arrayNode('features')
-                    ->useAttributeAsKey('name')
+                    ->arrayNode('invoices_drawers')
+                        ->prototype('scalar')->end()
+                    ->end()
+                    ->arrayNode('sets')
+                        ->useAttributeAsKey('name')
                         ->prototype('array')
                             ->children()
-                                ->enumNode('type')
-                                    ->values(['boolean', 'countable', 'rechargeable'])
-                                    ->isRequired()
-                                    ->cannotBeEmpty()
-                                ->end()
-                                // type === Boolean
-                                ->scalarNode('enabled')->defaultFalse()->end()
-                                // type === Rechargeable
-                                ->scalarNode('cumulable')->defaultFalse()->end()
-                                // type === Rechargeable
-                                ->scalarNode('free_recharge')->defaultValue(0)->end()
-                                // type === Rechargeable (integer) || type === Countable (array)
-                                ->arrayNode('unitary_price')
-                                    ->useAttributeAsKey('name')
-                                    ->prototype('array')
-                                        // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
-                                        ->beforeNormalization()
-                                            ->ifTrue(function($price) {return is_numeric($price);})
-                                            ->then(function ($price) {
-                                                return ['_' => $price];
-                                            })
-                                        ->end()
-                                        ->children()
-                                            // Define acceptable subscription periods, including the artificial one '_' for scalars
-                                            ->scalarNode('monthly')->defaultNull()->end()
-                                            ->scalarNode('yearly')->defaultNull()->end()
-                                            ->scalarNode('_')->defaultNull()->end()
-                                        ->end()
-                                    ->end()
-                                ->end()
-                                // type === Boolean || type === Countable
-                                ->arrayNode('price')
+                                ->arrayNode('features')
                                     ->useAttributeAsKey('name')
                                     ->prototype('array')
                                         ->children()
-                                            // Define acceptable subscription periods,
-                                            ->integerNode('monthly')->defaultNull()->end()
-                                            ->integerNode('yearly')->defaultNull()->end()
+                                            ->enumNode('type')
+                                                ->values(['boolean', 'countable', 'rechargeable'])
+                                                ->isRequired()
+                                                ->cannotBeEmpty()
+                                            ->end()
+                                            // type === Boolean
+                                            ->scalarNode('enabled')->defaultFalse()->end()
+                                            // type === Rechargeable
+                                            ->scalarNode('cumulable')->defaultFalse()->end()
+                                            // type === Rechargeable
+                                            ->scalarNode('free_recharge')->defaultValue(0)->end()
+                                            // type === Rechargeable (integer) || type === Countable (array)
+                                            ->arrayNode('unitary_price')
+                                                ->useAttributeAsKey('name')
+                                                ->prototype('array')
+                                                    // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
+                                                    ->beforeNormalization()
+                                                        ->ifTrue(function($price) {return is_numeric($price);})
+                                                        ->then(function ($price) {
+                                                            return ['_' => $price];
+                                                        })
+                                                    ->end()
+                                                    ->children()
+                                                        // Define acceptable subscription periods, including the artificial one '_' for scalars
+                                                        ->scalarNode('monthly')->defaultNull()->end()
+                                                        ->scalarNode('yearly')->defaultNull()->end()
+                                                        ->scalarNode('_')->defaultNull()->end()
+                                                    ->end()
+                                                ->end()
+                                            ->end()
+                                            // type === Boolean || type === Countable
+                                            ->arrayNode('price')
+                                                ->useAttributeAsKey('name')
+                                                ->prototype('array')
+                                                    ->children()
+                                                        // Define acceptable subscription periods,
+                                                        ->integerNode('monthly')->defaultNull()->end()
+                                                        ->integerNode('yearly')->defaultNull()->end()
+                                                    ->end()
+                                                ->end()
+                                            ->end()
+                                            // type === Countable || type === Rechargeable
+                                            ->arrayNode('packs')
+                                                ->useAttributeAsKey('name')
+                                                ->prototype('array')
+                                                    ->useAttributeAsKey('name')
+                                                    ->prototype('array')
+                                                        // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
+                                                        ->beforeNormalization()
+                                                            ->ifTrue(function($price) {return is_numeric($price);})
+                                                            ->then(function ($price) {return ['_' => $price];})
+                                                        ->end()
+                                                    ->children()
+                                                        // Define acceptable subscription periods, including the artificial one '_' for scalars
+                                                        ->scalarNode('monthly')->defaultNull()->end()
+                                                        ->scalarNode('yearly')->defaultNull()->end()
+                                                        ->scalarNode('_')->defaultNull()->end()
+                                                    ->end()
+                                                ->end()
+                                            ->end()
                                         ->end()
                                     ->end()
-                                ->end()
-                                // type === Countable || type === Rechargeable
-                                ->arrayNode('packs')
-                                    ->useAttributeAsKey('name')
-                                    ->prototype('array')
-                                        ->useAttributeAsKey('name')
-                                        ->prototype('array')
-                                            // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
-                                            ->beforeNormalization()
-                                                ->ifTrue(function($price) {return is_numeric($price);})
-                                                ->then(function ($price) {
-                                                    return ['_' => $price];
-                                                })
-                                            ->end()
-                                            ->children()
-                                                // Define acceptable subscription periods, including the artificial one '_' for scalars
-                                                ->scalarNode('monthly')->defaultNull()->end()
-                                                ->scalarNode('yearly')->defaultNull()->end()
-                                                ->scalarNode('_')->defaultNull()->end()
-                                            ->end()
-                                        ->end()
-                                    ->end()
-                                ->end()
+                                ->end() // End Features
+                            ->end()
+                            ->enumNode('default_drawer')
+                                ->values($this->allowedDrawers)
                             ->end()
                         ->end()
-                    ->end() // End features
+                    ->end()
                 ->end()
             ->end()
             ->validate()
                 // Deeply validate the full config tree
-                ->ifTrue(function($sets) {
-                    return $this->validateSets($sets);
+                ->ifTrue(function($tree) {
+                    return $this->validateTree($tree);
                 })
                 // Re-elaborate the tree removing unuseful values and preparing useful ones
-                ->then(function($sets) {
-                    return $this->processSets($sets);
+                ->then(function($tree) {
+                    return $this->processTree($tree);
                 })
             ->end();
 
         return $treeBuilder;
+    }
+
+    /**
+     * @param array $tree
+     * @return array
+     */
+    private function validateTree(array $tree)
+    {
+        $tree['invoices_drawers'] = $this->validateInvoiceDrawers($tree['invoices_drawers']);
+        $tree['sets'] = $this->validateSets($tree['sets']);
+
+        return $tree;
+    }
+
+    /**
+     * @param array $drawers
+     */
+    private function validateInvoiceDrawers(array $drawers)
+    {
+        foreach ($drawers as $drawer) {
+            $this->validateInvoiceDrawer($drawer);
+        }
+    }
+
+    /**
+     * @param string $drawer
+     */
+    private function validateInvoiceDrawer(string $drawer)
+    {
+        if (false === in_array($drawer, $this->allowedDrawers)) {
+            throw new InvalidConfigurationException(
+                sprintf(
+                    'The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.',
+                    $drawer,
+                    implode(', ', $this->allowedDrawers)
+                )
+            );
+        }
+
+        // Check the required dependency exists
+        switch ($drawer) {
+            case 'plain_text':
+                if (false === class_exists(PHPTextMatrix::class)) {
+                    throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
+                }
+                break;
+        }
     }
 
     /**
@@ -123,18 +186,16 @@ class Configuration implements ConfigurationInterface
      */
     private function validateSets(array $sets) : bool
     {
-        $validatedSets = [];
-        foreach ($sets as $set => $features) {
-            // Check the Set has a unique name
-            if (in_array($set, $validatedSets))
-                throw new \LogicException(sprintf('A set with name "%s" already exists. Each set MUST have a unique name.', $set));
-
-            // Add the set to the list of validated sets for the validation of the name of next sets
-            $validatedSets[] = $set;
+        foreach ($sets as $set => $config) {
+            // Validate the default invoice drawer if set
+            if (isset($config['default_drawer'])) {
+                $this->validateInvoiceDrawer($config['default_drawer']);
+            }
 
             // Validate the features in the Set
-            $this->validateFeatures($set, $features['features']);
+            $this->validateFeatures($set, $config['features']);
         }
+
         return true;
     }
 
@@ -144,15 +205,7 @@ class Configuration implements ConfigurationInterface
      */
     private function validateFeatures(string $set, array $features)
     {
-        $validatedFeatures = [];
         foreach ($features as $feature => $config) {
-            // Check the Feature has a unique name in the Set
-            if (in_array($feature, $validatedFeatures))
-                throw new \LogicException(sprintf('A feature with name "%s" already exists in the Set "%s". Each feature MUST have a unique name in any given Set.', $feature, $set));
-
-            // Add the set to the list of validated sets for the validation of the name of next sets
-            $validatedFeatures[] = $feature;
-
             // Validate the features in the Set
             $this->validateFeatureConfig($set, $feature, $config);
         }
@@ -340,14 +393,39 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
+     * @param array $tree
+     * @return array
+     */
+    private function processTree(array $tree)
+    {
+        // Move all default drawers to the foundDrawers property to make them globally available
+        $this->foundDrawers = $tree['invoices_drawers'];
+
+        // Reset the key
+        $tree['invoices_drawers'] = [];
+
+        $tree['sets'] = $this->processSets($tree['sets']);
+
+        // Readd the default drawers (already - now globally - existent plus the ones found in the single features sets)
+        $tree['invoices_drawers'] = array_merge($tree['invoices_drawers'], $this->foundDrawers);
+
+        return $tree;
+    }
+    /**
      * Processes all the configured features Sets.
      * @param array $sets
      * @return array
      */
     private function processSets(array $sets) : array
     {
-        foreach ($sets as $set => $features) {
-            $sets[$set]['features'] = $this->processFeatures($features['features']);
+        foreach ($sets as $set => $config) {
+            // If the set has a default invoice drawer set...
+            if (isset($config['default_drawer']) && false === in_array($config['default_drawer'], $this->foundDrawers)) {
+                // ... Add it to the list of the found drawers
+                $this->foundDrawers[] = $config['default_drawer'];
+            }
+
+            $sets[$set]['features'] = $this->processFeatures($config['features']);
         }
 
         return $sets;
