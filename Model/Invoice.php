@@ -274,7 +274,15 @@ abstract class Invoice implements InvoiceInterface
     {
         foreach ($this->sections as $sectionId => $section) {
             $hydratingSection = new InvoiceSection($this->getCurrency());
-            foreach ($section['lines'] as $lineId => $line) {
+
+            // Set the Header if it exists
+            if (isset($section['_header'])) {
+                $header = new InvoiceSectionHeader($section['_header']);
+                $hydratingSection->setHeader($header);
+            }
+
+            // Add lines
+            foreach ($section['_lines'] as $lineId => $line) {
                 $lineObject = new InvoiceLine();
                 $lineObject->hydrate($line);
                 $hydratingSection->addLine($lineObject, $lineId);

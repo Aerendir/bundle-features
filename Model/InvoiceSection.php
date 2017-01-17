@@ -168,23 +168,19 @@ class InvoiceSection implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $lines = [];
+        $return = [];
+        if (null !== $this->getHeader()) {
+            $return['_header'] = $this->getHeader()->getHeader();
+        }
 
+        $lines = [];
         foreach ($this->getLines() as $lineId => $line) {
             $lines[$lineId] = $line;
         }
 
-        return [
-            'lines' => $lines
-        ];
-    }
+        $return['_lines'] = $lines;
 
-    /**
-     * Rehidrates the object after the retrieving from the database.
-     */
-    public function jsonUnserialize(array $data)
-    {
-        die(dump($data));
+        return $return;
     }
 
     /**
