@@ -27,6 +27,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             $detailsTables[$sectionId] = $this->buildInvoiceTextTable($section);
         }
 
+        $equals_separator       = $this->drawSeparator('=', $this->tableWidth);
         $dash_separator         = $this->drawSeparator('-', $this->tableWidth);
         $equals_separator_short = $this->drawSeparator('=', $this->tableWidth - (40 % $this->tableWidth));
         $equals_separator_short = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($equals_separator_short)) . $equals_separator_short;
@@ -34,14 +35,16 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         $detailsTable = '';
         foreach ($detailsTables as $sectionId => $sectionContent) {
             if ($invoice->getSection($sectionId)->hasHeader()) {
+                $detailsTable .= '_default' === $sectionId ? '' : $dash_separator . "\n";
                 $detailsTable .= $invoice->getSection($sectionId)->getHeader()->getHeader() . "\n";
-                $detailsTable .= $dash_separator . "\n";
+                $detailsTable .= '_default' === $sectionId ? $equals_separator : $dash_separator;
+                $detailsTable .= "\n";
             }
 
             $detailsTable .= $sectionContent . "\n";
         }
 
-        $total_amount = $this->getTranslator()->trans('company.invoice.total.label', [], 'company')
+        $total_amount = mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
             . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getTotal()->getConvertedAmount(), $invoice->getTotal()->getCurrency());
         $total_amount = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($total_amount)) . $total_amount;
 
@@ -74,9 +77,9 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
     {
         $tableData = [
             [
-                'quantity'    => $this->getTranslator()->trans('company.invoice.quantity.label', [], 'company'),
-                'description' => $this->getTranslator()->trans('company.invoice.description.label', [], 'company'),
-                'amount'      => $this->getTranslator()->trans('company.invoice.amount.label', [], 'company'),
+                'quantity'    => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
+                'description' => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
+                'amount'      => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
             ],
         ];
 
@@ -122,13 +125,6 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         $this->tableWidth = $table->getTableWidth();
 
         return $return;
-    }
-
-    /**
-     * @param InvoiceInterface $section
-     */
-    private function getSectionData(InvoiceInterface $section) {
-
     }
 
     /**
