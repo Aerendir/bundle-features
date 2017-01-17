@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
@@ -170,7 +171,7 @@ trait HasRecurringPricesProperty
         $pricePerDay = (int) floor($price->getAmount() / $daysInInterval);
 
         // Calculate the remaining days
-        $remainingDays = clone $this->getActiveUntil();
+        $remainingDays = clone $this->subscription->getNextPaymentOn();
 
         /** @var \DateTime $remainingDays */
         $remainingDays->diff(new \DateTime());
