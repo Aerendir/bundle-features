@@ -10,30 +10,33 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * Common methods to manage feature prices.
  */
-interface HasUnatantumPricesInterface extends CanBeFreeInterface
+interface HasUnatantumPricesInterface
 {
     /**
-     * @param string|CurrencyInterface $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null $type
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getPrice($currency);
+    public function getPrice($currency, string $type = null);
 
     /**
+     * @param string|null $type
      * @return array
      */
-    public function getPrices() : array;
+    public function getPrices(string $type = null) : array;
 
     /**
-     * @param CurrencyInterface|string $currency
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null $type
      *
      * @return bool
      */
-    public function hasPrice($currency) : bool;
+    public function hasPrice($currency, string $type = null): bool;
 
     /**
-     * @param array $prices
-     * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
+     * @param float $rate
+     * @return HasUnatantumPricesInterface
      */
-    public function setPrices(array $prices);
+    public function setTaxRate(float $rate) : HasUnatantumPricesInterface;
 }

@@ -104,6 +104,15 @@ class FeaturesManager
     }
 
     /**
+     * @param float $rate
+     */
+    public function setTaxRate(float $rate)
+    {
+        $this->getConfiguredFeatures()->setTaxRate($rate);
+        $this->getInvoicesManager()->getConfiguredFeatures()->setTaxRate($rate);
+    }
+
+    /**
      * @param string $subscriptionInterval
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
@@ -177,19 +186,18 @@ class FeaturesManager
             if (null !== $checkingFeature) {
                 /** @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $configuredFeature */
                 $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
+                $price = null;
 
                 switch (get_class($checkingFeature)) {
                     // These two have recurring features, so they can or cannot be still active
                     case SubscribedBooleanFeature::class:
-                    // Ignore the editor alert
-                    case SubscribedCountableFeature::class:
                         if (true === $checkingFeature->isStillActive()) {
                             // If it is still active, we have to charge nothing, so continue processing next feature
                             continue;
                         }
-
-                        $instantPrice = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
-
+                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
+                        break;
+                    case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
                         if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
                             /**
@@ -197,11 +205,7 @@ class FeaturesManager
                              *
                              * @var SubscribedCountableFeatureInterface $checkingFeature
                              */
-                            $instantPrice = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
-                        }
-
-                        if ($instantPrice instanceof MoneyInterface) {
-                            $totalCharges = $totalCharges->add($instantPrice);
+                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
                         }
                         break;
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
@@ -211,9 +215,12 @@ class FeaturesManager
                          *
                          * @var SubscribedRechargeableFeatureInterface $checkingFeature
                          */
-                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency());
-                        $totalCharges = $totalCharges->add($price);
+                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'gross');
                         break;
+                }
+
+                if ($price instanceof MoneyInterface) {
+                    $totalCharges = $totalCharges->add($price);
                 }
             }
         }

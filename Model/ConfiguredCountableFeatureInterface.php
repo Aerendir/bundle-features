@@ -2,13 +2,23 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanHaveFreePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 
 /**
  * {@inheritdoc}
  */
-interface ConfiguredCountableFeatureInterface extends HasRecurringPricesInterface, HasConfiguredPacksInterface, ConfiguredFeatureInterface
+interface ConfiguredCountableFeatureInterface extends HasConfiguredPacksInterface, CanHaveFreePackInterface, ConfiguredFeatureInterface
 {
+    /**
+     * @param SubscriptionInterface $subscription
+     * @return ConfiguredCountableFeatureInterface
+     */
+    public function setSubscription(SubscriptionInterface $subscription): ConfiguredCountableFeatureInterface;
+
+    /**
+     * @param float $rate
+     * @return ConfiguredCountableFeatureInterface
+     */
+    public function setTaxRate(float $rate): ConfiguredCountableFeatureInterface;
 }

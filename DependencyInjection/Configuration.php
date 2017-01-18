@@ -13,6 +13,7 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
@@ -27,6 +28,15 @@ class Configuration implements ConfigurationInterface
     /** @var array $foundDrawers The drawers found as default ones in features sets */
     private $foundDrawers = [];
 
+    /** @var  string $pricesKey The type of prices set: gross or net */
+    private $pricesType;
+
+    /** @var  string $pricesKey The type of prices set: gross or net */
+    private $pricesKey;
+
+    /** @var  string $unitaryPriceKey The type of prices set: gross or net */
+    private $unitaryPriceKey;
+
     /**
      * {@inheritdoc}
      */
@@ -35,8 +45,17 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $treeBuilder->root('features')
                 ->children()
-                    ->arrayNode('invoices_drawers')
-                        ->prototype('scalar')->end()
+                    ->arrayNode('prices')
+                        ->children()
+                            ->enumNode('are')->values(['net', 'gross'])->defaultValue('gross')->end()
+                        ->end()
+                    ->end()
+                    ->arrayNode('invoices')
+                        ->children()
+                            ->arrayNode('drawers')
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
                     ->end()
                     ->arrayNode('sets')
                         ->useAttributeAsKey('name')
@@ -137,7 +156,7 @@ class Configuration implements ConfigurationInterface
      */
     private function validateTree(array $tree)
     {
-        $tree['invoices_drawers'] = $this->validateInvoiceDrawers($tree['invoices_drawers']);
+        $tree['invoices']['drawers'] = $this->validateInvoiceDrawers($tree['invoices']['drawers']);
         $tree['sets'] = $this->validateSets($tree['sets']);
 
         return $tree;
@@ -399,15 +418,20 @@ class Configuration implements ConfigurationInterface
     private function processTree(array $tree)
     {
         // Move all default drawers to the foundDrawers property to make them globally available
-        $this->foundDrawers = $tree['invoices_drawers'];
+        $this->foundDrawers = $tree['invoices']['drawers'];
+
+        // Set prices type: gross or net
+        $this->pricesType = $tree['prices']['are'];
+        $this->pricesKey = $this->pricesType === 'gross' ? 'gross_prices' : 'net_prices';
+        $this->unitaryPriceKey = $this->pricesType === 'gross' ? 'gross_unitary_price' : 'net_unitary_price';
 
         // Reset the key
-        $tree['invoices_drawers'] = [];
+        $tree['invoices']['drawers'] = [];
 
         $tree['sets'] = $this->processSets($tree['sets']);
 
         // Readd the default drawers (already - now globally - existent plus the ones found in the single features sets)
-        $tree['invoices_drawers'] = array_merge($tree['invoices_drawers'], $this->foundDrawers);
+        $tree['invoices']['drawers'] = array_merge($tree['invoices']['drawers'], $this->foundDrawers);
 
         return $tree;
     }
@@ -472,7 +496,7 @@ class Configuration implements ConfigurationInterface
      */
     private function processBoolean(array $config)
     {
-        $config['prices'] = $config['price'];
+        $config[$this->pricesKey] = $config['price'];
 
         unset(
             $config['cumulable'],
@@ -512,10 +536,11 @@ class Configuration implements ConfigurationInterface
         unset(
             $config['cumulable'],
             $config['enabled'],
-            $config['prices']
+            $config['price']
         );
 
-        $config['unitary_price'] = $this->processUnatantumPrice($config['unitary_price']);
+        $config[$this->unitaryPriceKey] = $this->processUnatantumPrice($config['unitary_price']);
+        unset($config['unitary_price']);
         $config['packs'] = $this->processPackages($config['packs'], 'unatantum');
 
         return $config;
@@ -569,6 +594,8 @@ class Configuration implements ConfigurationInterface
             // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
             $packs[0] = [];
         }
+
+        $packs['_pricesType'] = $this->pricesType;
 
         return $packs;
     }

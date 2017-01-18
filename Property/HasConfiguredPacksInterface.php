@@ -12,11 +12,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 interface HasConfiguredPacksInterface
 {
     /**
-     * @return ConfiguredFeaturePackInterface
-     */
-    public function getFreePack() : ConfiguredFeaturePackInterface;
-
-    /**
      * @param int $numOfUnits
      * @return null|ConfiguredFeaturePackInterface|ConfiguredCountableFeaturePack|ConfiguredRechargeableFeaturePack
      */
@@ -26,11 +21,6 @@ interface HasConfiguredPacksInterface
      * @return array
      */
     public function getPacks() : array;
-
-    /**
-     * @return bool
-     */
-    public function hasFreePack() : bool;
 
     /**
      * @param int $numOfUnits

@@ -12,6 +12,6 @@ trait CanBeFreeProperty
      */
     public function isFree() : bool
     {
-        return empty($this->prices);
+        return empty($this->netPrices) && empty($this->grossPrices);
     }
 }

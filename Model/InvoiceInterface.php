@@ -121,7 +121,12 @@ interface InvoiceInterface extends \JsonSerializable
     /**
      * @return MoneyInterface
      */
-    public function getTotal() : MoneyInterface;
+    public function getGrossTotal() : MoneyInterface;
+
+    /**
+     * @return MoneyInterface
+     */
+    public function getNetTotal() : MoneyInterface;
 
     /**
      * Generates the number of the Invoice.

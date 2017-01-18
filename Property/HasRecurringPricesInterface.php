@@ -12,37 +12,47 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
     /**
-     * @param string|CurrencyInterface $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string          $subscriptionInterval
+     * @param string|null $type
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface;
+    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null) : MoneyInterface;
 
     /**
-     * @param $currency
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string $subscriptionInterval
+     * @param string|null $type
      * @return MoneyInterface
      */
-    public function getPrice($currency, string $subscriptionInterval) : MoneyInterface;
+    public function getPrice($currency, string $subscriptionInterval, string $type = null) : MoneyInterface;
 
     /**
+     * @param string|null $type
      * @return array
      */
-    public function getPrices() : array;
+    public function getPrices(string $type = null) : array;
 
     /**
-     * @param $currency
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string $subscriptionInterval
+     * @param string|null $type
      * @return bool
      */
-    public function hasPrice($currency, string $subscriptionInterval) : bool;
+    public function hasPrice($currency, string $subscriptionInterval, string $type = null) : bool;
 
     /**
      * @param SubscriptionInterface $subscription
      * @return HasRecurringPricesInterface
      */
     public function setSubscription(SubscriptionInterface $subscription) : HasRecurringPricesInterface;
+
+    /**
+     * @param float $rate
+     * @return HasRecurringPricesInterface
+     */
+    public function setTaxRate(float $rate) : HasRecurringPricesInterface;
 }

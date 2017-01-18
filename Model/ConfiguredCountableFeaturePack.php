@@ -19,10 +19,11 @@ class ConfiguredCountableFeaturePack extends AbstractFeaturePack implements Conf
     /**
      * @param int $numOfUnits
      * @param array $prices
+     * @param string $pricesType
      */
-    public function __construct(int $numOfUnits, array $prices)
+    public function __construct(int $numOfUnits, array $prices, string $pricesType)
     {
-        $this->setPrices($prices);
+        $this->setPrices($prices, $pricesType);
 
         parent::__construct(['num_of_units' => $numOfUnits]);
     }

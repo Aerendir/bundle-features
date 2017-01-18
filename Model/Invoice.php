@@ -35,9 +35,16 @@ abstract class Invoice implements InvoiceInterface
     /**
      * @var MoneyInterface
      *
-     * @ORM\Column(name="total", type="money", nullable=false)
+     * @ORM\Column(name="gross_total", type="money", nullable=false)
      */
-    private $total;
+    private $grossTotal;
+
+    /**
+     * @var MoneyInterface
+     *
+     * @ORM\Column(name="net_total", type="money", nullable=false)
+     */
+    private $netTotal;
 
     /**
      * {@inheritdoc}
@@ -57,8 +64,12 @@ abstract class Invoice implements InvoiceInterface
             $this->issuedOn = \DateTime::createFromFormat('U.u', microtime(true));
         }
 
-        if (null === $this->total) {
-            $this->total = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        if (null === $this->grossTotal) {
+            $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        }
+
+        if (null === $this->netTotal) {
+            $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
         }
 
         // Generate the Invoice number
@@ -107,6 +118,8 @@ abstract class Invoice implements InvoiceInterface
         }
 
         $this->sections['_default']->addLine($line, $id);
+
+        $this->recalculateTotal();
 
         return $this;
     }
@@ -179,7 +192,8 @@ abstract class Invoice implements InvoiceInterface
         }
 
         // Set the new Total
-        $this->total = $this->getTotal()->add($section->getTotal());
+        $this->grossTotal = $this->getGrossTotal()->add($section->getGrossTotal());
+        $this->netTotal = $this->getNetTotal()->add($section->getNetTotal());
 
         return $this;
     }
@@ -252,9 +266,17 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getTotal(): MoneyInterface
+    public function getGrossTotal(): MoneyInterface
     {
-        return $this->total;
+        return $this->grossTotal;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNetTotal(): MoneyInterface
+    {
+        return $this->netTotal;
     }
 
     /**
@@ -299,11 +321,13 @@ abstract class Invoice implements InvoiceInterface
      */
     private function recalculateTotal()
     {
-        $this->total = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
 
         /** @var InvoiceSection $section */
         foreach ($this->getSections() as $section) {
-            $this->total = $this->total->add($section->getTotal());
+            $this->grossTotal = $this->grossTotal->add($section->getGrossTotal());
+            $this->netTotal = $this->netTotal->add($section->getNetTotal());
         }
     }
 }

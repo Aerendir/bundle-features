@@ -19,8 +19,11 @@ class InvoiceSection implements \JsonSerializable
     /** @var  InvoiceLine[] */
     private $lines = [];
 
-    /** @var  MoneyInterface $total */
-    private $total;
+    /** @var  MoneyInterface $grossTotal */
+    private $grossTotal;
+
+    /** @var  MoneyInterface $netTotal */
+    private $netTotal;
 
     /**
      * @param CurrencyInterface $currency
@@ -28,7 +31,8 @@ class InvoiceSection implements \JsonSerializable
     public function __construct(CurrencyInterface $currency)
     {
         $this->currency = $currency;
-        $this->total    = new Money(['amount' => 0, 'currency' => $currency]);
+        $this->grossTotal = new Money(['amount' => 0, 'currency' => $currency]);
+        $this->netTotal = new Money(['amount' => 0, 'currency' => $currency]);
     }
 
     /**
@@ -100,7 +104,8 @@ class InvoiceSection implements \JsonSerializable
         }
 
         // Set the new Total
-        $this->total = $this->getTotal()->add($line->getAmount());
+        $this->grossTotal = $this->getGrossTotal()->add($line->getGrossAmount());
+        $this->netTotal = $this->getNetTotal()->add($line->getNetAmount());
 
         return $this;
     }
@@ -158,9 +163,17 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return MoneyInterface
      */
-    public function getTotal() : MoneyInterface
+    public function getGrossTotal() : MoneyInterface
     {
-        return $this->total;
+        return $this->grossTotal;
+    }
+
+    /**
+     * @return MoneyInterface
+     */
+    public function getNetTotal() : MoneyInterface
+    {
+        return $this->netTotal;
     }
 
     /**
@@ -188,11 +201,13 @@ class InvoiceSection implements \JsonSerializable
      */
     private function recalculateTotal()
     {
-        $this->total = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
 
-        /** @var InvoiceLine $section */
+        /** @var InvoiceLine $line */
         foreach ($this->getLines() as $line) {
-            $this->total = $this->total->add($line->getTotal());
+            $this->grossTotal = $this->grossTotal->add($line->getGrossAmount());
+            $this->netTotal = $this->netTotal->add($line->getNetAmount());
         }
     }
 }

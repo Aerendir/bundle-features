@@ -10,7 +10,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * {@inheritdoc}
@@ -23,20 +22,22 @@ class FeaturesExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $set = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
+
+        //die(VarDumper::dump($config));
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
 
         // Create services for drawers
-        foreach ($set['invoices_drawers'] as $drawer) {
+        foreach ($config['invoices']['drawers'] as $drawer) {
             $this->createFormatterService($drawer, $container);
         }
 
         // Create services for features
-        foreach ($set['sets'] as $creatingServiceKey => $set) {
-            $this->createFeaturesService($creatingServiceKey, $set['features'], $container);
-            $this->createInvoicesService($creatingServiceKey, $set, $container);
+        foreach ($config['sets'] as $creatingSetName => $setConfig) {
+            $this->createFeaturesService($creatingSetName, $setConfig, $container);
+            $this->createInvoicesService($creatingSetName, $setConfig, $container);
         }
     }
 
@@ -62,13 +63,13 @@ class FeaturesExtension extends Extension
 
     /**
      * @param string           $name
-     * @param array            $features
+     * @param array            $setConfig
      * @param ContainerBuilder $containerBuilder
      */
-    private function createFeaturesService(string $name, array $features, ContainerBuilder $containerBuilder)
+    private function createFeaturesService(string $name, array $setConfig, ContainerBuilder $containerBuilder)
     {
         // Create the feature manager definition
-        $featureManagerDefinition = new Definition(FeaturesManager::class, [$features]);
+        $featureManagerDefinition = new Definition(FeaturesManager::class, [$setConfig['features']]);
         $serviceName = 'shq_features.manager.'.$name.'.features';
         $featureManagerDefinition->addTag('shq_features.feature_manager');
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
@@ -76,14 +77,14 @@ class FeaturesExtension extends Extension
 
     /**
      * @param string           $name
-     * @param array            $config
+     * @param array            $setConfig
      * @param ContainerBuilder $containerBuilder
      */
-    private function createInvoicesService(string $name, array $config, ContainerBuilder $containerBuilder)
+    private function createInvoicesService(string $name, array $setConfig, ContainerBuilder $containerBuilder)
     {
         $arrayWriterDefinition = $containerBuilder->findDefinition('shq_features.array_writer');
-        $defaultDrawer = $config['default_drawer'] ?? null;
-        $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$config['features'], $arrayWriterDefinition, $defaultDrawer]);
+        $defaultDrawer = $setConfig['default_drawer'] ?? null;
+        $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$setConfig['features'], $arrayWriterDefinition, $defaultDrawer]);
         $serviceName = 'shq_features.manager.'.$name.'.invoices';
         $invoicesManagerDefinition->addTag('shq_features.invoice_manager');
         $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);

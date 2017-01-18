@@ -39,9 +39,6 @@ class InvoicesManager
     /** @var  InvoiceDrawerInterface[] $drawers */
     private $drawers;
 
-    /** @var  string $locale */
-    private $locale;
-
     /** @var SubscriptionInterface $subscription */
     private $subscription;
 
@@ -184,12 +181,14 @@ class InvoicesManager
                 continue;
             }
 
-            $price = null;
+            $grossPrice = null;
+            $netPrice = null;
             // The feature has to be added
             switch (get_class($feature)) {
                 case SubscribedBooleanFeature::class:
                     // The price is recurrent, so we need to pass the subscription interval
-                    $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                    $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
+                    $netPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'net');
                     break;
                 case SubscribedCountableFeature::class:
                     /**
@@ -199,7 +198,8 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $price = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                    $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
+                    $netPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'net');
                     $quantity = $feature->getSubscribedPack()->getNumOfUnits();
                     break;
                 case SubscribedRechargeableFeature::class:
@@ -210,14 +210,19 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $price = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency());
+                    $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'gross');
+                    $netPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'net');
                     $quantity = $feature->getRechargingPack()->getNumOfUnits();
                     break;
             }
 
-            if ($price instanceof MoneyInterface) {
+            if ($grossPrice instanceof MoneyInterface) {
                 $invoiceLine = new InvoiceLine();
-                $invoiceLine->setAmount($price)->setDescription($feature->getName())->setQuantity($quantity ?? null);
+                $invoiceLine
+                    ->setGrossAmount($grossPrice)
+                    ->setNetAmount($netPrice)
+                    ->setDescription($feature->getName())
+                    ->setQuantity($quantity ?? null);
                 $section->addLine($invoiceLine, $feature->getName());
             }
         }

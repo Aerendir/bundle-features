@@ -3,10 +3,12 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanHaveFreePackProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * {@inheritdoc}
@@ -16,11 +18,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     use HasConfiguredPacksProperty {
         HasConfiguredPacksProperty::setPacks as setPacksProperty;
     }
-    use HasRecurringPricesProperty {
-        HasRecurringPricesProperty::__construct as RecurringConstruct;
-        HasRecurringPricesProperty::setSubscription as setRecurringSubscription;
-    }
-    use CanBeFreeProperty;
+    use CanHaveFreePackProperty;
 
     /**
      * @var
@@ -38,8 +36,6 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
         if (isset($details['packs']))
             $this->setPacks($details['packs']);
 
-        $this->RecurringConstruct($details);
-
         parent::__construct($name, $details);
     }
 
@@ -54,16 +50,27 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function setSubscription(SubscriptionInterface $subscription): HasRecurringPricesInterface
+    public function setSubscription(SubscriptionInterface $subscription): ConfiguredCountableFeatureInterface
     {
-        $this->setRecurringSubscription($subscription);
-
         // If there are packs, set subscription in them, too
         if (false === empty($this->packs)) {
             /** @var ConfiguredCountableFeaturePack $pack */
             foreach ($this->packs as $pack) {
                 $pack->setSubscription($subscription);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTaxRate(float $rate): ConfiguredCountableFeatureInterface
+    {
+        /** @var ConfiguredCountableFeaturePack $pack Set tax rate in the packs too */
+        foreach ($this->getPacks() as $pack) {
+            $pack->setTaxRate($rate);
         }
 
         return $this;

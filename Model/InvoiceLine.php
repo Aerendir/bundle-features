@@ -12,33 +12,50 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 class InvoiceLine implements \JsonSerializable
 {
-    /** @var Money $amount */
-    private $amount;
+    /** @var Money $grossAmount */
+    private $grossAmount;
+
+    /** @var Money $netAmount */
+    private $netAmount;
 
     /** @var string $description */
     private $description;
 
-    /** @var string */
+    /** @var string $quantity */
     private $quantity;
+
+    /** @var  string $taxName */
+    private $taxName;
+
+    /** @var  float $taxRate */
+    private $taxRate;
 
     /**
      * @return Money
      */
-    public function getAmount()
+    public function getGrossAmount() : Money
     {
-        return $this->amount;
+        return $this->grossAmount;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getNetAmount() : Money
+    {
+        return $this->netAmount;
     }
 
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription() : string
     {
         return $this->description;
     }
 
     /**
-     * @return string
+     * @return int|null
      */
     public function getQuantity()
     {
@@ -46,23 +63,51 @@ class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param Money $amount
-     *
-     * @return $this
+     * @return string
      */
-    public function setAmount(Money $amount)
+    public function getTaxName() : string
     {
-        $this->amount = $amount;
+        return $this->taxName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxRate() : float
+    {
+        return $this->taxRate;
+    }
+
+    /**
+     * @param Money $grossAmount
+     *
+     * @return self
+     */
+    public function setGrossAmount(Money $grossAmount) : self
+    {
+        $this->grossAmount = $grossAmount;
 
         return $this;
     }
 
     /**
-     * @param $description
+     * @param Money $netAmount
      *
-     * @return $this
+     * @return self
      */
-    public function setDescription($description)
+    public function setNetAmount(Money $netAmount) : self
+    {
+        $this->netAmount = $netAmount;
+
+        return $this;
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return self
+     */
+    public function setDescription(string $description) : self
     {
         $this->description = $description;
 
@@ -70,17 +115,42 @@ class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param string $quantity
+     * @param int|null $quantity
+     * @return InvoiceLine
      */
-    public function setQuantity($quantity)
+    public function setQuantity($quantity) : self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * @param string $taxName
+     * @return InvoiceLine
+     */
+    public function setTaxName(string $taxName) : self
+    {
+        $this->taxName = $taxName;
+
+        return $this;
+    }
+
+    /**
+     * @param float $taxRate
+     * @return InvoiceLine
+     */
+    public function setTaxRate(float $taxRate) : self
+    {
+        $this->taxRate = $taxRate;
+
+        return $this;
     }
 
     /**
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize() : array
     {
         return $this->__toArray();
     }
@@ -90,10 +160,14 @@ class InvoiceLine implements \JsonSerializable
      */
     public function hydrate(array $data)
     {
-        $amount = new Money(['amount' => (int) $data['amount'], 'currency' => new Currency($data['currency'])]);
+        $grossAmount = new Money(['amount' => (int) $data['gross_amount'], 'currency' => new Currency($data['currency'])]);
+        $netAmount = new Money(['amount' => (int) $data['net_amount'], 'currency' => new Currency($data['currency'])]);
         $this->setDescription($data['description']);
-        $this->setAmount($amount);
-        $this->setQuantity($data['quantity']);
+        $this->setGrossAmount($grossAmount);
+        $this->setNetAmount($netAmount);
+        $this->setQuantity((int) $data['quantity']);
+        $this->setTaxName($data['tax_name']);
+        $this->setTaxRate($data['tax_rate']);
     }
 
     /**
@@ -102,10 +176,13 @@ class InvoiceLine implements \JsonSerializable
     public function __toArray()
     {
         return [
-            'amount' => $this->getAmount()->getAmount(),
-            'currency' => $this->getAmount()->getCurrency()->getCurrencyCode(),
+            'gross_amount' => $this->getGrossAmount()->getAmount(),
+            'net_amount' => $this->getNetAmount()->getAmount(),
+            'currency' => $this->getGrossAmount()->getCurrency()->getCurrencyCode(),
             'description' => $this->getDescription(),
             'quantity' => $this->getQuantity(),
+            'tax_name' => $this->getTaxName(),
+            'tax_rate' => $this->getTaxRate()
         ];
     }
 }

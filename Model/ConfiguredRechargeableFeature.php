@@ -5,6 +5,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
 
 /**
@@ -15,8 +16,9 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     use HasConfiguredPacksProperty {
         HasConfiguredPacksProperty::setPacks as setPacksProperty;
     }
-    use HasUnatantumPricesProperty;
-    use CanBeFreeProperty;
+    use HasUnatantumPricesProperty {
+        HasUnatantumPricesProperty::setTaxRate as setTaxRateProperty;
+    }
 
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
@@ -34,8 +36,11 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
         if (isset($details['packs']))
             $this->setPacks($details['packs']);
 
-        if (isset($details['unitary_prices']))
-            $this->setPrices($details['unitary_prices']);
+        if (isset($details['net_unitary_price']))
+            $this->setPrices($details['net_unitary_price'], 'net');
+
+        if (isset($details['gross_unitary_price']))
+            $this->setPrices($details['gross_unitary_price'], 'gross');
 
         parent::__construct($name, $details);
     }
@@ -64,5 +69,21 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredRechargeableFeaturePack::class);
+    }
+
+    /**
+     * @param float $rate
+     * @return HasUnatantumPricesInterface
+     */
+    public function setTaxRate(float $rate): HasUnatantumPricesInterface
+    {
+        $this->setTaxRateProperty($rate);
+
+        /** @var ConfiguredRechargeableFeaturePack $pack Set tax rate in the packs too */
+        foreach ($this->getPacks() as $pack) {
+            $pack->setTaxRate($rate);
+        }
+
+        return $this;
     }
 }

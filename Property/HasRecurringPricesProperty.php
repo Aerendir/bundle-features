@@ -17,11 +17,20 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 trait HasRecurringPricesProperty
 {
-    /** @var array $instantPrices */
-    private $instantPrices = [];
+    /** @var array $instantGrossPrices */
+    private $instantGrossPrices = [];
 
-    /** @var array $prices */
-    private $prices = [];
+    /** @var array $instantNetPrices */
+    private $instantNetPrices = [];
+
+    /** @var  array $grossPrices */
+    private $grossPrices = [];
+
+    /** @var  array $netPrices */
+    private $netPrices = [];
+
+    /** @var  string $pricesType */
+    private $pricesType;
 
     /** @var  SubscriptionInterface $subscription */
     private $subscription;
@@ -31,35 +40,56 @@ trait HasRecurringPricesProperty
      */
     public function __construct(array $details = [])
     {
-        if (isset($details['prices'])) {
-            $this->setPrices($details['prices']);
+        if (isset($details['net_prices'])) {
+            $this->setPrices($details['net_prices'], 'net');
         }
 
+        if (isset($details['gross_prices'])) {
+            $this->setPrices($details['gross_prices'], 'gross');
+        }
+
+        /* Not required anymore
         if ($this instanceof SubscribedFeatureInterface && !$this instanceof IsRecurringFeatureInterface) {
             throw new \LogicException('To have recurring prices, a Feature MUST implement IsRecurringFeatureInterface.');
         }
+        */
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
+     * @param string|null $type
+     *
+     * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
+     *
+     * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval) : MoneyInterface
+    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null) : MoneyInterface
     {
         if ($currency instanceof CurrencyInterface) {
             $currency = $currency->getCurrencyCode();
         }
 
-        if (false === isset($this->instantPrices[$currency][$subscriptionInterval])) {
-            $this->instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval);
+        if (null === $type) {
+            $type = $this->pricesType;
         }
 
-        return $this->instantPrices[$currency][$subscriptionInterval];
+        $instantPricesProperty = 'net' === $type ? 'instantNetPrice' : 'instantGrossPrice';
+
+        if (false === isset($this->$instantPricesProperty[$currency][$subscriptionInterval])) {
+            $this->$instantPricesProperty[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
+        }
+
+        return $this->$instantPricesProperty[$currency][$subscriptionInterval] ?? null;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string $subscriptionInterval
+     * @param string|null $type
+     * @return MoneyInterface
      */
-    public function getPrice($currency, string $subscriptionInterval) : MoneyInterface
+    public function getPrice($currency, string $subscriptionInterval, string $type = null) : MoneyInterface
     {
         if ($currency instanceof CurrencyInterface) {
             $currency = $currency->getCurrencyCode();
@@ -67,21 +97,42 @@ trait HasRecurringPricesProperty
 
         Subscription::checkIntervalExists($subscriptionInterval);
 
-        return $this->getPrices()[$currency][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
+        if (null === $type) {
+            $type = $this->pricesType;
+        }
+
+        return $this->getPrices($type)[$currency][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|null $type
+     * @return array
      */
-    public function getPrices() : array
+    public function getPrices(string $type = null) : array
     {
-        return $this->prices;
+        if (null === $type) {
+            $type = $this->pricesType;
+        }
+
+        switch ($type) {
+            case 'gross':
+                return $this->grossPrices;
+                break;
+            case 'net':
+                return $this->netPrices;
+                break;
+            default:
+                throw new \InvalidArgumentException(sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
+        }
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string $subscriptionInterval
+     * @param string|null $type
+     * @return bool
      */
-    public function hasPrice($currency, string $subscriptionInterval) : bool
+    public function hasPrice($currency, string $subscriptionInterval, string $type = null) : bool
     {
         Subscription::checkIntervalExists($subscriptionInterval);
 
@@ -89,7 +140,11 @@ trait HasRecurringPricesProperty
             $currency = $currency->getCurrencyCode();
         }
 
-        return isset($this->getPrices()[$currency][$subscriptionInterval]);
+        if (null === $type) {
+            $type = $this->pricesType;
+        }
+
+        return isset($this->getPrices($type)[$currency][$subscriptionInterval]);
     }
 
     /**
@@ -105,10 +160,49 @@ trait HasRecurringPricesProperty
     }
 
     /**
-     * {@inheritdoc}
+     * @param float $rate
+     * @return HasRecurringPricesInterface
      */
-    protected function setPrices(array $prices)
+    public function setTaxRate(float $rate) : HasRecurringPricesInterface
     {
+        $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
+        // ... Then we have to set gross prices
+        if (0 < count($this->$pricesProperty)) {
+            foreach ($this->$pricesProperty as $currency => $prices) {
+                /** @var MoneyInterface $price */
+                foreach ($prices as $subscriptionInterval => $price) {
+                    switch ($this->pricesType) {
+                        // If currently is "net"...
+                        case 'net':
+                            $netPrice = (int) round($price->getAmount() * (1 + $rate));
+                            $netPrice = new Money(['amount' => $netPrice, 'currency' => $currency]);
+                            $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
+                            break;
+                        // If currently is "gross"...
+                        case 'gross':
+                            // ... Then we have to set net prices
+                            $grossPrice = (int) round($price->getAmount() / (1 + $rate));
+                            $grossPrice = new Money(['amount' => $grossPrice, 'currency' => $currency]);
+                            $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
+                            break;
+                    }
+                }
+            }
+        }
+
+        /** @var HasRecurringPricesInterface $this */
+        return $this;
+    }
+
+    /**
+     * @param array $prices
+     * @param string $pricesType
+     */
+    private function setPrices(array $prices, string $pricesType)
+    {
+        $this->pricesType = $pricesType;
+        $priceProperty = $this->pricesType === 'net' ? 'netPrices' : 'grossPrices';
+
         if (0 < count($prices)) {
             foreach ($prices as $currency => $price) {
                 $currency = new Currency($currency);
@@ -120,7 +214,7 @@ trait HasRecurringPricesProperty
                             'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency,
                         ]);
                     }
-                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::MONTHLY] = $amount;
+                    $this->$priceProperty[$currency->getCurrencyCode()][SubscriptionInterface::MONTHLY] = $amount;
                 }
 
                 if (isset($price[SubscriptionInterface::YEARLY])) {
@@ -130,7 +224,7 @@ trait HasRecurringPricesProperty
                             'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency,
                         ]);
                     }
-                    $this->prices[$currency->getCurrencyCode()][SubscriptionInterface::YEARLY] = $amount;
+                    $this->$priceProperty[$currency->getCurrencyCode()][SubscriptionInterface::YEARLY] = $amount;
                 }
             }
         }
@@ -139,15 +233,16 @@ trait HasRecurringPricesProperty
     /**
      * @param string $currency
      * @param string $subscriptionInterval
+     * @param string $pricesType
      *
      * @return MoneyInterface
      */
-    private function calculateInstantPrice(string $currency, string $subscriptionInterval) : MoneyInterface
+    private function calculateInstantPrice(string $currency, string $subscriptionInterval, string $pricesType) : MoneyInterface
     {
         if (!$this->subscription instanceof SubscriptionInterface)
             throw new \RuntimeException('Before you can get instant prices you have to set a Subscription with setSubscription().');
 
-        $price = $this->getPrice($currency, $subscriptionInterval);
+        $price = $this->getPrice($currency, $subscriptionInterval, $pricesType);
 
         // If the feature is not already subscribed or if it was subscribed today
         if (null === $this->subscription->getSubscribedOn() || ($this->subscription->getSubscribedOn()->format('Y-m-d') === (new \DateTime())->format('Y-m-d'))) {

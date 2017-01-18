@@ -4,6 +4,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 
 /**
  * {@inheritdoc}
@@ -33,5 +34,22 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
         }
 
         return $this;
+    }
+
+    /**
+     * @param float $rate
+     */
+    public function setTaxRate(float $rate)
+    {
+        foreach ($this->getValues() as $feature) {
+            if (
+                $feature instanceof HasRecurringPricesInterface
+                || $feature instanceof HasUnatantumPricesInterface
+                // ConfiguredCountableFeatureInterface doesn't support Unitary Price and so doesn't implement HasRecurringPricesInterface
+                || $feature instanceof ConfiguredCountableFeatureInterface
+            )
+                /** @var HasRecurringPricesInterface|HasUnatantumPricesInterface|ConfiguredCountableFeatureInterface $feature */
+                $feature->setTaxRate($rate);
+        }
     }
 }

@@ -14,8 +14,10 @@
  * ======================================================================== */
 
 $(document).ready(function() {
-    var amount = 0,
-        instantAmount = 0,
+    var grossAmount = 0,
+        netAmount = 0,
+        grossInstantAmount = 0,
+        netInstantAmount = 0,
         currencyMask = function (amount) {
             return parseFloat(amount).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString().replace(/\./g, ',')
         },
@@ -31,54 +33,66 @@ $(document).ready(function() {
         .each(function() {
             // If the feature is checked, it is active: sum it to the amount
             if ($(this).is(':checked')) {
-                amount += $(this).data('amount');
+                grossAmount += $(this).data('gross-amount');
+                netAmount += $(this).data('net-amount');
             }
         })
         .change(function() {
             // Calculate the unatantum instant payment only if the feature is not currently active
             if (typeof $(this).data('already-active') === 'undefined') {
                 if ($(this).is(':checked')) {
-                    instantAmount += $(this).data('instant-amount');
+                    grossInstantAmount += $(this).data('gross-instant-amount');
+                    netInstantAmount += $(this).data('net-instant-amount');
                 } else {
-                    instantAmount -= $(this).data('instant-amount');
+                    grossInstantAmount -= $(this).data('gross-instant-amount');
+                    netInstantAmount -= $(this).data('net-instant-amount');
 
-                    if (0 > instantAmount) {
-                        instantAmount = 0;
+                    if (0 > grossInstantAmount) {
+                        grossInstantAmount = 0;
+                        netInstantAmount = 0;
                     }
                 }
 
-                $('.instantAmount').text(currencyMask(instantAmount));
+                $('.total-gross-instant-amount').text(currencyMask(grossInstantAmount));
+                $('.total-net-instant-amount').text(currencyMask(netInstantAmount));
             }
 
             if ($(this).is(':checked')) {
-                amount += $(this).data('amount');
+                grossAmount += $(this).data('gross-amount');
+                netAmount += $(this).data('net-amount');
             } else {
-                amount -= $(this).data('amount');
+                grossAmount -= $(this).data('gross-amount');
+                netAmount -= $(this).data('net-amount');
 
-                if (0 > amount) {
-                    amount = 0;
+                if (0 > grossAmount) {
+                    grossAmount = 0;
+                    netAmount = 0;
                 }
             }
 
-            $('.amount').text(currencyMask(amount));
+            $('.total-gross-amount').text(currencyMask(grossInstantAmount));
+            $('.total-net-amount').text(currencyMask(netInstantAmount));
         });
 
     $('.feature.feature-countable')
     // Find countable features
         .each(function() {
             featureName = 'feature-' + $(this).data('name');
-            console.log(featureName);
+
             // Find the subscribed pack (is an option in the select)
             selected = $(this).find("option[selected='selected']");
             markOptionAsCurrentlySelected(selected);
 
-            if (typeof selected.data('amount') !== 'undefined') {
+            if (typeof selected.data('gross-amount') !== 'undefined') {
                 // And add their price to the amount
-                amount += selected.data('amount');
+                grossAmount += selected.data('net-amount');
+                netAmount += selected.data('gross-amount');
 
                 // Write the price and the instant price in the front-end
-                $('.feature.feature-details.' + featureName + ' .feature-amount').text(currencyMask(selected.data('amount')));
-                $('.feature.feature-details.' + featureName + ' .feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-gross-amount').text(currencyMask(selected.data('gross-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-gross-instant-amount').text(currencyMask(selected.data('gross-instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-net-amount').text(currencyMask(selected.data('net-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-net-instant-amount').text(currencyMask(selected.data('net-instant-amount')));
             }
         })
         .change(function() {
@@ -88,37 +102,47 @@ $(document).ready(function() {
             deselected = $(this).find('.currently-selected');
 
             // Update the prices shown for the current selected option/pack
-            if (typeof selected.data('amount') !== 'undefined') {
+            if (typeof selected.data('gross-amount') !== 'undefined') {
                 // Write the price and the instant price in the front-end
-                $('.feature.feature-details.' + featureName + ' .feature-amount').text(currencyMask(selected.data('amount')));
-                $('.feature.feature-details.' + featureName + ' .feature-instant-amount').text(currencyMask(selected.data('instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-gross-amount').text(currencyMask(selected.data('gross-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-gross-instant-amount').text(currencyMask(selected.data('gross-instant-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-net-amount').text(currencyMask(selected.data('net-amount')));
+                $('.feature.feature-details.' + featureName + ' .feature-net-instant-amount').text(currencyMask(selected.data('net-instant-amount')));
             }
 
             // Subtract the amount of the deselected option and add the amount of the newly selected option
-            amount -= deselected.data('amount');
-            amount += selected.data('amount');
+            grossAmount -= deselected.data('gross-amount');
+            grossAmount += selected.data('gross-amount');
+            netAmount -= deselected.data('net-amount');
+            netAmount += selected.data('net-amount');
 
             // Subtract the instant amount only if the deselcted pack is not the one already subscribed
             if (typeof deselected.data('already-subscribed') === 'undefined') {
-                instantAmount -= deselected.data('instant-amount');
+                grossInstantAmount -= deselected.data('gross-instant-amount');
+                netInstantAmount -= deselected.data('net-instant-amount');
             }
 
             // Add the new instant amount only if the selected pack is not the one already subscribed
             if (typeof selected.data('already-subscribed') === 'undefined') {
-                instantAmount += selected.data('instant-amount');
+                grossInstantAmount += selected.data('gross-instant-amount');
+                netInstantAmount += selected.data('net-instant-amount');
             }
 
             // Update the totals
-            $('.instantAmount').text(currencyMask(instantAmount));
-            $('.amount').text(currencyMask(amount));
+            $('.total-gross-instant-amount').text(currencyMask(grossInstantAmount));
+            $('.total-net-instant-amount').text(currencyMask(netInstantAmount));
+            $('.total-gross-amount').text(currencyMask(grossAmount));
+            $('.total-net-amount').text(currencyMask(netAmount));
 
             // Switch de/selected options
             unmarkOptionAsCurrentlySelected(deselected);
             markOptionAsCurrentlySelected(selected);
         });
 
-    $('.amount').text(currencyMask(amount));
-    $('.instantAmount').text(currencyMask(instantAmount));
+    $('.total-gross-amount').text(currencyMask(grossAmount));
+    $('.total-gross-instant-amount').text(currencyMask(grossInstantAmount));
+    $('.total-net-amount').text(currencyMask(netAmount));
+    $('.total-net-instant-amount').text(currencyMask(netInstantAmount));
 
     // If a feature is activated via querystring, activate it
     $('.activate').find('input').prop('checked', true).trigger('change');
