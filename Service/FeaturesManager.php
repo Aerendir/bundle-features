@@ -291,6 +291,19 @@ class FeaturesManager
     }
 
     /**
+     * Reverts the Subscription to the state before the editings.
+     */
+    public function rollbackSubscription()
+    {
+        $this->subscription
+            ->setCurrency($this->oldSubscription->getCurrency())
+            ->setFeatures($this->oldSubscription->getFeatures())
+            ->setInterval($this->oldSubscription->getInterval())
+            ->setNextPaymentAmount($this->oldSubscription->getNextPaymentAmount())
+            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn());
+    }
+
+    /**
      * @param SubscriptionInterface $subscription
      * @param SubscribedFeaturesCollection    $features
      */
