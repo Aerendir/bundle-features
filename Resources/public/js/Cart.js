@@ -35,6 +35,12 @@ $(document).ready(function() {
             if ($(this).is(':checked')) {
                 grossAmount += $(this).data('gross-amount');
                 netAmount += $(this).data('net-amount');
+
+                // If it is not already active...
+                if ($(this).is(':checked')) {
+                    grossInstantAmount += $(this).data('gross-instant-amount');
+                    netInstantAmount += $(this).data('net-instant-amount');
+                }
             }
         })
         .change(function() {
@@ -85,8 +91,14 @@ $(document).ready(function() {
 
             if (typeof selected.data('gross-amount') !== 'undefined') {
                 // And add their price to the amount
-                grossAmount += selected.data('net-amount');
-                netAmount += selected.data('gross-amount');
+                grossAmount += selected.data('gross-amount');
+                netAmount += selected.data('net-amount');
+
+                // Add the new instant amount only if the selected pack is not the one already subscribed
+                if (typeof selected.data('already-subscribed') === 'undefined') {
+                    grossInstantAmount += selected.data('gross-instant-amount');
+                    netInstantAmount += selected.data('net-instant-amount');
+                }
 
                 // Write the price and the instant price in the front-end
                 $('.feature.feature-details.' + featureName + ' .feature-gross-amount').text(currencyMask(selected.data('gross-amount')));
