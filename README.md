@@ -64,4 +64,10 @@ DOCUMENTATION
 You can read how to install, configure, test and use the SerendipityHQ Features Bundle in the [documentation](src/Resources/docs/Index.md).
 
 Inspiration for future features
-- https://packagist.org/packages/yannickl88/features-bundle
+
+- https://github.com/yannickl88/features-bundle
+- https://github.com/DZunke/FeatureFlagsBundle
+
+Some other information
+
+- http://stackoverflow.com/questions/7707383/what-is-a-feature-flag
