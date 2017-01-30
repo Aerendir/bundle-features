@@ -9,8 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class HubBundle.
- *
  * {@inheritdoc}
  */
 class FeaturesBundle extends Bundle
