@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "~7.1",
+        "php": "^7",
         "ext-intl": "*",
         "doctrine/common": "^2.5",
         "doctrine/orm": "^2.5",
