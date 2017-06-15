@@ -11,16 +11,16 @@
         }
     ],
     "require": {
-        "php": "~7.0",
+        "php": "~7.1",
         "ext-intl": "*",
         "doctrine/common": "^2.5",
         "doctrine/orm": "^2.5",
         "serendipity_hq/php_array_writer": "^1.2",
         "serendipity_hq/php_value_objects": "~3",
-        "symfony/form": "~2.8",
-        "symfony/framework-bundle": "~2.8",
-        "symfony/options-resolver": "~2.8",
-        "symfony/routing": "~2.8"
+        "symfony/form": "~2.8|~3",
+        "symfony/framework-bundle": "~2.8|~3",
+        "symfony/options-resolver": "~2.8|~3",
+        "symfony/routing": "~2.8|~3"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
