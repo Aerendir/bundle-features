@@ -5,14 +5,13 @@
  */
 
 /* ========================================================================
- * Store Cart v1
+ * Serendipity HQ Features Bundle Cart
  *
  * Manages a cart on the front end.
  * ========================================================================
  * Copyright 2016 Aerendir
- * Licensed under a NON DISCLOSE LICENSE
+ * Licensed under MIT license.
  * ======================================================================== */
-
 $(document).ready(function() {
     var grossAmount = 0,
         netAmount = 0,
@@ -28,7 +27,7 @@ $(document).ready(function() {
             option.removeClass('currently-selected');
         };
 
-    $('.feature.feature-boolean')
+    $('[data-feature="boolean"]')
     // Calculate current values
         .each(function() {
             // If the feature is checked, it is active: sum it to the amount
@@ -80,7 +79,7 @@ $(document).ready(function() {
             $('.total-net-amount').text(currencyMask(netInstantAmount));
         });
 
-    $('.feature.feature-countable')
+    $('[data-feature="countable"]')
     // Find countable features
         .each(function() {
             featureName = 'feature-' + $(this).data('name');

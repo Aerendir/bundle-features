@@ -100,7 +100,7 @@ class FeaturesType extends AbstractType
         return [
             'required' => false,
             'attr' => [
-                'class' => 'feature feature-boolean',
+                'data-feature' => 'boolean',
                 'data-toggle' => 'toggle',
                 'data-already-active' => $subscribedFeature->isStillActive(),
                 'data-gross-amount' => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getInterval(), 'gross')->getConvertedAmount(),
@@ -121,7 +121,7 @@ class FeaturesType extends AbstractType
         return [
             'required' => false,
             'attr' => [
-                'class' => 'feature feature-countable',
+                'data-feature' => 'countable',
                 'data-name' => $subscribedFeature->getName()
             ],
             'choices' => $this->getCountableFeaturePacks($subscribedFeature->getConfiguredFeature()),
@@ -139,7 +139,7 @@ class FeaturesType extends AbstractType
         return [
             'required' => true,
             'attr' => [
-                'class' => 'feature feature-rechargeable',
+                'data-feature' => 'rechargeable',
                 'data-name' => $subscribedFeature->getName()
             ],
             'choices' => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
