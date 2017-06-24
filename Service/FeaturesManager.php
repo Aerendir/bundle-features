@@ -360,6 +360,15 @@ class FeaturesManager
 
         /** @var FeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
+            // Check if the feature is still present in configuration
+            if (null === $this->getConfiguredFeatures()->get($feature->getName())) {
+                // It is not present anymore: remove it from the subscription
+                $this->getSubscription()->getFeatures()->remove($feature->getName());
+
+                // Simply Continue the cycle
+                continue;
+            }
+
             if ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled()) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
 
