@@ -57,9 +57,9 @@ class FeaturesManager
 
     /** @var array $differences The added and removed features */
     private $differences = [
-            'added' => [],
-            'removed' => [],
-        ];
+        'added' => [],
+        'removed' => [],
+    ];
 
     /**
      * Returns all the configured features.
@@ -97,7 +97,11 @@ class FeaturesManager
          */
         foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
             $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
-            $subscribedFeature->setConfiguredFeature($configuredFeature);
+
+            // If the feature doesn't exist anymore in configuraiton, skip it: it will be deleted on next subscription update
+            if (null !== $configuredFeature) {
+                $subscribedFeature->setConfiguredFeature($configuredFeature);
+            }
         }
 
         return $this;
