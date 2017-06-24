@@ -223,8 +223,8 @@ class FeaturesType extends AbstractType
             $pack = $configuredFeature->getPack($val);
 
             return [
-                'data-gross-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getConvertedAmount(),
-                'data-net-amount' => $pack->getPrice($subscription->getCurrency(), 'net')->getConvertedAmount()
+                'data-gross-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getConvertedAmount(),
+                'data-net-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'net')->getConvertedAmount()
             ];
         };
     }

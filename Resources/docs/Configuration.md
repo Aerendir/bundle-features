@@ -10,7 +10,7 @@ The bundle creates a `FeatureManager` and an `InvoiceManager` for each set of fe
 STEP 3: CONFIGURE SERENDIPITYHQ FEATURES BUNDLE
 -----------------------------------------------
 
-As we use this bundle in our own applications, we are going to explaing the configuration taking as example [TrustBack.Me](//trustback.me), the first of our apps that used this bundle.
+As we use this bundle in our own applications, we are going to explain the configuration taking as example [TrustBack.Me](//www.trustback.me), the first of our apps that used this bundle.
 
 TrustBack.Me permits to merchants to get feedbacks from their own customers and shows them on a public profile page.
 
