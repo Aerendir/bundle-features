@@ -35,12 +35,6 @@ $(document).ready(function() {
             if ($(this).is(':checked')) {
                 grossAmount += $(this).data('gross-amount');
                 netAmount += $(this).data('net-amount');
-
-                // If it is not already active...
-                if ($(this).is(':checked')) {
-                    grossInstantAmount += $(this).data('gross-instant-amount');
-                    netInstantAmount += $(this).data('net-instant-amount');
-                }
             }
         })
         .change(function() {
@@ -76,8 +70,10 @@ $(document).ready(function() {
                 }
             }
 
-            $('.total-gross-amount').text(currencyMask(grossInstantAmount));
-            $('.total-net-amount').text(currencyMask(netInstantAmount));
+            $('.total-gross-amount').text(currencyMask(grossAmount));
+            $('.total-net-amount').text(currencyMask(netAmount));
+            $('.total-gross-instant-amount').text(currencyMask(grossInstantAmount));
+            $('.total-net-instant-amount').text(currencyMask(netInstantAmount));
         });
 
     $('[data-feature="countable"]')
@@ -93,12 +89,6 @@ $(document).ready(function() {
                 // And add their price to the amount
                 grossAmount += selected.data('gross-amount');
                 netAmount += selected.data('net-amount');
-
-                // Add the new instant amount only if the selected pack is not the one already subscribed
-                if (typeof selected.data('already-subscribed') === 'undefined') {
-                    grossInstantAmount += selected.data('gross-instant-amount');
-                    netInstantAmount += selected.data('net-instant-amount');
-                }
 
                 // Write the price and the instant price in the front-end
                 $('.feature.feature-details.' + featureName + ' .feature-gross-amount').text(currencyMask(selected.data('gross-amount')));
@@ -161,10 +151,6 @@ $(document).ready(function() {
             markOptionAsCurrentlySelected(selected);
 
             if (typeof selected.data('gross-amount') !== 'undefined') {
-
-                grossInstantAmount += selected.data('gross-instant-amount');
-                netInstantAmount += selected.data('net-instant-amount');
-
                 // Write the price and the instant price in the front-end
                 $('.feature.feature-details.' + featureName + ' .feature-gross-instant-amount').text(currencyMask(selected.data('gross-instant-amount')));
                 $('.feature.feature-details.' + featureName + ' .feature-net-instant-amount').text(currencyMask(selected.data('net-instant-amount')));
