@@ -7,6 +7,6 @@ These are the steps required to get up and running with the bundle:
 
 1. [Install and activate the bundle](Installation.md)
 2. [Configure the bundle](Configuration.md)
-3. [Integrate the front-end](Frontend-Integration.md)
-4. [Integrate the back-end](Backend-Integration.md)
-5. [Configuring webhooks](WebHoonks.md)
+3. [Creating the Subscriptions](Subscription.md)
+4. [Using the built-in cart](Using-the-cart.md)
+5. [Managing renews](Managing-renews.md)

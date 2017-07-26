@@ -72,8 +72,10 @@ class Configuration implements ConfigurationInterface
                                             ->end()
                                             // type === Boolean
                                             ->scalarNode('enabled')->defaultFalse()->end()
-                                            // type === Rechargeable
+                                            // type === Rechargeable || type === Countable
                                             ->scalarNode('cumulable')->defaultFalse()->end()
+                                            // type === Countable
+                                            ->enumNode('renew_period')->defaultValue('monthly')->values(['monthly', 'yearly'])->end()
                                             // type === Rechargeable
                                             ->scalarNode('free_recharge')->defaultValue(0)->end()
                                             // type === Rechargeable (integer) || type === Countable (array)

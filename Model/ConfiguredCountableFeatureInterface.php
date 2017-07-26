@@ -11,6 +11,11 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 interface ConfiguredCountableFeatureInterface extends HasConfiguredPacksInterface, CanHaveFreePackInterface, ConfiguredFeatureInterface
 {
     /**
+     * @return string
+     */
+    public function getRenewPeriod() : string;
+
+    /**
      * @param SubscriptionInterface $subscription
      * @return ConfiguredCountableFeatureInterface
      */

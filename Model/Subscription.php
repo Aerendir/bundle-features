@@ -54,6 +54,25 @@ abstract class Subscription implements SubscriptionInterface
     private $nextPaymentOn;
 
     /**
+     * If there are countable features, this field saves the smallest renew interval found.
+     *
+     * @var string
+     *
+     * @ORM\Column(name="smallest_renew_interval", type="string", nullable=true)
+     */
+    private $smallestRenewInterval;
+
+    /**
+     * If there are countable features configured, this field is used to determine when they have to be renew based on
+     * the smallest interval.
+     *
+     * @var \DateTime
+     *
+     * @ORM\Column(name="next_renew_on", type="datetime", nullable=true)
+     */
+    private $nextRenewOn;
+
+    /**
      * @var \DateTime $subscribedOn
      *
      * @ORM\Column(name="subscribed_on", type="datetime", nullable=true)
@@ -162,6 +181,26 @@ abstract class Subscription implements SubscriptionInterface
         }
 
         return $this->nextPaymentOn;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSmallestRenewInterval() :? string
+    {
+        return $this->smallestRenewInterval;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getNextRenewOn() :? \DateTime
+    {
+        if (null === $this->nextRenewOn) {
+            $this->nextRenewOn = self::calculateNextRenewOn();
+        }
+
+        return $this->nextRenewOn;
     }
 
     /**
@@ -299,6 +338,48 @@ abstract class Subscription implements SubscriptionInterface
         $this->subscribedOn = $subscribedOn;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PreFlush()
+     */
+    public function updateRenew()
+    {
+        $intervals = ['daily' => 0, 'weekly' => 1, 'biweekly' => 2, 'monthly' => 3, 'yearly' => 4];
+        $renewInterval = 'monthly';
+
+        /** @var SubscribedCountableFeatureInterface $feature */
+        foreach ($this->getFeatures()->getValues() as $feature) {
+            if ($feature instanceof SubscribedCountableFeatureInterface) {
+                /** @var ConfiguredCountableFeatureInterface $configuredFeature */
+                $configuredFeature = $feature->getConfiguredFeature();
+
+                // If the configured renew period is smaller than the current renew period...
+                if ($intervals[$configuredFeature->getRenewPeriod()] < $intervals[$renewInterval]) {
+                    // Set the configured renew period as the new current renew period
+                    $renewInterval = $configuredFeature->getRenewPeriod();
+                }
+            }
+        }
+
+        $this->smallestRenewInterval = $renewInterval;
+
+        $this->nextRenewOn = $this->nextRenewOn ?? clone $this->getSubscribedOn();
+
+        switch ($this->smallestRenewInterval) {
+            case 'weekly':
+                $this->nextRenewOn->modify('+1 week');
+                break;
+            case 'biweekly':
+                $this->nextRenewOn->modify('+2 week');
+                break;
+            case 'monthly':
+                $this->nextRenewOn->modify('+1 month');
+                break;
+            case 'yearly':
+                $this->nextRenewOn->modify('+1 year');
+                break;
+        }
     }
 
     /**

@@ -20,10 +20,11 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     }
     use CanHaveFreePackProperty;
 
-    /**
-     * @var
-     */
+    /** @var  array $packs */
     private $packs;
+
+    /** @var string $renewPeriod */
+    private $renewPeriod;
 
     /**
      * {@inheritdoc}
@@ -36,7 +37,17 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
         if (isset($details['packs']))
             $this->setPacks($details['packs']);
 
+        $this->renewPeriod = $details['renew_period'];
+
         parent::__construct($name, $details);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRenewPeriod() : string
+    {
+        return $this->renewPeriod;
     }
 
     /**

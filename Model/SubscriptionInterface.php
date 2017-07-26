@@ -71,6 +71,16 @@ interface SubscriptionInterface
     public function getNextPaymentAmount() : MoneyInterface;
 
     /**
+     * @return null|string
+     */
+    public function getSmallestRenewInterval() :? string;
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getNextRenewOn() :? \DateTime;
+
+    /**
      * If the date of the next payment is not set, use the creation date.
      * If it is not set, is because this is a new subscription, so the next payment is immediate.
      *
