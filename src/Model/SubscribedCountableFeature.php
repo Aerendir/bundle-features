@@ -91,7 +91,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getLastRenewOn() : \DateTime
+    public function getLastRenewOn() :? \DateTime
     {
         return $this->lastRenewOn;
     }
