@@ -386,6 +386,8 @@ class FeaturesManager
                 $feature->renew($configuredRenewingFeature);
             }
         }
+
+        $this->updateSubscription();
     }
 
     /**
