@@ -384,7 +384,7 @@ class FeaturesManager
 
             /** @var SubscribedCountableFeatureInterface $feature Renew the feature if the renew period is elapsed **/
             if ($feature->isRenewPeriodElapsed()) {
-                $feature->refreshSubscription($configuredRenewingFeature);
+                $feature->renew($configuredRenewingFeature);
             }
         }
     }

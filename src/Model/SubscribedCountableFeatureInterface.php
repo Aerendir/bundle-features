@@ -71,6 +71,11 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     public function isRenewPeriodElapsed() : bool;
 
     /**
+     * Renews the subscription resetting the available quantities.
+     */
+    public function renew() : SubscribedCountableFeatureInterface;
+
+    /**
      * Sets the date on which the renew happened.
      *
      * @param \DateTime $lastRenewOn

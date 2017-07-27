@@ -155,7 +155,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function refreshSubscription() : SubscribedCountableFeatureInterface
+    public function renew() : SubscribedCountableFeatureInterface
     {
         $this->previousRemainedQuantity = $this->getRemainedQuantity();
 
