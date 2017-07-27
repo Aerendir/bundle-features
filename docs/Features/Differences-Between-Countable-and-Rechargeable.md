@@ -47,7 +47,7 @@ This difference is reflected in the configuration needed to set prices, as the `
 
 ```
 
-This is because the `RechargeableFeature` is meant to be bought each time the User requires it, while the `CountableFeature` is subscribed by the user and on each subscription period interval it is renewed.
+This is because the `RechargeableFeature` is meant to be bought each time the User requires it, while the `CountableFeature` is subscribed by the user and on each refresh period it is refreshed.
 
 `free_recharge` and FreePack
 ----------------------------
@@ -62,7 +62,7 @@ A `RechargeableFeature` can be bought in pack but those packs are not subscribab
 
 If you set the `free_recharge` configuration of a `RechargeableFeature` when the default plan is built, this quantity is set as the remained quantity of units.
 
-Conversely, a `CountableFeature` has packs that can be subscribed as they are renewed each time the subscription period ends.
+Conversely, a `CountableFeature` has packs that can be subscribed as they are refreshed each time the refresh period ends.
 
 So, if you want to give some free units to your users, you have to set a package with no prices that will become the default subscribed one when the default subscription is created.
 

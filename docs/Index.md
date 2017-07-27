@@ -9,4 +9,4 @@ These are the steps required to get up and running with the bundle:
 2. [Configure the bundle](Configuration.md)
 3. [Creating the Subscriptions](Subscription.md)
 4. [Using the built-in cart](Using-the-cart.md)
-5. [Managing renews](Managing-renews.md)
+5. [Managing Renews and Refreshes](Managing-renews-and-refreshes.md)
