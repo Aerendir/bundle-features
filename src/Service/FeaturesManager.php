@@ -304,8 +304,7 @@ class FeaturesManager
             ->setFeatures($this->oldSubscription->getFeatures())
             ->setInterval($this->oldSubscription->getInterval())
             ->setNextPaymentAmount($this->oldSubscription->getNextPaymentAmount())
-            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn())
-            ->updateRenew();
+            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn());
     }
 
     /**
