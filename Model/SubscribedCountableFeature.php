@@ -13,6 +13,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
+    /** @var \DateTime $lastRenewOn */
+    private $lastRenewOn;
+
     /** @var  SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
 
@@ -37,6 +40,10 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         $this->subscribedPack = new SubscribedCountableFeaturePack($details['subscribed_pack']);
         $this->remainedQuantity = $details['remained_quantity'];
+
+        if (isset($details['last_renew_on'])) {
+            $this->lastRenewOn = $details['last_renew_on'] instanceof \DateTime ? $details['last_renew_on'] : new \DateTime($details['last_renew_on']['date'], new \DateTimeZone($details['last_renew_on']['timezone']));
+        }
 
         parent::__construct($name, $details);
     }
@@ -84,6 +91,14 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
+    public function getLastRenewOn() : \DateTime
+    {
+        return $this->lastRenewOn;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getRemainedQuantity() : int
     {
         return $this->remainedQuantity;
@@ -95,6 +110,46 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     public function getSubscribedPack() : SubscribedCountableFeaturePack
     {
         return $this->subscribedPack;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isRenewPeriodElapsed(): bool
+    {
+        // We don't have a last renew date:
+        if (null === $this->getLastRenewOn()) {
+            // Return true by default t force the renew and set the last renew date to be used on the next cycle
+            return true;
+        }
+
+        /** @var ConfiguredCountableFeatureInterface $configuredFeature */
+        $configuredFeature = $this->getConfiguredFeature();
+
+        $now = new \DateTime();
+
+        $diff = $now->diff($this->getLastRenewOn());
+
+        switch ($configuredFeature->getRenewPeriod()) {
+            case SubscriptionInterface::DAILY:
+                return $diff->days >= 1 ? true : false;
+                break;
+            case SubscriptionInterface::WEEKLY:
+                return $diff->days >= 7 ? true : false;
+                break;
+            case SubscriptionInterface::BIWEEKLY:
+                return $diff->days >= 15 ? true : false;
+                break;
+            case SubscriptionInterface::MONTHLY:
+                return $diff->m >= 1 ? true : false;
+                break;
+            case SubscriptionInterface::YEARLY:
+                return $diff->y >= 1 ? true : false;
+                break;
+        }
+
+        // By default return true
+        return true;
     }
 
     /**
@@ -118,6 +173,17 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
     {
         parent::setConfiguredFeature($configuredFeature);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setLastRenewOn(\DateTime $lastRenewOn) : SubscribedCountableFeatureInterface
+    {
+        $this->lastRenewOn = $lastRenewOn;
+
+        /** @var SubscribedCountableFeatureInterface $this */
+        return $this;
     }
 
     /**

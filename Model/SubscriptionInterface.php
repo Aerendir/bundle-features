@@ -10,6 +10,9 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 interface SubscriptionInterface
 {
+    const DAILY = 'daily';
+    const WEEKLY = 'weekly';
+    const BIWEEKLY = 'biweekly';
     const MONTHLY = 'monthly';
     const YEARLY = 'yearly';
 
@@ -171,6 +174,18 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setNextPaymentInOneYear() : SubscriptionInterface;
+
+    /**
+     * @param string $renewInterval
+     * @return SubscriptionInterface
+     */
+    public function setSmallestRenewInterval(string $renewInterval) : SubscriptionInterface;
+
+    /**
+     * @param \DateTime $nextRenewOn
+     * @return SubscriptionInterface
+     */
+    public function setNextRenewOn(\DateTime $nextRenewOn) : SubscriptionInterface;
 
     /**
      * Sets the date on which the feature were subscribed.

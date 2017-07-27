@@ -304,7 +304,8 @@ class FeaturesManager
             ->setFeatures($this->oldSubscription->getFeatures())
             ->setInterval($this->oldSubscription->getInterval())
             ->setNextPaymentAmount($this->oldSubscription->getNextPaymentAmount())
-            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn());
+            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn())
+            ->updateRenew();
     }
 
     /**
@@ -328,27 +329,64 @@ class FeaturesManager
      */
     public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null)
     {
-        /**
-         * Before all, update the features, setting the new enabled status or adding the feature if not already present.
-         *
-         * @var FeatureInterface
-         */
-        foreach ($newFeatures as $newFeature) {
-            $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
+        if (null !== $newFeatures) {
+            /**
+             * Before all, update the features, setting the new enabled status or adding the feature if not already present.
+             *
+             * @var FeatureInterface
+             */
+            foreach ($newFeatures as $newFeature) {
+                $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
 
-            // @todo Is this required? Didn't the form already updated the Subscription object? In fact I have an oldSubscription
-            if ($existentFeature instanceof SubscribedBooleanFeatureInterface) {
-                $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
-                $existentFeature->$toggle();
-            }
+                // @todo Is this required? Didn't the form already updated the Subscription object? In fact I have an oldSubscription
+                if ($existentFeature instanceof SubscribedBooleanFeatureInterface) {
+                    $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
+                    $existentFeature->$toggle();
+                }
 
-            if (false === $this->getSubscription()->has($newFeature->getName())) {
-                $this->getSubscription()->addFeature($newFeature->getName(), $newFeature);
+                if (false === $this->getSubscription()->has($newFeature->getName())) {
+                    $this->getSubscription()->addFeature($newFeature->getName(), $newFeature);
+                }
             }
         }
 
         $this->updateNextPaymentAmount();
+        $this->updateRenew();
         $this->updateUntilDates();
+    }
+
+    /**
+     * Renews the countable features at the end of the renew period.
+     */
+    public function renewSubscription()
+    {
+        $subscription = $this->getSubscription();
+
+        /** @var FeatureInterface $feature */
+        foreach ($subscription->getFeatures()->getValues() as $feature) {
+            // If this is not a Countable Feature...
+            if (!$feature instanceof SubscribedCountableFeatureInterface) {
+                // Simply continue as it hasn't be renew
+                continue;
+            }
+
+            /** @var ConfiguredCountableFeatureInterface $configuredRenewingFeature Get the configured feature **/
+            $configuredRenewingFeature = $this->getConfiguredFeatures()->get($feature->getName());
+
+            // If the feature doesn't exist anymore in the configuration (as it were removed by the developer)
+            if (null === $configuredRenewingFeature) {
+                // Remvoe it from the Subscription too
+                $subscription->getFeatures()->removeElement($feature);
+
+                // And continue with the next feature
+                continue;
+            }
+
+            /** @var SubscribedCountableFeatureInterface $feature Renew the feature if the renew period is elapsed **/
+            if ($feature->isRenewPeriodElapsed()) {
+                $feature->refreshSubscription($configuredRenewingFeature);
+            }
+        }
     }
 
     /**
@@ -549,6 +587,60 @@ class FeaturesManager
     private function updateNextPaymentAmount()
     {
         $this->getSubscription()->setNextPaymentAmount($this->calculateSubscriptionAmount());
+    }
+
+    /**
+     * Updates the renew period based on Countable features present (to the smallest interval) and sets the next renew
+     * date.
+     */
+    private function updateRenew()
+    {
+        $intervals = [
+            SubscriptionInterface::DAILY => 0,
+            SubscriptionInterface::WEEKLY => 1,
+            SubscriptionInterface::BIWEEKLY => 2,
+            SubscriptionInterface::MONTHLY => 3,
+            SubscriptionInterface::YEARLY => 4
+        ];
+        $renewInterval = SubscriptionInterface::MONTHLY;
+
+        /** @var SubscribedCountableFeatureInterface $feature */
+        foreach ($this->getSubscription()->getFeatures()->getValues() as $feature) {
+            if ($feature instanceof SubscribedCountableFeatureInterface) {
+                /** @var ConfiguredCountableFeatureInterface $configuredFeature */
+                $configuredFeature = $feature->getConfiguredFeature();
+
+                // If the configured renew period is smaller than the current renew period...
+                if ($intervals[$configuredFeature->getRenewPeriod()] < $intervals[$renewInterval]) {
+                    // Set the configured renew period as the new current renew period
+                    $renewInterval = $configuredFeature->getRenewPeriod();
+                }
+            }
+        }
+
+        $nextRenewOn = $this->getSubscription()->getNextRenewOn() ?? clone $this->getSubscription()->getSubscribedOn();
+
+        $this->getSubscription()
+            ->setSmallestRenewInterval($renewInterval)
+            ->setNextRenewOn($nextRenewOn);
+
+        switch ($this->getSubscription()->getSmallestRenewInterval()) {
+            case SubscriptionInterface::DAILY:
+                $this->getSubscription()->getNextRenewOn()->modify('+1 day');
+                break;
+            case SubscriptionInterface::WEEKLY:
+                $this->getSubscription()->getNextRenewOn()->modify('+1 week');
+                break;
+            case SubscriptionInterface::BIWEEKLY:
+                $this->getSubscription()->getNextRenewOn()->modify('+2 week');
+                break;
+            case SubscriptionInterface::MONTHLY:
+                $this->getSubscription()->getNextRenewOn()->modify('+1 month');
+                break;
+            case SubscriptionInterface::YEARLY:
+                $this->getSubscription()->getNextRenewOn()->modify('+1 year');
+                break;
+        }
     }
 
     /**

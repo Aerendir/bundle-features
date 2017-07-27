@@ -42,6 +42,13 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     public function getConsumedQuantity() : int;
 
     /**
+     * The date on which the feature were renew last time.
+     *
+     * @return \DateTime|null
+     */
+    public function getLastRenewOn() :? \DateTime;
+
+    /**
      * @return int
      */
     public function getRemainedQuantity() : int;
@@ -57,9 +64,20 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     public function getSubscribedPack();
 
     /**
-     * At the end of the subscription period, use this method to refresh the quantities.
+     * Checks if the renew period is elapsed for this feature.
+     *
+     * @return bool
      */
-    public function refreshSubscription() : SubscribedCountableFeatureInterface;
+    public function isRenewPeriodElapsed() : bool;
+
+    /**
+     * Sets the date on which the renew happened.
+     *
+     * @param \DateTime $lastRenewOn
+     *
+     * @return SubscribedCountableFeatureInterface
+     */
+    public function setLastRenewOn(\DateTime $lastRenewOn) : SubscribedCountableFeatureInterface;
 
     /**
      * @param SubscribedCountableFeaturePack $pack
