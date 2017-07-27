@@ -387,7 +387,7 @@ class FeaturesManager
             }
         }
 
-        $this->updateSubscription();
+        $this->updateRenew();
     }
 
     /**
@@ -626,20 +626,32 @@ class FeaturesManager
             ->setNextRenewOn($nextRenewOn);
 
         switch ($this->getSubscription()->getSmallestRenewInterval()) {
+            // We need to clone the \DateTime object to change its reference
+            // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
             case SubscriptionInterface::DAILY:
-                $this->getSubscription()->getNextRenewOn()->modify('+1 day');
+                $this->getSubscription()->setNextRenewOn(
+                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 day')
+                );
                 break;
             case SubscriptionInterface::WEEKLY:
-                $this->getSubscription()->getNextRenewOn()->modify('+1 week');
+                $this->getSubscription()->setNextRenewOn(
+                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 week')
+                );
                 break;
             case SubscriptionInterface::BIWEEKLY:
-                $this->getSubscription()->getNextRenewOn()->modify('+2 week');
+                $this->getSubscription()->setNextRenewOn(
+                    clone $this->getSubscription()->getNextRenewOn()->modify('+2 week')
+                );
                 break;
             case SubscriptionInterface::MONTHLY:
-                $this->getSubscription()->getNextRenewOn()->modify('+1 month');
+                $this->getSubscription()->setNextRenewOn(
+                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 month')
+                );
                 break;
             case SubscriptionInterface::YEARLY:
-                $this->getSubscription()->getNextRenewOn()->modify('+1 year');
+                $this->getSubscription()->setNextRenewOn(
+                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 year')
+                );
                 break;
         }
     }
