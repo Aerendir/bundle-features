@@ -23,8 +23,8 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /** @var  array $packs */
     private $packs;
 
-    /** @var string $renewPeriod */
-    private $renewPeriod;
+    /** @var string $refreshPeriod */
+    private $refreshPeriod;
 
     /**
      * {@inheritdoc}
@@ -37,7 +37,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
         if (isset($details['packs']))
             $this->setPacks($details['packs']);
 
-        $this->renewPeriod = $details['renew_period'];
+        $this->refreshPeriod = $details['refresh_period'];
 
         parent::__construct($name, $details);
     }
@@ -45,9 +45,9 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function getRenewPeriod() : string
+    public function getRefreshPeriod() : string
     {
-        return $this->renewPeriod;
+        return $this->refreshPeriod;
     }
 
     /**

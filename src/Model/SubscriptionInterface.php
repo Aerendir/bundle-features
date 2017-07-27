@@ -76,12 +76,12 @@ interface SubscriptionInterface
     /**
      * @return null|string
      */
-    public function getSmallestRenewInterval() :? string;
+    public function getSmallestRefreshInterval() :? string;
 
     /**
      * @return \DateTime|null
      */
-    public function getNextRenewOn() :? \DateTime;
+    public function getNextRefreshOn() :? \DateTime;
 
     /**
      * If the date of the next payment is not set, use the creation date.
@@ -176,16 +176,16 @@ interface SubscriptionInterface
     public function setNextPaymentInOneYear() : SubscriptionInterface;
 
     /**
-     * @param string $renewInterval
+     * @param string $refreshInterval
      * @return SubscriptionInterface
      */
-    public function setSmallestRenewInterval(string $renewInterval) : SubscriptionInterface;
+    public function setSmallestRefreshInterval(string $refreshInterval) : SubscriptionInterface;
 
     /**
-     * @param \DateTime $nextRenewOn
+     * @param \DateTime $nextRefreshOn
      * @return SubscriptionInterface
      */
-    public function setNextRenewOn(\DateTime $nextRenewOn) : SubscriptionInterface;
+    public function setNextRefreshOn(\DateTime $nextRefreshOn) : SubscriptionInterface;
 
     /**
      * Sets the date on which the feature were subscribed.

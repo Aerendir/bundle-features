@@ -13,7 +13,7 @@ interface ConfiguredCountableFeatureInterface extends HasConfiguredPacksInterfac
     /**
      * @return string
      */
-    public function getRenewPeriod() : string;
+    public function getRefreshPeriod() : string;
 
     /**
      * @param SubscriptionInterface $subscription

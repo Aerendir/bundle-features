@@ -54,23 +54,23 @@ abstract class Subscription implements SubscriptionInterface
     private $nextPaymentOn;
 
     /**
-     * If there are countable features, this field saves the smallest renew interval found.
+     * If there are countable features, this field saves the smallest refresh interval found.
      *
      * @var string
      *
-     * @ORM\Column(name="smallest_renew_interval", type="string", nullable=true)
+     * @ORM\Column(name="smallest_refresh_interval", type="string", nullable=true)
      */
-    private $smallestRenewInterval;
+    private $smallestRefreshInterval;
 
     /**
-     * If there are countable features configured, this field is used to determine when they have to be renew based on
+     * If there are countable features configured, this field is used to determine when they have to be refresh based on
      * the smallest interval.
      *
      * @var \DateTime
      *
-     * @ORM\Column(name="next_renew_on", type="datetime", nullable=true)
+     * @ORM\Column(name="next_refresh_on", type="datetime", nullable=true)
      */
-    private $nextRenewOn;
+    private $nextRefreshOn;
 
     /**
      * @var \DateTime $subscribedOn
@@ -192,17 +192,17 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * @return null|string
      */
-    public function getSmallestRenewInterval() :? string
+    public function getSmallestRefreshInterval() :? string
     {
-        return $this->smallestRenewInterval;
+        return $this->smallestRefreshInterval;
     }
 
     /**
      * @return \DateTime|null
      */
-    public function getNextRenewOn() :? \DateTime
+    public function getNextRefreshOn() :? \DateTime
     {
-        return $this->nextRenewOn;
+        return $this->nextRefreshOn;
     }
 
     /**
@@ -335,11 +335,11 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSmallestRenewInterval(string $renewInterval) : SubscriptionInterface
+    public function setSmallestRefreshInterval(string $refreshInterval) : SubscriptionInterface
     {
-        self::intervalExists($renewInterval);
+        self::intervalExists($refreshInterval);
 
-        $this->smallestRenewInterval = $renewInterval;
+        $this->smallestRefreshInterval = $refreshInterval;
 
         return $this;
     }
@@ -347,9 +347,9 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextRenewOn(\DateTime $nextRenewOn) : SubscriptionInterface
+    public function setNextRefreshOn(\DateTime $nextRefreshOn) : SubscriptionInterface
     {
-        $this->nextRenewOn = $nextRenewOn;
+        $this->nextRefreshOn = $nextRefreshOn;
 
         return $this;
     }

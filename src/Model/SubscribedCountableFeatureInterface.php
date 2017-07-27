@@ -46,7 +46,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return \DateTime|null
      */
-    public function getLastRenewOn() :? \DateTime;
+    public function getLastRefreshOn() :? \DateTime;
 
     /**
      * @return int
@@ -73,7 +73,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     /**
      * Renews the subscription resetting the available quantities.
      */
-    public function renew() : SubscribedCountableFeatureInterface;
+    public function refresh() : SubscribedCountableFeatureInterface;
 
     /**
      * Sets the date on which the renew happened.
@@ -82,7 +82,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return SubscribedCountableFeatureInterface
      */
-    public function setLastRenewOn(\DateTime $lastRenewOn) : SubscribedCountableFeatureInterface;
+    public function setLastRefreshOn(\DateTime $lastRenewOn) : SubscribedCountableFeatureInterface;
 
     /**
      * @param SubscribedCountableFeaturePack $pack

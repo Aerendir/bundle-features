@@ -350,14 +350,14 @@ class FeaturesManager
         }
 
         $this->updateNextPaymentAmount();
-        $this->updateRenew();
+        $this->refreshCountableFeatures();
         $this->updateUntilDates();
     }
 
     /**
      * Renews the countable features at the end of the renew period.
      */
-    public function renewSubscription()
+    public function refreshSubscription()
     {
         $subscription = $this->getSubscription();
 
@@ -383,11 +383,11 @@ class FeaturesManager
 
             /** @var SubscribedCountableFeatureInterface $feature Renew the feature if the renew period is elapsed **/
             if ($feature->isRenewPeriodElapsed()) {
-                $feature->renew($configuredRenewingFeature);
+                $feature->refresh();
             }
         }
 
-        $this->updateRenew();
+        $this->refreshCountableFeatures();
     }
 
     /**
@@ -594,7 +594,7 @@ class FeaturesManager
      * Updates the renew period based on Countable features present (to the smallest interval) and sets the next renew
      * date.
      */
-    private function updateRenew()
+    private function refreshCountableFeatures()
     {
         $intervals = [
             SubscriptionInterface::DAILY => 0,
@@ -603,7 +603,7 @@ class FeaturesManager
             SubscriptionInterface::MONTHLY => 3,
             SubscriptionInterface::YEARLY => 4
         ];
-        $renewInterval = SubscriptionInterface::MONTHLY;
+        $refreshInterval = SubscriptionInterface::MONTHLY;
 
         /** @var SubscribedCountableFeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures()->getValues() as $feature) {
@@ -612,45 +612,45 @@ class FeaturesManager
                 $configuredFeature = $feature->getConfiguredFeature();
 
                 // If the configured renew period is smaller than the current renew period...
-                if ($intervals[$configuredFeature->getRenewPeriod()] < $intervals[$renewInterval]) {
+                if ($intervals[$configuredFeature->getRefreshPeriod()] < $intervals[$refreshInterval]) {
                     // Set the configured renew period as the new current renew period
-                    $renewInterval = $configuredFeature->getRenewPeriod();
+                    $refreshInterval = $configuredFeature->getRefreshPeriod();
                 }
             }
         }
 
-        $nextRenewOn = $this->getSubscription()->getNextRenewOn() ?? clone $this->getSubscription()->getSubscribedOn();
+        $nextRefreshOn = $this->getSubscription()->getNextRefreshOn() ?? clone $this->getSubscription()->getSubscribedOn();
 
         $this->getSubscription()
-            ->setSmallestRenewInterval($renewInterval)
-            ->setNextRenewOn($nextRenewOn);
+            ->setSmallestRefreshInterval($refreshInterval)
+            ->setNextRefreshOn($nextRefreshOn);
 
-        switch ($this->getSubscription()->getSmallestRenewInterval()) {
+        switch ($this->getSubscription()->getSmallestRefreshInterval()) {
             // We need to clone the \DateTime object to change its reference
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
             case SubscriptionInterface::DAILY:
-                $this->getSubscription()->setNextRenewOn(
-                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 day')
+                $this->getSubscription()->setNextRefreshOn(
+                    clone $this->getSubscription()->getNextRefreshOn()->modify('+1 day')
                 );
                 break;
             case SubscriptionInterface::WEEKLY:
-                $this->getSubscription()->setNextRenewOn(
-                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 week')
+                $this->getSubscription()->setNextRefreshOn(
+                    clone $this->getSubscription()->getNextRefreshOn()->modify('+1 week')
                 );
                 break;
             case SubscriptionInterface::BIWEEKLY:
-                $this->getSubscription()->setNextRenewOn(
-                    clone $this->getSubscription()->getNextRenewOn()->modify('+2 week')
+                $this->getSubscription()->setNextRefreshOn(
+                    clone $this->getSubscription()->getNextRefreshOn()->modify('+2 week')
                 );
                 break;
             case SubscriptionInterface::MONTHLY:
-                $this->getSubscription()->setNextRenewOn(
-                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 month')
+                $this->getSubscription()->setNextRefreshOn(
+                    clone $this->getSubscription()->getNextRefreshOn()->modify('+1 month')
                 );
                 break;
             case SubscriptionInterface::YEARLY:
-                $this->getSubscription()->setNextRenewOn(
-                    clone $this->getSubscription()->getNextRenewOn()->modify('+1 year')
+                $this->getSubscription()->setNextRefreshOn(
+                    clone $this->getSubscription()->getNextRefreshOn()->modify('+1 year')
                 );
                 break;
         }
