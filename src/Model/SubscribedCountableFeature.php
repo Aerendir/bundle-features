@@ -97,7 +97,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getLastRefreshOn() : \DateTime
+    public function getLastRefreshOn() :? \DateTime
     {
         return $this->lastRefreshOn;
     }
@@ -167,6 +167,8 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         $this->consumedQuantity = 0;
         $this->remainedQuantity = $this->getSubscribedPack()->getNumOfUnits();
+
+        // Set the last refresh on to NOW
         $this->lastRefreshOn = new \DateTime();
 
         return $this;

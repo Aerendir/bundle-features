@@ -44,6 +44,8 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     /**
      * The date on which the feature were renew last time.
      *
+     * This can return null so it is compatible with older versions of the Bundle.
+     *
      * @return \DateTime|null
      */
     public function getLastRefreshOn() :? \DateTime;
