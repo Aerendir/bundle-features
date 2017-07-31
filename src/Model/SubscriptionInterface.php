@@ -66,12 +66,12 @@ interface SubscriptionInterface
      *
      * @return string
      */
-    public function getInterval() : string;
+    public function getRenewInterval() : string;
 
     /**
      * @return MoneyInterface
      */
-    public function getNextPaymentAmount() : MoneyInterface;
+    public function getNextRenewAmount() : MoneyInterface;
 
     /**
      * @return null|string
@@ -91,7 +91,7 @@ interface SubscriptionInterface
      *
      * @return \DateTime
      */
-    public function getNextPaymentOn();
+    public function getNextRenewOn();
 
     /**
      * The date on which the feature were subscribed on.
@@ -135,7 +135,7 @@ interface SubscriptionInterface
      *
      * @return SubscriptionInterface
      */
-    public function setInterval(string $interval) : SubscriptionInterface;
+    public function setRenewInterval(string $interval) : SubscriptionInterface;
 
     /**
      * @return SubscriptionInterface
@@ -152,14 +152,14 @@ interface SubscriptionInterface
      *
      * @return SubscriptionInterface
      */
-    public function setNextPaymentAmount(MoneyInterface $amount) : SubscriptionInterface;
+    public function setNextRenewAmount(MoneyInterface $amount) : SubscriptionInterface;
 
     /**
      * @param \DateTime $nextPaymentOn
      *
      * @return SubscriptionInterface
      */
-    public function setNextPaymentOn(\DateTime $nextPaymentOn) : SubscriptionInterface;
+    public function setNextRenewOn(\DateTime $nextPaymentOn) : SubscriptionInterface;
 
     /**
      * Sets the next payment in one month.

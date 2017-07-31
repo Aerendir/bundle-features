@@ -291,7 +291,7 @@ trait HasRecurringPricesProperty
         $pricePerDay = (int) floor($price->getAmount() / $daysInInterval);
 
         // Calculate the remaining days
-        $remainingDays = clone $this->subscription->getNextPaymentOn();
+        $remainingDays = clone $this->subscription->getNextRenewOn();
 
         /** @var \DateTime $remainingDays */
         $remainingDays->diff(new \DateTime());

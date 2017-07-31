@@ -41,6 +41,12 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $this->subscribedPack = new SubscribedCountableFeaturePack($details['subscribed_pack']);
         $this->remainedQuantity = $details['remained_quantity'];
 
+        // If is null we need to set it to NOW
+        if (null === $this->lastRefreshOn) {
+            $this->lastRefreshOn = new \DateTime();
+        }
+
+        // If we have it passed as a detail (from the database), then we use it
         if (isset($details['last_refresh_on'])) {
             $this->lastRefreshOn = $details['last_refresh_on'] instanceof \DateTime ? $details['last_refresh_on'] : new \DateTime($details['last_refresh_on']['date'], new \DateTimeZone($details['last_refresh_on']['timezone']));
         }
@@ -91,7 +97,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getLastRefreshOn() :? \DateTime
+    public function getLastRefreshOn() : \DateTime
     {
         return $this->lastRefreshOn;
     }
@@ -161,6 +167,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         $this->consumedQuantity = 0;
         $this->remainedQuantity = $this->getSubscribedPack()->getNumOfUnits();
+        $this->lastRefreshOn = new \DateTime();
 
         return $this;
     }
@@ -223,7 +230,8 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
             'subscribed_pack' => $subscribedPack->toArray(),
             'remained_quantity' => $this->getRemainedQuantity(),
-            'consumed_quantity' => $this->getConsumedQuantity()
+            'consumed_quantity' => $this->getConsumedQuantity(),
+            'last_refresh_on' => $this->getLastRefreshOn()
         ], parent::toArray());
     }
 }

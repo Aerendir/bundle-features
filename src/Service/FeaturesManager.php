@@ -200,7 +200,7 @@ class FeaturesManager
                             // If it is still active, we have to charge nothing, so continue processing next feature
                             continue;
                         }
-                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
+                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
                         break;
                     case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
@@ -210,7 +210,7 @@ class FeaturesManager
                              *
                              * @var SubscribedCountableFeatureInterface $checkingFeature
                              */
-                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
+                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
                         }
                         break;
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
@@ -303,9 +303,9 @@ class FeaturesManager
         $this->subscription
             ->setCurrency($this->oldSubscription->getCurrency())
             ->setFeatures($this->oldSubscription->getFeatures())
-            ->setInterval($this->oldSubscription->getInterval())
-            ->setNextPaymentAmount($this->oldSubscription->getNextPaymentAmount())
-            ->setNextPaymentOn($this->oldSubscription->getNextPaymentOn());
+            ->setRenewInterval($this->oldSubscription->getRenewInterval())
+            ->setNextRenewAmount($this->oldSubscription->getNextRenewAmount())
+            ->setNextRenewOn($this->oldSubscription->getNextRenewOn());
     }
 
     /**
@@ -410,7 +410,7 @@ class FeaturesManager
             }
 
             if ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled()) {
-                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval());
+                $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval());
 
                 if ($price instanceof MoneyInterface) {
                     $total = $total->add($price);
@@ -588,7 +588,7 @@ class FeaturesManager
      */
     private function updateNextPaymentAmount()
     {
-        $this->getSubscription()->setNextPaymentAmount($this->calculateSubscriptionAmount());
+        $this->getSubscription()->setNextRenewAmount($this->calculateSubscriptionAmount());
     }
 
     /**
@@ -662,7 +662,7 @@ class FeaturesManager
      */
     private function updateUntilDates()
     {
-        $validUntil = $this->getSubscription()->getNextPaymentOn();
+        $validUntil = $this->getSubscription()->getNextRenewOn();
 
         /** @var string $feature */
         foreach ($this->getDifferences('added') as $feature) {

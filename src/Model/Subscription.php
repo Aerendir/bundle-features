@@ -35,23 +35,23 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="`interval`", type="string", nullable=true)
+     * @ORM\Column(name="`renew_interval`", type="string", nullable=true)
      */
-    private $interval;
+    private $renewInterval;
 
     /**
      * @var MoneyInterface
      *
-     * @ORM\Column(name="next_payment_amount", type="money", nullable=true)
+     * @ORM\Column(name="next_renew_amount", type="money", nullable=true)
      */
-    private $nextPaymentAmount;
+    private $nextRenewAmount;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="next_payment_on", type="datetime", nullable=true)
+     * @ORM\Column(name="next_renew_on", type="datetime", nullable=true)
      */
-    private $nextPaymentOn;
+    private $nextRenewOn;
 
     /**
      * If there are countable features, this field saves the smallest refresh interval found.
@@ -156,37 +156,37 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getInterval() : string
+    public function getRenewInterval() : string
     {
-        if (null === $this->interval) {
+        if (null === $this->renewInterval) {
             // By default the plan is monthly
-            $this->interval = SubscriptionInterface::MONTHLY;
+            $this->renewInterval = SubscriptionInterface::MONTHLY;
         }
 
-        return $this->interval;
+        return $this->renewInterval;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getNextPaymentAmount() : MoneyInterface
+    public function getNextRenewAmount() : MoneyInterface
     {
-        if (null === $this->nextPaymentAmount)
-            $this->nextPaymentAmount = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        if (null === $this->nextRenewAmount)
+            $this->nextRenewAmount = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
 
-        return $this->nextPaymentAmount;
+        return $this->nextRenewAmount;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getNextPaymentOn() : \DateTime
+    public function getNextRenewOn() : \DateTime
     {
-        if (null === $this->nextPaymentOn) {
-            $this->nextPaymentOn = self::calculateActiveUntil($this->getInterval());
+        if (null === $this->nextRenewOn) {
+            $this->nextRenewOn = self::calculateActiveUntil($this->getRenewInterval());
         }
 
-        return $this->nextPaymentOn;
+        return $this->nextRenewOn;
     }
 
     /**
@@ -263,11 +263,11 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setInterval(string $interval) : SubscriptionInterface
+    public function setRenewInterval(string $renewInterval) : SubscriptionInterface
     {
-        self::intervalExists($interval);
+        self::intervalExists($renewInterval);
 
-        $this->interval = $interval;
+        $this->renewInterval = $renewInterval;
 
         return $this;
     }
@@ -277,7 +277,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setMonthly() : SubscriptionInterface
     {
-        $this->setInterval(SubscriptionInterface::MONTHLY);
+        $this->setRenewInterval(SubscriptionInterface::MONTHLY);
 
         return $this;
     }
@@ -287,7 +287,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setYearly() : SubscriptionInterface
     {
-        $this->setInterval(SubscriptionInterface::YEARLY);
+        $this->setRenewInterval(SubscriptionInterface::YEARLY);
 
         return $this;
     }
@@ -295,9 +295,9 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextPaymentAmount(MoneyInterface $amount) : SubscriptionInterface
+    public function setNextRenewAmount(MoneyInterface $amount) : SubscriptionInterface
     {
-        $this->nextPaymentAmount = $amount;
+        $this->nextRenewAmount = $amount;
 
         return $this;
     }
@@ -305,9 +305,9 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextPaymentOn(\DateTime $nextPaymentOn) : SubscriptionInterface
+    public function setNextRenewOn(\DateTime $nextRenewOn) : SubscriptionInterface
     {
-        $this->nextPaymentOn = $nextPaymentOn;
+        $this->nextRenewOn = $nextRenewOn;
 
         return $this;
     }
@@ -317,7 +317,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setNextPaymentInOneMonth() : SubscriptionInterface
     {
-        $this->getNextPaymentOn()->modify('+1 month');
+        $this->getNextRenewOn()->modify('+1 month');
 
         return $this;
     }
@@ -327,7 +327,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setNextPaymentInOneYear() : SubscriptionInterface
     {
-        $this->getNextPaymentOn()->modify('+1 year');
+        $this->getNextRenewOn()->modify('+1 year');
 
         return $this;
     }
