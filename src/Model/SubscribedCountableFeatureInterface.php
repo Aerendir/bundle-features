@@ -66,11 +66,11 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     public function getSubscribedPack();
 
     /**
-     * Checks if the renew period is elapsed for this feature.
+     * Checks if the refresh period is elapsed for this feature.
      *
      * @return bool
      */
-    public function isRenewPeriodElapsed() : bool;
+    public function isRefreshPeriodElapsed() : bool;
 
     /**
      * Renews the subscription resetting the available quantities.

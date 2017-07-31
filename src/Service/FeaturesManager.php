@@ -382,8 +382,8 @@ class FeaturesManager
                 continue;
             }
 
-            /** @var SubscribedCountableFeatureInterface $feature Renew the feature if the renew period is elapsed **/
-            if ($feature->isRenewPeriodElapsed()) {
+            /** @var SubscribedCountableFeatureInterface $feature Refresh the feature if the refresh period is elapsed **/
+            if ($feature->isRefreshPeriodElapsed()) {
                 $feature->refresh();
             }
         }

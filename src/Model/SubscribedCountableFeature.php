@@ -121,7 +121,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function isRenewPeriodElapsed(): bool
+    public function isRefreshPeriodElapsed(): bool
     {
         // We don't have a last renew date:
         if (null === $this->getLastRefreshOn()) {
