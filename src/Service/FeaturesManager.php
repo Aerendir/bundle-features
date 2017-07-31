@@ -109,11 +109,12 @@ class FeaturesManager
 
     /**
      * @param float $rate
+     * @param string $name
      */
-    public function setTaxRate(float $rate)
+    public function setTax(float $rate, string $name)
     {
-        $this->getConfiguredFeatures()->setTaxRate($rate);
-        $this->getInvoicesManager()->getConfiguredFeatures()->setTaxRate($rate);
+        $this->getConfiguredFeatures()->setTax($rate, $name);
+        $this->getInvoicesManager()->getConfiguredFeatures()->setTax($rate, $name);
     }
 
     /**

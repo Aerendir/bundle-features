@@ -77,11 +77,11 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function setTaxRate(float $rate): ConfiguredCountableFeatureInterface
+    public function setTax(float $rate, string $name): ConfiguredCountableFeatureInterface
     {
         /** @var ConfiguredCountableFeaturePack $pack Set tax rate in the packs too */
         foreach ($this->getPacks() as $pack) {
-            $pack->setTaxRate($rate);
+            $pack->setTax($rate, $name);
         }
 
         return $this;

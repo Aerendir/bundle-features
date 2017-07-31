@@ -39,7 +39,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @param float $rate
      */
-    public function setTaxRate(float $rate)
+    public function setTax(float $rate, string $name)
     {
         foreach ($this->getValues() as $feature) {
             if (
@@ -49,7 +49,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
                 || $feature instanceof ConfiguredCountableFeatureInterface
             )
                 /** @var HasRecurringPricesInterface|HasUnatantumPricesInterface|ConfiguredCountableFeatureInterface $feature */
-                $feature->setTaxRate($rate);
+                $feature->setTax($rate, $name);
         }
     }
 }

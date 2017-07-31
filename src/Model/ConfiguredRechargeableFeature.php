@@ -17,7 +17,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
         HasConfiguredPacksProperty::setPacks as setPacksProperty;
     }
     use HasUnatantumPricesProperty {
-        HasUnatantumPricesProperty::setTaxRate as setTaxRateProperty;
+        HasUnatantumPricesProperty::setTax as setTaxProperty;
     }
 
     /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
@@ -73,15 +73,16 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
 
     /**
      * @param float $rate
+     * @param string $name
      * @return HasUnatantumPricesInterface
      */
-    public function setTaxRate(float $rate): HasUnatantumPricesInterface
+    public function setTax(float $rate, string $name): HasUnatantumPricesInterface
     {
-        $this->setTaxRateProperty($rate);
+        $this->setTaxProperty($rate, $name);
 
         /** @var ConfiguredRechargeableFeaturePack $pack Set tax rate in the packs too */
         foreach ($this->getPacks() as $pack) {
-            $pack->setTaxRate($rate);
+            $pack->setTax($rate, $name);
         }
 
         return $this;

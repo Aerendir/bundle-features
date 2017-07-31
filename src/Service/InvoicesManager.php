@@ -3,6 +3,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\InvoiceDrawerInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
@@ -19,8 +20,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use SHQ\Component\ArrayWriter\ArrayWriter;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\Form\Test\FormInterface;
 
 /**
  * Manages the Invoices.
@@ -186,7 +185,12 @@ class InvoicesManager
             // The feature has to be added
             switch (get_class($feature)) {
                 case SubscribedBooleanFeature::class:
-                    // The price is recurrent, so we need to pass the subscription interval
+                    /**
+                     * The price is recurrent, so we need to pass the subscription interval
+                     *
+                     * @var ConfiguredBooleanFeatureInterface $configuredFeature
+                     * @var SubscribedBooleanFeatureInterface $feature
+                     */
                     $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'gross');
                     $netPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getInterval(), 'net');
                     break;
@@ -222,7 +226,9 @@ class InvoicesManager
                     ->setGrossAmount($grossPrice)
                     ->setNetAmount($netPrice)
                     ->setDescription($feature->getName())
-                    ->setQuantity($quantity ?? null);
+                    ->setQuantity($quantity ?? null)
+                    ->setTaxName($feature->getConfiguredFeature()->getTaxName())
+                    ->setTaxRate($feature->getConfiguredFeature()->getTaxRate());
                 $section->addLine($invoiceLine, $feature->getName());
             }
         }

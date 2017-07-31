@@ -27,6 +27,16 @@ interface HasUnatantumPricesInterface
     public function getPrices(string $type = null) : array;
 
     /**
+     * @return string
+     */
+    public function getTaxName() : string;
+
+    /**
+     * @return float
+     */
+    public function getTaxRate() : float;
+
+    /**
      * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string|null $type
      *
@@ -36,7 +46,8 @@ interface HasUnatantumPricesInterface
 
     /**
      * @param float $rate
+     * @param string $name
      * @return HasUnatantumPricesInterface
      */
-    public function setTaxRate(float $rate) : HasUnatantumPricesInterface;
+    public function setTax(float $rate, string $name) : HasUnatantumPricesInterface;
 }

@@ -26,6 +26,12 @@ trait HasUnatantumPricesProperty
     /** @var  string $pricesType */
     private $pricesType;
 
+    /** @var  string $taxName */
+    private $taxName;
+
+    /** @var  float $taxRate */
+    private $taxRate;
+
     /**
      * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string|null $type
@@ -43,6 +49,22 @@ trait HasUnatantumPricesProperty
         }
 
         return $this->getPrices($type)[$currency] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaxName() : string
+    {
+        return $this->taxName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxRate() : float
+    {
+        return $this->taxRate;
     }
 
     /**
@@ -88,10 +110,14 @@ trait HasUnatantumPricesProperty
 
     /**
      * @param float $rate
+     * @param string $name
      * @return HasUnatantumPricesInterface
      */
-    public function setTaxRate(float $rate) : HasUnatantumPricesInterface
+    public function setTax(float $rate, string $name) : HasUnatantumPricesInterface
     {
+        $this->taxName = $name;
+        $this->taxRate = $rate;
+
         $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
         if (0 < count($this->$pricesProperty)) {

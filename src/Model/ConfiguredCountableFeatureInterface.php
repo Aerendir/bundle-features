@@ -23,7 +23,8 @@ interface ConfiguredCountableFeatureInterface extends HasConfiguredPacksInterfac
 
     /**
      * @param float $rate
+     * @param string $name
      * @return ConfiguredCountableFeatureInterface
      */
-    public function setTaxRate(float $rate): ConfiguredCountableFeatureInterface;
+    public function setTax(float $rate, string $name): ConfiguredCountableFeatureInterface;
 }

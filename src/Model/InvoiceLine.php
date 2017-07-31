@@ -4,6 +4,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * This entity will never be persisted.
@@ -12,10 +13,10 @@ use SerendipityHQ\Component\ValueObjects\Money\Money;
  */
 class InvoiceLine implements \JsonSerializable
 {
-    /** @var Money $grossAmount */
+    /** @var MoneyInterface$grossAmount */
     private $grossAmount;
 
-    /** @var Money $netAmount */
+    /** @var MoneyInterface$netAmount */
     private $netAmount;
 
     /** @var string $description */
@@ -31,17 +32,17 @@ class InvoiceLine implements \JsonSerializable
     private $taxRate;
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getGrossAmount() : Money
+    public function getGrossAmount() : MoneyInterface
     {
         return $this->grossAmount;
     }
 
     /**
-     * @return Money
+     * @return MoneyInterface
      */
-    public function getNetAmount() : Money
+    public function getNetAmount() : MoneyInterface
     {
         return $this->netAmount;
     }
@@ -79,11 +80,11 @@ class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param Money $grossAmount
+     * @param MoneyInterface$grossAmount
      *
      * @return self
      */
-    public function setGrossAmount(Money $grossAmount) : self
+    public function setGrossAmount(MoneyInterface $grossAmount) : self
     {
         $this->grossAmount = $grossAmount;
 
@@ -91,11 +92,11 @@ class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param Money $netAmount
+     * @param MoneyInterface$netAmount
      *
      * @return self
      */
-    public function setNetAmount(Money $netAmount) : self
+    public function setNetAmount(MoneyInterface $netAmount) : self
     {
         $this->netAmount = $netAmount;
 

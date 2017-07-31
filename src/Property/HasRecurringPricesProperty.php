@@ -2,7 +2,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
@@ -34,6 +33,12 @@ trait HasRecurringPricesProperty
 
     /** @var  SubscriptionInterface $subscription */
     private $subscription;
+
+    /** @var  string $taxName */
+    private $taxName;
+
+    /** @var  float $taxRate */
+    private $taxRate;
 
     /**
      * @param array $details
@@ -127,6 +132,22 @@ trait HasRecurringPricesProperty
     }
 
     /**
+     * @return string
+     */
+    public function getTaxName() : string
+    {
+        return $this->taxName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxRate() : float
+    {
+        return $this->taxRate;
+    }
+
+    /**
      * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      * @param string $subscriptionInterval
      * @param string|null $type
@@ -161,10 +182,14 @@ trait HasRecurringPricesProperty
 
     /**
      * @param float $rate
+     * @param string $name
      * @return HasRecurringPricesInterface
      */
-    public function setTaxRate(float $rate) : HasRecurringPricesInterface
+    public function setTax(float $rate, string $name) : HasRecurringPricesInterface
     {
+        $this->taxName = $name;
+        $this->taxRate = $rate;
+
         $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
         if (0 < count($this->$pricesProperty)) {
