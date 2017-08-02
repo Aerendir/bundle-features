@@ -2,11 +2,15 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedProperty;
+
 /**
  * {@inheritdoc}
  */
 final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedRechargeableFeatureInterface
 {
+    use CanBeConsumedProperty;
+
     /** @var  \DateTime $lastRecharge The last time a recharge was done */
     private $lastRechargeOn;
 
@@ -27,7 +31,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         // Set the type
         $details['type'] = self::RECHARGEABLE;
 
-        $this->remainedQuantity = $details['remained_quantity'];
+        $this->setRemainedQuantity($details['remained_quantity']);
         $this->lastRechargeOn   = $details['last_recharge_on'];
         $this->lastRechargeQuantity = $details['last_recharge_quantity'];
 
@@ -68,14 +72,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /**
      * {@inheritdoc}
      */
-    public function getRemainedQuantity() : int
-    {
-        return $this->remainedQuantity;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function hasRechargingPack() : bool
     {
         return isset($this->rechargingPack);
@@ -110,9 +106,8 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function toArray()
     {
         return array_merge([
-            'remained_quantity' => $this->getRemainedQuantity(),
             'last_recharge_on' => json_decode(json_encode($this->getLastRechargeOn()), true),
             'last_recharge_quantity' => $this->getLastRechargeQuantity()
-        ], parent::toArray());
+        ], parent::toArray(), $this->consumedToArray());
     }
 }

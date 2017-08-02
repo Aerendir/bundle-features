@@ -2,28 +2,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 
 /**
  * {@inheritdoc}
  */
-interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, IsRecurringFeatureInterface
+interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface, IsRecurringFeatureInterface, CanBeConsumedInterface
 {
-    /**
-     * Method to consume the given quantity of this feature.
-     *
-     * @param int $quantity
-     * @return SubscribedCountableFeatureInterface
-     */
-    public function consume(int $quantity) : SubscribedCountableFeatureInterface;
-
-    /**
-     * Method to consume one unit of this feature.
-     *
-     * @return SubscribedCountableFeatureInterface
-     */
-    public function consumeOne() : SubscribedCountableFeatureInterface;
-
     /**
      * Adds the previous remained amount to the refreshed subscription quantity.
      *
@@ -37,11 +23,6 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
     public function cumulate() : SubscribedCountableFeatureInterface;
 
     /**
-     * @return int
-     */
-    public function getConsumedQuantity() : int;
-
-    /**
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
@@ -49,11 +30,6 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      * @return \DateTime|null
      */
     public function getLastRefreshOn() :? \DateTime;
-
-    /**
-     * @return int
-     */
-    public function getRemainedQuantity() : int;
 
     /**
      * It is an integer when the feature is loaded from the database.

@@ -2,10 +2,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedInterface;
+
 /**
  * {@inheritdoc}
  */
-interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface
+interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterface, CanBeConsumedInterface
 {
     /**
      * @return \DateTime
@@ -21,11 +23,6 @@ interface SubscribedRechargeableFeatureInterface extends SubscribedFeatureInterf
      * @return SubscribedRechargeableFeaturePack
      */
     public function getRechargingPack() : SubscribedRechargeableFeaturePack;
-
-    /**
-     * @return int
-     */
-    public function getRemainedQuantity() : int;
 
     /**
      * @return bool

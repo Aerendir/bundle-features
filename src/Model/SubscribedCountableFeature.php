@@ -2,6 +2,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureProperty;
 
 /**
@@ -12,21 +13,13 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
+    use CanBeConsumedProperty;
 
     /** @var \DateTime $lastRefreshOn */
     private $lastRefreshOn;
 
     /** @var  SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
-
-    /** @var int $consumedQuantity How many units are consumed at this time */
-    private $consumedQuantity = 0;
-
-    /** @var int $remaining The num of units remained from the last subscription cycle */
-    private $remainedQuantity = 0;
-
-    /** @var int $previousRemainedQuantity Internally used by cumulate() */
-    private $previousRemainedQuantity = 0;
 
     /**
      * {@inheritdoc}
@@ -39,7 +32,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $this->RecurringFeatureConstruct($details);
 
         $this->subscribedPack = new SubscribedCountableFeaturePack($details['subscribed_pack']);
-        $this->remainedQuantity = $details['remained_quantity'];
+        $this->setRemainedQuantity($details['remained_quantity']);
 
         // If is null we need to set it to NOW
         if (null === $this->lastRefreshOn) {
@@ -57,25 +50,6 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function consume(int $quantity) : SubscribedCountableFeatureInterface
-    {
-        $this->consumedQuantity += $quantity;
-        $this->remainedQuantity -= $quantity;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function consumeOne() : SubscribedCountableFeatureInterface
-    {
-        return $this->consume(1);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function cumulate() : SubscribedCountableFeatureInterface
     {
         if (null === $this->previousRemainedQuantity)
@@ -84,14 +58,6 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         $this->remainedQuantity = $this->getRemainedQuantity() + $this->previousRemainedQuantity;
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getConsumedQuantity() : int
-    {
-        return $this->consumedQuantity;
     }
 
     /**
@@ -231,9 +197,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
             'subscribed_pack' => $subscribedPack->toArray(),
-            'remained_quantity' => $this->getRemainedQuantity(),
-            'consumed_quantity' => $this->getConsumedQuantity(),
-            'last_refresh_on' => $this->getLastRefreshOn()
-        ], parent::toArray());
+            'last_refresh_on' => json_decode(json_encode($this->getLastRefreshOn()), true)
+        ], parent::toArray(), $this->consumedToArray());
     }
 }
