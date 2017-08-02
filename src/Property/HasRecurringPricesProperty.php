@@ -52,12 +52,6 @@ trait HasRecurringPricesProperty
         if (isset($details['gross_prices'])) {
             $this->setPrices($details['gross_prices'], 'gross');
         }
-
-        /* Not required anymore
-        if ($this instanceof SubscribedFeatureInterface && !$this instanceof IsRecurringFeatureInterface) {
-            throw new \LogicException('To have recurring prices, a Feature MUST implement IsRecurringFeatureInterface.');
-        }
-        */
     }
 
     /**
@@ -291,10 +285,10 @@ trait HasRecurringPricesProperty
         $pricePerDay = (int) floor($price->getAmount() / $daysInInterval);
 
         // Calculate the remaining days
-        $remainingDays = clone $this->subscription->getNextRenewOn();
+        $nextRenewOn = clone $this->subscription->getNextRenewOn();
 
-        /** @var \DateTime $remainingDays */
-        $remainingDays->diff(new \DateTime());
+        /** @var \DateInterval $remainingDays */
+        $remainingDays = $nextRenewOn->diff(new \DateTime());
 
         /* @var \DateInterval $remainingDays */
         $instantPrice = $pricePerDay * $remainingDays->days;
