@@ -389,6 +389,8 @@ class FeaturesManager
         }
 
         $this->refreshCountableFeatures();
+
+        $subscription->forceFeaturesUpdate();
     }
 
     /**
@@ -617,6 +619,9 @@ class FeaturesManager
                     // Set the configured renew period as the new current renew period
                     $refreshInterval = $configuredFeature->getRefreshPeriod();
                 }
+
+                // Refresh the feature
+                $feature->refresh();
             }
         }
 

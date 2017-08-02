@@ -195,4 +195,16 @@ interface SubscriptionInterface
      * @return SubscriptionInterface
      */
     public function setSubscribedOn(\DateTime $subscribedOn) : SubscriptionInterface;
+
+    /**
+     * If a feature changes, call this method to force Doctrine to intercept the modification and update the Entity.
+     *
+     * This is required as Features are stored in a Collection that doesn't change when a Feature is updated.
+     * Due to the way Doctrine evaluates changes in entities, this when a Feature changes it doesn't intercept them and
+     * so doesn't update the field.
+     *
+     * Call this method whenever you change a Feature (consuming it or anything else that requires to be updated in the
+     * database).
+     */
+    public function forceFeaturesUpdate();
 }
