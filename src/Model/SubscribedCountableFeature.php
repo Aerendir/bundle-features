@@ -15,6 +15,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
     use CanBeConsumedProperty;
 
+    /** @var int $previousRemainedQuantity Internally used by cumulate() */
+    private $previousRemainedQuantity = 0;
+
     /** @var \DateTime $lastRefreshOn */
     private $lastRefreshOn;
 

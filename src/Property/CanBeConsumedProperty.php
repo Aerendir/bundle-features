@@ -13,9 +13,6 @@ trait CanBeConsumedProperty
     /** @var int $remaining The num of units remained from the last subscription cycle */
     private $remainedQuantity = 0;
 
-    /** @var int $previousRemainedQuantity Internally used by cumulate() */
-    private $previousRemainedQuantity = 0;
-
     /**
      * {@inheritdoc}
      */
