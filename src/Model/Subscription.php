@@ -28,7 +28,7 @@ abstract class Subscription implements SubscriptionInterface
      *
      * @var SubscribedFeaturesCollection
      *
-     * @ORM\Column(name="features", type="json_array", nullable=true)
+     * @ORM\Column(name="features", type="json", nullable=true)
      */
     private $features;
 
