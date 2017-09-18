@@ -26,7 +26,8 @@
         "codeclimate/php-test-reporter": "dev-master",
         "phpunit/phpunit": "~6.2",
         "serendipity_hq/php_text_matrix": "*",
-        "symfony/var-dumper": "*"
+        "symfony/var-dumper": "*",
+        "friendsofphp/php-cs-fixer": "*"
     },
     "suggest": {
         "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer."
