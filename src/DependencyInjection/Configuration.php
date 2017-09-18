@@ -15,7 +15,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
-use SebastianBergmann\Money\Currency;
+use Money\Currencies\ISOCurrencies;
+use \Money\Currency;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -326,7 +327,9 @@ class Configuration implements ConfigurationInterface
      */
     private function validateCurrency(string $set, string $feature, string $currency)
     {
-        if (false === key_exists($currency, Currency::getCurrencies())) {
+        $currencies = new ISOCurrencies();
+        $currency = new Currency($currency);
+        if (false === $currencies->contains($currency)) {
             throw new InvalidConfigurationException(
                 sprintf(
                     '%s.features.%s has an invalid ISO 4217 currency code "%s".',
