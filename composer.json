@@ -16,7 +16,7 @@
         "doctrine/common": "^2.5",
         "doctrine/orm": "^2.5",
         "serendipity_hq/php_array_writer": "^1.2",
-        "serendipity_hq/php_value_objects": "~4",
+        "serendipity_hq/php_value_objects": "dev-master",
         "symfony/form": "~3",
         "symfony/framework-bundle": "~3",
         "symfony/options-resolver": "~3",
