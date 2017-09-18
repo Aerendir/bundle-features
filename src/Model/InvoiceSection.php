@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use \Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -24,7 +24,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 class InvoiceSection implements \JsonSerializable
 {
-    /** @var CurrencyInterface $currency */
+    /** @var Currency $currency */
     private $currency;
 
     /** @var InvoiceSectionHeader */
@@ -40,9 +40,9 @@ class InvoiceSection implements \JsonSerializable
     private $netTotal;
 
     /**
-     * @param CurrencyInterface $currency
+     * @param Currency $currency
      */
-    public function __construct(CurrencyInterface $currency)
+    public function __construct(Currency $currency)
     {
         $this->currency   = $currency;
         $this->grossTotal = new Money(['amount' => 0, 'currency' => $currency]);
@@ -50,9 +50,9 @@ class InvoiceSection implements \JsonSerializable
     }
 
     /**
-     * @return CurrencyInterface
+     * @return Currency
      */
-    public function getCurrency(): CurrencyInterface
+    public function getCurrency(): Currency
     {
         return $this->currency;
     }

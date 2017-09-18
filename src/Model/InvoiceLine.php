@@ -195,7 +195,7 @@ class InvoiceLine implements \JsonSerializable
         return [
             'gross_amount' => $this->getGrossAmount()->getAmount(),
             'net_amount'   => $this->getNetAmount()->getAmount(),
-            'currency'     => $this->getGrossAmount()->getCurrency()->getCurrencyCode(),
+            'currency'     => $this->getGrossAmount()->getCurrency()->getCode(),
             'description'  => $this->getDescription(),
             'quantity'     => $this->getQuantity(),
             'tax_name'     => $this->getTaxName(),

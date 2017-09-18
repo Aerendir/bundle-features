@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use \Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -24,7 +24,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface InvoiceInterface extends \JsonSerializable
 {
     /**
-     * @param CurrencyInterface|string $currency
+     * @param Currency|string $currency
      */
     public function __construct($currency);
 
@@ -123,9 +123,9 @@ interface InvoiceInterface extends \JsonSerializable
     public function removeSection($id);
 
     /**
-     * @return CurrencyInterface
+     * @return Currency
      */
-    public function getCurrency(): CurrencyInterface;
+    public function getCurrency(): Currency;
 
     /**
      * @return \DateTime

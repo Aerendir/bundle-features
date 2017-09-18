@@ -16,8 +16,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use \Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -28,7 +27,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 abstract class Invoice implements InvoiceInterface
 {
     /**
-     * @var CurrencyInterface
+     * @var Currency
      * @ORM\Column(name="currency", type="currency", nullable=false)
      */
     private $currency;
@@ -64,7 +63,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function __construct($currency)
     {
-        if ( ! $currency instanceof CurrencyInterface) {
+        if ( ! $currency instanceof Currency) {
             $currency = new Currency($currency);
         }
 
@@ -178,12 +177,12 @@ abstract class Invoice implements InvoiceInterface
      */
     public function addSection(InvoiceSection $section, string $id = null): self
     {
-        if ($this->getCurrency()->getCurrencyCode() !== $section->getCurrency()->getCurrencyCode()) {
+        if ($this->getCurrency()->getCode() !== $section->getCurrency()->getCode()) {
             throw new \LogicException(
                 sprintf(
                     'The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".',
-                    $this->getCurrency()->getCurrencyCode(),
-                    $section->getCurrency()->getCurrencyCode()
+                    $this->getCurrency()->getCode(),
+                    $section->getCurrency()->getCode()
                 )
             );
         }
@@ -263,7 +262,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrency(): CurrencyInterface
+    public function getCurrency(): Currency
     {
         return $this->currency;
     }
