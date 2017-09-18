@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * {@inheritdoc}
  */
-class FeaturesBundle extends Bundle
+class SHQFeaturesBundle extends Bundle
 {
     /**
      * {@inheritdoc}

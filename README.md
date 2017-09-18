@@ -7,7 +7,7 @@
 [![Issue Count](https://codeclimate.com/github/Aerendir/bundle-features/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca/mini.png)](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca)
 
-# FeaturesBundle
+# SHQFeaturesBundle
 SerendipityHQ Features Bundle helps you to manage features and plans in your Symfony 2 app.
 
 Serendipity HQ Features Bundle gives you the ability to configure the features you need to manage, give them a price if they are premium ones, create invoices for them and save subscriptions and configurations associated to your entities to give each of your users only the features they have to get.

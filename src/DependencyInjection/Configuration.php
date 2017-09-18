@@ -49,7 +49,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('features')
+        $treeBuilder->root('shq_features')
                 ->children()
                     ->arrayNode('prices')
                         ->children()

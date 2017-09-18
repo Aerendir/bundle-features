@@ -18,7 +18,7 @@ You have to simply include the script in your Javascripts:
     {% block javascripts %}
         {% javascripts
         '@AppBundle/Resources/public/js/jquery-1.11.3.min.js'
-        '@FeaturesBundle/Resources/public/js/Cart.js' 
+        '@SHQFeaturesBundle/Resources/public/js/Cart.js' 
         %}
     {% endblock %}
 
