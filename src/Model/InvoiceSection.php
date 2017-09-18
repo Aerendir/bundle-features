@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use \Money\Currency;
+use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
