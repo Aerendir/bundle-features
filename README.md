@@ -38,7 +38,7 @@ Read more in the documentation to better understand how all this work toward you
 Requirements
 ------------
 
-1. PHP ^7.0
+1. PHP ^7.1
 
 Status: ACTIVE DEVELOPMENT
 --------------------------
