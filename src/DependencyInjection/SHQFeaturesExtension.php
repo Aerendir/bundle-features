@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * {@inheritdoc}
  */
-class FeaturesExtension extends Extension
+class SHQFeaturesExtension extends Extension
 {
     /**
      * {@inheritdoc}
