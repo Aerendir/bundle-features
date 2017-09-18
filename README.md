@@ -5,7 +5,6 @@
 [![Code Climate](https://codeclimate.com/github/Aerendir/bundle-features/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
 [![Test Coverage](https://codeclimate.com/github/Aerendir/bundle-features/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/bundle-features/coverage)
 [![Issue Count](https://codeclimate.com/github/Aerendir/bundle-features/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
-[![StyleCI](https://styleci.io/repos/76975007/shield?branch=master)](https://styleci.io/repos/76975007)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca/mini.png)](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca)
 
 # FeaturesBundle
