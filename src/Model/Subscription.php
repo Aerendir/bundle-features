@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -73,7 +86,7 @@ abstract class Subscription implements SubscriptionInterface
     private $nextRefreshOn;
 
     /**
-     * @var \DateTime $subscribedOn
+     * @var \DateTime
      *
      * @ORM\Column(name="subscribed_on", type="datetime", nullable=true)
      */
@@ -82,7 +95,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function addFeature(string $featureName, FeatureInterface $feature) : SubscriptionInterface
+    public function addFeature(string $featureName, FeatureInterface $feature): SubscriptionInterface
     {
         $this->getFeatures()->set($featureName, $feature);
 
@@ -92,7 +105,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public static function calculateActiveUntil(string $interval) : \DateTime
+    public static function calculateActiveUntil(string $interval): \DateTime
     {
         self::checkIntervalExists($interval);
 
@@ -123,14 +136,14 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public static function intervalExists(string $interval) : bool
+    public static function intervalExists(string $interval): bool
     {
         return in_array($interval, [
             SubscriptionInterface::DAILY,
             SubscriptionInterface::WEEKLY,
             SubscriptionInterface::BIWEEKLY,
             SubscriptionInterface::MONTHLY,
-            SubscriptionInterface::YEARLY
+            SubscriptionInterface::YEARLY,
         ]);
     }
 
@@ -139,8 +152,9 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function getCurrency()
     {
-        if (null === $this->currency)
+        if (null === $this->currency) {
             $this->currency = new Currency('EUR');
+        }
 
         return $this->currency;
     }
@@ -148,7 +162,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getFeatures() : SubscribedFeaturesCollection
+    public function getFeatures(): SubscribedFeaturesCollection
     {
         return $this->features;
     }
@@ -156,7 +170,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getRenewInterval() : string
+    public function getRenewInterval(): string
     {
         if (null === $this->renewInterval) {
             // By default the plan is monthly
@@ -169,10 +183,11 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getNextRenewAmount() : MoneyInterface
+    public function getNextRenewAmount(): MoneyInterface
     {
-        if (null === $this->nextRenewAmount)
+        if (null === $this->nextRenewAmount) {
             $this->nextRenewAmount = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        }
 
         return $this->nextRenewAmount;
     }
@@ -180,7 +195,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getNextRenewOn() : \DateTime
+    public function getNextRenewOn(): \DateTime
     {
         if (null === $this->nextRenewOn) {
             $this->nextRenewOn = self::calculateActiveUntil($this->getRenewInterval());
@@ -190,9 +205,9 @@ abstract class Subscription implements SubscriptionInterface
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
-    public function getSmallestRefreshInterval() :? string
+    public function getSmallestRefreshInterval(): ? string
     {
         return $this->smallestRefreshInterval;
     }
@@ -200,7 +215,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * @return \DateTime|null
      */
-    public function getNextRefreshOn() :? \DateTime
+    public function getNextRefreshOn(): ? \DateTime
     {
         return $this->nextRefreshOn;
     }
@@ -208,10 +223,11 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubscribedOn() : \DateTime
+    public function getSubscribedOn(): \DateTime
     {
-        if (null === $this->subscribedOn)
+        if (null === $this->subscribedOn) {
             $this->subscribedOn = new \DateTime();
+        }
 
         return $this->subscribedOn;
     }
@@ -219,7 +235,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function has(string $feature) : bool
+    public function has(string $feature): bool
     {
         if (0 >= count($this->getFeatures())) {
             return false;
@@ -231,7 +247,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function isStillActive(string $feature) : bool
+    public function isStillActive(string $feature): bool
     {
         if (false === $this->has($feature)) {
             return false;
@@ -243,7 +259,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setCurrency(CurrencyInterface $currency) : SubscriptionInterface
+    public function setCurrency(CurrencyInterface $currency): SubscriptionInterface
     {
         $this->currency = $currency;
 
@@ -253,7 +269,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setFeatures(SubscribedFeaturesCollection $features) : SubscriptionInterface
+    public function setFeatures(SubscribedFeaturesCollection $features): SubscriptionInterface
     {
         $this->features = $features;
 
@@ -263,7 +279,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setRenewInterval(string $renewInterval) : SubscriptionInterface
+    public function setRenewInterval(string $renewInterval): SubscriptionInterface
     {
         self::intervalExists($renewInterval);
 
@@ -275,7 +291,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setMonthly() : SubscriptionInterface
+    public function setMonthly(): SubscriptionInterface
     {
         $this->setRenewInterval(SubscriptionInterface::MONTHLY);
 
@@ -285,7 +301,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setYearly() : SubscriptionInterface
+    public function setYearly(): SubscriptionInterface
     {
         $this->setRenewInterval(SubscriptionInterface::YEARLY);
 
@@ -295,7 +311,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextRenewAmount(MoneyInterface $amount) : SubscriptionInterface
+    public function setNextRenewAmount(MoneyInterface $amount): SubscriptionInterface
     {
         $this->nextRenewAmount = $amount;
 
@@ -305,7 +321,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextRenewOn(\DateTime $nextRenewOn) : SubscriptionInterface
+    public function setNextRenewOn(\DateTime $nextRenewOn): SubscriptionInterface
     {
         $this->nextRenewOn = $nextRenewOn;
 
@@ -315,7 +331,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextPaymentInOneMonth() : SubscriptionInterface
+    public function setNextPaymentInOneMonth(): SubscriptionInterface
     {
         $this->getNextRenewOn()->modify('+1 month');
 
@@ -325,7 +341,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextPaymentInOneYear() : SubscriptionInterface
+    public function setNextPaymentInOneYear(): SubscriptionInterface
     {
         $this->getNextRenewOn()->modify('+1 year');
 
@@ -335,7 +351,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSmallestRefreshInterval(string $refreshInterval) : SubscriptionInterface
+    public function setSmallestRefreshInterval(string $refreshInterval): SubscriptionInterface
     {
         self::intervalExists($refreshInterval);
 
@@ -347,7 +363,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setNextRefreshOn(\DateTime $nextRefreshOn) : SubscriptionInterface
+    public function setNextRefreshOn(\DateTime $nextRefreshOn): SubscriptionInterface
     {
         $this->nextRefreshOn = $nextRefreshOn;
 
@@ -357,7 +373,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setSubscribedOn(\DateTime $subscribedOn) : SubscriptionInterface
+    public function setSubscribedOn(\DateTime $subscribedOn): SubscriptionInterface
     {
         $this->subscribedOn = $subscribedOn;
 

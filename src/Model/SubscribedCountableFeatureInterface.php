@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedInterface;
@@ -20,7 +33,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return SubscribedCountableFeatureInterface
      */
-    public function cumulate() : SubscribedCountableFeatureInterface;
+    public function cumulate(): SubscribedCountableFeatureInterface;
 
     /**
      * The date on which the feature were renew last time.
@@ -29,7 +42,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return \DateTime|null
      */
-    public function getLastRefreshOn() :? \DateTime;
+    public function getLastRefreshOn(): ? \DateTime;
 
     /**
      * It is an integer when the feature is loaded from the database.
@@ -37,7 +50,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      * Then, once called FeaturesManager::setSubscription(), this is transformed into the correspondent
      * ConfiguredFeaturePackInterface object.
      *
-     * @return int|ConfiguredFeaturePackInterface
+     * @return ConfiguredFeaturePackInterface|int
      */
     public function getSubscribedPack();
 
@@ -46,12 +59,12 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return bool
      */
-    public function isRefreshPeriodElapsed() : bool;
+    public function isRefreshPeriodElapsed(): bool;
 
     /**
      * Renews the subscription resetting the available quantities.
      */
-    public function refresh() : SubscribedCountableFeatureInterface;
+    public function refresh(): SubscribedCountableFeatureInterface;
 
     /**
      * Sets the date on which the renew happened.
@@ -60,7 +73,7 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      *
      * @return SubscribedCountableFeatureInterface
      */
-    public function setLastRefreshOn(\DateTime $lastRenewOn) : SubscribedCountableFeatureInterface;
+    public function setLastRefreshOn(\DateTime $lastRenewOn): SubscribedCountableFeatureInterface;
 
     /**
      * @param SubscribedCountableFeaturePack $pack

@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
@@ -11,12 +24,13 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
  */
 trait HasConfiguredPacksProperty
 {
-    /** @var  array $packs */
+    /** @var array $packs */
     private $packs;
 
     /**
      * @param int $numOfUnits
-     * @return null|ConfiguredFeaturePackInterface
+     *
+     * @return ConfiguredFeaturePackInterface|null
      */
     public function getPack(int $numOfUnits)
     {
@@ -26,16 +40,17 @@ trait HasConfiguredPacksProperty
     /**
      * @return array
      */
-    public function getPacks() : array
+    public function getPacks(): array
     {
         return $this->packs;
     }
 
     /**
      * @param int $numOfUnits
+     *
      * @return bool
      */
-    public function hasPack(int $numOfUnits) : bool
+    public function hasPack(int $numOfUnits): bool
     {
         return isset($this->packs[$numOfUnits]);
     }
@@ -43,13 +58,13 @@ trait HasConfiguredPacksProperty
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs, string $packClass) : HasConfiguredPacksInterface
+    public function setPacks(array $packs, string $packClass): HasConfiguredPacksInterface
     {
         $pricesType = $packs['_pricesType'];
         unset($packs['_pricesType']);
 
         foreach ($packs as $numOfUnits => $prices) {
-            switch($packClass) {
+            switch ($packClass) {
                 case ConfiguredRechargeableFeaturePack::class:
                 case ConfiguredCountableFeaturePack::class:
                     /** @var ConfiguredFeaturePackInterface $pack */

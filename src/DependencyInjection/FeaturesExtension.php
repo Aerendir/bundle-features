@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\PlainTextDrawer;
@@ -22,7 +35,7 @@ class FeaturesExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config        = $this->processConfiguration($configuration, $configs);
 
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
@@ -40,17 +53,17 @@ class FeaturesExtension extends Extension
     }
 
     /**
-     * @param string $drawer
+     * @param string           $drawer
      * @param ContainerBuilder $containerBuilder
      */
     private function createFormatterService(string $drawer, ContainerBuilder $containerBuilder)
     {
         $drawerServiceName = null;
-        $drawerDefinition = null;
+        $drawerDefinition  = null;
         // Create the drawer definition
         switch ($drawer) {
             case 'plain_text':
-                $drawerDefinition = new Definition(PlainTextDrawer::class);
+                $drawerDefinition  = new Definition(PlainTextDrawer::class);
                 $drawerServiceName = 'shq_features.drawer.plain_text';
                 break;
         }
@@ -68,7 +81,7 @@ class FeaturesExtension extends Extension
     {
         // Create the feature manager definition
         $featureManagerDefinition = new Definition(FeaturesManager::class, [$setConfig['features']]);
-        $serviceName = 'shq_features.manager.'.$name.'.features';
+        $serviceName              = 'shq_features.manager.' . $name . '.features';
         $featureManagerDefinition->addTag('shq_features.feature_manager');
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
     }
@@ -80,10 +93,10 @@ class FeaturesExtension extends Extension
      */
     private function createInvoicesService(string $name, array $setConfig, ContainerBuilder $containerBuilder)
     {
-        $arrayWriterDefinition = $containerBuilder->findDefinition('shq_features.array_writer');
-        $defaultDrawer = $setConfig['default_drawer'] ?? null;
+        $arrayWriterDefinition     = $containerBuilder->findDefinition('shq_features.array_writer');
+        $defaultDrawer             = $setConfig['default_drawer'] ?? null;
         $invoicesManagerDefinition = new Definition(InvoicesManager::class, [$setConfig['features'], $arrayWriterDefinition, $defaultDrawer]);
-        $serviceName = 'shq_features.manager.'.$name.'.invoices';
+        $serviceName               = 'shq_features.manager.' . $name . '.invoices';
         $invoicesManagerDefinition->addTag('shq_features.invoice_manager');
         $containerBuilder->setDefinition($serviceName, $invoicesManagerDefinition);
     }

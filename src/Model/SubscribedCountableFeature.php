@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeConsumedProperty;
@@ -21,7 +34,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /** @var \DateTime $lastRefreshOn */
     private $lastRefreshOn;
 
-    /** @var  SubscribedCountableFeaturePack $subscribedPack */
+    /** @var SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
 
     /**
@@ -53,11 +66,11 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function cumulate() : SubscribedCountableFeatureInterface
+    public function cumulate(): SubscribedCountableFeatureInterface
     {
-        if (null === $this->previousRemainedQuantity)
+        if (null === $this->previousRemainedQuantity) {
             throw new \LogicException('You cannot use cumulate() before refreshing the subscription with refresh().');
-
+        }
         $this->remainedQuantity = $this->getRemainedQuantity() + $this->previousRemainedQuantity;
 
         return $this;
@@ -66,7 +79,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getLastRefreshOn() :? \DateTime
+    public function getLastRefreshOn(): ? \DateTime
     {
         return $this->lastRefreshOn;
     }
@@ -74,7 +87,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getRemainedQuantity() : int
+    public function getRemainedQuantity(): int
     {
         return $this->remainedQuantity;
     }
@@ -82,7 +95,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * @return SubscribedCountableFeaturePack
      */
-    public function getSubscribedPack() : SubscribedCountableFeaturePack
+    public function getSubscribedPack(): SubscribedCountableFeaturePack
     {
         return $this->subscribedPack;
     }
@@ -130,7 +143,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function refresh() : SubscribedCountableFeatureInterface
+    public function refresh(): SubscribedCountableFeatureInterface
     {
         $this->previousRemainedQuantity = $this->getRemainedQuantity();
 
@@ -156,7 +169,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function setLastRefreshOn(\DateTime $lastRefreshOn) : SubscribedCountableFeatureInterface
+    public function setLastRefreshOn(\DateTime $lastRefreshOn): SubscribedCountableFeatureInterface
     {
         $this->lastRefreshOn = $lastRefreshOn;
 
@@ -198,9 +211,9 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         }
 
         return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
+            'active_until'    => json_decode(json_encode($this->getActiveUntil()), true),
             'subscribed_pack' => $subscribedPack->toArray(),
-            'last_refresh_on' => json_decode(json_encode($this->getLastRefreshOn()), true)
+            'last_refresh_on' => json_decode(json_encode($this->getLastRefreshOn()), true),
         ], parent::toArray(), $this->consumedToArray());
     }
 }

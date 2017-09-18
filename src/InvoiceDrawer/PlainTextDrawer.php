@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
@@ -20,7 +33,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
      *
      * @return array
      */
-    public function draw(InvoiceInterface $invoice) : array
+    public function draw(InvoiceInterface $invoice): array
     {
         $detailsTables = [];
         foreach ($invoice->getSections() as $sectionId => $section) {
@@ -60,7 +73,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             'dot_separator'          => $this->drawSeparator('.', $this->tableWidth),
             'equals_separator'       => $this->drawSeparator('=', $this->tableWidth),
             'equals_separator_short' => $equals_separator_short,
-            'total_amount'     => $total_gross_amount,
+            'total_amount'           => $total_gross_amount,
         ];
 
         return $data;
@@ -69,7 +82,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
     /**
      * @return int
      */
-    public function getTableWidth() : int
+    public function getTableWidth(): int
     {
         return $this->tableWidth;
     }
@@ -79,7 +92,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
      *
      * @return string
      */
-    private function buildInvoiceTextTable(InvoiceSection $section) : string
+    private function buildInvoiceTextTable(InvoiceSection $section): string
     {
         $tableData = [
             [
@@ -92,7 +105,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         /** @var InvoiceLine $line */
         foreach ($section->getLines() as $line) {
             $lineData = [
-                'quantity'    => $line->getQuantity() === 0 ? 'N/A' : $line->getQuantity(),
+                'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
                 'description' => $line->getDescription(),
                 'amount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getConvertedAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getConvertedAmount(), $line->getGrossAmount()->getCurrency()) . ')',
@@ -140,7 +153,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
      *
      * @return string
      */
-    private function drawSeparator($char, $length) : string
+    private function drawSeparator($char, $length): string
     {
         $separator = '';
 

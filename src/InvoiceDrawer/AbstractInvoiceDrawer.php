@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
 
 use Symfony\Component\Translation\Translator;
@@ -9,7 +22,7 @@ use Symfony\Component\Translation\Translator;
  */
 abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
 {
-    /** @var  \NumberFormatter */
+    /** @var \NumberFormatter */
     private $currencyFormatter;
 
     /** @var Translator $translator */
@@ -17,7 +30,7 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
 
     /**
      * @param Translator $translator
-     * @param string $locale
+     * @param string     $locale
      */
     public function setTranslator(Translator $translator, string $locale)
     {
@@ -36,7 +49,7 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     /**
      * @return \NumberFormatter
      */
-    protected function getCurrencyFormatter() : \NumberFormatter
+    protected function getCurrencyFormatter(): \NumberFormatter
     {
         return $this->currencyFormatter;
     }
@@ -44,7 +57,7 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     /**
      * @return Translator
      */
-    protected function getTranslator() : Translator
+    protected function getTranslator(): Translator
     {
         return $this->translator;
     }

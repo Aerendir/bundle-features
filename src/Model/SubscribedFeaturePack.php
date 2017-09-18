@@ -1,10 +1,19 @@
 <?php
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 /**
  * The subscribed pack of the SubscribedCountableFeature.
@@ -14,10 +23,10 @@ class SubscribedFeaturePack extends AbstractFeaturePack implements SubscribedFea
     /**
      * {@inheritdoc}
      */
-    public function toArray() : array
+    public function toArray(): array
     {
         return [
-            'num_of_units' => $this->getNumOfUnits()
+            'num_of_units' => $this->getNumOfUnits(),
         ];
     }
 }

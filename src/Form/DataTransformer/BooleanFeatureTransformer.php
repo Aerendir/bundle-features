@@ -1,23 +1,21 @@
 <?php
 
 /*
- * This file is part of the Trust Back Me Www.
+ * This file is part of the SHQFeaturesBundle.
  *
- * Copyright Adamo Aerendir Crespi 2012-2016.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
  *
- * This code is to consider private and non disclosable to anyone for whatever reason.
- * Every right on this code is reserved.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
  * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2012 - 2016 Aerendir. All rights reserved.
- * @license   SECRETED. No distribution, no copy, no derivative, no divulgation or any other activity or action that
- *            could disclose this text.
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 
 /**
@@ -44,7 +42,7 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
     /**
      * Transforms a form value into a Feature object.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      *
      * @return FeatureInterface
      */

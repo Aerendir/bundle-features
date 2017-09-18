@@ -1,8 +1,20 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
@@ -20,7 +32,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
         HasUnatantumPricesProperty::setTax as setTaxProperty;
     }
 
-    /** @var  int $freeRecharge The amount of free units of this feature recharged each time */
+    /** @var int $freeRecharge The amount of free units of this feature recharged each time */
     private $freeRecharge;
 
     /**
@@ -33,14 +45,17 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
 
         $this->freeRecharge = $details['free_recharge'];
 
-        if (isset($details['packs']))
+        if (isset($details['packs'])) {
             $this->setPacks($details['packs']);
+        }
 
-        if (isset($details['net_unitary_price']))
+        if (isset($details['net_unitary_price'])) {
             $this->setPrices($details['net_unitary_price'], 'net');
+        }
 
-        if (isset($details['gross_unitary_price']))
+        if (isset($details['gross_unitary_price'])) {
             $this->setPrices($details['gross_unitary_price'], 'gross');
+        }
 
         parent::__construct($name, $details);
     }
@@ -48,7 +63,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function getFreeRecharge() : int
+    public function getFreeRecharge(): int
     {
         return $this->freeRecharge;
     }
@@ -56,7 +71,7 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function setFreeRecharge(int $freeRecharge) : ConfiguredRechargeableFeatureInterface
+    public function setFreeRecharge(int $freeRecharge): ConfiguredRechargeableFeatureInterface
     {
         $this->freeRecharge = $freeRecharge;
 
@@ -66,14 +81,15 @@ class ConfiguredRechargeableFeature extends AbstractFeature implements Configure
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
+    public function setPacks(array $packs, string $class = null): HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredRechargeableFeaturePack::class);
     }
 
     /**
-     * @param float $rate
+     * @param float  $rate
      * @param string $name
+     *
      * @return HasUnatantumPricesInterface
      */
     public function setTax(float $rate, string $name): HasUnatantumPricesInterface

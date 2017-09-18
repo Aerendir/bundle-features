@@ -1,8 +1,20 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Component\ValueObjects\Currency\Currency;
@@ -17,24 +29,24 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 trait HasUnatantumPricesProperty
 {
-    /** @var  array $grossPrices */
+    /** @var array $grossPrices */
     private $grossPrices = [];
 
-    /** @var  array $netPrices */
+    /** @var array $netPrices */
     private $netPrices = [];
 
-    /** @var  string $pricesType */
+    /** @var string $pricesType */
     private $pricesType;
 
-    /** @var  string $taxName */
+    /** @var string $taxName */
     private $taxName;
 
-    /** @var  float $taxRate */
+    /** @var float $taxRate */
     private $taxRate;
 
     /**
-     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null $type
+     * @param CurrencyInterface|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null              $type
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
@@ -54,7 +66,7 @@ trait HasUnatantumPricesProperty
     /**
      * @return string
      */
-    public function getTaxName() : string
+    public function getTaxName(): string
     {
         return $this->taxName;
     }
@@ -62,16 +74,17 @@ trait HasUnatantumPricesProperty
     /**
      * @return float
      */
-    public function getTaxRate() : float
+    public function getTaxRate(): float
     {
         return $this->taxRate;
     }
 
     /**
      * @param string|null $type
+     *
      * @return array
      */
-    public function getPrices(string $type = null) : array
+    public function getPrices(string $type = null): array
     {
         if (null === $type) {
             $type = $this->pricesType;
@@ -90,8 +103,8 @@ trait HasUnatantumPricesProperty
     }
 
     /**
-     * @param string|CurrencyInterface $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null $type
+     * @param CurrencyInterface|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null              $type
      *
      * @return bool
      */
@@ -109,11 +122,12 @@ trait HasUnatantumPricesProperty
     }
 
     /**
-     * @param float $rate
+     * @param float  $rate
      * @param string $name
+     *
      * @return HasUnatantumPricesInterface
      */
-    public function setTax(float $rate, string $name) : HasUnatantumPricesInterface
+    public function setTax(float $rate, string $name): HasUnatantumPricesInterface
     {
         $this->taxName = $name;
         $this->taxRate = $rate;
@@ -126,15 +140,15 @@ trait HasUnatantumPricesProperty
                 switch ($this->pricesType) {
                     // If currently is "net"...
                     case 'net':
-                        $netPrice = (int) round($price->getAmount() * (1 + $rate));
-                        $netPrice = new Money(['amount' => $netPrice, 'currency' => $currency]);
+                        $netPrice                     = (int) round($price->getAmount() * (1 + $rate));
+                        $netPrice                     = new Money(['amount' => $netPrice, 'currency' => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
                     case 'gross':
                         // ... Then we have to set net prices
-                        $grossPrice = (int) round($price->getAmount() / (1 + $rate));
-                        $grossPrice = new Money(['amount' => $grossPrice, 'currency' => $currency]);
+                        $grossPrice                 = (int) round($price->getAmount() / (1 + $rate));
+                        $grossPrice                 = new Money(['amount' => $grossPrice, 'currency' => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
                         break;
                 }
@@ -146,14 +160,15 @@ trait HasUnatantumPricesProperty
     }
 
     /**
-     * @param array $prices
+     * @param array  $prices
      * @param string $pricesType
+     *
      * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
      */
     private function setPrices(array $prices, string $pricesType)
     {
         $this->pricesType = $pricesType;
-        $priceProperty = $this->pricesType === 'net' ? 'netPrices' : 'grossPrices';
+        $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
 
         foreach ($prices as $currency => $price) {
             $this->$priceProperty[$currency] = new Money(['amount' => $price, 'currency' => new Currency($currency)]);

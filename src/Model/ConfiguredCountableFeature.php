@@ -1,14 +1,23 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\CanHaveFreePackProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
-use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * {@inheritdoc}
@@ -20,7 +29,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     }
     use CanHaveFreePackProperty;
 
-    /** @var  array $packs */
+    /** @var array $packs */
     private $packs;
 
     /** @var string $refreshPeriod */
@@ -34,8 +43,9 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
         // Set the type
         $details['type'] = self::COUNTABLE;
 
-        if (isset($details['packs']))
+        if (isset($details['packs'])) {
             $this->setPacks($details['packs']);
+        }
 
         $this->refreshPeriod = $details['refresh_period'];
 
@@ -45,7 +55,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function getRefreshPeriod() : string
+    public function getRefreshPeriod(): string
     {
         return $this->refreshPeriod;
     }
@@ -53,7 +63,7 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /**
      * {@inheritdoc}
      */
-    public function setPacks(array $packs, string $class = null) : HasConfiguredPacksInterface
+    public function setPacks(array $packs, string $class = null): HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }

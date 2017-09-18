@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
@@ -24,13 +37,15 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 
     /**
      * @param SubscriptionInterface $subscription
+     *
      * @return $this
      */
     public function setSubscription(SubscriptionInterface $subscription)
     {
         foreach ($this->getValues() as $feature) {
-            if ($feature instanceof HasRecurringPricesInterface || $feature instanceof ConfiguredCountableFeatureInterface)
+            if ($feature instanceof HasRecurringPricesInterface || $feature instanceof ConfiguredCountableFeatureInterface) {
                 $feature->setSubscription($subscription);
+            }
         }
 
         return $this;
@@ -47,9 +62,10 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
                 || $feature instanceof HasUnatantumPricesInterface
                 // ConfiguredCountableFeatureInterface doesn't support Unitary Price and so doesn't implement HasRecurringPricesInterface
                 || $feature instanceof ConfiguredCountableFeatureInterface
-            )
-                /** @var HasRecurringPricesInterface|HasUnatantumPricesInterface|ConfiguredCountableFeatureInterface $feature */
+            ) {
+                /** @var ConfiguredCountableFeatureInterface|HasRecurringPricesInterface|HasUnatantumPricesInterface $feature */
                 $feature->setTax($rate, $name);
+            }
         }
     }
 }

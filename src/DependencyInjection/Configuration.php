@@ -1,9 +1,16 @@
 <?php
 
 /*
- * This file is part of the AWS SES Monitor Bundle.
+ * This file is part of the SHQFeaturesBundle.
  *
- * @author Adamo Aerendir Crespi <hello@aerendir.me>
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
@@ -13,7 +20,6 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
-use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
@@ -28,13 +34,13 @@ class Configuration implements ConfigurationInterface
     /** @var array $foundDrawers The drawers found as default ones in features sets */
     private $foundDrawers = [];
 
-    /** @var  string $pricesKey The type of prices set: gross or net */
+    /** @var string $pricesKey The type of prices set: gross or net */
     private $pricesType;
 
-    /** @var  string $pricesKey The type of prices set: gross or net */
+    /** @var string $pricesKey The type of prices set: gross or net */
     private $pricesKey;
 
-    /** @var  string $unitaryPriceKey The type of prices set: gross or net */
+    /** @var string $unitaryPriceKey The type of prices set: gross or net */
     private $unitaryPriceKey;
 
     /**
@@ -84,7 +90,7 @@ class Configuration implements ConfigurationInterface
                                                 ->prototype('array')
                                                     // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                     ->beforeNormalization()
-                                                        ->ifTrue(function($price) {return is_numeric($price);})
+                                                        ->ifTrue(function ($price) {return is_numeric($price); })
                                                         ->then(function ($price) {
                                                             return ['_' => $price];
                                                         })
@@ -116,8 +122,8 @@ class Configuration implements ConfigurationInterface
                                                     ->prototype('array')
                                                         // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                         ->beforeNormalization()
-                                                            ->ifTrue(function($price) {return is_numeric($price);})
-                                                            ->then(function ($price) {return ['_' => $price];})
+                                                            ->ifTrue(function ($price) {return is_numeric($price); })
+                                                            ->then(function ($price) {return ['_' => $price]; })
                                                         ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
@@ -140,11 +146,11 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 // Deeply validate the full config tree
-                ->ifTrue(function($tree) {
+                ->ifTrue(function ($tree) {
                     return $this->validateTree($tree);
                 })
                 // Re-elaborate the tree removing unuseful values and preparing useful ones
-                ->then(function($tree) {
+                ->then(function ($tree) {
                     return $this->processTree($tree);
                 })
             ->end();
@@ -154,12 +160,13 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $tree
+     *
      * @return array
      */
     private function validateTree(array $tree)
     {
         $tree['invoices']['drawers'] = $this->validateInvoiceDrawers($tree['invoices']['drawers']);
-        $tree['sets'] = $this->validateSets($tree['sets']);
+        $tree['sets']                = $this->validateSets($tree['sets']);
 
         return $tree;
     }
@@ -203,9 +210,10 @@ class Configuration implements ConfigurationInterface
      * Validates all the configured features sets.
      *
      * @param array $sets
+     *
      * @return bool
      */
-    private function validateSets(array $sets) : bool
+    private function validateSets(array $sets): bool
     {
         foreach ($sets as $set => $config) {
             // Validate the default invoice drawer if set
@@ -222,7 +230,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param string $set
-     * @param array $features
+     * @param array  $features
      */
     private function validateFeatures(string $set, array $features)
     {
@@ -235,7 +243,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $config
+     * @param array  $config
      */
     private function validateFeatureConfig(string $set, string $feature, array $config)
     {
@@ -255,7 +263,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $config
+     * @param array  $config
      */
     private function validateBoolean(string $set, string $feature, array $config)
     {
@@ -266,7 +274,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $config
+     * @param array  $config
      */
     private function validateCountable(string $set, string $feature, array $config)
     {
@@ -280,7 +288,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $config
+     * @param array  $config
      */
     private function validateRechargeable(string $set, string $feature, array $config)
     {
@@ -294,7 +302,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $price
+     * @param array  $price
      */
     private function validateRecurringPrice(string $set, string $feature, array $price)
     {
@@ -332,7 +340,7 @@ class Configuration implements ConfigurationInterface
      * @param string $set
      * @param string $feature
      * @param string $currency
-     * @param array $subscriptions
+     * @param array  $subscriptions
      */
     private function validateSubscriptionPeriods(string $set, string $feature, string $currency, array $subscriptions)
     {
@@ -352,7 +360,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $packs
+     * @param array  $packs
      * @param string $subscriptionType
      */
     private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType)
@@ -401,7 +409,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param string $set
      * @param string $feature
-     * @param array $price
+     * @param array  $price
      */
     private function validateUnatantumPrice(string $set, string $feature, array $price)
     {
@@ -415,6 +423,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $tree
+     *
      * @return array
      */
     private function processTree(array $tree)
@@ -423,9 +432,9 @@ class Configuration implements ConfigurationInterface
         $this->foundDrawers = $tree['invoices']['drawers'];
 
         // Set prices type: gross or net
-        $this->pricesType = $tree['prices']['are'];
-        $this->pricesKey = $this->pricesType === 'gross' ? 'gross_prices' : 'net_prices';
-        $this->unitaryPriceKey = $this->pricesType === 'gross' ? 'gross_unitary_price' : 'net_unitary_price';
+        $this->pricesType      = $tree['prices']['are'];
+        $this->pricesKey       = 'gross' === $this->pricesType ? 'gross_prices' : 'net_prices';
+        $this->unitaryPriceKey = 'gross' === $this->pricesType ? 'gross_unitary_price' : 'net_unitary_price';
 
         // Reset the key
         $tree['invoices']['drawers'] = [];
@@ -437,12 +446,15 @@ class Configuration implements ConfigurationInterface
 
         return $tree;
     }
+
     /**
      * Processes all the configured features Sets.
+     *
      * @param array $sets
+     *
      * @return array
      */
-    private function processSets(array $sets) : array
+    private function processSets(array $sets): array
     {
         foreach ($sets as $set => $config) {
             // If the set has a default invoice drawer set...
@@ -459,6 +471,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $features
+     *
      * @return array
      */
     private function processFeatures(array $features)
@@ -472,6 +485,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $config
+     *
      * @return array
      */
     private function processFeatureConfig(array $config)
@@ -494,6 +508,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $config
+     *
      * @return array
      */
     private function processBoolean(array $config)
@@ -513,6 +528,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $config
+     *
      * @return array
      */
     private function processCountable(array $config)
@@ -531,6 +547,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $config
+     *
      * @return array
      */
     private function processRechargeable(array $config)
@@ -550,6 +567,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $prices
+     *
      * @return array
      */
     private function processRecurringPrice(array $prices)
@@ -569,6 +587,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @param array $packs
      * @param $subscriptionType
+     *
      * @return array
      */
     private function processPackages(array $packs, $subscriptionType)
@@ -604,6 +623,7 @@ class Configuration implements ConfigurationInterface
 
     /**
      * @param array $prices
+     *
      * @return array
      */
     private function processUnatantumPrice(array $prices)

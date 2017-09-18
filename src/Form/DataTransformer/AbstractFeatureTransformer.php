@@ -1,17 +1,16 @@
 <?php
 
 /*
- * This file is part of the Trust Back Me Www.
+ * This file is part of the SHQFeaturesBundle.
  *
- * Copyright Adamo Aerendir Crespi 2012-2016.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
  *
- * This code is to consider private and non disclosable to anyone for whatever reason.
- * Every right on this code is reserved.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
  * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2012 - 2016 Aerendir. All rights reserved.
- * @license   SECRETED. No distribution, no copy, no derivative, no divulgation or any other activity or action that
- *            could disclose this text.
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
@@ -27,29 +26,30 @@ use Symfony\Component\Form\DataTransformerInterface;
  */
 abstract class AbstractFeatureTransformer implements DataTransformerInterface
 {
-    /** @var  array|null Used only by Countable and Rechargeable features */
+    /** @var array|null Used only by Countable and Rechargeable features */
     private $configuredPacks;
 
     /** @var string $field */
     private $featureName;
 
-    /** @var null|SubscribedFeaturesCollection $subscribedFeatures */
+    /** @var SubscribedFeaturesCollection|null $subscribedFeatures */
     private $subscribedFeatures;
 
     /**
-     * @param string $featureName
+     * @param string                       $featureName
      * @param SubscribedFeaturesCollection $subscribedFeatures
-     * @param array|null $configuredPacks
+     * @param array|null                   $configuredPacks
      */
     public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks = null)
     {
-        $this->configuredPacks = $configuredPacks;
-        $this->featureName = $featureName;
+        $this->configuredPacks    = $configuredPacks;
+        $this->featureName        = $featureName;
         $this->subscribedFeatures = $subscribedFeatures;
     }
 
     /**
      * @param int $pack
+     *
      * @return ConfiguredCountableFeaturePack|ConfiguredRechargeableFeaturePack
      */
     public function getConfiguredPack(int $pack)
@@ -68,7 +68,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     /**
      * @return string
      */
-    public function getFeatureName() : string
+    public function getFeatureName(): string
     {
         return $this->featureName;
     }
@@ -76,7 +76,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     /**
      * @return SubscribedFeatureInterface
      */
-    public function getCurrentTransformingFeature() : SubscribedFeatureInterface
+    public function getCurrentTransformingFeature(): SubscribedFeatureInterface
     {
         return $this->getSubscribedFeatures()->get($this->getFeatureName());
     }
@@ -84,7 +84,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     /**
      * @return SubscribedFeaturesCollection
      */
-    public function getSubscribedFeatures() : SubscribedFeaturesCollection
+    public function getSubscribedFeatures(): SubscribedFeaturesCollection
     {
         return $this->subscribedFeatures;
     }

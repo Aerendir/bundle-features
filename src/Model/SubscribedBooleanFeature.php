@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureProperty;
@@ -37,7 +50,7 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
     /**
      * {@inheritdoc}
      */
-    public function disable() : FeatureInterface
+    public function disable(): FeatureInterface
     {
         $this->enabled = false;
 
@@ -47,7 +60,7 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
     /**
      * {@inheritdoc}
      */
-    public function enable() : FeatureInterface
+    public function enable(): FeatureInterface
     {
         $this->enabled = true;
 
@@ -57,7 +70,7 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
     /**
      * {@inheritdoc}
      */
-    public function isEnabled() : bool
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }
@@ -69,7 +82,7 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
     {
         return array_merge([
             'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'enabled' => $this->isEnabled(),
+            'enabled'      => $this->isEnabled(),
         ], parent::toArray());
     }
 }

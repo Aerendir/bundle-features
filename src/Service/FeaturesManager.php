@@ -1,13 +1,27 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
+use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
@@ -17,13 +31,12 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 
@@ -47,6 +60,12 @@ class FeaturesManager
     /** @var SubscriptionInterface $subscription This is use to calculate added and removed boolean features and the changed packs of CountableFeatures */
     private $oldSubscription;
 
+    /** @var array $differences The added and removed features */
+    private $differences = [
+        'added'   => [],
+        'removed' => [],
+    ];
+
     /**
      * @param array $configuredFeatures
      */
@@ -55,18 +74,12 @@ class FeaturesManager
         $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
     }
 
-    /** @var array $differences The added and removed features */
-    private $differences = [
-        'added' => [],
-        'removed' => [],
-    ];
-
     /**
      * Returns all the configured features.
      *
      * @return ConfiguredFeaturesCollection
      */
-    public function getConfiguredFeatures() : ConfiguredFeaturesCollection
+    public function getConfiguredFeatures(): ConfiguredFeaturesCollection
     {
         return $this->configuredFeatures;
     }
@@ -74,7 +87,7 @@ class FeaturesManager
     /**
      * @return SubscriptionInterface
      */
-    public function getSubscription() : SubscriptionInterface
+    public function getSubscription(): SubscriptionInterface
     {
         return $this->subscription;
     }
@@ -84,16 +97,16 @@ class FeaturesManager
      *
      * @return FeaturesManager
      */
-    public function setSubscription(SubscriptionInterface $subscription) : self
+    public function setSubscription(SubscriptionInterface $subscription): self
     {
         $this->subscription = $subscription;
         $this->getInvoicesManager()->setSubscription($this->getSubscription());
         $this->getConfiguredFeatures()->setSubscription($this->getSubscription());
 
         /**
-         * Set the Configured feature in each subscribed feature
+         * Set the Configured feature in each subscribed feature.
          *
-         * @var SubscribedFeatureInterface $subscribedFeature
+         * @var SubscribedFeatureInterface
          */
         foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
             $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
@@ -108,7 +121,7 @@ class FeaturesManager
     }
 
     /**
-     * @param float $rate
+     * @param float  $rate
      * @param string $name
      */
     public function setTax(float $rate, string $name)
@@ -124,14 +137,14 @@ class FeaturesManager
      *
      * @return SubscribedFeaturesCollection
      */
-    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval) : SubscribedFeaturesCollection
+    public function buildDefaultSubscriptionFeatures(string $subscriptionInterval): SubscribedFeaturesCollection
     {
         $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
-        $features = [];
+        $features    = [];
 
         /**
          * @var string
-         * @var FeatureInterface|ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $details
+         * @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface|FeatureInterface $details
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             switch ($details->getType()) {
@@ -139,25 +152,25 @@ class FeaturesManager
                     /** @var ConfiguredBooleanFeatureInterface $details */
                     $features[$name] = [
                         'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
-                        'type' => $details->getType(),
-                        'enabled' => $details->isEnabled(),
+                        'type'         => $details->getType(),
+                        'enabled'      => $details->isEnabled(),
                     ];
                     break;
                 case 'countable':
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
-                        'type' => $details->getType(),
-                        'subscribed_pack' => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()
+                        'type'              => $details->getType(),
+                        'subscribed_pack'   => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
+                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
                     break;
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
-                        'type' => $details->getType(),
-                        'last_recharge_on' => new \DateTime(),
+                        'type'                   => $details->getType(),
+                        'last_recharge_on'       => new \DateTime(),
                         'last_recharge_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'remained_quantity'      => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                     ];
                     break;
             }
@@ -168,7 +181,7 @@ class FeaturesManager
 
     /**
      * @param SubscribedFeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
-     *                                        not yet synced with these new Features!
+     *                                                  not yet synced with these new Features!
      *
      * @return Money
      */
@@ -191,7 +204,7 @@ class FeaturesManager
             if (null !== $checkingFeature) {
                 /** @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $configuredFeature */
                 $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
-                $price = null;
+                $price             = null;
 
                 switch (get_class($checkingFeature)) {
                     // These two have recurring features, so they can or cannot be still active
@@ -206,9 +219,9 @@ class FeaturesManager
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
                         if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
                             /**
-                             * For the moment force the code to get the pack's instant price
+                             * For the moment force the code to get the pack's instant price.
                              *
-                             * @var SubscribedCountableFeatureInterface $checkingFeature
+                             * @var SubscribedCountableFeatureInterface
                              */
                             $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
                         }
@@ -216,9 +229,9 @@ class FeaturesManager
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
                     case SubscribedRechargeableFeature::class:
                         /**
-                         * For the moment force the code to get the pack's instant price
+                         * For the moment force the code to get the pack's instant price.
                          *
-                         * @var SubscribedRechargeableFeatureInterface $checkingFeature
+                         * @var SubscribedRechargeableFeatureInterface
                          */
                         $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'gross');
                         break;
@@ -267,9 +280,9 @@ class FeaturesManager
             'method' => 'POST',
         ])
             ->add('features', FeaturesType::class, [
-                'data' => $subscription->getFeatures()->toArray(),
+                'data'                => $subscription->getFeatures()->toArray(),
                 'configured_features' => $this->getConfiguredFeatures()->setSubscription($subscription),
-                'subscription' => $subscription
+                'subscription'        => $subscription,
             ]);
 
         $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
@@ -309,8 +322,8 @@ class FeaturesManager
     }
 
     /**
-     * @param SubscriptionInterface $subscription
-     * @param SubscribedFeaturesCollection    $features
+     * @param SubscriptionInterface        $subscription
+     * @param SubscribedFeaturesCollection $features
      */
     public function syncSubscription(SubscriptionInterface $subscription, SubscribedFeaturesCollection $features)
     {
@@ -365,12 +378,12 @@ class FeaturesManager
         /** @var FeatureInterface $feature */
         foreach ($subscription->getFeatures()->getValues() as $feature) {
             // If this is not a Countable Feature...
-            if (!$feature instanceof SubscribedCountableFeatureInterface) {
+            if ( ! $feature instanceof SubscribedCountableFeatureInterface) {
                 // Simply continue as it hasn't be renew
                 continue;
             }
 
-            /** @var ConfiguredCountableFeatureInterface $configuredRenewingFeature Get the configured feature **/
+            /** @var ConfiguredCountableFeatureInterface $configuredRenewingFeature Get the configured feature * */
             $configuredRenewingFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
             // If the feature doesn't exist anymore in the configuration (as it were removed by the developer)
@@ -382,7 +395,7 @@ class FeaturesManager
                 continue;
             }
 
-            /** @var SubscribedCountableFeatureInterface $feature Refresh the feature if the refresh period is elapsed **/
+            /** @var SubscribedCountableFeatureInterface $feature Refresh the feature if the refresh period is elapsed * */
             if ($feature->isRefreshPeriodElapsed()) {
                 $feature->refresh();
             }
@@ -394,9 +407,100 @@ class FeaturesManager
     }
 
     /**
+     * Calculates the bitmask of the boolean features selected
+     * by the merchant and returns the corresponding value in binary format.
+     *
+     * @param  $features
+     * @param array $options
+     *
+     * @return int
+     */
+    /*
+    protected function calculatePlanId(PremiumStoreEmbeddable $features, array $options)
+    {
+        // No feature is selected
+        $booleanBitmask = 0;
+        $amount = 0;
+
+        if ($features->hasAds()) {
+            $amount += $this->plans['boolean']['ads']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::ADS;
+        }
+
+        if ($features->hasSeo()) {
+            $amount += $this->plans['boolean']['seo']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::SEO;
+        }
+
+        if ($features->hasSocial()) {
+            $amount += $this->plans['boolean']['social']['price'][$options['currency']][$options['interval']];
+            $booleanBitmask += PremiumStoreEmbeddable::SOCIAL;
+        }
+
+        $booleanBitmask = decbin($booleanBitmask);
+
+        return
+            $booleanBitmask
+            . '_' . $options['interval']
+            . '_' . $options['trial_period_days']
+            . '_' . $options['currency']
+            . '_' . $amount;
+    }
+    */
+
+    /**
+     * Sets the general configurations (as prices, for examples) in the FeatureINterface objects loaded from a
+     * SubscriptionInterface object.
+     *
+     * @param SubscriptionInterface $subscription
+     */
+    /*
+    private function configurePricesInSubscriptionFeatures(SubscriptionInterface $subscription)
+    {
+        /** @var FeatureInterface $feature *
+        foreach ($subscription->getFeatures() as $feature) {
+            $prices = $this->getConfiguredFeatures()->get($feature->getName())->getPrices();
+            $feature->setPrices($prices);
+        }
+    }
+    */
+
+    /**
+     * @return FormFactory
+     */
+    public function getFormFactory(): FormFactory
+    {
+        return $this->formFactory;
+    }
+
+    /**
+     * @return InvoicesManager
+     */
+    public function getInvoicesManager(): InvoicesManager
+    {
+        return $this->invoicesManager;
+    }
+
+    /**
+     * @param FormFactory $formFactory
+     */
+    public function setFormFactory(FormFactory $formFactory)
+    {
+        $this->formFactory = $formFactory;
+    }
+
+    /**
+     * @param InvoicesManager $invoicesManager
+     */
+    public function setInvoicesManager(InvoicesManager $invoicesManager)
+    {
+        $this->invoicesManager = $invoicesManager;
+    }
+
+    /**
      * @return MoneyInterface
      */
-    private function calculateSubscriptionAmount() : MoneyInterface
+    private function calculateSubscriptionAmount(): MoneyInterface
     {
         $total = new Money(['amount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
 
@@ -471,13 +575,13 @@ class FeaturesManager
                     /**
                      * ... and was in the old collection and in the new collection, too ...
                      *
-                     * @var SubscribedCountableFeatureInterface $oldFeature
+                     * @var SubscribedCountableFeatureInterface
                      */
                     if (true === $newFeatures->containsKey($oldFeature->getName())) {
                         /**
                          * We first get the subscribed packages...
                          *
-                         * @var SubscribedCountableFeaturePack $oldSubscribedPack
+                         * @var SubscribedCountableFeaturePack
                          * @var SubscribedCountableFeaturePack $newSubscribedPack
                          */
                         $oldSubscribedPack = $oldFeature->getSubscribedPack();
@@ -504,7 +608,7 @@ class FeaturesManager
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
          *
-         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface $newFeature
+         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface
          */
         foreach ($newFeatures as $newFeature) {
             /*
@@ -558,7 +662,7 @@ class FeaturesManager
                         /**
                          * We first get the subscribed packages...
                          *
-                         * @var SubscribedCountableFeaturePack $oldSubscribedPack
+                         * @var SubscribedCountableFeaturePack
                          * @var SubscribedCountableFeaturePack $newSubscribedPack
                          */
                         $newSubscribedPack = $newFeature->getSubscribedPack();
@@ -600,11 +704,11 @@ class FeaturesManager
     private function refreshCountableFeatures()
     {
         $intervals = [
-            SubscriptionInterface::DAILY => 0,
-            SubscriptionInterface::WEEKLY => 1,
+            SubscriptionInterface::DAILY    => 0,
+            SubscriptionInterface::WEEKLY   => 1,
             SubscriptionInterface::BIWEEKLY => 2,
-            SubscriptionInterface::MONTHLY => 3,
-            SubscriptionInterface::YEARLY => 4
+            SubscriptionInterface::MONTHLY  => 3,
+            SubscriptionInterface::YEARLY   => 4,
         ];
         $refreshInterval = SubscriptionInterface::MONTHLY;
 
@@ -690,96 +794,5 @@ class FeaturesManager
                 $updatingFeature->setActiveUntil($validUntil);
             }
         }
-    }
-
-    /**
-     * Calculates the bitmask of the boolean features selected
-     * by the merchant and returns the corresponding value in binary format.
-     *
-     * @param  $features
-     * @param array $options
-     *
-     * @return int
-     */
-    /*
-    protected function calculatePlanId(PremiumStoreEmbeddable $features, array $options)
-    {
-        // No feature is selected
-        $booleanBitmask = 0;
-        $amount = 0;
-
-        if ($features->hasAds()) {
-            $amount += $this->plans['boolean']['ads']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::ADS;
-        }
-
-        if ($features->hasSeo()) {
-            $amount += $this->plans['boolean']['seo']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::SEO;
-        }
-
-        if ($features->hasSocial()) {
-            $amount += $this->plans['boolean']['social']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::SOCIAL;
-        }
-
-        $booleanBitmask = decbin($booleanBitmask);
-
-        return
-            $booleanBitmask
-            . '_' . $options['interval']
-            . '_' . $options['trial_period_days']
-            . '_' . $options['currency']
-            . '_' . $amount;
-    }
-    */
-
-    /**
-     * Sets the general configurations (as prices, for examples) in the FeatureINterface objects loaded from a
-     * SubscriptionInterface object.
-     *
-     * @param SubscriptionInterface $subscription
-     */
-    /*
-    private function configurePricesInSubscriptionFeatures(SubscriptionInterface $subscription)
-    {
-        /** @var FeatureInterface $feature *
-        foreach ($subscription->getFeatures() as $feature) {
-            $prices = $this->getConfiguredFeatures()->get($feature->getName())->getPrices();
-            $feature->setPrices($prices);
-        }
-    }
-    */
-
-    /**
-     * @return FormFactory
-     */
-    public function getFormFactory() : FormFactory
-    {
-        return $this->formFactory;
-    }
-
-    /**
-     * @return InvoicesManager
-     */
-    public function getInvoicesManager() : InvoicesManager
-    {
-        return $this->invoicesManager;
-    }
-
-    /**
-     * @param FormFactory $formFactory
-     */
-    public function setFormFactory(FormFactory $formFactory)
-    {
-        $this->formFactory = $formFactory;
-    }
-
-    /**
-     * @param InvoicesManager $invoicesManager
-     */
-    public function setInvoicesManager(InvoicesManager $invoicesManager)
-    {
-        $this->invoicesManager = $invoicesManager;
     }
 }

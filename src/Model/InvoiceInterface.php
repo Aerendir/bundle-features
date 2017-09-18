@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
@@ -16,7 +29,7 @@ interface InvoiceInterface extends \JsonSerializable
     public function __construct($currency);
 
     /**
-     * @return null|InvoiceSectionHeader
+     * @return InvoiceSectionHeader|null
      */
     public function getHeader();
 
@@ -43,7 +56,7 @@ interface InvoiceInterface extends \JsonSerializable
      *
      * @return InvoiceInterface
      */
-    public function addLine(InvoiceLine $line, string $id = null) : InvoiceInterface;
+    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface;
 
     /**
      * Returns a specific line of the _default section of the Invoice.
@@ -57,10 +70,10 @@ interface InvoiceInterface extends \JsonSerializable
     /**
      * @return array
      */
-    public function getLines() : array;
+    public function getLines(): array;
 
     /**
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return bool
      */
@@ -75,14 +88,15 @@ interface InvoiceInterface extends \JsonSerializable
 
     /**
      * @param InvoiceSection $section
-     * @param string|null      $id
+     * @param string|null    $id
      *
      * @return InvoiceInterface
      */
     public function addSection(InvoiceSection $section, string $id = null);
 
     /**
-     * @param string|int $id
+     * @param int|string $id
+     *
      * @return InvoiceSection
      */
     public function getSection($id);
@@ -92,17 +106,17 @@ interface InvoiceInterface extends \JsonSerializable
      *
      * @return array
      */
-    public function getSections() : array;
+    public function getSections(): array;
 
     /**
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return bool
      */
-    public function hasSection($id) : bool;
+    public function hasSection($id): bool;
 
     /**
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return bool|InvoiceInterface
      */
@@ -111,22 +125,22 @@ interface InvoiceInterface extends \JsonSerializable
     /**
      * @return CurrencyInterface
      */
-    public function getCurrency() : CurrencyInterface;
+    public function getCurrency(): CurrencyInterface;
 
     /**
      * @return \DateTime
      */
-    public function getIssuedOn() : \DateTime;
+    public function getIssuedOn(): \DateTime;
 
     /**
      * @return MoneyInterface
      */
-    public function getGrossTotal() : MoneyInterface;
+    public function getGrossTotal(): MoneyInterface;
 
     /**
      * @return MoneyInterface
      */
-    public function getNetTotal() : MoneyInterface;
+    public function getNetTotal(): MoneyInterface;
 
     /**
      * Generates the number of the Invoice.
@@ -134,7 +148,7 @@ interface InvoiceInterface extends \JsonSerializable
      * The concrete implementation of this method is left to the iplementer as there are so many cases that is
      * impossible to abstract them and generalize the process.
      *
-     * @return string|int
+     * @return int|string
      */
     public function generateNumber();
 

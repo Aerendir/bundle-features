@@ -1,17 +1,16 @@
 <?php
 
 /*
- * This file is part of the Trust Back Me Www.
+ * This file is part of the SHQFeaturesBundle.
  *
- * Copyright Adamo Aerendir Crespi 2012-2016.
+ * Copyright Adamo Aerendir Crespi 2016-2017.
  *
- * This code is to consider private and non disclosable to anyone for whatever reason.
- * Every right on this code is reserved.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
  * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2012 - 2016 Aerendir. All rights reserved.
- * @license   SECRETED. No distribution, no copy, no derivative, no divulgation or any other activity or action that
- *            could disclose this text.
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
@@ -37,7 +36,6 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * {@inheritdoc}
@@ -86,64 +84,67 @@ class FeaturesType extends AbstractType
 
         $resolver->setRequired([
             'configured_features',
-            'subscription'
+            'subscription',
         ]);
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * @param SubscriptionInterface                  $subscription
      * @param SubscribedBooleanFeatureInterface|null $subscribedFeature
+     *
      * @return array
      */
-    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $subscribedFeature = null) : array
+    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $subscribedFeature = null): array
     {
         return [
             'required' => false,
-            'attr' => [
-                'data-feature' => 'boolean',
-                'data-toggle' => 'toggle',
-                'data-already-active' => $subscribedFeature->isStillActive(),
-                'data-gross-amount' => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
+            'attr'     => [
+                'data-feature'              => 'boolean',
+                'data-toggle'               => 'toggle',
+                'data-already-active'       => $subscribedFeature->isStillActive(),
+                'data-gross-amount'         => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
                 'data-gross-instant-amount' => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-net-amount' => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
-                'data-net-instant-amount' => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount()
-            ]
+                'data-net-amount'           => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+                'data-net-instant-amount'   => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+            ],
         ];
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * @param SubscriptionInterface               $subscription
      * @param SubscribedCountableFeatureInterface $subscribedFeature
+     *
      * @return array
      */
-    private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature) : array
+    private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature): array
     {
         return [
             'required' => false,
-            'attr' => [
+            'attr'     => [
                 'data-feature' => 'countable',
-                'data-name' => $subscribedFeature->getName()
+                'data-name'    => $subscribedFeature->getName(),
             ],
-            'choices' => $this->getCountableFeaturePacks($subscribedFeature->getConfiguredFeature()),
-            'choice_attr' => $this->setCountableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature())
+            'choices'     => $this->getCountableFeaturePacks($subscribedFeature->getConfiguredFeature()),
+            'choice_attr' => $this->setCountableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature()),
         ];
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * @param SubscriptionInterface                  $subscription
      * @param SubscribedRechargeableFeatureInterface $subscribedFeature
+     *
      * @return array
      */
-    private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature) : array
+    private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature): array
     {
         return [
             'required' => true,
-            'attr' => [
+            'attr'     => [
                 'data-feature' => 'rechargeable',
-                'data-name' => $subscribedFeature->getName()
+                'data-name'    => $subscribedFeature->getName(),
             ],
-            'choices' => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
-            'choice_attr' => $this->setRechargeableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature())
+            'choices'     => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
+            'choice_attr' => $this->setRechargeableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature()),
         ];
     }
 
@@ -180,13 +181,14 @@ class FeaturesType extends AbstractType
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * @param SubscriptionInterface               $subscription
      * @param ConfiguredCountableFeatureInterface $configuredFeature
+     *
      * @return \Closure
      */
     private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature)
     {
-        return function($val) use ($subscription, $configuredFeature) {
+        return function ($val) use ($subscription, $configuredFeature) {
             /** @var ConfiguredCountableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
@@ -202,29 +204,30 @@ class FeaturesType extends AbstractType
             $isPackAlreadyActive = $subscribedPack === $val;
 
             return [
-                'data-gross-amount' => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
+                'data-gross-amount'         => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
                 'data-gross-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-net-amount' => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
-                'data-net-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
-                'data-already-subscribed' => $isPackAlreadyActive
+                'data-net-amount'           => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+                'data-net-instant-amount'   => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+                'data-already-subscribed'   => $isPackAlreadyActive,
             ];
         };
     }
 
     /**
-     * @param SubscriptionInterface $subscription
+     * @param SubscriptionInterface                  $subscription
      * @param ConfiguredRechargeableFeatureInterface $configuredFeature
+     *
      * @return \Closure
      */
     private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature)
     {
-        return function($val) use ($subscription, $configuredFeature) {
+        return function ($val) use ($subscription, $configuredFeature) {
             /** @var ConfiguredRechargeableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
             return [
                 'data-gross-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getConvertedAmount(),
-                'data-net-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'net')->getConvertedAmount()
+                'data-net-instant-amount'   => $pack->getPrice($subscription->getCurrency(), 'net')->getConvertedAmount(),
             ];
         };
     }

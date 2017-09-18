@@ -1,6 +1,20 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
+
 use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
@@ -10,19 +24,19 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 class InvoiceSection implements \JsonSerializable
 {
-    /** @var  CurrencyInterface $currency */
+    /** @var CurrencyInterface $currency */
     private $currency;
 
-    /** @var  InvoiceSectionHeader */
+    /** @var InvoiceSectionHeader */
     private $header;
 
-    /** @var  InvoiceLine[] */
+    /** @var InvoiceLine[] */
     private $lines = [];
 
-    /** @var  MoneyInterface $grossTotal */
+    /** @var MoneyInterface $grossTotal */
     private $grossTotal;
 
-    /** @var  MoneyInterface $netTotal */
+    /** @var MoneyInterface $netTotal */
     private $netTotal;
 
     /**
@@ -30,15 +44,15 @@ class InvoiceSection implements \JsonSerializable
      */
     public function __construct(CurrencyInterface $currency)
     {
-        $this->currency = $currency;
+        $this->currency   = $currency;
         $this->grossTotal = new Money(['amount' => 0, 'currency' => $currency]);
-        $this->netTotal = new Money(['amount' => 0, 'currency' => $currency]);
+        $this->netTotal   = new Money(['amount' => 0, 'currency' => $currency]);
     }
 
     /**
      * @return CurrencyInterface
      */
-    public function getCurrency() : CurrencyInterface
+    public function getCurrency(): CurrencyInterface
     {
         return $this->currency;
     }
@@ -54,7 +68,7 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return bool
      */
-    public function hasHeader() : bool
+    public function hasHeader(): bool
     {
         return isset($this->header);
     }
@@ -62,7 +76,7 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return InvoiceSection
      */
-    public function removeHeader() : InvoiceSection
+    public function removeHeader(): InvoiceSection
     {
         $this->header = null;
 
@@ -71,9 +85,10 @@ class InvoiceSection implements \JsonSerializable
 
     /**
      * @param InvoiceSectionHeader $header
+     *
      * @return InvoiceSection
      */
-    public function setHeader(InvoiceSectionHeader $header) : InvoiceSection
+    public function setHeader(InvoiceSectionHeader $header): InvoiceSection
     {
         $this->header = $header;
 
@@ -83,9 +98,10 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @param InvoiceLine $line
      * @param string|null $id
+     *
      * @return InvoiceSection
      */
-    public function addLine(InvoiceLine $line, string $id = null) : InvoiceSection
+    public function addLine(InvoiceLine $line, string $id = null): InvoiceSection
     {
         switch (gettype($id)) {
             case 'string':
@@ -105,14 +121,15 @@ class InvoiceSection implements \JsonSerializable
 
         // Set the new Total
         $this->grossTotal = $this->getGrossTotal()->add($line->getGrossAmount());
-        $this->netTotal = $this->getNetTotal()->add($line->getNetAmount());
+        $this->netTotal   = $this->getNetTotal()->add($line->getNetAmount());
 
         return $this;
     }
 
     /**
-     * @param string|int $id
-     * @return null|InvoiceLine
+     * @param int|string $id
+     *
+     * @return InvoiceLine|null
      */
     public function getLine($id)
     {
@@ -122,13 +139,13 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return array
      */
-    public function getLines() : array
+    public function getLines(): array
     {
         return $this->lines;
     }
 
     /**
-     * @param string|int $id
+     * @param int|string $id
      *
      * @return bool
      */
@@ -163,7 +180,7 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return MoneyInterface
      */
-    public function getGrossTotal() : MoneyInterface
+    public function getGrossTotal(): MoneyInterface
     {
         return $this->grossTotal;
     }
@@ -171,7 +188,7 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @return MoneyInterface
      */
-    public function getNetTotal() : MoneyInterface
+    public function getNetTotal(): MoneyInterface
     {
         return $this->netTotal;
     }
@@ -202,12 +219,12 @@ class InvoiceSection implements \JsonSerializable
     private function recalculateTotal()
     {
         $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
-        $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal   = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
 
         /** @var InvoiceLine $line */
         foreach ($this->getLines() as $line) {
             $this->grossTotal = $this->grossTotal->add($line->getGrossAmount());
-            $this->netTotal = $this->netTotal->add($line->getNetAmount());
+            $this->netTotal   = $this->netTotal->add($line->getNetAmount());
         }
     }
 }

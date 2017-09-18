@@ -1,5 +1,18 @@
 <?php
 
+/*
+ * This file is part of the SHQFeaturesBundle.
+ *
+ * Copyright Adamo Aerendir Crespi 2016-2017.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @author    Adamo Aerendir Crespi <hello@aerendir.me>
+ * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
+ * @license   MIT License.
+ */
+
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -51,7 +64,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function __construct($currency)
     {
-        if (!$currency instanceof CurrencyInterface) {
+        if ( ! $currency instanceof CurrencyInterface) {
             $currency = new Currency($currency);
         }
 
@@ -193,7 +206,7 @@ abstract class Invoice implements InvoiceInterface
 
         // Set the new Total
         $this->grossTotal = $this->getGrossTotal()->add($section->getGrossTotal());
-        $this->netTotal = $this->getNetTotal()->add($section->getNetTotal());
+        $this->netTotal   = $this->getNetTotal()->add($section->getNetTotal());
 
         return $this;
     }
@@ -322,12 +335,12 @@ abstract class Invoice implements InvoiceInterface
     private function recalculateTotal()
     {
         $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
-        $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal   = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
 
         /** @var InvoiceSection $section */
         foreach ($this->getSections() as $section) {
             $this->grossTotal = $this->grossTotal->add($section->getGrossTotal());
-            $this->netTotal = $this->netTotal->add($section->getNetTotal());
+            $this->netTotal   = $this->netTotal->add($section->getNetTotal());
         }
     }
 }
