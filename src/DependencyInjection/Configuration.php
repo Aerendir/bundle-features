@@ -16,7 +16,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use Money\Currencies\ISOCurrencies;
-use \Money\Currency;
+use Money\Currency;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -328,7 +328,7 @@ class Configuration implements ConfigurationInterface
     private function validateCurrency(string $set, string $feature, string $currency)
     {
         $currencies = new ISOCurrencies();
-        $currency = new Currency($currency);
+        $currency   = new Currency($currency);
         if (false === $currencies->contains($currency)) {
             throw new InvalidConfigurationException(
                 sprintf(

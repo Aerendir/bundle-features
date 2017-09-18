@@ -15,7 +15,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -24,8 +23,8 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface HasUnatantumPricesInterface
 {
     /**
-     * @param CurrencyInterface|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null              $type
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null     $type
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
@@ -49,8 +48,8 @@ interface HasUnatantumPricesInterface
     public function getTaxRate(): float;
 
     /**
-     * @param CurrencyInterface|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null              $type
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string|null     $type
      *
      * @return bool
      */

@@ -16,8 +16,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use SerendipityHQ\Component\ValueObjects\Currency\Currency;
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -30,7 +29,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 abstract class Subscription implements SubscriptionInterface
 {
     /**
-     * @var CurrencyInterface
+     * @var Currency
      *
      * @ORM\Column(name="currency", type="currency", nullable=true)
      */
@@ -259,7 +258,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function setCurrency(CurrencyInterface $currency): SubscriptionInterface
+    public function setCurrency(Currency $currency): SubscriptionInterface
     {
         $this->currency = $currency;
 

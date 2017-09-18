@@ -16,7 +16,6 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -25,9 +24,9 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
     /**
-     * @param CurrencyInterface|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string                   $subscriptionInterval
-     * @param string|null              $type
+     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
+     * @param string|null     $type
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -36,9 +35,9 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
     public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface;
 
     /**
-     * @param CurrencyInterface|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string                   $subscriptionInterval
-     * @param string|null              $type
+     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
+     * @param string|null     $type
      *
      * @return MoneyInterface
      */
@@ -62,9 +61,9 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
     public function getTaxRate(): float;
 
     /**
-     * @param CurrencyInterface|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string                   $subscriptionInterval
-     * @param string|null              $type
+     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
+     * @param string          $subscriptionInterval
+     * @param string|null     $type
      *
      * @return bool
      */

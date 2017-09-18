@@ -15,7 +15,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Component\ValueObjects\Currency\CurrencyInterface;
+use \Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -61,7 +61,7 @@ interface SubscriptionInterface
     /**
      * Do not set the return typecasting until a currency type is created.
      *
-     * @return CurrencyInterface
+     * @return Currency
      */
     public function getCurrency();
 
@@ -130,11 +130,11 @@ interface SubscriptionInterface
     public function isStillActive(string $feature): bool;
 
     /**
-     * @param CurrencyInterface $currency
+     * @param Currency $currency
      *
      * @return SubscriptionInterface
      */
-    public function setCurrency(CurrencyInterface $currency): SubscriptionInterface;
+    public function setCurrency(Currency $currency): SubscriptionInterface;
 
     /**
      * @param SubscribedFeaturesCollection $features
