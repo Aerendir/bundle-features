@@ -189,6 +189,10 @@ $(document).ready(function() {
     $('.total-net-amount').text(currencyMask(netAmount));
     $('.total-net-instant-amount').text(currencyMask(netInstantAmount));
 
-    // If a feature is activated via querystring, activate it
-    $('.activate').find('input').prop('checked', true).trigger('change');
+    // If a feature is activated via querystring, activate it being sure it not already checked.
+    // Maybe the form were reloaded due to an error: in this case the total would count two times the feature.
+    // This if prevents the doubled counting.
+    if (false === $('.activate').find('input').is(':checked')) {
+        $('.activate').find('input').prop('checked', true).trigger('change');
+    }
 });
