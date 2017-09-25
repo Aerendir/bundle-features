@@ -15,19 +15,18 @@
         "ext-intl": "*",
         "doctrine/common": "^2.5",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/php_array_writer": "^1.2",
+        "serendipity_hq/php_array_writer": "^2.0",
         "serendipity_hq/php_value_objects": "dev-master",
-        "symfony/form": "~3",
-        "symfony/framework-bundle": "~3",
-        "symfony/options-resolver": "~3",
-        "symfony/routing": "~3"
+        "symfony/form": "^2.8||^3.0",
+        "symfony/framework-bundle": "^2.8||^3.0",
+        "symfony/options-resolver": "^2.8||^3.0",
+        "symfony/routing": "^2.8||^3.0"
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
-        "phpunit/phpunit": "~6.2",
-        "serendipity_hq/php_text_matrix": "*",
-        "symfony/var-dumper": "*",
-        "friendsofphp/php-cs-fixer": "*"
+        "phpunit/phpunit": "^6",
+        "serendipity_hq/php_text_matrix": "^2.0",
+        "symfony/var-dumper": "^2.8||^3.0"
     },
     "suggest": {
         "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer."
