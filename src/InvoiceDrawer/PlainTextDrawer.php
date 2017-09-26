@@ -96,8 +96,8 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
     {
         $tableData = [
             [
-                'quantity'    => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
-                'description' => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
+                'quantity'        => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
+                'description'     => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
                 'baseAmount'      => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
             ],
         ];
@@ -105,8 +105,8 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         /** @var InvoiceLine $line */
         foreach ($section->getLines() as $line) {
             $lineData = [
-                'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
-                'description' => $line->getDescription(),
+                'quantity'        => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
+                'description'     => $line->getDescription(),
                 'baseAmount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getConvertedAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getConvertedAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
