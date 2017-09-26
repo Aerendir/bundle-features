@@ -193,8 +193,8 @@ class InvoiceLine implements \JsonSerializable
     public function __toArray()
     {
         return [
-            'gross_amount' => $this->getGrossAmount()->getAmount(),
-            'net_amount'   => $this->getNetAmount()->getAmount(),
+            'gross_amount' => $this->getGrossAmount()->getBaseAmount(),
+            'net_amount'   => $this->getNetAmount()->getBaseAmount(),
             'currency'     => $this->getGrossAmount()->getCurrency()->getCode(),
             'description'  => $this->getDescription(),
             'quantity'     => $this->getQuantity(),

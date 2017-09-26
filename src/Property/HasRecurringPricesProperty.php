@@ -216,14 +216,14 @@ trait HasRecurringPricesProperty
                     switch ($this->pricesType) {
                         // If currently is "net"...
                         case 'net':
-                            $netPrice                                            = (int) round($price->getAmount() * (1 + $rate));
+                            $netPrice                                            = (int) round($price->getBaseAmount() * (1 + $rate));
                             $netPrice                                            = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
                             break;
                         // If currently is "gross"...
                         case 'gross':
                             // ... Then we have to set net prices
-                            $grossPrice                                        = (int) round($price->getAmount() / (1 + $rate));
+                            $grossPrice                                        = (int) round($price->getBaseAmount() / (1 + $rate));
                             $grossPrice                                        = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                             $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
                             break;
@@ -305,7 +305,7 @@ trait HasRecurringPricesProperty
                 throw new \InvalidArgumentException(sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
         }
 
-        $pricePerDay = (int) floor($price->getAmount() / $daysInInterval);
+        $pricePerDay = (int) floor($price->getBaseAmount() / $daysInInterval);
 
         // Calculate the remaining days
         $nextRenewOn = clone $this->subscription->getNextRenewOn();

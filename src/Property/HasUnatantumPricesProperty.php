@@ -139,14 +139,14 @@ trait HasUnatantumPricesProperty
                 switch ($this->pricesType) {
                     // If currently is "net"...
                     case 'net':
-                        $netPrice                     = (int) round($price->getAmount() * (1 + $rate));
+                        $netPrice                     = (int) round($price->getBaseAmount() * (1 + $rate));
                         $netPrice                     = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
                     case 'gross':
                         // ... Then we have to set net prices
-                        $grossPrice                 = (int) round($price->getAmount() / (1 + $rate));
+                        $grossPrice                 = (int) round($price->getBaseAmount() / (1 + $rate));
                         $grossPrice                 = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
                         break;
