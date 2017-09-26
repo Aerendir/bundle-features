@@ -102,10 +102,10 @@ class FeaturesType extends AbstractType
                 'data-feature'              => 'boolean',
                 'data-toggle'               => 'toggle',
                 'data-already-active'       => $subscribedFeature->isStillActive(),
-                'data-gross-amount'         => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-gross-instant-amount' => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-net-amount'           => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
-                'data-net-instant-amount'   => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+                'data-gross-amount'         => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
+                'data-gross-instant-amount' => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
+                'data-net-amount'           => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
+                'data-net-instant-amount'   => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
             ],
         ];
     }
@@ -204,10 +204,10 @@ class FeaturesType extends AbstractType
             $isPackAlreadyActive = $subscribedPack === $val;
 
             return [
-                'data-gross-amount'         => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-gross-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getConvertedAmount(),
-                'data-net-amount'           => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
-                'data-net-instant-amount'   => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getConvertedAmount(),
+                'data-gross-amount'         => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
+                'data-gross-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
+                'data-net-amount'           => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
+                'data-net-instant-amount'   => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
                 'data-already-subscribed'   => $isPackAlreadyActive,
             ];
         };
@@ -226,8 +226,8 @@ class FeaturesType extends AbstractType
             $pack = $configuredFeature->getPack($val);
 
             return [
-                'data-gross-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getConvertedAmount(),
-                'data-net-instant-amount'   => $pack->getPrice($subscription->getCurrency(), 'net')->getConvertedAmount(),
+                'data-gross-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getHumanAmount(),
+                'data-net-instant-amount'   => $pack->getPrice($subscription->getCurrency(), 'net')->getHumanAmount(),
             ];
         };
     }

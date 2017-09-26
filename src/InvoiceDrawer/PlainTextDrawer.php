@@ -58,12 +58,12 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         }
 
         $total_gross_amount = mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
-            . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getNetTotal()->getConvertedAmount(), $invoice->getGrossTotal()->getCurrency())
-            . ' (' . $this->getCurrencyFormatter()->formatCurrency($invoice->getGrossTotal()->getConvertedAmount(), $invoice->getNetTotal()->getCurrency()) . ')';
+            . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getNetTotal()->getHumanAmount(), $invoice->getGrossTotal()->getCurrency())
+            . ' (' . $this->getCurrencyFormatter()->formatCurrency($invoice->getGrossTotal()->getHumanAmount(), $invoice->getNetTotal()->getCurrency()) . ')';
         /*
         $total_gross_amount = mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
-            . ' ' . $invoice->getNetTotal()->getConvertedAmount()
-            . ' (' . $invoice->getGrossTotal()->getConvertedAmount() . ')';
+            . ' ' . $invoice->getNetTotal()->getHumanAmount()
+            . ' (' . $invoice->getGrossTotal()->getHumanAmount() . ')';
         */
         $total_gross_amount = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($total_gross_amount)) . $total_gross_amount;
 
@@ -107,8 +107,8 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             $lineData = [
                 'quantity'        => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
                 'description'     => $line->getDescription(),
-                'baseAmount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getConvertedAmount(), $line->getNetAmount()->getCurrency())
-                . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getConvertedAmount(), $line->getGrossAmount()->getCurrency()) . ')',
+                'baseAmount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
+                . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
             array_push($tableData, $lineData);
         }
