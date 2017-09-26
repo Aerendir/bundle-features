@@ -45,8 +45,8 @@ class InvoiceSection implements \JsonSerializable
     public function __construct(Currency $currency)
     {
         $this->currency   = $currency;
-        $this->grossTotal = new Money(['amount' => 0, 'currency' => $currency]);
-        $this->netTotal   = new Money(['amount' => 0, 'currency' => $currency]);
+        $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $currency]);
+        $this->netTotal   = new Money(['baseAmount' => 0, 'currency' => $currency]);
     }
 
     /**
@@ -218,8 +218,8 @@ class InvoiceSection implements \JsonSerializable
      */
     private function recalculateTotal()
     {
-        $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
-        $this->netTotal   = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal   = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
 
         /** @var InvoiceLine $line */
         foreach ($this->getLines() as $line) {

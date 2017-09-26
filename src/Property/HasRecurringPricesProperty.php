@@ -119,7 +119,7 @@ trait HasRecurringPricesProperty
             $type = $this->pricesType;
         }
 
-        return $this->getPrices($type)[$currency][$subscriptionInterval] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
+        return $this->getPrices($type)[$currency][$subscriptionInterval] ?? new Money(['baseAmount' => 0, 'currency' => new Currency($currency)]);
     }
 
     /**
@@ -217,14 +217,14 @@ trait HasRecurringPricesProperty
                         // If currently is "net"...
                         case 'net':
                             $netPrice                                            = (int) round($price->getAmount() * (1 + $rate));
-                            $netPrice                                            = new Money(['amount' => $netPrice, 'currency' => $currency]);
+                            $netPrice                                            = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
                             break;
                         // If currently is "gross"...
                         case 'gross':
                             // ... Then we have to set net prices
                             $grossPrice                                        = (int) round($price->getAmount() / (1 + $rate));
-                            $grossPrice                                        = new Money(['amount' => $grossPrice, 'currency' => $currency]);
+                            $grossPrice                                        = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                             $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
                             break;
                     }
@@ -253,7 +253,7 @@ trait HasRecurringPricesProperty
                     $amount = $price[SubscriptionInterface::MONTHLY];
                     if ( ! $amount instanceof MoneyInterface) {
                         $amount = new Money([
-                            'amount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency,
+                            'baseAmount' => $price[SubscriptionInterface::MONTHLY], 'currency' => $currency,
                         ]);
                     }
                     $this->$priceProperty[$currency->getCode()][SubscriptionInterface::MONTHLY] = $amount;
@@ -263,7 +263,7 @@ trait HasRecurringPricesProperty
                     $amount = $price[SubscriptionInterface::YEARLY];
                     if ( ! $amount instanceof MoneyInterface) {
                         $amount = new Money([
-                            'amount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency,
+                            'baseAmount' => $price[SubscriptionInterface::YEARLY], 'currency' => $currency,
                         ]);
                     }
                     $this->$priceProperty[$currency->getCode()][SubscriptionInterface::YEARLY] = $amount;
@@ -316,6 +316,6 @@ trait HasRecurringPricesProperty
         /* @var \DateInterval $remainingDays */
         $instantPrice = $pricePerDay * $remainingDays->days;
 
-        return new Money(['amount' => $instantPrice, 'currency' => $currency]);
+        return new Money(['baseAmount' => $instantPrice, 'currency' => $currency]);
     }
 }

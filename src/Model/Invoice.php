@@ -77,11 +77,11 @@ abstract class Invoice implements InvoiceInterface
         }
 
         if (null === $this->grossTotal) {
-            $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+            $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
         }
 
         if (null === $this->netTotal) {
-            $this->netTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+            $this->netTotal = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
         }
 
         // Generate the Invoice number
@@ -333,8 +333,8 @@ abstract class Invoice implements InvoiceInterface
      */
     private function recalculateTotal()
     {
-        $this->grossTotal = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
-        $this->netTotal   = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+        $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
+        $this->netTotal   = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
 
         /** @var InvoiceSection $section */
         foreach ($this->getSections() as $section) {

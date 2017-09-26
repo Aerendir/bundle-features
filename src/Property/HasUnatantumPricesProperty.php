@@ -59,7 +59,7 @@ trait HasUnatantumPricesProperty
             $type = $this->pricesType;
         }
 
-        return $this->getPrices($type)[$currency] ?? new Money(['amount' => 0, 'currency' => new Currency($currency)]);
+        return $this->getPrices($type)[$currency] ?? new Money(['baseAmount' => 0, 'currency' => new Currency($currency)]);
     }
 
     /**
@@ -140,14 +140,14 @@ trait HasUnatantumPricesProperty
                     // If currently is "net"...
                     case 'net':
                         $netPrice                     = (int) round($price->getAmount() * (1 + $rate));
-                        $netPrice                     = new Money(['amount' => $netPrice, 'currency' => $currency]);
+                        $netPrice                     = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
                     case 'gross':
                         // ... Then we have to set net prices
                         $grossPrice                 = (int) round($price->getAmount() / (1 + $rate));
-                        $grossPrice                 = new Money(['amount' => $grossPrice, 'currency' => $currency]);
+                        $grossPrice                 = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
                         break;
                 }
@@ -170,7 +170,7 @@ trait HasUnatantumPricesProperty
         $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
 
         foreach ($prices as $currency => $price) {
-            $this->$priceProperty[$currency] = new Money(['amount' => $price, 'currency' => new Currency($currency)]);
+            $this->$priceProperty[$currency] = new Money(['baseAmount' => $price, 'currency' => new Currency($currency)]);
         }
 
         /** @var ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack $this */

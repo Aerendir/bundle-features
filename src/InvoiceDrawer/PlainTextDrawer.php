@@ -98,7 +98,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             [
                 'quantity'    => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
                 'description' => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
-                'amount'      => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
+                'baseAmount'      => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
             ],
         ];
 
@@ -107,7 +107,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             $lineData = [
                 'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
                 'description' => $line->getDescription(),
-                'amount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getConvertedAmount(), $line->getNetAmount()->getCurrency())
+                'baseAmount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getConvertedAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getConvertedAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
             array_push($tableData, $lineData);
@@ -134,7 +134,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
                     'max_width' => 32,
                     'min_width' => 32,
                 ],
-                'amount' => [
+                'baseAmount' => [
                     'align'     => 'right',
                     'min_width' => 18,
                 ],

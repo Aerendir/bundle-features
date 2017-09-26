@@ -185,7 +185,7 @@ abstract class Subscription implements SubscriptionInterface
     public function getNextRenewAmount(): MoneyInterface
     {
         if (null === $this->nextRenewAmount) {
-            $this->nextRenewAmount = new Money(['amount' => 0, 'currency' => $this->getCurrency()]);
+            $this->nextRenewAmount = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
         }
 
         return $this->nextRenewAmount;
