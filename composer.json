@@ -16,7 +16,7 @@
         "doctrine/common": "^2.5",
         "doctrine/orm": "^2.5",
         "serendipity_hq/php_array_writer": "^2.0",
-        "serendipity_hq/php_value_objects": "dev-master",
+        "serendipity_hq/php_value_objects": "^4.0",
         "symfony/form": "^2.8||^3.0",
         "symfony/framework-bundle": "^2.8||^3.0",
         "symfony/options-resolver": "^2.8||^3.0",
@@ -24,6 +24,7 @@
     },
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
+        "friendsofphp/php-cs-fixer": "^2.0",
         "phpunit/phpunit": "^6",
         "serendipity_hq/php_text_matrix": "^2.0",
         "symfony/var-dumper": "^2.8||^3.0"
