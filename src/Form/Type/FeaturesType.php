@@ -31,6 +31,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -102,10 +103,10 @@ class FeaturesType extends AbstractType
                 'data-feature'              => 'boolean',
                 'data-toggle'               => 'toggle',
                 'data-already-active'       => $subscribedFeature->isStillActive(),
-                'data-gross-amount'         => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
-                'data-gross-instant-amount' => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
-                'data-net-amount'           => $subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
-                'data-net-instant-amount'   => $subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
+                'data-gross-amount'         => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
+                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
+                'data-net-amount'           => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
+                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
             ],
         ];
     }
@@ -119,7 +120,7 @@ class FeaturesType extends AbstractType
     private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature): array
     {
         return [
-            'required' => false,
+            'required' => true,
             'attr'     => [
                 'data-feature' => 'countable',
                 'data-name'    => $subscribedFeature->getName(),
@@ -204,10 +205,10 @@ class FeaturesType extends AbstractType
             $isPackAlreadyActive = $subscribedPack === $val;
 
             return [
-                'data-gross-amount'         => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
-                'data-gross-instant-amount' => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')->getHumanAmount(),
-                'data-net-amount'           => $pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
-                'data-net-instant-amount'   => $pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')->getHumanAmount(),
+                'data-gross-amount'         => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
+                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
+                'data-net-amount'           => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
+                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
                 'data-already-subscribed'   => $isPackAlreadyActive,
             ];
         };
@@ -226,9 +227,30 @@ class FeaturesType extends AbstractType
             $pack = $configuredFeature->getPack($val);
 
             return [
-                'data-gross-instant-amount' => $pack->getPrice($subscription->getCurrency(), 'gross')->getHumanAmount(),
-                'data-net-instant-amount'   => $pack->getPrice($subscription->getCurrency(), 'net')->getHumanAmount(),
+                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), 'gross')),
+                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), 'net')),
             ];
         };
+    }
+
+    /**
+     * A really dirty way of getting a float or an integer removing the trailing 0s if float.
+     *
+     * @param MoneyInterface $amount
+     *
+     * @return float|int
+     */
+    private function formatPriceForDataAttribute(MoneyInterface $amount)
+    {
+        $splitted = explode('.', $amount->getHumanAmount());
+
+        $result = (int) $splitted[0];
+
+        if (0 !== (int) $splitted[1]) {
+            $sum    = '0.' . $splitted[1];
+            $result = $result + (float) $sum;
+        }
+
+        return $result;
     }
 }
