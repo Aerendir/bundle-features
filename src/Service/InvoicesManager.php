@@ -189,7 +189,7 @@ class InvoicesManager
             }
 
             // If $addedFeatures is passed we have to create an invoice for the new features only, so...
-            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures) && false === $this->arrayWriter->keyExistsNested($addedFeatures, $feature->getName())) {
+            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures)) {
                 // ... if the current processing feature is not in the $addedFeatures array, we don't have to include it in the new Invoice.
                 continue;
             }
