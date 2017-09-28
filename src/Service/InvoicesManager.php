@@ -188,9 +188,11 @@ class InvoicesManager
                 continue;
             }
 
-            // If $addedFeatures is passed we have to create an invoice for the new features only, so...
-            if (null !== $addedFeatures && false === in_array($feature->getName(), $addedFeatures)) {
-                // ... if the current processing feature is not in the $addedFeatures array, we don't have to include it in the new Invoice.
+            // We ignore the RechargeableFeatures as they are simply purchased and aren't active or enabled.
+            // So, if $addedFeatures is passed we have to create an invoice for the new features only
+            // So, if the current processing feature is not in the $addedFeatures array...
+            if (null !== $addedFeatures && false === $this->arrayWriter->keyExistsNested($addedFeatures, $feature->getName())) {
+                // ... we don't have to include it in the new Invoice.
                 continue;
             }
 
