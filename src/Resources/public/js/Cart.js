@@ -148,13 +148,14 @@ $(document).ready(function() {
 
             // Find the subscribed pack (is an option in the select)
             selected = $(this).find("option[selected='selected']");
+            if (0 === selected.length) {
+                selected = $(this).find("option").first();
+            }
             markOptionAsCurrentlySelected(selected);
 
-            if (typeof selected.data('gross-amount') !== 'undefined') {
-                // Write the price and the instant price in the front-end
-                $('.feature.feature-details.' + featureName + ' .feature-gross-instant-amount').text(currencyMask(selected.data('gross-instant-amount')));
-                $('.feature.feature-details.' + featureName + ' .feature-net-instant-amount').text(currencyMask(selected.data('net-instant-amount')));
-            }
+            // Write the price and the instant price in the front-end
+            $('.feature.feature-details.' + featureName + ' .feature-gross-instant-amount').text(currencyMask(selected.data('gross-instant-amount')));
+            $('.feature.feature-details.' + featureName + ' .feature-net-instant-amount').text(currencyMask(selected.data('net-instant-amount')));
         })
         .change(function() {
             featureName = 'feature-' + $(this).data('name');
