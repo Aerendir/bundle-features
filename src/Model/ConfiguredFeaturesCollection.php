@@ -26,6 +26,9 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
     const KIND = 'configured';
 
+    /** @var bool $taxSet */
+    private $taxSet = false;
+
     /**
      * {@inheritdoc}
      */
@@ -33,6 +36,14 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     {
         FeaturesFactory::setKind(self::KIND);
         parent::__construct($elements);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTaxSet():bool
+    {
+        return $this->taxSet;
     }
 
     /**
@@ -67,5 +78,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
                 $feature->setTax($rate, $name);
             }
         }
+
+        $this->taxSet = true;
     }
 }

@@ -57,7 +57,6 @@ class FeaturesType extends AbstractType
         foreach ($options['configured_features']->getValues() as $configuredFeature) {
             /** @var SubscribedFeatureInterface $subscribedFeature */
             $subscribedFeature = $subscribedFeatures->get($configuredFeature->getName());
-            $subscribedFeature->setConfiguredFeature($configuredFeature);
 
             // Process the right kind of feature
             switch (get_class($configuredFeature)) {

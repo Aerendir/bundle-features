@@ -121,13 +121,16 @@ class FeaturesManager
     }
 
     /**
-     * @param float  $rate
+     * @param float $rate
      * @param string $name
+     * @return self
      */
-    public function setTax(float $rate, string $name)
+    public function setTax(float $rate, string $name):self
     {
         $this->getConfiguredFeatures()->setTax($rate, $name);
         $this->getInvoicesManager()->getConfiguredFeatures()->setTax($rate, $name);
+
+        return $this;
     }
 
     /**
@@ -272,20 +275,35 @@ class FeaturesManager
      */
     public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription)
     {
-        // Clone the $subscription so we can use it to compare changes
-        $this->oldSubscription = clone $subscription;
+        // Generate this form only once
+        static $form = null;
 
-        $form = $this->getFormFactory()->createBuilder(FormType::class, [
-            'action' => $actionUrl,
-            'method' => 'POST',
-        ])
-            ->add('features', FeaturesType::class, [
-                'data'                => $subscription->getFeatures()->toArray(),
-                'configured_features' => $this->getConfiguredFeatures()->setSubscription($subscription),
-                'subscription'        => $subscription,
-            ]);
+        if (null === $form) {
+            // Set the subscription in the manager if not already done outside of the bundle by the implementing app
+            // Here we assume this features manager is used ever with the same subscription
+            if (null === $this->subscription) {
+                $this->setSubscription($subscription);
+            }
 
-        $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
+            if (false === $this->getConfiguredFeatures()->isTaxSet()) {
+                throw new \RuntimeException('To generate a valid form you have to set a Tax. Call first setTax() and then you\'ll can call getFeaturesFormBuilder(). Ex.: FeaturesManager::setTax()->getFeaturesFormBuilder()');
+            }
+
+            // Clone the $subscription so we can use it to compare changes
+            $this->oldSubscription = clone $subscription;
+
+            $form = $this->getFormFactory()->createBuilder(FormType::class, [
+                'action' => $actionUrl,
+                'method' => 'POST',
+            ])
+                ->add('features', FeaturesType::class, [
+                    'data' => $subscription->getFeatures()->toArray(),
+                    'configured_features' => $this->getConfiguredFeatures(),
+                    'subscription' => $subscription,
+                ]);
+
+            $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
+        }
 
         return $form;
     }
