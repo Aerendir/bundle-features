@@ -22,12 +22,14 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
@@ -51,10 +53,11 @@ class FeaturesType extends AbstractType
         /** @var SubscribedFeaturesCollection $subscribedFeatures */
         $subscribedFeatures = $options['subscription']->getFeatures();
 
-        /** @var FeatureInterface $configuredFeature */
+        /** @var ConfiguredFeatureInterface $configuredFeature */
         foreach ($options['configured_features']->getValues() as $configuredFeature) {
-            // Get the subscribed feature
+            /** @var SubscribedFeatureInterface $subscribedFeature */
             $subscribedFeature = $subscribedFeatures->get($configuredFeature->getName());
+            $subscribedFeature->setConfiguredFeature($configuredFeature);
 
             // Process the right kind of feature
             switch (get_class($configuredFeature)) {
