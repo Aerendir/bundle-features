@@ -106,7 +106,7 @@ class FeaturesManager
         /**
          * Set the Configured feature in each subscribed feature.
          *
-         * @var SubscribedFeatureInterface
+         * @var SubscribedFeatureInterface $subscribedFeature
          */
         foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
             $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
@@ -548,7 +548,7 @@ class FeaturesManager
          * 1. It was in the old collection but doesn't exist in the new collection;
          * 2. It was in the old collection and was enabled and is in the new collection but is not enabled
          *
-         * @var FeatureInterface
+         * @var FeatureInterface $oldFeature
          */
         foreach ($oldFeatures as $oldFeature) {
             // If the Feature is in the old collection but doesn't exist in the new collection...
@@ -561,6 +561,7 @@ class FeaturesManager
             switch (get_class($oldFeature)) {
                 // If is a BooleanFeature...
                 case SubscribedBooleanFeature::class:
+                    /** @var SubscribedBooleanFeature $oldFeature */
                     // ... and was in the old collection and was enabled and is in the new collection but is not enabled...
                     if (true === $oldFeature->isEnabled()
                         && true === $newFeatures->containsKey($oldFeature->getName())
@@ -575,7 +576,7 @@ class FeaturesManager
                     /**
                      * ... and was in the old collection and in the new collection, too ...
                      *
-                     * @var SubscribedCountableFeatureInterface
+                     * @var SubscribedCountableFeatureInterface $oldFeature
                      */
                     if (true === $newFeatures->containsKey($oldFeature->getName())) {
                         /**
@@ -659,16 +660,13 @@ class FeaturesManager
                         break;
                     // If is a CountableFeature...
                     case SubscribedCountableFeature::class:
-                        /**
-                         * We first get the subscribed packages...
-                         *
-                         * @var SubscribedCountableFeaturePack
-                         * @var SubscribedCountableFeaturePack $newSubscribedPack
-                         */
+                        /** @var SubscribedCountableFeaturePack $newSubscribedPack */
                         $newSubscribedPack = $newFeature->getSubscribedPack();
+
+                        /** @var SubscribedCountableFeaturePack $oldSubscribedPack */
                         $oldSubscribedPack = $oldFeatures->get($newFeature->getName())->getSubscribedPack();
 
-                        // ... and then we compare them. If they are not equal...
+                        // We first get the subscribed packages and then we compare them. If they are not equal...
                         if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
                             // ... the pack was removed (changed)
                             $this->differences['added'][] = $featureDetails;
@@ -773,7 +771,7 @@ class FeaturesManager
     {
         $validUntil = $this->getSubscription()->getNextRenewOn();
 
-        /** @var string $feature */
+        /** @var array $feature */
         foreach ($this->getDifferences('added') as $feature) {
             // If this is an array, this is a Package...
             if (is_array($feature)) {
