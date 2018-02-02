@@ -157,16 +157,6 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     }
 
     /**
-     * Transforms the $subscribedPack integer into the correspondent ConfiguredFeaturePackInterface object.
-     *
-     * {@inheritdoc}
-     */
-    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
-    {
-        parent::setConfiguredFeature($configuredFeature);
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function setLastRefreshOn(\DateTime $lastRefreshOn): SubscribedCountableFeatureInterface
