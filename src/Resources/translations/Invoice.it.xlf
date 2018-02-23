@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file date="2017-01-17T19:26:21Z" source-language="en" target-language="it" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
@@ -9,23 +9,19 @@
       <trans-unit id="bf5945eaa77c9624450cd693c7d59f05fb9a3f82" resname="shq_features.invoice.amount.label">
         <source>shq_features.invoice.amount.label</source>
         <target>Ammontare</target>
-        <jms:reference-file line="79">/../vendor/serendipity_hq/features-bundle/InvoiceDrawer/PlainTextDrawer.php</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="b82d20a96a62ac27f638b7f92a6285e2c98de098" resname="shq_features.invoice.description.label">
         <source>shq_features.invoice.description.label</source>
         <target>Descrizione</target>
-        <jms:reference-file line="78">/../vendor/serendipity_hq/features-bundle/InvoiceDrawer/PlainTextDrawer.php</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="d1c868ca475ad30494b29be1239575a16f61ba24" resname="shq_features.invoice.quantity.label">
         <source>shq_features.invoice.quantity.label</source>
         <target>Quantità</target>
-        <jms:reference-file line="77">/../vendor/serendipity_hq/features-bundle/InvoiceDrawer/PlainTextDrawer.php</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
       <trans-unit id="4e117596059858cefb799a665cd68cadc2ee3401" resname="shq_features.invoice.total.label">
         <source>shq_features.invoice.total.label</source>
         <target>Totale</target>
-        <jms:reference-file line="44">/../vendor/serendipity_hq/features-bundle/InvoiceDrawer/PlainTextDrawer.php</jms:reference-file>
-      </trans-unit>
+              </trans-unit>
     </body>
   </file>
 </xliff>
