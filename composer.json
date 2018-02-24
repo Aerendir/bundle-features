@@ -26,6 +26,7 @@
     "require-dev": {
         "codeclimate/php-test-reporter": "dev-master",
         "friendsofphp/php-cs-fixer": "^2.0",
+        "phpstan/phpstan": "@stable",
         "phpunit/phpunit": "^6",
         "serendipity_hq/php_text_matrix": "^2.0",
         "symfony/var-dumper": "^2.8||^3.0"
