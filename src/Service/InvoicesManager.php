@@ -102,7 +102,7 @@ class InvoicesManager
      *
      * @return InvoicesManager
      */
-    public function addDrawer(string $name, InvoiceDrawerInterface $drawer):self
+    public function addDrawer(string $name, InvoiceDrawerInterface $drawer): self
     {
         // If this is the default drawer
         if ($this->defaultDrawer === $name) {
@@ -165,7 +165,7 @@ class InvoicesManager
      *
      * @return InvoiceInterface
      */
-    public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null):InvoiceInterface
+    public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null): InvoiceInterface
     {
         $this->populateSection($invoice->getSection('_default'), $addedFeatures);
 
@@ -184,7 +184,7 @@ class InvoicesManager
      * @param InvoiceSection $section
      * @param array          $addedFeatures
      */
-    public function populateSection(InvoiceSection $section, array $addedFeatures = null):void
+    public function populateSection(InvoiceSection $section, array $addedFeatures = null): void
     {
         /** @var SubscribedBooleanFeatureInterface $feature */
         foreach ($this->buildPopulatingFeatures($addedFeatures) as $feature) {
@@ -252,7 +252,7 @@ class InvoicesManager
      *
      * @return array
      */
-    private function buildPopulatingFeatures(?array $addedFeatures):array
+    private function buildPopulatingFeatures(?array $addedFeatures): array
     {
         $populatingFeatures = [];
 
