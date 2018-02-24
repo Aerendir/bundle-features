@@ -41,7 +41,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @return bool
      */
-    public function isTaxSet():bool
+    public function isTaxSet(): bool
     {
         return $this->taxSet;
     }

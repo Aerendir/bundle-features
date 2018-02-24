@@ -106,7 +106,7 @@ class FeaturesManager
         /**
          * Set the Configured feature in each subscribed feature.
          *
-         * @var SubscribedFeatureInterface $subscribedFeature
+         * @var SubscribedFeatureInterface
          */
         foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
             $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
@@ -121,11 +121,12 @@ class FeaturesManager
     }
 
     /**
-     * @param float $rate
+     * @param float  $rate
      * @param string $name
+     *
      * @return self
      */
-    public function setTax(float $rate, string $name):self
+    public function setTax(float $rate, string $name): self
     {
         $this->getConfiguredFeatures()->setTax($rate, $name);
         $this->getInvoicesManager()->getConfiguredFeatures()->setTax($rate, $name);
@@ -297,9 +298,9 @@ class FeaturesManager
                 'method' => 'POST',
             ])
                 ->add('features', FeaturesType::class, [
-                    'data' => $subscription->getFeatures()->toArray(),
+                    'data'                => $subscription->getFeatures()->toArray(),
                     'configured_features' => $this->getConfiguredFeatures(),
-                    'subscription' => $subscription,
+                    'subscription'        => $subscription,
                 ]);
 
             $form->get('features')->addModelTransformer(new FeaturesCollectionTransformer());
@@ -566,7 +567,7 @@ class FeaturesManager
          * 1. It was in the old collection but doesn't exist in the new collection;
          * 2. It was in the old collection and was enabled and is in the new collection but is not enabled
          *
-         * @var FeatureInterface $oldFeature
+         * @var FeatureInterface
          */
         foreach ($oldFeatures as $oldFeature) {
             // If the Feature is in the old collection but doesn't exist in the new collection...
@@ -594,7 +595,7 @@ class FeaturesManager
                     /**
                      * ... and was in the old collection and in the new collection, too ...
                      *
-                     * @var SubscribedCountableFeatureInterface $oldFeature
+                     * @var SubscribedCountableFeatureInterface
                      */
                     if (true === $newFeatures->containsKey($oldFeature->getName())) {
                         /**
