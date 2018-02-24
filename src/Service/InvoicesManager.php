@@ -99,8 +99,10 @@ class InvoicesManager
     /**
      * @param string                 $name
      * @param InvoiceDrawerInterface $drawer
+     *
+     * @return InvoicesManager
      */
-    public function addDrawer(string $name, InvoiceDrawerInterface $drawer)
+    public function addDrawer(string $name, InvoiceDrawerInterface $drawer):self
     {
         // If this is the default drawer
         if ($this->defaultDrawer === $name) {
@@ -108,6 +110,8 @@ class InvoicesManager
         }
 
         $this->drawers[$name] = $drawer;
+
+        return $this;
     }
 
     /**
@@ -161,7 +165,7 @@ class InvoicesManager
      *
      * @return InvoiceInterface
      */
-    public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null)
+    public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null):InvoiceInterface
     {
         $this->populateSection($invoice->getSection('_default'), $addedFeatures);
 
@@ -169,33 +173,21 @@ class InvoicesManager
     }
 
     /**
+     * This method is used to populate an Invoice Section.
+     *
+     * An InvoiceSection is populared because the Subscription is updated with new features ($addedFeatures) or because
+     * the Subscription is being renew.
+     *
+     * The two cases MUST be keep distinguished as in the first we have to add to the InvoiceSection only the newly
+     * added features; in the second, instead, we have to add all the subscribed features.
+     *
      * @param InvoiceSection $section
-     * @param array|null     $addedFeatures
+     * @param array          $addedFeatures
      */
-    public function populateSection(InvoiceSection $section, $addedFeatures = null)
+    public function populateSection(InvoiceSection $section, array $addedFeatures = null):void
     {
         /** @var SubscribedBooleanFeatureInterface $feature */
-        foreach ($this->getSubscription()->getFeatures() as $feature) {
-            // If this is a BooleanFeature, then we check if it is currently enabled and if...
-            if ($feature instanceof SubscribedBooleanFeatureInterface && false === $feature->isEnabled()) {
-                // ... it isn't enabled, we have for sure exclude it from the Invoice
-                continue;
-            }
-
-            // If this is a recurring feature, then we check if it is currently active and if...
-            if ($feature instanceof IsRecurringFeatureInterface && false === $feature->isStillActive()) {
-                // ... it isn't active, we have for sure exclude it from the Invoice
-                continue;
-            }
-
-            // We ignore the RechargeableFeatures as they are simply purchased and aren't active or enabled.
-            // So, if $addedFeatures is passed we have to create an invoice for the new features only
-            // So, if the current processing feature is not in the $addedFeatures array...
-            if (null !== $addedFeatures && false === $this->arrayWriter->keyExistsNested($addedFeatures, $feature->getName())) {
-                // ... we don't have to include it in the new Invoice.
-                continue;
-            }
-
+        foreach ($this->buildPopulatingFeatures($addedFeatures) as $feature) {
             $grossPrice = null;
             $netPrice   = null;
             // The feature has to be added
@@ -248,5 +240,62 @@ class InvoicesManager
                 $section->addLine($invoiceLine, $feature->getName());
             }
         }
+    }
+
+    /**
+     * Decides if the features to add to the InvoiceSection are the ones added or the ones already present in the
+     * Subscription.
+     *
+     * Then builds the array to process to add the features to
+     *
+     * @param array|null $addedFeatures
+     *
+     * @return array
+     */
+    private function buildPopulatingFeatures(?array $addedFeatures):array
+    {
+        $populatingFeatures = [];
+
+        // If we $added features is not null, then we have to add only them to the Invoice section as the invoice is
+        // being built for an update of the Subscription
+        if (null !== $addedFeatures) {
+            /**
+             * $feature is an array if the it is a Rechargeable one.
+             *
+             * These features are in the form [0 => [feature_name => 10]], as they have to tell the feature name and amount
+             * bought while the other kind of features (Boolean and Countable) only tell the name of the feature and so
+             * are in the form [0 => 'feature_name'].
+             *
+             * @var array|string
+             */
+            foreach ($addedFeatures as $feature) {
+                // If $feature is a Rechargeable one, we have to extract its name (that is the key of the deeper array)
+                if (is_array($feature)) {
+                    $feature = key($feature);
+                }
+
+                // We now get the Subscribed*Feature object directly from the Subscription as it is already updated at this point
+                $populatingFeatures[] = $this->getSubscription()->getFeatures()->get($feature);
+            }
+
+            return $populatingFeatures;
+        }
+
+        // If the $addedFeatures array is null, instead, we have to build the invoice for ALL the already subscribed features,
+        // so we return the entire array of subscribed features, but skipping the Rechargeable ones as they are not renewable
+
+        foreach ($this->getSubscription()->getFeatures() as $feature) {
+            if (
+                // If is a still enabled BooleanFeature
+                ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled())
+                // OR is a still active RecurringFeature
+                || ($feature instanceof IsRecurringFeatureInterface && $feature->isStillActive())
+            ) {
+                // We add it to the returning array
+                $populatingFeatures[] = $feature;
+            }
+        }
+
+        return $populatingFeatures;
     }
 }
