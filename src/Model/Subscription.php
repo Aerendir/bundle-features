@@ -332,7 +332,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setNextPaymentInOneMonth(): SubscriptionInterface
     {
-        $this->getNextRenewOn()->modify('+1 month');
+        $this->nextRenewOn = clone $this->getNextRenewOn()->modify('+1 month');
 
         return $this;
     }
@@ -342,7 +342,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function setNextPaymentInOneYear(): SubscriptionInterface
     {
-        $this->getNextRenewOn()->modify('+1 year');
+        $this->nextRenewOn = clone $this->getNextRenewOn()->modify('+1 year');
 
         return $this;
     }
