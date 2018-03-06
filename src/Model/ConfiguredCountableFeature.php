@@ -35,6 +35,12 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
     /** @var string $refreshPeriod */
     private $refreshPeriod;
 
+    /** @var string $taxName */
+    private $taxName;
+
+    /** @var float $taxRate */
+    private $taxRate;
+
     /**
      * {@inheritdoc}
      */
@@ -89,11 +95,30 @@ class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCo
      */
     public function setTax(float $rate, string $name): ConfiguredCountableFeatureInterface
     {
+        $this->taxRate = $rate;
+        $this->taxName = $name;
+
         /** @var ConfiguredCountableFeaturePack $pack Set tax rate in the packs too */
         foreach ($this->getPacks() as $pack) {
             $pack->setTax($rate, $name);
         }
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTaxName(): string
+    {
+        return $this->taxName;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaxRate(): float
+    {
+        return $this->taxRate;
     }
 }
