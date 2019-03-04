@@ -1,3 +1,10 @@
+<p align="center">
+    <a href="http://www.serendipityhq.com" target="_blank">
+        <img src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
+    </a>
+</p>
+
+# SHQFeaturesBundle
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable)](https://packagist.org/packages/serendipity_hq/features-bundle)
 [![Build Status](https://travis-ci.org/Aerendir/bundle-features.svg?branch=master)](https://travis-ci.org/Aerendir/bundle-features)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads)](https://packagist.org/packages/serendipity_hq/features-bundle)
@@ -7,7 +14,6 @@
 [![Issue Count](https://codeclimate.com/github/Aerendir/bundle-features/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca/mini.png)](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca)
 
-# SHQFeaturesBundle
 SerendipityHQ Features Bundle helps you to manage features and plans in your Symfony 2 app.
 
 Serendipity HQ Features Bundle gives you the ability to configure the features you need to manage, give them a price if they are premium ones, create invoices for them and save subscriptions and configurations associated to your entities to give each of your users only the features they have to get.

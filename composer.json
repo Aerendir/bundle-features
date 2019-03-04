@@ -28,9 +28,10 @@
         "codeclimate/php-test-reporter": "dev-master",
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpstan/phpstan": "@stable",
-        "phpunit/phpunit": "^6||^7",
+        "phpunit/phpunit": "^6||^7||^8",
         "serendipity_hq/php_text_matrix": "^2.0",
-        "symfony/var-dumper": "^2.8||^3.0||^4.0"
+        "symfony/var-dumper": "^2.8||^3.0||^4.0",
+        "roave/security-advisories": "dev-master"
     },
     "suggest": {
         "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer."
