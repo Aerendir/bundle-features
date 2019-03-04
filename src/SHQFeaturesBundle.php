@@ -15,6 +15,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle;
 
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\DrawersCompilerPass;
 use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\FeaturesManagersCompilerPass;
 use SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection\CompilerPass\InvoiceManagersCompilerPass;
@@ -36,5 +37,6 @@ class SHQFeaturesBundle extends Bundle
         $container->addCompilerPass(new FeaturesManagersCompilerPass());
         $container->addCompilerPass(new InvoiceManagersCompilerPass());
         $container->addCompilerPass(new DrawersCompilerPass());
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [realpath(__DIR__ . '/Model')]));
     }
 }
