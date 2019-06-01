@@ -17,7 +17,7 @@
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/orm": "^2.5",
         "serendipity_hq/php_array_writer": "^2.1",
-        "serendipity_hq/php_value_objects": "dev-master",
+        "serendipity_hq/php_value_objects": "^4.0",
         "symfony/form": "^2.8||^3.0||^4.0",
         "symfony/framework-bundle": "^2.8||^3.0||^4.0",
         "symfony/options-resolver": "^2.8||^3.0||^4.0",
