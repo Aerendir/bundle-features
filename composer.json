@@ -18,18 +18,18 @@
         "doctrine/orm": "^2.5",
         "serendipity_hq/php_array_writer": "^2.1",
         "serendipity_hq/php_value_objects": "dev-master",
-        "symfony/form": "^2.8||^3.0||^4.0",
-        "symfony/framework-bundle": "^2.8||^3.0||^4.0",
-        "symfony/options-resolver": "^2.8||^3.0||^4.0",
-        "symfony/routing": "^2.8||^3.0||^4.0",
-        "symfony/translation": "^3.0 || ^4.0"
+        "symfony/form": "^3.0|^4.0|^5.0",
+        "symfony/framework-bundle": "^3.0|^4.0|^5.0",
+        "symfony/options-resolver": "^3.0|^4.0|^5.0",
+        "symfony/routing": "^3.0|^4.0|^5.0",
+        "symfony/translation": "^3.0|^4.0|^5.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.0",
         "phpstan/phpstan": "@stable",
-        "phpunit/phpunit": "^6||^7||^8",
+        "phpunit/phpunit": "^6|^7|^8",
         "serendipity_hq/php_text_matrix": "^2.0",
-        "symfony/var-dumper": "^2.8||^3.0||^4.0",
+        "symfony/var-dumper": "^3.0|^4.0|^5.0",
         "roave/security-advisories": "dev-master"
     },
     "suggest": {
