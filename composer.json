@@ -16,8 +16,8 @@
         "doctrine/common": "^2.5",
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/php_array_writer": "^2.1",
-        "serendipity_hq/php_value_objects": "dev-master",
+        "serendipity_hq/php_array_writer": "dev-dev",
+        "serendipity_hq/php_value_objects": "dev-dev",
         "symfony/form": "^3.0|^4.0|^5.0",
         "symfony/framework-bundle": "^3.0|^4.0|^5.0",
         "symfony/options-resolver": "^3.0|^4.0|^5.0",
@@ -40,6 +40,11 @@
     "autoload": {
         "psr-4": {
             "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\FeaturesBundle\\Tests\\": "tests"
         }
     },
     "config":{
