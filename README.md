@@ -8,6 +8,12 @@ SHQ FEATURES BUNDLE
 ===================
 
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/features-bundle?color=%238892BF)](https://packagist.org/packages/serendipity_hq/features-bundle)
+[![Tested with Symfony ^3.4](https://img.shields.io/badge/Symfony-%5E3.4-333)](https://github.com/Aerendir/bundle-features/actions)
+[![Tested with Symfony ^4.4](https://img.shields.io/badge/Symfony-%5E4.4-333)](https://github.com/Aerendir/bundle-features/actions)
+[![Tested with Symfony ^5.2](https://img.shields.io/badge/Symfony-%5E5.2-333)](https://github.com/Aerendir/bundle-features/actions)
+
+![Suggests serendipity_hq/php_text_matrix](https://img.shields.io/badge/Suggests-serendipity__hq%2Fphp__text__matrix-8892BF)
+
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/features-bundle)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
 [![License](https://poser.pugx.org/serendipity_hq/features-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
