@@ -4,7 +4,9 @@
     </a>
 </p>
 
-# SHQFeaturesBundle
+SHQ FEATURES BUNDLE
+===================
+
 [![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable)](https://packagist.org/packages/serendipity_hq/features-bundle)
 [![Build Status](https://travis-ci.org/Aerendir/bundle-features.svg?branch=master)](https://travis-ci.org/Aerendir/bundle-features)
 [![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads)](https://packagist.org/packages/serendipity_hq/features-bundle)
@@ -23,7 +25,7 @@ How to use the Serendipity HQ Features Bundle
 
 SerendipityHQ Features Bundle divides the features in three macro-categories:
 
-- Boolean features: are features or configurations that can be switched on or off. For example, "send an e-mail on [event_name]". 
+- Boolean features: are features or configurations that can be switched on or off. For example, "send an e-mail on [event_name]".
 - Countable Features: are features that can be increased or decreased in number. For example, the number of users that can be added.
 - Rechargeable Features: Are features of which it is possible to run out. For example, "You have X invites left".
 
