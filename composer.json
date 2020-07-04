@@ -40,5 +40,11 @@
         "psr-4": {
             "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src"
         }
+    },
+    "config":{
+        "sort-packages": true
+    },
+    "conflict": {
+        "nikic/php-parser": "4.6.0"
     }
 }
