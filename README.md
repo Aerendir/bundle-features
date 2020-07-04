@@ -7,14 +7,27 @@
 SHQ FEATURES BUNDLE
 ===================
 
-[![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![Build Status](https://travis-ci.org/Aerendir/bundle-features.svg?branch=master)](https://travis-ci.org/Aerendir/bundle-features)
-[![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![License](https://poser.pugx.org/serendipity_hq/features-bundle/license)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![Code Climate](https://codeclimate.com/github/Aerendir/bundle-features/badges/gpa.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
-[![Test Coverage](https://codeclimate.com/github/Aerendir/bundle-features/badges/coverage.svg)](https://codeclimate.com/github/Aerendir/bundle-features/coverage)
-[![Issue Count](https://codeclimate.com/github/Aerendir/bundle-features/badges/issue_count.svg)](https://codeclimate.com/github/Aerendir/bundle-features)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/features-bundle?color=%238892BF)](https://packagist.org/packages/serendipity_hq/features-bundle)
+[![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/features-bundle)
+[![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
+[![License](https://poser.pugx.org/serendipity_hq/features-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=coverage)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=alert_status)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca/mini.png)](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca)
+
+![Phan](https://github.com/Aerendir/bundle-features/workflows/Phan/badge.svg)
+![PHPStan](https://github.com/Aerendir/bundle-features/workflows/PHPStan/badge.svg)
+![PSalm](https://github.com/Aerendir/bundle-features/workflows/PSalm/badge.svg)
+![PHPUnit](https://github.com/Aerendir/bundle-features/workflows/PHPunit/badge.svg)
+![Composer](https://github.com/Aerendir/bundle-features/workflows/Composer/badge.svg)
+![PHP CS Fixer](https://github.com/Aerendir/bundle-features/workflows/PHP%20CS%20Fixer/badge.svg)
+![Rector](https://github.com/Aerendir/bundle-features/workflows/Rector/badge.svg)
 
 SerendipityHQ Features Bundle helps you to manage features and plans in your Symfony 2 app.
 
