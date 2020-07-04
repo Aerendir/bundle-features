@@ -19,7 +19,6 @@ SHQ FEATURES BUNDLE
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=security_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca/mini.png)](https://insight.sensiolabs.com/projects/8805ebe7-6fa3-42a8-b514-f1e7469bc2ca)
 
 ![Phan](https://github.com/Aerendir/bundle-features/workflows/Phan/badge.svg)
 ![PHPStan](https://github.com/Aerendir/bundle-features/workflows/PHPStan/badge.svg)
