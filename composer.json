@@ -26,10 +26,12 @@
         "thecodingmachine/safe": "^0.1|^1.0"
     },
     "require-dev": {
+        "drenso/phan-extensions": "@stable",
         "friendsofphp/php-cs-fixer": "^2.0",
+        "phan/phan": "^3.0",
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^6|^7|^8",
-        "rector/rector": "^0.7.41",
+        "rector/rector": "^0.7",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/php_text_matrix": "^2.0",
         "symfony/var-dumper": "^3.0|^4.0|^5.0",
