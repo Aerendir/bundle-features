@@ -1,6 +1,8 @@
-/vendor/
+var
+!var/cache/.gitkeep
+vendor
 /composer.lock
-/build/
+build
 phpunit.xml
 composer.lock
 .php_cs.cache

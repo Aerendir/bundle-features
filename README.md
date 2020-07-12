@@ -1,22 +1,25 @@
 <p align="center">
     <a href="http://www.serendipityhq.com" target="_blank">
-        <img src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
+        <img style="max-width: 350px" src="http://www.serendipityhq.com/assets/open-source-projects/Logo-SerendipityHQ-Icon-Text-Purple.png">
     </a>
 </p>
 
-SHQ FEATURES BUNDLE
-===================
+<h1 align="center">Serendipity HQ Features Bundle</h1>
+<p align="center">Features Bundle helps you manage paid features and plans in your Symfony app.</p>
+<p align="center">
+    <a href="https://github.com/Aerendir/bundle-features/releases"><img src="https://img.shields.io/packagist/v/serendipity_hq/bundle-features.svg?style=flat-square"></a>
+    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"></a>
+    <a href="https://github.com/Aerendir/bundle-features/releases"><img src="https://img.shields.io/packagist/php-v/serendipity_hq/bundle-features?color=%238892BF&style=flat-square&logo=php" /></a>
+    <a title="Tested with Symfony ^3.4" href="https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev"><img title="Tested with Symfony ^3.4" src="https://img.shields.io/badge/Symfony-%5E3.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^4.4" href="https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev"><img title="Tested with Symfony ^4.4" src="https://img.shields.io/badge/Symfony-%5E4.4-333?style=flat-square&logo=symfony" /></a>
+    <a title="Tested with Symfony ^5.0" href="https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev"><img title="Tested with Symfony ^5.0" src="https://img.shields.io/badge/Symfony-%5E5.0-333?style=flat-square&logo=symfony" /></a>
+</p>
+<p align="center">
+    <a href="https://www.php.net/manual/en/book.intl.php"><img src="https://img.shields.io/badge/Suggests-ext--intl-%238892BF?style=flat-square&logo=php"></a>
+    <img src="https://img.shields.io/badge/Suggests-serendipity__hq/component--text--matrix-%238892BF?style=flat-square">
+</p>
 
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/serendipity_hq/features-bundle?color=%238892BF)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![Tested with Symfony ^3.0](https://img.shields.io/badge/Symfony-%5E3.0-333)](https://github.com/Aerendir/bundle-features/actions)
-[![Tested with Symfony ^4.0](https://img.shields.io/badge/Symfony-%5E4.0-333)](https://github.com/Aerendir/bundle-features/actions)
-[![Tested with Symfony ^5.0](https://img.shields.io/badge/Symfony-%5E5.0-333)](https://github.com/Aerendir/bundle-features/actions)
-
-![Suggests serendipity_hq/php_text_matrix](https://img.shields.io/badge/Suggests-serendipity__hq%2Fphp__text__matrix-8892BF)
-
-[![Latest Stable Version](https://poser.pugx.org/serendipity_hq/features-bundle/v/stable.png)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![Total Downloads](https://poser.pugx.org/serendipity_hq/features-bundle/downloads.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
-[![License](https://poser.pugx.org/serendipity_hq/features-bundle/license.svg)](https://packagist.org/packages/serendipity_hq/features-bundle)
+## Current Status
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=coverage)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
@@ -26,20 +29,19 @@ SHQ FEATURES BUNDLE
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Aerendir_bundle-features&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=Aerendir_bundle-features)
 
-![Phan](https://github.com/Aerendir/bundle-features/workflows/Phan/badge.svg)
-![PHPStan](https://github.com/Aerendir/bundle-features/workflows/PHPStan/badge.svg)
-![PSalm](https://github.com/Aerendir/bundle-features/workflows/PSalm/badge.svg)
-![PHPUnit](https://github.com/Aerendir/bundle-features/workflows/PHPunit/badge.svg)
-![Composer](https://github.com/Aerendir/bundle-features/workflows/Composer/badge.svg)
-![PHP CS Fixer](https://github.com/Aerendir/bundle-features/workflows/PHP%20CS%20Fixer/badge.svg)
-![Rector](https://github.com/Aerendir/bundle-features/workflows/Rector/badge.svg)
+[![Phan](https://github.com/Aerendir/bundle-features/workflows/Phan/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![PHPStan](https://github.com/Aerendir/bundle-features/workflows/PHPStan/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![PSalm](https://github.com/Aerendir/bundle-features/workflows/PSalm/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![PHPUnit](https://github.com/Aerendir/bundle-features/workflows/PHPunit/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![Composer](https://github.com/Aerendir/bundle-features/workflows/Composer/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![PHP CS Fixer](https://github.com/Aerendir/bundle-features/workflows/PHP%20CS%20Fixer/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
+[![Rector](https://github.com/Aerendir/bundle-features/workflows/Rector/badge.svg)](https://github.com/Aerendir/bundle-features/actions?query=branch%3Adev)
 
-SerendipityHQ Features Bundle helps you to manage features and plans in your Symfony 2 app.
+## Features
 
 Serendipity HQ Features Bundle gives you the ability to configure the features you need to manage, give them a price if they are premium ones, create invoices for them and save subscriptions and configurations associated to your entities to give each of your users only the features they have to get.
 
-How to use the Serendipity HQ Features Bundle
----------------------------------------------
+## Basic usage
 
 SerendipityHQ Features Bundle divides the features in three macro-categories:
 
@@ -61,32 +63,15 @@ Those are the very base concepts to understand and are the core of the internal 
 
 Read more in the documentation to better understand how all this work toward your feature management in your app.
 
-Requirements
-------------
+## Install Serendipity HQ Features Bundle via Composer
 
-1. PHP ^7.1
+    $ composer require serendipity_hq/bundle-features
 
-Status: ACTIVE DEVELOPMENT
---------------------------
+This library follows the http://semver.org/ versioning conventions.
 
-This bundle is currently in development mode. We use it in our live projects and so we try to maintain it in good health.
+## Documentation
 
-Currently not all Features kinds are implemented, only the ones we currently need and can test on the wild.
-
-It is as stable as possible, also if incomplete. If you, using it, find bugs or scenarios not covered, please, open an issue describing the problem.
-
-All issues are reviewd and fixed.
-
-If you have a feature request, euqally, please, open an issue and we will review it and evaluate if it may be implemented.
-
-If you are able to write your feature by your self, you can open a pull request to integrate it with the main repository. Before doing this, please, open an issue, so we can have a discussion about the creating feature and make it even better! Open source is collaboration, and collaboration is founded on discussion: be aware of this and enjoy the process! :)
-
-Thank you for your collaboration.
-
-DOCUMENTATION
-=============
-
-You can read how to install, configure, test and use the SerendipityHQ Features Bundle in the [documentation](src/Resources/docs/Index.md).
+You can read how to install, configure, test and use the SerendipityHQ Features Bundle in the [documentation](docs/Index.md).
 
 Inspiration for future features
 
