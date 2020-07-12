@@ -14,7 +14,7 @@
         "php": "^7.2",
         "ext-intl": "*",
         "doctrine/common": "^2.5",
-        "doctrine/doctrine-bundle": "^1.8",
+        "doctrine/doctrine-bundle": "^2.1",
         "doctrine/orm": "^2.5",
         "serendipity_hq/component-array-writer": "dev-dev",
         "serendipity_hq/component-value-objects": "dev-dev",
