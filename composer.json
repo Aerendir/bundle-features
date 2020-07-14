@@ -1,5 +1,5 @@
 {
-    "name": "serendipity_hq/features-bundle",
+    "name": "serendipity_hq/bundle-features",
     "description": "Manage features and plans in your Symfony app.",
     "type": "symfony-bundle",
     "keywords": [],
