@@ -1,5 +1,5 @@
 {
-    "name": "serendipity_hq/features-bundle",
+    "name": "serendipity_hq/bundle-features",
     "description": "Manage features and plans in your Symfony app.",
     "type": "symfony-bundle",
     "keywords": [],
@@ -11,34 +11,45 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "ext-intl": "*",
         "doctrine/common": "^2.5",
         "doctrine/doctrine-bundle": "^1.8",
         "doctrine/orm": "^2.5",
-        "serendipity_hq/php_array_writer": "^2.1",
-        "serendipity_hq/php_value_objects": "^4.0",
-        "symfony/form": "^2.8||^3.0||^4.0",
-        "symfony/framework-bundle": "^2.8||^3.0||^4.0",
-        "symfony/options-resolver": "^2.8||^3.0||^4.0",
-        "symfony/routing": "^2.8||^3.0||^4.0",
-        "symfony/translation": "^3.0 || ^4.0"
+        "serendipity_hq/component-array-writer": "dev-dev",
+        "serendipity_hq/component-value-objects": "dev-dev",
+        "symfony/form": "^3.4|^4.4|^5.2",
+        "symfony/framework-bundle": "^3.4|^4.4|^5.2",
+        "symfony/options-resolver": "^3.4|^4.4|^5.2",
+        "symfony/routing": "^3.4|^4.4|^5.2",
+        "symfony/translation": "^3.4|^4.4|^5.2",
+        "thecodingmachine/safe": "^1.0"
     },
     "require-dev": {
-        "codeclimate/php-test-reporter": "dev-master",
-        "friendsofphp/php-cs-fixer": "^2.0",
-        "phpstan/phpstan": "@stable",
-        "phpunit/phpunit": "^6||^7||^8",
-        "serendipity_hq/php_text_matrix": "^2.0",
-        "symfony/var-dumper": "^2.8||^3.0||^4.0",
-        "roave/security-advisories": "dev-master"
+        "bamarni/composer-bin-plugin": "^1.4",
+        "roave/security-advisories": "dev-master",
+        "serendipity_hq/component-text-matrix": "dev-dev",
+        "symfony/var-dumper": "^3.4|^4.4|^5.2"
     },
     "suggest": {
-        "serendipity_hq/php_text_matrix": "Allows tho use of PlainTextDrawer."
+        "serendipity_hq/component-text-matrix": "Allows tho use of PlainTextDrawer."
     },
     "autoload": {
         "psr-4": {
             "SerendipityHQ\\Bundle\\FeaturesBundle\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SerendipityHQ\\Bundle\\FeaturesBundle\\Tests\\": "tests"
+        }
+    },
+    "config":{
+        "sort-packages": true
+    },
+    "scripts": {
+        "bin": "echo 'bin not installed'",
+        "post-install-cmd": ["@composer bin all install --ansi"],
+        "post-update-cmd": ["@composer bin all update --ansi"]
     }
 }

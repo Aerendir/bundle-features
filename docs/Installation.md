@@ -1,21 +1,11 @@
 How to install Serendipity HQ Features Bundle
 =============================================
 
-Step 1: Download the Bundle
----------------------------
+## Install Serendipity HQ Features Bundle via Composer
 
-Open a command console, enter your project directory and execute the
-following command to download the latest stable version of this bundle:
+    $ composer require serendipity_hq/bundle-features
 
-```bash
-$ composer require serendipity_hq/bundle-features "^0@dev"
-```
-
-Note: Add `@dev` to get the last development version. This version may not be stable.
-
-This command requires you to have Composer installed globally, as explained
-in the [installation chapter](https://getcomposer.org/doc/00-intro.md)
-of the Composer documentation.
+This library follows the http://semver.org/ versioning conventions.
 
 Step 2: Enable the Bundle
 -------------------------
