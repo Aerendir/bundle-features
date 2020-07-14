@@ -17,7 +17,7 @@ TrustBack.Me permits to merchants to get feedbacks from their own customers and 
 Each Merchant has a Company and each Company has one or more Stores (the self-hosted e-commerce site, the eBay store, the Amazon store, ecc.).
 
 Lets go to analyze the features (not all of them, but only the ones required to illustrate how SerendipityHQ Features Bundle works).
- 
+
 - The merchant can buy the invites at Company level, so the Stores of each Company use the invites bought by the merchant for the whole Company.
 - Each Store Profile can be boosted:
     - Removing Ads
@@ -84,7 +84,7 @@ So, `500` represents FIVE Euros while `5000` represents FIFTY Euros.
 
 We use a money value object internally as this is the correct way of managing monetary values with PHP. [If you are using `float`s you are doing it wrong!](https://github.com/moneyphp/money)
 
-You can read more about Value Objects [here](https://github.com/Aerendir/PHPValueObjects).
+You can read more about Value Objects [here](https://github.com/Aerendir/component-value-objects).
 
 So, once we have explained this strange numbers, the rest could be simpler: each feature has its own name (`ads` and `seo` for Stores and `reminders` for Companies).
 
