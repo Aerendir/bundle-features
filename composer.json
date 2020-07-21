@@ -2,8 +2,13 @@
     "name": "serendipity_hq/bundle-features",
     "description": "Manage features and plans in your Symfony app.",
     "type": "symfony-bundle",
-    "keywords": [],
+    "keywords": ["pricing", "plans", "paid", "features gating"],
+    "homepage": "https://github.com/Aerendir/bundle-features",
     "license": "MIT",
+    "support": {
+        "docs": "https://github.com/Aerendir/bundle-features/tree/dev/docs",
+        "issues": "https://github.com/Aerendir/bundle-features/issues"
+    },
     "authors": [
         {
             "name": "Adamo Aerendir Crespi",
