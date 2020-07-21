@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
+
 COUNTABLE FEATURE SPECIFICATION
 ===============================
 
@@ -158,7 +160,7 @@ But now the remained quantity is bigger than the available quantity of the new p
 
 So, what happens now? In this case, the User will continue to have the remained 19 units, but at the end of the cycle the amounts will be recalculated.
 
-Lets illustrate the edge case: at the end of the subscription period, the user remains with still 12 units (he consumed other 7 units until the end of the subscription period). 
+Lets illustrate the edge case: at the end of the subscription period, the user remains with still 12 units (he consumed other 7 units until the end of the subscription period).
 
 In this case the "cumulate" configuration comes into action again: if `cumulate: true`, then in the new subscription period the user will have:
 
@@ -167,3 +169,15 @@ In this case the "cumulate" configuration comes into action again: if `cumulate:
 If `cumulate: false`, instead, the new remainedQuantity will simply be
 
     remainedQuantity = newNumberOfUnits = 10
+
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />

@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
+
 HOW TO MANAGE RENEWS AND REFRESHES
 ==================================
 
@@ -20,7 +22,7 @@ Countable Features are the ones that are refreshed at defined time intervals.
 The first thing you need is a list of `Subscription`s that need to be refreshed.
 
 As the `Subscription`s are tailored to your entities, you have to [first create a custom repository](https://symfony.com/doc/current/doctrine/repository.html) for your entity and
-then implement a method to get all the `Subscription`s that need to be refreshed. 
+then implement a method to get all the `Subscription`s that need to be refreshed.
 
 In your just created custom repository, create the following method:
 
@@ -77,7 +79,7 @@ class RenewYourEntitySubscriptionCommand extends ContainerAwareCommand
         $ioWriter->setFormatter(new SerendipityHQOutputFormatter(true));
 
         $ioWriter->title('Starting to refresh subscriptions.');
-        
+
         $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $subscriptionsToRefresh = $entityManager->getRepository('AppBundle:YourEntity')->findNeedRefresh();
@@ -98,7 +100,7 @@ class RenewYourEntitySubscriptionCommand extends ContainerAwareCommand
             // This is to not consume too much memory
             // See http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/batch-processing.html#iterating-results
             $entityManager->flush();
-            
+
             // Detaches all objects from Doctrine to free up memory!
             $entityManager->clear();
         }
@@ -119,9 +121,21 @@ One way is to use a bundle like [SHQCommandsQueuesBundle](https://github.com/Aer
 
 Anyway, this is a starting point that you can, obviously, adapt to your concrete situations.
 
-HOW TO RENEWING SUBSCRIPTIONS AND GET PAID 
+HOW TO RENEWING SUBSCRIPTIONS AND GET PAID
 ------------------------------------------
 
 To get paid at the end of the renew period, you have to follow the same exact procedure just seen.
 
 You have to create a command to get all the `Subscription`s that needs to be renew.
+
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />

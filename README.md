@@ -41,6 +41,18 @@
 
 Serendipity HQ Features Bundle gives you the ability to configure the features you need to manage, give them a price if they are premium ones, create invoices for them and save subscriptions and configurations associated to your entities to give each of your users only the features they have to get.
 
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
+
 ## Basic usage
 
 SerendipityHQ Features Bundle divides the features in three macro-categories:
@@ -81,3 +93,15 @@ Inspiration for future features
 Some other information
 
 - http://stackoverflow.com/questions/7707383/what-is-a-feature-flag
+
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
