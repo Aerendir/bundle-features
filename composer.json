@@ -18,18 +18,18 @@
         "doctrine/orm": "^2.5",
         "serendipity_hq/component-array-writer": "dev-dev",
         "serendipity_hq/component-value-objects": "dev-dev",
-        "symfony/form": "^3.4|^4.4|^5.2",
-        "symfony/framework-bundle": "^3.4|^4.4|^5.2",
-        "symfony/options-resolver": "^3.4|^4.4|^5.2",
-        "symfony/routing": "^3.4|^4.4|^5.2",
-        "symfony/translation": "^3.4|^4.4|^5.2",
+        "symfony/form": "^3.0|^4.0|^5.0",
+        "symfony/framework-bundle": "^3.0|^4.0|^5.0",
+        "symfony/options-resolver": "^3.0|^4.0|^5.0",
+        "symfony/routing": "^3.0|^4.0|^5.0",
+        "symfony/translation": "^3.0|^4.0|^5.0",
         "thecodingmachine/safe": "^1.0"
     },
     "require-dev": {
         "bamarni/composer-bin-plugin": "^1.4",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/component-text-matrix": "dev-dev",
-        "symfony/var-dumper": "^3.4|^4.4|^5.2"
+        "symfony/var-dumper": "^3.0|^4.0|^5.0"
     },
     "suggest": {
         "serendipity_hq/component-text-matrix": "Allows tho use of PlainTextDrawer."
