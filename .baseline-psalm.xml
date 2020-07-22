@@ -1,0 +1,1020 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="3.12.2@7c7ebd068f8acaba211d4a2c707c4ba90874fa26">
+  <file src="src/DependencyInjection/CompilerPass/DrawersCompilerPass.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$service</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="2">
+      <code>$tags</code>
+      <code>$locale</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/DependencyInjection/CompilerPass/FeaturesManagersCompilerPass.php">
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$service</code>
+      <code>$service</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="1">
+      <code>$tags</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php">
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$service</code>
+      <code>$key</code>
+      <code>$drawer</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="3">
+      <code>$tags</code>
+      <code>$drawer</code>
+      <code>$tags</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/DependencyInjection/Configuration.php">
+    <DeprecatedMethod occurrences="1">
+      <code>root</code>
+    </DeprecatedMethod>
+    <ImplicitToStringCast occurrences="1">
+      <code>$currency</code>
+    </ImplicitToStringCast>
+    <InvalidOperand occurrences="2">
+      <code>$numOfUnits</code>
+      <code>$numOfUnits</code>
+    </InvalidOperand>
+    <MissingClosureParamType occurrences="6">
+      <code>$price</code>
+      <code>$price</code>
+      <code>$price</code>
+      <code>$price</code>
+      <code>$tree</code>
+      <code>$tree</code>
+    </MissingClosureParamType>
+    <MissingConstructor occurrences="1">
+      <code>$pricesType</code>
+    </MissingConstructor>
+    <MissingParamType occurrences="1">
+      <code>$subscriptionType</code>
+    </MissingParamType>
+    <MixedArgument occurrences="25">
+      <code>$tree</code>
+      <code>$tree</code>
+      <code>$tree['invoices']['drawers']</code>
+      <code>$tree['sets']</code>
+      <code>$drawer</code>
+      <code>$config['default_drawer']</code>
+      <code>$config['features']</code>
+      <code>$config</code>
+      <code>$config['price']</code>
+      <code>$config['unitary_price']</code>
+      <code>$config['packs']</code>
+      <code>$config['unitary_price']</code>
+      <code>$config['packs']</code>
+      <code>$subscriptions</code>
+      <code>$price</code>
+      <code>$price</code>
+      <code>$tree['sets']</code>
+      <code>$this-&gt;foundDrawers</code>
+      <code>$config['features']</code>
+      <code>$config</code>
+      <code>$config['packs']</code>
+      <code>$config['unitary_price']</code>
+      <code>$config['packs']</code>
+      <code>$prices</code>
+      <code>$prices</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="5">
+      <code>$set</code>
+      <code>$feature</code>
+      <code>$currency</code>
+      <code>$currency</code>
+      <code>$currency</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="8">
+      <code>$tree['invoices']['drawers']</code>
+      <code>$config['default_drawer']</code>
+      <code>$config['features']</code>
+      <code>$tree['invoices']['drawers']</code>
+      <code>$tree['prices']['are']</code>
+      <code>$config['features']</code>
+      <code>$prices[$currency]['_']</code>
+      <code>$price['_']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="4">
+      <code>$tree['invoices']['drawers']</code>
+      <code>$tree['invoices']['drawers']</code>
+      <code>$tree['invoices']['drawers']</code>
+      <code>$sets[$set]['features']</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="15">
+      <code>$tree['invoices']['drawers']</code>
+      <code>$drawer</code>
+      <code>$config</code>
+      <code>$config</code>
+      <code>$subscriptions</code>
+      <code>$price</code>
+      <code>$this-&gt;foundDrawers</code>
+      <code>$this-&gt;pricesType</code>
+      <code>$config</code>
+      <code>$config</code>
+      <code>$config[$this-&gt;pricesKey]</code>
+      <code>$price</code>
+      <code>$prices</code>
+      <code>$price</code>
+      <code>$prices[$currency]</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="112">
+      <code>arrayNode</code>
+      <code>children</code>
+      <code>enumNode</code>
+      <code>values</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>children</code>
+      <code>arrayNode</code>
+      <code>prototype</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>children</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>children</code>
+      <code>enumNode</code>
+      <code>values</code>
+      <code>isRequired</code>
+      <code>cannotBeEmpty</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultFalse</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultFalse</code>
+      <code>end</code>
+      <code>enumNode</code>
+      <code>defaultValue</code>
+      <code>values</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultValue</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>beforeNormalization</code>
+      <code>ifTrue</code>
+      <code>then</code>
+      <code>end</code>
+      <code>children</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>children</code>
+      <code>integerNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>integerNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>arrayNode</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>useAttributeAsKey</code>
+      <code>prototype</code>
+      <code>beforeNormalization</code>
+      <code>ifTrue</code>
+      <code>then</code>
+      <code>end</code>
+      <code>children</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>scalarNode</code>
+      <code>defaultNull</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>enumNode</code>
+      <code>values</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>end</code>
+      <code>validate</code>
+      <code>ifTrue</code>
+      <code>then</code>
+      <code>end</code>
+    </MixedMethodCall>
+    <PossiblyUndefinedMethod occurrences="1">
+      <code>children</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/DependencyInjection/SHQFeaturesExtension.php">
+    <MixedArgument occurrences="3">
+      <code>$drawer</code>
+      <code>$creatingSetName</code>
+      <code>$setConfig</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['invoices']['drawers']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="3">
+      <code>$drawer</code>
+      <code>$setConfig</code>
+      <code>$defaultDrawer</code>
+    </MixedAssignment>
+    <PossiblyNullArgument occurrences="1">
+      <code>$drawerServiceName</code>
+    </PossiblyNullArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>addTag</code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
+    <InvalidNullableReturnType occurrences="1">
+      <code>SubscribedFeaturesCollection</code>
+    </InvalidNullableReturnType>
+    <MixedInferredReturnType occurrences="2">
+      <code>ConfiguredCountableFeaturePack|ConfiguredRechargeableFeaturePack</code>
+      <code>SubscribedFeatureInterface</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="2">
+      <code>$this-&gt;configuredPacks[$pack]</code>
+      <code>$this-&gt;getSubscribedFeatures()-&gt;get($this-&gt;getFeatureName())</code>
+    </MixedReturnStatement>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;subscribedFeatures</code>
+    </NullableReturnStatement>
+  </file>
+  <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
+    <FalsableReturnStatement occurrences="1">
+      <code>false</code>
+    </FalsableReturnStatement>
+    <InvalidReturnStatement occurrences="1">
+      <code>$feature-&gt;isEnabled()</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>string</code>
+    </InvalidReturnType>
+    <MoreSpecificImplementedParamType occurrences="2">
+      <code>$feature</code>
+      <code>$enabled</code>
+    </MoreSpecificImplementedParamType>
+    <RedundantCondition occurrences="1">
+      <code>false</code>
+    </RedundantCondition>
+  </file>
+  <file src="src/Form/DataTransformer/CountableFeatureTransformer.php">
+    <InvalidReturnStatement occurrences="2">
+      <code>$feature-&gt;getSubscribedPack()-&gt;getNumOfUnits()</code>
+      <code>0</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>string</code>
+    </InvalidReturnType>
+    <MoreSpecificImplementedParamType occurrences="2">
+      <code>$feature</code>
+      <code>$pack</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
+    <MoreSpecificImplementedParamType occurrences="2">
+      <code>$features</code>
+      <code>$features</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
+    <InvalidReturnStatement occurrences="1">
+      <code>0</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>string</code>
+    </InvalidReturnType>
+    <InvalidScalarArgument occurrences="1">
+      <code>$pack</code>
+    </InvalidScalarArgument>
+    <MoreSpecificImplementedParamType occurrences="2">
+      <code>$feature</code>
+      <code>$pack</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/Form/Type/FeaturesType.php">
+    <ArgumentTypeCoercion occurrences="3">
+      <code>$subscribedFeature</code>
+      <code>$subscribedFeature</code>
+      <code>$subscribedFeature</code>
+    </ArgumentTypeCoercion>
+    <ImplicitToStringCast occurrences="4">
+      <code>$subscription-&gt;getCurrency()</code>
+      <code>$subscription-&gt;getCurrency()</code>
+      <code>$subscription-&gt;getCurrency()</code>
+      <code>$subscription-&gt;getCurrency()</code>
+    </ImplicitToStringCast>
+    <InvalidOperand occurrences="1">
+      <code>$result + (float) $sum</code>
+    </InvalidOperand>
+    <MissingClosureParamType occurrences="2">
+      <code>$val</code>
+      <code>$val</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="9">
+      <code>$options['subscription']</code>
+      <code>$options['subscription']</code>
+      <code>$options['subscription']</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'gross')</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'gross')</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'net')</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'net')</code>
+      <code>$val</code>
+      <code>$val</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="2">
+      <code>getFeatures</code>
+      <code>getValues</code>
+    </MixedMethodCall>
+    <PossiblyInvalidArgument occurrences="4">
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullArgument occurrences="4">
+      <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'gross')</code>
+      <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), 'net')</code>
+      <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), 'gross')</code>
+      <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), 'net')</code>
+    </PossiblyNullArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>isStillActive</code>
+    </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="4">
+      <code>getPrice</code>
+      <code>getInstantPrice</code>
+      <code>getPrice</code>
+      <code>getInstantPrice</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/InvoiceDrawer/AbstractInvoiceDrawer.php">
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;locale</code>
+    </UndefinedThisPropertyAssignment>
+  </file>
+  <file src="src/InvoiceDrawer/InvoiceDrawerInterface.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>mixed</code>
+    </MismatchingDocblockReturnType>
+  </file>
+  <file src="src/InvoiceDrawer/PlainTextDrawer.php">
+    <ImplicitToStringCast occurrences="4">
+      <code>$invoice-&gt;getGrossTotal()-&gt;getCurrency()</code>
+      <code>$invoice-&gt;getNetTotal()-&gt;getCurrency()</code>
+      <code>$line-&gt;getNetAmount()-&gt;getCurrency()</code>
+      <code>$line-&gt;getGrossAmount()-&gt;getCurrency()</code>
+    </ImplicitToStringCast>
+    <InvalidOperand occurrences="1">
+      <code>$this-&gt;tableWidth - round(35 % $this-&gt;tableWidth)</code>
+    </InvalidOperand>
+    <InvalidReturnStatement occurrences="1">
+      <code>$return</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>string</code>
+    </InvalidReturnType>
+    <InvalidScalarArgument occurrences="5">
+      <code>$this-&gt;tableWidth - round(35 % $this-&gt;tableWidth)</code>
+      <code>$invoice-&gt;getNetTotal()-&gt;getHumanAmount()</code>
+      <code>$invoice-&gt;getGrossTotal()-&gt;getHumanAmount()</code>
+      <code>$line-&gt;getNetAmount()-&gt;getHumanAmount()</code>
+      <code>$line-&gt;getGrossAmount()-&gt;getHumanAmount()</code>
+    </InvalidScalarArgument>
+    <MissingConstructor occurrences="1">
+      <code>$tableWidth</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="1">
+      <code>$section</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$section</code>
+    </MixedAssignment>
+    <PossiblyFalseOperand occurrences="3">
+      <code>iconv_strlen($equals_separator_short)</code>
+      <code>mb_strtoupper($this-&gt;getTranslator()-&gt;trans('shq_features.invoice.total.label', [], 'Invoice'))</code>
+      <code>iconv_strlen($total_gross_amount)</code>
+    </PossiblyFalseOperand>
+  </file>
+  <file src="src/Model/AbstractFeature.php">
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;type</code>
+    </MixedAssignment>
+    <NoInterfaceProperties occurrences="2">
+      <code>$this-&gt;name</code>
+      <code>$this-&gt;type</code>
+    </NoInterfaceProperties>
+  </file>
+  <file src="src/Model/AbstractFeaturePack.php">
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;numOfUnits</code>
+    </MixedAssignment>
+    <NoInterfaceProperties occurrences="1">
+      <code>$this-&gt;numOfUnits</code>
+    </NoInterfaceProperties>
+  </file>
+  <file src="src/Model/AbstractFeaturesCollection.php">
+    <MissingClosureParamType occurrences="1">
+      <code>$element</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="1">
+      <code>$details['type']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="6">
+      <code>$feature</code>
+      <code>$feature</code>
+      <code>$feature</code>
+      <code>$this-&gt;getFilterPredictate('boolean')</code>
+      <code>$this-&gt;getFilterPredictate('countable')</code>
+      <code>$this-&gt;getFilterPredictate('rechargeable')</code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment occurrences="2">
+      <code>$details</code>
+      <code>$element</code>
+    </MixedAssignment>
+    <MixedClone occurrences="1">
+      <code>clone $element</code>
+    </MixedClone>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$booleans</code>
+      <code>$countables</code>
+      <code>$rechargeables</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/ConfiguredBooleanFeature.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>ConfiguredBooleanFeature</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/ConfiguredCountableFeature.php">
+    <MixedArgument occurrences="1">
+      <code>$details['packs']</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;refreshPeriod</code>
+    </MixedAssignment>
+    <PropertyNotSetInConstructor occurrences="4">
+      <code>$packs</code>
+      <code>$taxName</code>
+      <code>$taxRate</code>
+      <code>ConfiguredCountableFeature</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/ConfiguredCountableFeaturePack.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>ConfiguredCountableFeaturePack</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/ConfiguredFeaturesCollection.php">
+    <MixedAssignment occurrences="2">
+      <code>$feature</code>
+      <code>$feature</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Model/ConfiguredRechargeableFeature.php">
+    <MixedArgument occurrences="3">
+      <code>$details['packs']</code>
+      <code>$details['net_unitary_price']</code>
+      <code>$details['gross_unitary_price']</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;freeRecharge</code>
+    </MixedAssignment>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$freeRecharge</code>
+      <code>ConfiguredRechargeableFeature</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/ConfiguredRechargeableFeaturePack.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>ConfiguredRechargeableFeaturePack</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/Invoice.php">
+    <InvalidScalarArgument occurrences="1">
+      <code>microtime(true)</code>
+    </InvalidScalarArgument>
+    <MissingParamType occurrences="2">
+      <code>$currency</code>
+      <code>$id</code>
+    </MissingParamType>
+    <MixedArgument occurrences="3">
+      <code>$section['_header']</code>
+      <code>$line</code>
+      <code>$lineId</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$section['_header']</code>
+      <code>$section['_lines']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$return</code>
+      <code>$return</code>
+      <code>$section</code>
+      <code>$line</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="9">
+      <code>getHeader</code>
+      <code>hasHeader</code>
+      <code>removeHeader</code>
+      <code>getLine</code>
+      <code>array</code>
+      <code>hasLine</code>
+      <code>removeLine</code>
+      <code>getSection</code>
+      <code>removeSection</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="9">
+      <code>getHeader</code>
+      <code>hasHeader</code>
+      <code>removeHeader</code>
+      <code>setHeader</code>
+      <code>addLine</code>
+      <code>getLine</code>
+      <code>getLines</code>
+      <code>hasLine</code>
+      <code>removeLine</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="9">
+      <code>$this-&gt;sections['_default']-&gt;getHeader()</code>
+      <code>$this-&gt;sections['_default']-&gt;hasHeader()</code>
+      <code>$this-&gt;sections['_default']-&gt;removeHeader()</code>
+      <code>$this-&gt;sections['_default']-&gt;getLine($id)</code>
+      <code>$this-&gt;sections['_default']-&gt;getLines()</code>
+      <code>$this-&gt;sections['_default']-&gt;hasLine($id)</code>
+      <code>$return</code>
+      <code>$this-&gt;sections[$id] ?? null</code>
+      <code>$return</code>
+    </MixedReturnStatement>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;sections[$id] ?? null</code>
+    </NullableReturnStatement>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$issuedOn</code>
+      <code>$grossTotal</code>
+      <code>$netTotal</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_int($id)</code>
+    </RedundantConditionGivenDocblockType>
+    <UninitializedProperty occurrences="3">
+      <code>$this-&gt;issuedOn</code>
+      <code>$this-&gt;grossTotal</code>
+      <code>$this-&gt;netTotal</code>
+    </UninitializedProperty>
+  </file>
+  <file src="src/Model/InvoiceInterface.php">
+    <InvalidDocblock occurrences="1">
+      <code>string!int</code>
+    </InvalidDocblock>
+    <MissingParamType occurrences="1">
+      <code>$id</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="2">
+      <code>setHeader</code>
+      <code>jsonUnserialize</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Model/InvoiceLine.php">
+    <InvalidDocblock occurrences="2">
+      <code>public function setGrossAmount(MoneyInterface $grossAmount): self</code>
+      <code>public function setNetAmount(MoneyInterface $netAmount): self</code>
+    </InvalidDocblock>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$quantity</code>
+    </InvalidPropertyAssignmentValue>
+    <InvalidReturnStatement occurrences="1">
+      <code>$this-&gt;quantity</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>int|null</code>
+    </InvalidReturnType>
+    <MissingConstructor occurrences="1">
+      <code>$grossAmount</code>
+    </MissingConstructor>
+    <MixedArgument occurrences="5">
+      <code>$data['currency']</code>
+      <code>$data['currency']</code>
+      <code>$data['description']</code>
+      <code>$data['tax_name']</code>
+      <code>$data['tax_rate']</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Model/InvoiceSection.php">
+    <MixedAssignment occurrences="2">
+      <code>$line</code>
+      <code>$lines[$lineId]</code>
+    </MixedAssignment>
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
+      <code>null</code>
+    </PossiblyNullPropertyAssignmentValue>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$header</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>is_int($id)</code>
+      <code>null !== $this-&gt;getHeader()</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Model/InvoiceSectionHeader.php">
+    <MixedAssignment occurrences="1">
+      <code>$this-&gt;header</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Model/SubscribedBooleanFeature.php">
+    <PossiblyFalseArgument occurrences="1">
+      <code>json_encode($this-&gt;getActiveUntil())</code>
+    </PossiblyFalseArgument>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>SubscribedBooleanFeature</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/SubscribedCountableFeature.php">
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>SubscribedCountableFeaturePack</code>
+    </ImplementedReturnTypeMismatch>
+    <MixedArgument occurrences="4">
+      <code>$details['subscribed_pack']</code>
+      <code>$details['remained_quantity']</code>
+      <code>$details['last_refresh_on']['timezone']</code>
+      <code>$details['last_refresh_on']['date']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$details['last_refresh_on']['date']</code>
+      <code>$details['last_refresh_on']['timezone']</code>
+    </MixedArrayAccess>
+    <PossiblyFalseArgument occurrences="2">
+      <code>json_encode($this-&gt;getActiveUntil())</code>
+      <code>json_encode($this-&gt;getLastRefreshOn())</code>
+    </PossiblyFalseArgument>
+    <PossiblyInvalidMethodCall occurrences="1">
+      <code>toArray</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;getLastRefreshOn()</code>
+    </PossiblyNullArgument>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$lastRefreshOn</code>
+      <code>SubscribedCountableFeature</code>
+    </PropertyNotSetInConstructor>
+    <TypeDoesNotContainType occurrences="1">
+      <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
+    </TypeDoesNotContainType>
+    <UninitializedProperty occurrences="1">
+      <code>$this-&gt;lastRefreshOn</code>
+    </UninitializedProperty>
+  </file>
+  <file src="src/Model/SubscribedCountableFeatureInterface.php">
+    <MissingReturnType occurrences="1">
+      <code>setSubscribedPack</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Model/SubscribedFeatureInterface.php">
+    <MissingReturnType occurrences="1">
+      <code>setConfiguredFeature</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Model/SubscribedFeaturesCollection.php">
+    <MixedArrayOffset occurrences="1">
+      <code>$return[$featureName]</code>
+    </MixedArrayOffset>
+  </file>
+  <file src="src/Model/SubscribedRechargeableFeature.php">
+    <MixedArgument occurrences="3">
+      <code>$details['remained_quantity']</code>
+      <code>$this-&gt;lastRechargeOn['timezone']</code>
+      <code>$this-&gt;lastRechargeOn['date']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$this-&gt;lastRechargeOn['date']</code>
+      <code>$this-&gt;lastRechargeOn['timezone']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="2">
+      <code>$this-&gt;lastRechargeOn</code>
+      <code>$this-&gt;lastRechargeQuantity</code>
+    </MixedAssignment>
+    <PossiblyFalseArgument occurrences="1">
+      <code>json_encode($this-&gt;getLastRechargeOn())</code>
+    </PossiblyFalseArgument>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$rechargingPack</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/Subscription.php">
+    <InvalidArgument occurrences="1">
+      <code>$this-&gt;features</code>
+    </InvalidArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>bool</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>isStillActive</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>$this-&gt;getFeatures()-&gt;get($feature)-&gt;isStillActive()</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Model/SubscriptionInterface.php">
+    <MissingReturnType occurrences="2">
+      <code>checkIntervalExists</code>
+      <code>forceFeaturesUpdate</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Property/CanHaveFreePackProperty.php">
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>null !== $this-&gt;freePack</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Property/HasConfiguredPacksProperty.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>ConfiguredFeaturePackInterface|null</code>
+    </MixedInferredReturnType>
+  </file>
+  <file src="src/Property/HasRecurringPricesInterface.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>MoneyInterface|null</code>
+    </MismatchingDocblockReturnType>
+    <UndefinedDocblockClass occurrences="3">
+      <code>Currency|string</code>
+      <code>Currency|string</code>
+      <code>Currency|string</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Property/HasRecurringPricesProperty.php">
+    <InvalidOperand occurrences="5">
+      <code>1 + $rate</code>
+      <code>$price-&gt;getBaseAmount()</code>
+      <code>1 + $rate</code>
+      <code>$price-&gt;getBaseAmount()</code>
+      <code>$price-&gt;getBaseAmount()</code>
+    </InvalidOperand>
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>MoneyInterface|null</code>
+    </MismatchingDocblockReturnType>
+    <MixedArgument occurrences="4">
+      <code>$this-&gt;$pricesProperty</code>
+      <code>$price-&gt;getBaseAmount() * (1 + $rate)</code>
+      <code>$price-&gt;getBaseAmount() / (1 + $rate)</code>
+      <code>$price-&gt;getBaseAmount() / $daysInInterval</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="4">
+      <code>$price[SubscriptionInterface::MONTHLY]</code>
+      <code>$price[SubscriptionInterface::MONTHLY]</code>
+      <code>$price[SubscriptionInterface::YEARLY]</code>
+      <code>$price[SubscriptionInterface::YEARLY]</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="2">
+      <code>$this-&gt;grossPrices[$currency][$subscriptionInterval]</code>
+      <code>$this-&gt;netPrices[$currency][$subscriptionInterval]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="2">
+      <code>$this-&gt;grossPrices[$currency]</code>
+      <code>$this-&gt;netPrices[$currency]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="4">
+      <code>$prices</code>
+      <code>$price</code>
+      <code>$amount</code>
+      <code>$amount</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>MoneyInterface|null</code>
+      <code>MoneyInterface</code>
+    </MixedInferredReturnType>
+    <MoreSpecificImplementedParamType occurrences="3">
+      <code>$currency</code>
+      <code>$currency</code>
+      <code>$currency</code>
+    </MoreSpecificImplementedParamType>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;subscription-&gt;getSubscribedOn()</code>
+    </TypeDoesNotContainNull>
+  </file>
+  <file src="src/Property/HasUnatantumPricesInterface.php">
+    <UndefinedDocblockClass occurrences="2">
+      <code>Currency|string</code>
+      <code>Currency|string</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Property/HasUnatantumPricesProperty.php">
+    <InvalidOperand occurrences="4">
+      <code>1 + $rate</code>
+      <code>$price-&gt;getBaseAmount()</code>
+      <code>1 + $rate</code>
+      <code>$price-&gt;getBaseAmount()</code>
+    </InvalidOperand>
+    <MixedArgument occurrences="3">
+      <code>$this-&gt;$pricesProperty</code>
+      <code>$price-&gt;getBaseAmount() * (1 + $rate)</code>
+      <code>$price-&gt;getBaseAmount() / (1 + $rate)</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayOffset occurrences="2">
+      <code>$this-&gt;grossPrices[$currency]</code>
+      <code>$this-&gt;netPrices[$currency]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="1">
+      <code>$price</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>MoneyInterface|null</code>
+    </MixedInferredReturnType>
+    <MoreSpecificImplementedParamType occurrences="2">
+      <code>$currency</code>
+      <code>$currency</code>
+    </MoreSpecificImplementedParamType>
+  </file>
+  <file src="src/Service/FeaturesManager.php">
+    <ImplicitToStringCast occurrences="1">
+      <code>$this-&gt;getSubscription()-&gt;getCurrency()</code>
+    </ImplicitToStringCast>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$totalCharges</code>
+    </LessSpecificReturnStatement>
+    <MixedArgument occurrences="4">
+      <code>$configuredFeature</code>
+      <code>$featureName</code>
+      <code>$featureName</code>
+      <code>$this-&gt;getConfiguredFeatures()-&gt;get($feature)</code>
+    </MixedArgument>
+    <MixedArrayAssignment occurrences="7">
+      <code>$this-&gt;differences['removed'][]</code>
+      <code>$this-&gt;differences['removed'][]</code>
+      <code>$this-&gt;differences['removed'][]</code>
+      <code>$this-&gt;differences['added'][]</code>
+      <code>$this-&gt;differences['added'][]</code>
+      <code>$this-&gt;differences['added'][]</code>
+      <code>$this-&gt;differences['added'][]</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="8">
+      <code>$configuredFeature</code>
+      <code>$feature</code>
+      <code>$featureName</code>
+      <code>$price</code>
+      <code>$feature</code>
+      <code>$existentFeature</code>
+      <code>$price</code>
+      <code>$newSubscribedPack</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>FormBuilderInterface</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="16">
+      <code>isEnabled</code>
+      <code>getFreePack</code>
+      <code>getNumOfUnits</code>
+      <code>getFreePack</code>
+      <code>getNumOfUnits</code>
+      <code>getFreeRecharge</code>
+      <code>getFreeRecharge</code>
+      <code>getPrice</code>
+      <code>isEnabled</code>
+      <code>$toggle</code>
+      <code>getPrice</code>
+      <code>isEnabled</code>
+      <code>getSubscribedPack</code>
+      <code>getNumOfUnits</code>
+      <code>isEnabled</code>
+      <code>getSubscribedPack</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="2">
+      <code>null === $type ? $this-&gt;differences : $this-&gt;differences[$type]</code>
+      <code>$form</code>
+    </MixedReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>Money</code>
+    </MoreSpecificReturnType>
+    <PossiblyInvalidArgument occurrences="4">
+      <code>$feature</code>
+      <code>$feature</code>
+      <code>$feature</code>
+      <code>$feature</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullReference occurrences="6">
+      <code>getInstantPrice</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+      <code>modify</code>
+    </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="3">
+      <code>getInstantPrice</code>
+      <code>getInstantPrice</code>
+      <code>getPack</code>
+    </PossiblyUndefinedMethod>
+    <PropertyNotSetInConstructor occurrences="4">
+      <code>$formFactory</code>
+      <code>$invoicesManager</code>
+      <code>$subscription</code>
+      <code>$oldSubscription</code>
+    </PropertyNotSetInConstructor>
+    <RedundantConditionGivenDocblockType occurrences="3">
+      <code>null !== $checkingFeature</code>
+      <code>$feature instanceof SubscribedCountableFeatureInterface</code>
+      <code>is_array($feature)</code>
+    </RedundantConditionGivenDocblockType>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>isEnabled</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Service/InvoicesManager.php">
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$drawer</code>
+    </InvalidPropertyAssignmentValue>
+    <InvalidReturnStatement occurrences="1">
+      <code>$drawer</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>InvoiceDrawerInterface</code>
+    </InvalidReturnType>
+    <MixedArgument occurrences="4">
+      <code>$netPrice</code>
+      <code>$quantity ?? null</code>
+      <code>$feature-&gt;getConfiguredFeature()-&gt;getTaxName()</code>
+      <code>$feature-&gt;getConfiguredFeature()-&gt;getTaxRate()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="7">
+      <code>$netPrice</code>
+      <code>$grossPrice</code>
+      <code>$netPrice</code>
+      <code>$grossPrice</code>
+      <code>$netPrice</code>
+      <code>$populatingFeatures[]</code>
+      <code>$feature</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="2">
+      <code>getPrice</code>
+      <code>getPrice</code>
+    </MixedMethodCall>
+    <PossiblyInvalidMethodCall occurrences="3">
+      <code>getNumOfUnits</code>
+      <code>getNumOfUnits</code>
+      <code>getNumOfUnits</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyNullArgument occurrences="1">
+      <code>$netPrice</code>
+    </PossiblyNullArgument>
+    <PossiblyNullReference occurrences="4">
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+    </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="6">
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getTaxName</code>
+      <code>getTaxRate</code>
+    </PossiblyUndefinedMethod>
+    <PropertyNotSetInConstructor occurrences="2">
+      <code>$drawers</code>
+      <code>$subscription</code>
+    </PropertyNotSetInConstructor>
+  </file>
+</files>
