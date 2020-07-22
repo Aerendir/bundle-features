@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
@@ -188,13 +184,7 @@ class Configuration implements ConfigurationInterface
     private function validateInvoiceDrawer(string $drawer)
     {
         if (false === in_array($drawer, $this->allowedDrawers)) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    'The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.',
-                    $drawer,
-                    implode(', ', $this->allowedDrawers)
-                )
-            );
+            throw new InvalidConfigurationException(sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, implode(', ', $this->allowedDrawers)));
         }
 
         // Check the required dependency exists
@@ -330,12 +320,7 @@ class Configuration implements ConfigurationInterface
         $currencies = new ISOCurrencies();
         $currency   = new Currency($currency);
         if (false === $currencies->contains($currency)) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    '%s.features.%s has an invalid ISO 4217 currency code "%s".',
-                    $set, $feature, $currency
-                )
-            );
+            throw new InvalidConfigurationException(sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency));
         }
     }
 
@@ -349,14 +334,7 @@ class Configuration implements ConfigurationInterface
     {
         // At least one subscription period has to be set
         if (null === $subscriptions['monthly'] && null === $subscriptions['yearly']) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    '%s.features.%s.%s has no subscription period. To create a valid price, you have to set at'
-                    . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at'
-                    . ' all to make the feature free.',
-                    $set, $feature, $currency
-                )
-            );
+            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
         }
     }
 
@@ -375,12 +353,7 @@ class Configuration implements ConfigurationInterface
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
                 if (false === is_int($numOfUnits)) {
-                    throw new InvalidConfigurationException(
-                        sprintf(
-                            '%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.',
-                            $set, $feature, $numOfUnits
-                        )
-                    );
+                    throw new InvalidConfigurationException(sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits));
                 }
 
                 switch ($subscriptionType) {
@@ -392,9 +365,7 @@ class Configuration implements ConfigurationInterface
                         // If this is a free package
                         if (empty($price)) {
                             // We have to throw an exception as RechargeableFeatures cannot have a free package (it is useless)
-                            throw new InvalidConfigurationException(
-                                sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.',
-                                    $set, $feature, $numOfUnits));
+                            throw new InvalidConfigurationException(sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits));
                         }
 
                         // Validate the price
