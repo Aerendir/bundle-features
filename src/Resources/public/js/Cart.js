@@ -4,15 +4,6 @@
  * Licensed under a MIT license
  */
 
-/* ========================================================================
- * Store Cart v1
- *
- * Manages a cart on the front end.
- * ========================================================================
- * Copyright 2016 Aerendir
- * Licensed under a NON DISCLOSE LICENSE
- * ======================================================================== */
-/* eccolo */
 $(document).ready(function() {
     var grossAmount = 0,
         netAmount = 0,
