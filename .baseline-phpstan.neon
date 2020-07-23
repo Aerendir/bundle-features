@@ -3,1410 +3,1410 @@ parameters:
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\CompilerPass\\\\DrawersCompilerPass\\:\\:process\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/CompilerPass/DrawersCompilerPass.php
+			path: src/DependencyInjection/CompilerPass/DrawersCompilerPass.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\CompilerPass\\\\FeaturesManagersCompilerPass\\:\\:process\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/CompilerPass/FeaturesManagersCompilerPass.php
+			path: src/DependencyInjection/CompilerPass/FeaturesManagersCompilerPass.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\CompilerPass\\\\InvoiceManagersCompilerPass\\:\\:process\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php
+			path: src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\CompilerPass\\\\InvoiceManagersCompilerPass\\:\\:getFormatters\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php
+			path: src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:load\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFormatterService\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Cannot call method addTag\\(\\) on Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\|null\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Parameter \\#1 \\$id of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:setDefinition\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Parameter \\#2 \\$definition of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:setDefinition\\(\\) expects Symfony\\\\Component\\\\DependencyInjection\\\\Definition, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\|null given\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFeaturesService\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFeaturesService\\(\\) has parameter \\$setConfig with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createInvoicesService\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createInvoicesService\\(\\) has parameter \\$setConfig with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/DependencyInjection/SHQFeaturesExtension.php
+			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:setKind\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:createBoolean\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 6
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:createCountable\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:createRechargeable\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:checkKindIsSet\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/FeaturesFactory.php
+			path: src/FeaturesFactory.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:\\$configuredPacks type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:\\$featureName has no typehint specified\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:\\$subscribedFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:__construct\\(\\) has parameter \\$configuredPacks with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:__construct\\(\\) has parameter \\$subscribedFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:getSubscribedFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:getSubscribedFeatures\\(\\) should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\|null\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/AbstractFeatureTransformer.php
+			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\BooleanFeatureTransformer\\:\\:transform\\(\\) should return string but returns bool\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/BooleanFeatureTransformer.php
+			path: src/Form/DataTransformer/BooleanFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\BooleanFeatureTransformer\\:\\:transform\\(\\) should return string but returns false\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/BooleanFeatureTransformer.php
+			path: src/Form/DataTransformer/BooleanFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\CountableFeatureTransformer\\:\\:transform\\(\\) should return string but returns int\\.$#"
 			count: 2
-			path: ../src/Form/DataTransformer/CountableFeatureTransformer.php
+			path: src/Form/DataTransformer/CountableFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\FeaturesCollectionTransformer\\:\\:transform\\(\\) has parameter \\$features with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/FeaturesCollectionTransformer.php
+			path: src/Form/DataTransformer/FeaturesCollectionTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\FeaturesCollectionTransformer\\:\\:transform\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/FeaturesCollectionTransformer.php
+			path: src/Form/DataTransformer/FeaturesCollectionTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\FeaturesCollectionTransformer\\:\\:reverseTransform\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/FeaturesCollectionTransformer.php
+			path: src/Form/DataTransformer/FeaturesCollectionTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\FeaturesCollectionTransformer\\:\\:reverseTransform\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/FeaturesCollectionTransformer.php
+			path: src/Form/DataTransformer/FeaturesCollectionTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\RechargeableFeatureTransformer\\:\\:transform\\(\\) should return string but returns int\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/RechargeableFeatureTransformer.php
+			path: src/Form/DataTransformer/RechargeableFeatureTransformer.php
 
 		-
 			message: "#^Parameter \\#1 \\$pack of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\AbstractFeatureTransformer\\:\\:getConfiguredPack\\(\\) expects int, string given\\.$#"
 			count: 1
-			path: ../src/Form/DataTransformer/RechargeableFeatureTransformer.php
+			path: src/Form/DataTransformer/RechargeableFeatureTransformer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:buildForm\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^PHPDoc tag @var for variable \\$subscribedFeatures has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#2 \\$subscribedFeature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getBooleanFeatureOptions\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedBooleanFeatureInterface\\|null, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#2 \\$subscribedFeature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getCountableFeaturePacksOptions\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#2 \\$subscribedFeature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getRechargeableFeaturePacksOptions\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedRechargeableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:configureOptions\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getBooleanFeatureOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Cannot call method isStillActive\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedBooleanFeatureInterface\\|null\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getPrice\\(\\)\\.$#"
 			count: 2
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Cannot call method getConfiguredFeature\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedBooleanFeatureInterface\\|null\\.$#"
 			count: 4
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getInstantPrice\\(\\)\\.$#"
 			count: 2
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getCountableFeaturePacksOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#1 \\$feature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getCountableFeaturePacks\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#2 \\$configuredFeature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:setCountableFeaturePacksPrices\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getRechargeableFeaturePacksOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#1 \\$feature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getRechargeableFeaturePacks\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#2 \\$configuredFeature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:setRechargeableFeaturePacksPrices\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface given\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getCountableFeaturePacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:getRechargeableFeaturePacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Parameter \\#1 \\$amount of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\Type\\\\FeaturesType\\:\\:formatPriceForDataAttribute\\(\\) expects SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface, SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\|null given\\.$#"
 			count: 2
-			path: ../src/Form/Type/FeaturesType.php
+			path: src/Form/Type/FeaturesType.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\AbstractInvoiceDrawer\\:\\:setTranslator\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/AbstractInvoiceDrawer.php
+			path: src/InvoiceDrawer/AbstractInvoiceDrawer.php
 
 		-
 			message: "#^Access to an undefined property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\AbstractInvoiceDrawer\\:\\:\\$locale\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/AbstractInvoiceDrawer.php
+			path: src/InvoiceDrawer/AbstractInvoiceDrawer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\:\\:draw\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/InvoiceDrawerInterface.php
+			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
 
 		-
 			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/InvoiceDrawerInterface.php
+			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\PlainTextDrawer\\:\\:draw\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/PlainTextDrawer.php
+			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
 			message: "#^Parameter \\#2 \\$length of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\PlainTextDrawer\\:\\:drawSeparator\\(\\) expects int, float given\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/PlainTextDrawer.php
+			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
 			message: "#^Parameter \\#1 \\$num of method NumberFormatter\\:\\:formatCurrency\\(\\) expects float, string given\\.$#"
 			count: 4
-			path: ../src/InvoiceDrawer/PlainTextDrawer.php
+			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\PlainTextDrawer\\:\\:buildInvoiceTextTable\\(\\) should return string but returns bool\\|string\\.$#"
 			count: 1
-			path: ../src/InvoiceDrawer/PlainTextDrawer.php
+			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeature.php
+			path: src/Model/AbstractFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturePack\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturePack.php
+			path: src/Model/AbstractFeaturePack.php
 
 		-
 			message: "#^Class SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection extends generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but does not specify its types\\: TKey, T$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$booleans type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$countables type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:__construct\\(\\) has parameter \\$elements with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and array will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:getBooleanFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:getCountableFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
 			count: 1
-			path: ../src/Model/AbstractFeaturesCollection.php
+			path: src/Model/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractSubscribedFeature\\:\\:setConfiguredFeature\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/AbstractSubscribedFeature.php
+			path: src/Model/AbstractSubscribedFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractSubscribedFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/AbstractSubscribedFeature.php
+			path: src/Model/AbstractSubscribedFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:\\$instantGrossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:\\$instantNetPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:\\$netPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^PHPDoc tag @return with type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\|null is not subtype of native type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and DateTime will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredBooleanFeature.php
+			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeature\\:\\:\\$packs type has no value type specified in iterable type array\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredCountableFeature.php
+			path: src/Model/ConfiguredCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeature.php
+			path: src/Model/ConfiguredCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeature\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeature.php
+			path: src/Model/ConfiguredCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeature\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeature.php
+			path: src/Model/ConfiguredCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:__construct\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:\\$instantGrossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:\\$instantNetPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:\\$netPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^PHPDoc tag @return with type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\|null is not subtype of native type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and DateTime will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredCountableFeaturePack.php
+			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\:\\:__construct\\(\\) has parameter \\$elements with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredFeaturesCollection.php
+			path: src/Model/ConfiguredFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type \\$this\\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\)\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredFeaturesCollection.php
+			path: src/Model/ConfiguredFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\:\\:setTax\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredFeaturesCollection.php
+			path: src/Model/ConfiguredFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:\\$packs type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:\\$netPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeature\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeature.php
+			path: src/Model/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeaturePack\\:\\:__construct\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeaturePack\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeaturePack\\:\\:\\$netPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeaturePack\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/ConfiguredRechargeableFeaturePack.php
+			path: src/Model/ConfiguredRechargeableFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\FeatureInterface\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/FeatureInterface.php
+			path: src/Model/FeatureInterface.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$sections type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Parameter \\#2 \\$time of static method DateTime\\:\\:createFromFormat\\(\\) expects string, float given\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$issuedOn \\(DateTime\\) does not accept DateTime\\|false\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:setHeader\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:getLine\\(\\) has parameter \\$id with no typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:getLines\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 4
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Parameter \\#1 \\$id of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:hasSection\\(\\) expects int\\|string, string\\|null given\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:getSections\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:jsonUnserialize\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:recalculateTotal\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Invoice.php
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:setHeader\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:getLine\\(\\) has parameter \\$id with no typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^PHPDoc tag @param has invalid value \\(string\\!int \\$id\\)\\: Unexpected token \"\\!int\", expected variable at offset 102$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:getLines\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:getSections\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:jsonUnserialize\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceInterface.php
+			path: src/Model/InvoiceInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:getQuantity\\(\\) should return int\\|null but returns string\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:\\$quantity \\(string\\) does not accept int\\|null\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:hydrate\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:hydrate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:__toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceLine.php
+			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:\\$header \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\) does not accept null\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Parameter \\#1 \\$id of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:hasLine\\(\\) expects int\\|string, string\\|null given\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 3
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:getLines\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:recalculateTotal\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSection.php
+			path: src/Model/InvoiceSection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSectionHeader.php
+			path: src/Model/InvoiceSectionHeader.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\:\\:hydrate\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSectionHeader.php
+			path: src/Model/InvoiceSectionHeader.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\:\\:hydrate\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSectionHeader.php
+			path: src/Model/InvoiceSectionHeader.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\:\\:__toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/InvoiceSectionHeader.php
+			path: src/Model/InvoiceSectionHeader.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedBooleanFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedBooleanFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Function json_decode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_decode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Function json_encode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_encode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedBooleanFeature.php
+			path: src/Model/SubscribedBooleanFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 5
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 5
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeature\\:\\:setSubscribedPack\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeaturePack and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Function json_decode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_decode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Function json_encode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_encode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 2
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeature\\:\\:\\$remainedQuantity has no typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeature\\:\\:consumedToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeature.php
+			path: src/Model/SubscribedCountableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedCountableFeatureInterface\\:\\:setSubscribedPack\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedCountableFeatureInterface.php
+			path: src/Model/SubscribedCountableFeatureInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeatureInterface\\:\\:setConfiguredFeature\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeatureInterface.php
+			path: src/Model/SubscribedFeatureInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeatureInterface\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeatureInterface.php
+			path: src/Model/SubscribedFeatureInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturePack\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeaturePack.php
+			path: src/Model/SubscribedFeaturePack.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturePackInterface\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeaturePackInterface.php
+			path: src/Model/SubscribedFeaturePackInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\:\\:__construct\\(\\) has parameter \\$elements with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeaturesCollection.php
+			path: src/Model/SubscribedFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeaturesCollection.php
+			path: src/Model/SubscribedFeaturesCollection.php
 
 		-
 			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedFeaturesCollection.php
+			path: src/Model/SubscribedFeaturesCollection.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedRechargeableFeature\\:\\:\\$lastRechargeOn has no typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedRechargeableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Function json_decode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_decode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Function json_encode is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\json_encode;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedRechargeableFeature\\:\\:consumedToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Model/SubscribedRechargeableFeature.php
+			path: src/Model/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:\\$features type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:checkIntervalExists\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:getFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:setFeatures\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:forceFeaturesUpdate\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Subscription\\:\\:hydrateFeatures\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Parameter \\#1 \\$elements of class SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection constructor expects array, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection given\\.$#"
 			count: 1
-			path: ../src/Model/Subscription.php
+			path: src/Model/Subscription.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:checkIntervalExists\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscriptionInterface.php
+			path: src/Model/SubscriptionInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:getFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/SubscriptionInterface.php
+			path: src/Model/SubscriptionInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:setFeatures\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Model/SubscriptionInterface.php
+			path: src/Model/SubscriptionInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:forceFeaturesUpdate\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Model/SubscriptionInterface.php
+			path: src/Model/SubscriptionInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasConfiguredPacksInterface\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Property/HasConfiguredPacksInterface.php
+			path: src/Property/HasConfiguredPacksInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasConfiguredPacksInterface\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Property/HasConfiguredPacksInterface.php
+			path: src/Property/HasConfiguredPacksInterface.php
 
 		-
 			message: "#^PHPDoc tag @return with type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\|null is not subtype of native type SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
 			count: 1
-			path: ../src/Property/HasRecurringPricesInterface.php
+			path: src/Property/HasRecurringPricesInterface.php
 
 		-
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getInstantPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
-			path: ../src/Property/HasRecurringPricesInterface.php
+			path: src/Property/HasRecurringPricesInterface.php
 
 		-
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
-			path: ../src/Property/HasRecurringPricesInterface.php
+			path: src/Property/HasRecurringPricesInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Property/HasRecurringPricesInterface.php
+			path: src/Property/HasRecurringPricesInterface.php
 
 		-
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:hasPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
-			path: ../src/Property/HasRecurringPricesInterface.php
+			path: src/Property/HasRecurringPricesInterface.php
 
 		-
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasUnatantumPricesInterface\\:\\:getPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
-			path: ../src/Property/HasUnatantumPricesInterface.php
+			path: src/Property/HasUnatantumPricesInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasUnatantumPricesInterface\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Property/HasUnatantumPricesInterface.php
+			path: src/Property/HasUnatantumPricesInterface.php
 
 		-
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasUnatantumPricesInterface\\:\\:hasPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
-			path: ../src/Property/HasUnatantumPricesInterface.php
+			path: src/Property/HasUnatantumPricesInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\SHQFeaturesBundle\\:\\:build\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/SHQFeaturesBundle.php
+			path: src/SHQFeaturesBundle.php
 
 		-
 			message: "#^Function realpath is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\realpath;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/SHQFeaturesBundle.php
+			path: src/SHQFeaturesBundle.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$oldSubscription has no typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$differences type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 5
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:buildDefaultSubscriptionFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\FeatureInterface\\:\\:isEnabled\\(\\)\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getInstantPrice\\(\\)\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Cannot call method getInstantPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getPack\\(\\)\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Cannot call method getPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) should return SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money but returns SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Function sprintf is unsafe to use\\. It can return FALSE instead of throwing an exception\\. Please add 'use function Safe\\\\sprintf;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getPremiumFeaturesReview\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:rollbackSubscription\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:syncSubscription\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:syncSubscription\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:updateSubscription\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:updateSubscription\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:refreshSubscription\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface will always evaluate to false\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:setFormFactory\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:setInvoicesManager\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:findDifferences\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:findDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:updateNextPaymentAmount\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:refreshCountableFeatures\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Cannot call method modify\\(\\) on DateTime\\|null\\.$#"
 			count: 5
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:updateUntilDates\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^PHPDoc tag @var for variable \\$feature has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$feature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:has\\(\\) expects string, int\\|string\\|null given\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$featureName of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:addFeature\\(\\) expects string, int\\|string\\|null given\\.$#"
 			count: 1
-			path: ../src/Service/FeaturesManager.php
+			path: src/Service/FeaturesManager.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:\\$defaultDrawer \\(string\\|null\\) does not accept SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:getDrawer\\(\\) should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\|string\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:populateInvoice\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:populateSection\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
 			count: 3
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Cannot call method getNumOfUnits\\(\\) on int\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\.$#"
 			count: 3
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxName\\(\\)\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxRate\\(\\)\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
 		-
 			message: "#^PHPDoc tag @var has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: ../src/Service/InvoicesManager.php
+			path: src/Service/InvoicesManager.php
 
