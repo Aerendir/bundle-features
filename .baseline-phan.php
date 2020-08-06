@@ -11,61 +11,57 @@ return [
     // # Issue statistics:
     // PhanUnreferencedPublicMethod : 30+ occurrences
     // PhanPluginUnreachableCode : 15+ occurrences
-    // PhanTypeMismatchReturn : 10+ occurrences
     // PhanUndeclaredMethod : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
-    // PhanUndeclaredProperty : 8 occurrences
+    // PhanTypeMismatchReturn : 8 occurrences
+    // PhanTypeMismatchArgument : 7 occurrences
     // PhanCompatiblePHP7 : 6 occurrences
-    // PhanTypeMismatchArgument : 5 occurrences
-    // PhanTypeMismatchArgumentNullable : 5 occurrences
+    // PhanTypeMismatchArgumentNullable : 6 occurrences
+    // PhanUndeclaredProperty : 5 occurrences
     // PhanUndeclaredTypeParameter : 5 occurrences
-    // PhanUnusedVariableValueOfForeachWithKey : 5 occurrences
+    // PhanTypeMismatchDeclaredParamNullable : 4 occurrences
+    // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUnreferencedUseNormal : 4 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
-    // PhanTypeMismatchDeclaredParamNullable : 3 occurrences
-    // PhanTypeMismatchDeclaredReturn : 3 occurrences
     // PhanTypeMismatchProperty : 3 occurrences
-    // PhanUnusedPublicMethodParameter : 3 occurrences
-    // PhanContinueTargetingSwitch : 2 occurrences
-    // PhanReadOnlyPrivateProperty : 2 occurrences
-    // PhanUnreferencedPrivateProperty : 2 occurrences
-    // PhanWriteOnlyPrivateProperty : 2 occurrences
+    // PhanUnusedPublicFinalMethodParameter : 3 occurrences
+    // PhanWriteOnlyPrivateProperty : 3 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanDeprecatedFunction : 1 occurrence
     // PhanParamSignatureMismatch : 1 occurrence
+    // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanRedefinedClassReference : 1 occurrence
     // PhanRedefinedExtendedClass : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
-    // PhanTypeMismatchArgumentNullableInternal : 1 occurrence
     // PhanTypeMismatchDimAssignment : 1 occurrence
+    // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanTypeVoidAssignment : 1 occurrence
+    // PhanUndeclaredTypeReturnType : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
     // PhanUnextractableAnnotationSuffix : 1 occurrence
     // PhanUnreferencedClass : 1 occurrence
     // PhanUnreferencedPublicClassConstant : 1 occurrence
     // PhanUnusedVariable : 1 occurrence
+    // PhanWriteOnlyPublicProperty : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/DependencyInjection/CompilerPass/DrawersCompilerPass.php' => ['PhanUnusedVariableValueOfForeachWithKey'],
-        'src/DependencyInjection/CompilerPass/FeaturesManagersCompilerPass.php' => ['PhanUnusedVariableValueOfForeachWithKey'],
-        'src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php' => ['PhanUnusedVariableValueOfForeachWithKey'],
-        'src/DependencyInjection/Configuration.php' => ['PhanDeprecatedFunction', 'PhanReadOnlyPrivateProperty', 'PhanTypeVoidAssignment', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure', 'PhanUnusedVariable', 'PhanUnusedVariableValueOfForeachWithKey'],
+        'src/DependencyInjection/Configuration.php' => ['PhanDeprecatedFunction', 'PhanTypeVoidAssignment', 'PhanUndeclaredMethod', 'PhanUndeclaredProperty', 'PhanUnreferencedClosure', 'PhanUnusedVariable'],
         'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass'],
         'src/FeaturesFactory.php' => ['PhanPluginUnreachableCode'],
-        'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredMethod'],
-        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredMethod'],
-        'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchReturn', 'PhanUndeclaredMethod', 'PhanUnusedPublicMethodParameter'],
+        'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanUndeclaredMethod'],
+        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanUndeclaredMethod'],
+        'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Form/Type/FeaturesType.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClosure'],
-        'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
+        'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
         'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanUnreferencedPublicMethod'],
-        'src/Model/AbstractFeaturesCollection.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
-        'src/Model/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicMethodParameter'],
-        'src/Model/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicMethodParameter'],
-        'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchArgumentNullableInternal', 'PhanTypeMismatchDimAssignment'],
+        'src/Model/AbstractFeaturesCollection.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
+        'src/Model/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Model/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
+        'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanTypeMismatchDeclaredParamNullable', 'PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
-        'src/Model/InvoiceLine.php' => ['PhanTypeMismatchProperty', 'PhanTypeMismatchReturn'],
+        'src/Model/InvoiceLine.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchProperty'],
         'src/Model/InvoiceSectionHeader.php' => ['PhanUnreferencedPublicMethod'],
         'src/Model/SubscribedCountableFeature.php' => ['PhanParamSignatureMismatch', 'PhanPluginUnreachableCode', 'PhanUndeclaredMethod'],
@@ -73,16 +69,16 @@ return [
         'src/Model/SubscribedRechargeableFeature.php' => ['PhanWriteOnlyPrivateProperty'],
         'src/Model/Subscription.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
         'src/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty', 'PhanUnreferencedPublicMethod'],
+        'src/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
         'src/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
-        'src/Property/HasRecurringPricesInterface.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanUndeclaredTypeParameter'],
-        'src/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchReturn', 'PhanUndeclaredProperty', 'PhanUnreferencedPrivateProperty', 'PhanUnreferencedPublicMethod'],
+        'src/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
+        'src/Property/HasRecurringPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
+        'src/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPrivateProperty'],
         'src/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
         'src/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Service/FeaturesManager.php' => ['PhanContinueTargetingSwitch', 'PhanPluginUnreachableCode', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal'],
-        'src/Service/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchProperty', 'PhanUndeclaredMethod', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal', 'PhanWriteOnlyPrivateProperty'],
+        'src/Service/FeaturesManager.php' => ['PhanPluginUnreachableCode', 'PhanTypeMismatchDeclaredParamNullable', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal'],
+        'src/Service/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchProperty', 'PhanUndeclaredMethod', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal', 'PhanWriteOnlyPrivateProperty'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
