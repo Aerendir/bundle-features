@@ -85,8 +85,10 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): \Symfony\Component\Config\Definition\Builder\TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('shq_features')
+        $treeBuilder = new TreeBuilder('shq_features');
+        $rootNode    = $treeBuilder->getRootNode();
+
+        $rootNode
                 ->children()
                     ->arrayNode('prices')
                         ->children()
@@ -175,7 +177,7 @@ final class Configuration implements ConfigurationInterface
                                 ->end() // End Features
                             ->end()
                             ->enumNode('default_drawer')
-                                ->values($this->allowedDrawers)
+                                ->values(self::ALLOWED_DRAWERS)
                             ->end()
                         ->end()
                     ->end()
@@ -200,8 +202,8 @@ final class Configuration implements ConfigurationInterface
      */
     private function validateTree(array $tree): array
     {
-        $tree[self::INVOICES][self::DRAWERS] = $this->validateInvoiceDrawers($tree[self::INVOICES][self::DRAWERS]);
-        $tree[self::SETS]                    = $this->validateSets($tree[self::SETS]);
+        $this->validateInvoiceDrawers($tree[self::INVOICES][self::DRAWERS]);
+        $this->validateSets($tree[self::SETS]);
 
         return $tree;
     }
@@ -239,10 +241,8 @@ final class Configuration implements ConfigurationInterface
      * Validates all the configured features sets.
      *
      * @param array $sets
-     *
-     * @return bool
      */
-    private function validateSets(array $sets): bool
+    private function validateSets(array $sets): void
     {
         foreach ($sets as $set => $config) {
             // Validate the default invoice drawer if set
@@ -253,8 +253,6 @@ final class Configuration implements ConfigurationInterface
             // Validate the features in the Set
             $this->validateFeatures($set, $config[self::FEATURES]);
         }
-
-        return true;
     }
 
     /**
@@ -384,9 +382,8 @@ final class Configuration implements ConfigurationInterface
      */
     private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType): void
     {
-        // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
+        // If empty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
         if (false === empty($packs)) {
-            $alreadyHasFreepack = false;
             // ... It contains packages: validate the number of units and their prices
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
