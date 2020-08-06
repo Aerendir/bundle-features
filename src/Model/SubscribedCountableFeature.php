@@ -23,6 +23,10 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
     use CanBeConsumedProperty;
+    /**
+     * @var string
+     */
+    private const LAST_REFRESH_ON = 'last_refresh_on';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
     private $previousRemainedQuantity = 0;
@@ -32,10 +36,6 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
 
     /** @var SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
-    /**
-     * @var string
-     */
-    private const LAST_REFRESH_ON = 'last_refresh_on';
 
     /**
      * {@inheritdoc}
@@ -201,8 +201,8 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         return \array_merge([
-            'active_until'    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
-            'subscribed_pack' => $subscribedPack->toArray(),
+            'active_until'        => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            'subscribed_pack'     => $subscribedPack->toArray(),
             self::LAST_REFRESH_ON => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
         ], parent::toArray(), $this->consumedToArray());
     }

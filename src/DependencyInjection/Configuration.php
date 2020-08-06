@@ -27,18 +27,6 @@ final class Configuration implements ConfigurationInterface
 {
     /** @var string[] The allowed drawers */
     private const ALLOWED_DRAWERS = ['plain_text'];
-
-    /** @var array $foundDrawers The drawers found as default ones in features sets */
-    private $foundDrawers = [];
-
-    /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesType;
-
-    /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesKey;
-
-    /** @var string $unitaryPriceKey The type of prices set: gross or net */
-    private $unitaryPriceKey;
     /**
      * @var string
      */
@@ -79,6 +67,18 @@ final class Configuration implements ConfigurationInterface
      * @var string
      */
     private const UNATANTUM = 'unatantum';
+
+    /** @var array $foundDrawers The drawers found as default ones in features sets */
+    private $foundDrawers = [];
+
+    /** @var string $pricesKey The type of prices set: gross or net */
+    private $pricesType;
+
+    /** @var string $pricesKey The type of prices set: gross or net */
+    private $pricesKey;
+
+    /** @var string $unitaryPriceKey The type of prices set: gross or net */
+    private $unitaryPriceKey;
 
     /**
      * {@inheritdoc}
@@ -201,7 +201,7 @@ final class Configuration implements ConfigurationInterface
     private function validateTree(array $tree): array
     {
         $tree[self::INVOICES][self::DRAWERS] = $this->validateInvoiceDrawers($tree[self::INVOICES][self::DRAWERS]);
-        $tree[self::SETS]                = $this->validateSets($tree[self::SETS]);
+        $tree[self::SETS]                    = $this->validateSets($tree[self::SETS]);
 
         return $tree;
     }

@@ -21,13 +21,13 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
-
-    /** @var bool $enabled */
-    private $enabled = false;
     /**
      * @var string
      */
     private const ENABLED = 'enabled';
+
+    /** @var bool $enabled */
+    private $enabled = false;
 
     /**
      * {@inheritdoc}
@@ -81,7 +81,7 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     public function toArray(): array
     {
         return \array_merge([
-            'active_until' => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            'active_until'     => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
             self::ENABLED      => $this->isEnabled(),
         ], parent::toArray());
     }

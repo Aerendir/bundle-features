@@ -22,6 +22,10 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceLine implements \JsonSerializable
 {
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
     /** @var MoneyInterface$grossAmount */
     private $grossAmount;
 
@@ -39,10 +43,6 @@ final class InvoiceLine implements \JsonSerializable
 
     /** @var float $taxRate */
     private $taxRate;
-    /**
-     * @var string
-     */
-    private const CURRENCY = 'currency';
 
     /**
      * @return MoneyInterface
@@ -190,13 +190,13 @@ final class InvoiceLine implements \JsonSerializable
     public function __toArray(): array
     {
         return [
-            'gross_amount' => $this->getGrossAmount()->getBaseAmount(),
-            'net_amount'   => $this->getNetAmount()->getBaseAmount(),
+            'gross_amount'     => $this->getGrossAmount()->getBaseAmount(),
+            'net_amount'       => $this->getNetAmount()->getBaseAmount(),
             self::CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
-            'description'  => $this->getDescription(),
-            'quantity'     => $this->getQuantity(),
-            'tax_name'     => $this->getTaxName(),
-            'tax_rate'     => $this->getTaxRate(),
+            'description'      => $this->getDescription(),
+            'quantity'         => $this->getQuantity(),
+            'tax_name'         => $this->getTaxName(),
+            'tax_rate'         => $this->getTaxRate(),
         ];
     }
 }

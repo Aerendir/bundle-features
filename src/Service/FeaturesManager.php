@@ -33,7 +33,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 
 /**
@@ -41,26 +40,6 @@ use Symfony\Component\Form\FormFactory;
  */
 final class FeaturesManager
 {
-    /** @var ConfiguredFeaturesCollection $configuredFeatures */
-    private $configuredFeatures;
-
-    /** @var FormFactory $formFactory */
-    private $formFactory;
-
-    /** @var InvoicesManager $invoicesManager */
-    private $invoicesManager;
-
-    /** @var SubscriptionInterface $subscription */
-    private $subscription;
-
-    /** @var SubscriptionInterface $subscription This is use to calculate added and removed boolean features and the changed packs of CountableFeatures */
-    private $oldSubscription;
-
-    /** @var array $differences The added and removed features */
-    private $differences = [
-        self::ADDED   => [],
-        self::REMOVED => [],
-    ];
     /**
      * @var string
      */
@@ -86,6 +65,26 @@ final class FeaturesManager
         SubscriptionInterface::BIWEEKLY => 2,
         SubscriptionInterface::MONTHLY  => 3,
         SubscriptionInterface::YEARLY   => 4,
+    ];
+    /** @var ConfiguredFeaturesCollection $configuredFeatures */
+    private $configuredFeatures;
+
+    /** @var FormFactory $formFactory */
+    private $formFactory;
+
+    /** @var InvoicesManager $invoicesManager */
+    private $invoicesManager;
+
+    /** @var SubscriptionInterface $subscription */
+    private $subscription;
+
+    /** @var SubscriptionInterface $subscription This is use to calculate added and removed boolean features and the changed packs of CountableFeatures */
+    private $oldSubscription;
+
+    /** @var array $differences The added and removed features */
+    private $differences = [
+        self::ADDED   => [],
+        self::REMOVED => [],
     ];
 
     /**
@@ -177,26 +176,26 @@ final class FeaturesManager
                 case 'boolean':
                     /** @var ConfiguredBooleanFeatureInterface $details */
                     $features[$name] = [
-                        'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
+                        'active_until'     => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                         self::TYPE         => $details->getType(),
-                        'enabled'      => $details->isEnabled(),
+                        'enabled'          => $details->isEnabled(),
                     ];
                     break;
                 case 'countable':
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
                         self::TYPE              => $details->getType(),
-                        'subscribed_pack'   => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
-                        'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
+                        'subscribed_pack'       => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
+                        'remained_quantity'     => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
                     break;
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
                         self::TYPE                   => $details->getType(),
-                        'last_recharge_on'       => new \DateTime(),
-                        'last_recharge_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
-                        'remained_quantity'      => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'last_recharge_on'           => new \DateTime(),
+                        'last_recharge_quantity'     => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        'remained_quantity'          => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                     ];
                     break;
             }
@@ -339,7 +338,6 @@ final class FeaturesManager
      * So, if a Premium configured feature is not present in the given Subscription, it is set as not enabled, while, if
      * it exists in the given Subscription, it has its same status (if enabled in the Subscription, it will be enabled,
      * disabled instead).
-     *
      *
      * @todo Method to implement
      */

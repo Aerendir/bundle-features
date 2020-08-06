@@ -35,6 +35,14 @@ use SHQ\Component\ArrayWriter\ArrayWriter;
  */
 final class InvoicesManager
 {
+    /**
+     * @var string
+     */
+    private const GROSS = 'gross';
+    /**
+     * @var string
+     */
+    private const NET = 'net';
     /** @var ArrayWriter $arrayWriter */
     private $arrayWriter;
 
@@ -49,14 +57,6 @@ final class InvoicesManager
 
     /** @var SubscriptionInterface $subscription */
     private $subscription;
-    /**
-     * @var string
-     */
-    private const GROSS = 'gross';
-    /**
-     * @var string
-     */
-    private const NET = 'net';
 
     /**
      * @param array       $configuredFeatures

@@ -81,7 +81,7 @@ interface InvoiceInterface extends \JsonSerializable
     /**
      * @param int|string $id
      */
-    public function getSection($id):? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
+    public function getSection($id): ? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
 
     /**
      * Get the sections of the Invoice.

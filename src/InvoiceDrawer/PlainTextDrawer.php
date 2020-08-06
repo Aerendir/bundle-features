@@ -21,8 +21,6 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
  */
 final class PlainTextDrawer extends AbstractInvoiceDrawer
 {
-    /** @var int $tableWidth */
-    private $tableWidth;
     /**
      * @var string
      */
@@ -43,6 +41,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
      * @var string
      */
     private const MIN_WIDTH = 'min_width';
+    /** @var int $tableWidth */
+    private $tableWidth;
 
     /**
      * @param InvoiceInterface $invoice
@@ -58,8 +58,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
 
         $equalsSeparator       = $this->drawSeparator('=', $this->tableWidth);
         $dashSeparator         = $this->drawSeparator('-', $this->tableWidth);
-        $equalsSeparatorShort = $this->drawSeparator('=', $this->tableWidth - \round(35 % $this->tableWidth));
-        $equalsSeparatorShort = $this->drawSeparator(' ', $this->tableWidth - \iconv_strlen($equalsSeparatorShort)) . $equalsSeparatorShort;
+        $equalsSeparatorShort  = $this->drawSeparator('=', $this->tableWidth - \round(35 % $this->tableWidth));
+        $equalsSeparatorShort  = $this->drawSeparator(' ', $this->tableWidth - \iconv_strlen($equalsSeparatorShort)) . $equalsSeparatorShort;
 
         $detailsTable = '';
         foreach ($detailsTables as $sectionId => $sectionContent) {
@@ -110,8 +110,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
     {
         $tableData = [
             [
-                self::QUANTITY        => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], self::INVOICE)),
-                self::DESCRIPTION     => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], self::INVOICE)),
+                self::QUANTITY         => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], self::INVOICE)),
+                self::DESCRIPTION      => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], self::INVOICE)),
                 self::BASE_AMOUNT      => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], self::INVOICE)),
             ],
         ];
@@ -119,8 +119,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
         /** @var InvoiceLine $line */
         foreach ($section->getLines() as $line) {
             $lineData = [
-                self::QUANTITY        => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
-                self::DESCRIPTION     => $line->getDescription(),
+                self::QUANTITY         => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
+                self::DESCRIPTION      => $line->getDescription(),
                 self::BASE_AMOUNT      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
@@ -142,14 +142,14 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
             'columns'           => [
                 self::QUANTITY => [
                     self::MIN_WIDTH => 10,
-                    'max_width' => 10,
+                    'max_width'     => 10,
                 ],
                 self::DESCRIPTION => [
-                    'max_width' => 32,
+                    'max_width'     => 32,
                     self::MIN_WIDTH => 32,
                 ],
                 self::BASE_AMOUNT => [
-                    'align'     => 'right',
+                    'align'         => 'right',
                     self::MIN_WIDTH => 18,
                 ],
             ],

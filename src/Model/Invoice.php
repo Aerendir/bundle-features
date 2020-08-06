@@ -23,6 +23,18 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 abstract class Invoice implements InvoiceInterface
 {
     /**
+     * @var string
+     */
+    private const BASE_AMOUNT = 'baseAmount';
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
+    /**
+     * @var string
+     */
+    private const _DEFAULT = '_default';
+    /**
      * @var Currency
      * @ORM\Column(name="currency", type="currency", nullable=false)
      */
@@ -53,18 +65,6 @@ abstract class Invoice implements InvoiceInterface
      * @ORM\Column(name="net_total", type="money", nullable=false)
      */
     private $netTotal;
-    /**
-     * @var string
-     */
-    private const BASE_AMOUNT = 'baseAmount';
-    /**
-     * @var string
-     */
-    private const CURRENCY = 'currency';
-    /**
-     * @var string
-     */
-    private const _DEFAULT = '_default';
 
     /**
      * {@inheritdoc}
@@ -215,7 +215,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getSection($id):? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection
+    public function getSection($id): ? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection
     {
         if (self::_DEFAULT === $id && false === isset($this->sections[self::_DEFAULT])) {
             $this->sections[self::_DEFAULT] = new InvoiceSection($this->getCurrency());

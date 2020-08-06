@@ -54,9 +54,9 @@ trait HasRecurringPricesProperty
     public function __construct(array $details = [])
     {
         $this->instantGrossPrices = [];
-        $this->instantNetPrices = [];
-        $this->grossPrices = [];
-        $this->netPrices = [];
+        $this->instantNetPrices   = [];
+        $this->grossPrices        = [];
+        $this->netPrices          = [];
         if (isset($details['net_prices'])) {
             $this->setPrices($details['net_prices'], 'net');
         }

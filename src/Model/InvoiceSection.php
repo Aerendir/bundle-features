@@ -20,6 +20,14 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceSection implements \JsonSerializable
 {
+    /**
+     * @var string
+     */
+    private const BASE_AMOUNT = 'baseAmount';
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
     /** @var Currency $currency */
     private $currency;
 
@@ -34,14 +42,6 @@ final class InvoiceSection implements \JsonSerializable
 
     /** @var MoneyInterface $netTotal */
     private $netTotal;
-    /**
-     * @var string
-     */
-    private const BASE_AMOUNT = 'baseAmount';
-    /**
-     * @var string
-     */
-    private const CURRENCY = 'currency';
 
     /**
      * @param Currency $currency

@@ -72,6 +72,7 @@ final class FeaturesType extends AbstractType
      * @var string
      */
     private const DATA_NET_INSTANT_AMOUNT = 'data-net-instant-amount';
+
     /**
      * {@inheritdoc}
      */
@@ -130,11 +131,11 @@ final class FeaturesType extends AbstractType
             self::REQUIRED => false,
             self::ATTR     => [
                 self::DATA_FEATURE              => 'boolean',
-                'data-toggle'               => 'toggle',
-                'data-already-active'       => $subscribedFeature->isStillActive(),
-                'data-gross-amount'         => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                'data-toggle'                   => 'toggle',
+                'data-already-active'           => $subscribedFeature->isStillActive(),
+                'data-gross-amount'             => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
                 self::DATA_GROSS_INSTANT_AMOUNT => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
-                'data-net-amount'           => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
+                'data-net-amount'               => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
                 self::DATA_NET_INSTANT_AMOUNT   => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
             ],
         ];
@@ -152,7 +153,7 @@ final class FeaturesType extends AbstractType
             self::REQUIRED => true,
             self::ATTR     => [
                 self::DATA_FEATURE => 'countable',
-                'data-name'    => $subscribedFeature->getName(),
+                'data-name'        => $subscribedFeature->getName(),
             ],
             'choices'     => $this->getCountableFeaturePacks($subscribedFeature->getConfiguredFeature()),
             'choice_attr' => $this->setCountableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature()),
@@ -171,7 +172,7 @@ final class FeaturesType extends AbstractType
             self::REQUIRED => true,
             self::ATTR     => [
                 self::DATA_FEATURE => 'rechargeable',
-                'data-name'    => $subscribedFeature->getName(),
+                'data-name'        => $subscribedFeature->getName(),
             ],
             'choices'     => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
             'choice_attr' => $this->setRechargeableFeaturePacksPrices($subscription, $subscribedFeature->getConfiguredFeature()),
@@ -228,11 +229,11 @@ final class FeaturesType extends AbstractType
             $isPackAlreadyActive = $subscribedPack === $val;
 
             return [
-                'data-gross-amount'         => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                'data-gross-amount'             => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
                 self::DATA_GROSS_INSTANT_AMOUNT => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
-                'data-net-amount'           => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
+                'data-net-amount'               => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
                 self::DATA_NET_INSTANT_AMOUNT   => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
-                'data-already-subscribed'   => $isPackAlreadyActive,
+                'data-already-subscribed'       => $isPackAlreadyActive,
             ];
         };
     }
