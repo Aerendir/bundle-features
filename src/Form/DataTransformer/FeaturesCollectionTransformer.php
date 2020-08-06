@@ -17,16 +17,14 @@ use Symfony\Component\Form\DataTransformerInterface;
 /**
  * {@inheritdoc}
  */
-class FeaturesCollectionTransformer implements DataTransformerInterface
+final class FeaturesCollectionTransformer implements DataTransformerInterface
 {
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
      * @param array $features
-     *
-     * @return SubscribedFeaturesCollection
      */
-    public function transform($features)
+    public function transform($features): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection
     {
         return new SubscribedFeaturesCollection($features);
     }
@@ -35,10 +33,8 @@ class FeaturesCollectionTransformer implements DataTransformerInterface
      * Transforms a form value into a Feature object.
      *
      * @param SubscribedFeaturesCollection $features
-     *
-     * @return SubscribedFeaturesCollection
      */
-    public function reverseTransform($features)
+    public function reverseTransform($features): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection
     {
         return $features;
     }

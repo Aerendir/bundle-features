@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureProperty;
 /**
  * {@inheritdoc}
  */
-class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedCountableFeatureInterface
+final class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedCountableFeatureInterface
 {
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
@@ -32,6 +32,10 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
     /** @var SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
+    /**
+     * @var string
+     */
+    private const LAST_REFRESH_ON = 'last_refresh_on';
 
     /**
      * {@inheritdoc}
@@ -52,8 +56,8 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
         }
 
         // If we have it passed as a detail (from the database), then we use it
-        if (isset($details['last_refresh_on'])) {
-            $this->lastRefreshOn = $details['last_refresh_on'] instanceof \DateTime ? $details['last_refresh_on'] : new \DateTime($details['last_refresh_on']['date'], new \DateTimeZone($details['last_refresh_on']['timezone']));
+        if (isset($details[self::LAST_REFRESH_ON])) {
+            $this->lastRefreshOn = $details[self::LAST_REFRESH_ON] instanceof \DateTime ? $details[self::LAST_REFRESH_ON] : new \DateTime($details[self::LAST_REFRESH_ON]['date'], new \DateTimeZone($details[self::LAST_REFRESH_ON]['timezone']));
         }
 
         parent::__construct($name, $details);
@@ -75,7 +79,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function getLastRefreshOn(): ? \DateTime
+    public function getLastRefreshOn(): \DateTime
     {
         return $this->lastRefreshOn;
     }
@@ -116,19 +120,19 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
 
         switch ($configuredFeature->getRefreshPeriod()) {
             case SubscriptionInterface::DAILY:
-                return $diff->days >= 1 ? true : false;
+                return $diff->days >= 1;
                 break;
             case SubscriptionInterface::WEEKLY:
-                return $diff->days >= 7 ? true : false;
+                return $diff->days >= 7;
                 break;
             case SubscriptionInterface::BIWEEKLY:
-                return $diff->days >= 15 ? true : false;
+                return $diff->days >= 15;
                 break;
             case SubscriptionInterface::MONTHLY:
-                return $diff->m >= 1 ? true : false;
+                return $diff->m >= 1;
                 break;
             case SubscriptionInterface::YEARLY:
-                return $diff->y >= 1 ? true : false;
+                return $diff->y >= 1;
                 break;
         }
 
@@ -166,7 +170,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function setSubscribedPack(SubscribedCountableFeaturePack $pack)
+    public function setSubscribedPack(SubscribedCountableFeaturePack $pack): void
     {
         // The remained quantity we had at the begininning of the subscription period
         $this->remainedQuantity += $this->consumedQuantity;
@@ -187,7 +191,7 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function toArray(): array
     {
         $subscribedPack = $this->getSubscribedPack();
 
@@ -196,10 +200,10 @@ class SubscribedCountableFeature extends AbstractSubscribedFeature implements Su
             $subscribedPack = $subscribedPack->getNumOfUnits();
         }
 
-        return array_merge([
-            'active_until'    => json_decode(json_encode($this->getActiveUntil()), true),
+        return \array_merge([
+            'active_until'    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
             'subscribed_pack' => $subscribedPack->toArray(),
-            'last_refresh_on' => json_decode(json_encode($this->getLastRefreshOn()), true),
+            self::LAST_REFRESH_ON => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
         ], parent::toArray(), $this->consumedToArray());
     }
 }

@@ -20,7 +20,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  *
  * The lines are serialized by Issue when persisted to the database and deserialized when get from it.
  */
-class InvoiceLine implements \JsonSerializable
+final class InvoiceLine implements \JsonSerializable
 {
     /** @var MoneyInterface$grossAmount */
     private $grossAmount;
@@ -39,6 +39,10 @@ class InvoiceLine implements \JsonSerializable
 
     /** @var float $taxRate */
     private $taxRate;
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
 
     /**
      * @return MoneyInterface
@@ -67,7 +71,7 @@ class InvoiceLine implements \JsonSerializable
     /**
      * @return int|null
      */
-    public function getQuantity()
+    public function getQuantity(): string
     {
         return $this->quantity;
     }
@@ -129,7 +133,7 @@ class InvoiceLine implements \JsonSerializable
      *
      * @return InvoiceLine
      */
-    public function setQuantity($quantity): self
+    public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
 
@@ -171,10 +175,10 @@ class InvoiceLine implements \JsonSerializable
     /**
      * @param array $data
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data): void
     {
-        $grossAmount = new Money(['baseAmount' => (int) $data['gross_amount'], 'currency' => new Currency($data['currency'])]);
-        $netAmount   = new Money(['baseAmount' => (int) $data['net_amount'], 'currency' => new Currency($data['currency'])]);
+        $grossAmount = new Money(['baseAmount' => (int) $data['gross_amount'], self::CURRENCY => new Currency($data[self::CURRENCY])]);
+        $netAmount   = new Money(['baseAmount' => (int) $data['net_amount'], self::CURRENCY => new Currency($data[self::CURRENCY])]);
         $this->setDescription($data['description']);
         $this->setGrossAmount($grossAmount);
         $this->setNetAmount($netAmount);
@@ -183,15 +187,12 @@ class InvoiceLine implements \JsonSerializable
         $this->setTaxRate($data['tax_rate']);
     }
 
-    /**
-     * @return array
-     */
-    public function __toArray()
+    public function __toArray(): array
     {
         return [
             'gross_amount' => $this->getGrossAmount()->getBaseAmount(),
             'net_amount'   => $this->getNetAmount()->getBaseAmount(),
-            'currency'     => $this->getGrossAmount()->getCurrency()->getCode(),
+            self::CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
             'description'  => $this->getDescription(),
             'quantity'     => $this->getQuantity(),
             'tax_name'     => $this->getTaxName(),

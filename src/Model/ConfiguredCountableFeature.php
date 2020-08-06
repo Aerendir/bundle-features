@@ -18,7 +18,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
 /**
  * {@inheritdoc}
  */
-class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterface
+final class ConfiguredCountableFeature extends AbstractFeature implements ConfiguredCountableFeatureInterface
 {
     use HasConfiguredPacksProperty {
         HasConfiguredPacksProperty::setPacks as setPacksProperty;

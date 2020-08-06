@@ -55,7 +55,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         }
 
         if (false === isset($this->configuredPacks[$pack])) {
-            throw new \RuntimeException(sprintf('The requested pack "%s" doesn\'t exist', $pack));
+            throw new \RuntimeException(\Safe\sprintf('The requested pack "%s" doesn\'t exist', $pack));
         }
 
         return $this->configuredPacks[$pack];
@@ -77,9 +77,6 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         return $this->getSubscribedFeatures()->get($this->getFeatureName());
     }
 
-    /**
-     * @return SubscribedFeaturesCollection
-     */
     public function getSubscribedFeatures(): SubscribedFeaturesCollection
     {
         return $this->subscribedFeatures;

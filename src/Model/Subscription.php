@@ -124,7 +124,7 @@ abstract class Subscription implements SubscriptionInterface
     public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval)) {
-            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
+            throw new \InvalidArgumentException(\Safe\sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
         }
     }
 
@@ -133,7 +133,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public static function intervalExists(string $interval): bool
     {
-        return in_array($interval, [
+        return \in_array($interval, [
             SubscriptionInterface::DAILY,
             SubscriptionInterface::WEEKLY,
             SubscriptionInterface::BIWEEKLY,
@@ -145,7 +145,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrency()
+    public function getCurrency(): \Money\Currency
     {
         if (null === $this->currency) {
             $this->currency = new Currency('EUR');
@@ -232,7 +232,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function has(string $feature): bool
     {
-        if (0 >= count($this->getFeatures())) {
+        if (0 >= \count($this->getFeatures())) {
             return false;
         }
 

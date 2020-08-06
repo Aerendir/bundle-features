@@ -17,16 +17,14 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
 /**
  * {@inheritdoc}
  */
-class BooleanFeatureTransformer extends AbstractFeatureTransformer
+final class BooleanFeatureTransformer extends AbstractFeatureTransformer
 {
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
      * @param FeatureInterface|null $feature
-     *
-     * @return string
      */
-    public function transform($feature)
+    public function transform($feature): bool
     {
         if ($feature instanceof SubscribedBooleanFeatureInterface) {
             return $feature->isEnabled();

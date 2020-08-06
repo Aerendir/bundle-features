@@ -17,21 +17,21 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Set the appropriate FeaturesHandler for each created FeaturesManager.
  */
-class InvoiceManagersCompilerPass implements CompilerPassInterface
+final class InvoiceManagersCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $drawers = $this->getFormatters($container);
 
-        foreach ($container->findTaggedServiceIds('shq_features.invoice_manager') as $service => $tags) {
+        foreach (\array_keys($container->findTaggedServiceIds('shq_features.invoice_manager')) as $service) {
             $managerDefinition = $container->getDefinition($service);
 
             foreach ($drawers as $key => $drawer) {
-                $key        = explode('.', $key);
-                $drawerName = end($key);
+                $key        = \explode('.', $key);
+                $drawerName = \end($key);
                 $managerDefinition->addMethodCall('addDrawer', [$drawerName, $drawer]);
             }
         }
@@ -46,7 +46,7 @@ class InvoiceManagersCompilerPass implements CompilerPassInterface
     {
         $drawers = $containerBuilder->findTaggedServiceIds('shq_features.invoice_drawer');
 
-        foreach ($drawers as $drawer => $tags) {
+        foreach (\array_keys($drawers) as $drawer) {
             $drawers[$drawer] = $containerBuilder->findDefinition($drawer);
         }
 

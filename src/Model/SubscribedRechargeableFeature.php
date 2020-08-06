@@ -73,7 +73,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function getRechargingPack(): SubscribedRechargeableFeaturePack
     {
         if (false === $this->hasRechargingPack()) {
-            throw new \LogicException(sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this->getName()));
+            throw new \LogicException(\Safe\sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this->getName()));
         }
 
         return $this->rechargingPack;
@@ -113,10 +113,10 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function toArray(): array
     {
-        return array_merge([
-            'last_recharge_on'       => json_decode(json_encode($this->getLastRechargeOn()), true),
+        return \array_merge([
+            'last_recharge_on'       => \Safe\json_decode(\Safe\json_encode($this->getLastRechargeOn()), true),
             'last_recharge_quantity' => $this->getLastRechargeQuantity(),
         ], parent::toArray(), $this->consumedToArray());
     }

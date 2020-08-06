@@ -42,7 +42,7 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'type' => $this->getType(),

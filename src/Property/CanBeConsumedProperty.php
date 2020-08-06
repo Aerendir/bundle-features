@@ -58,10 +58,7 @@ trait CanBeConsumedProperty
         return $this->remainedQuantity;
     }
 
-    /**
-     * @return array
-     */
-    public function consumedToArray()
+    public function consumedToArray(): array
     {
         return [
             'consumed_quantity' => $this->getConsumedQuantity(),

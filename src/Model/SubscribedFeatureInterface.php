@@ -28,8 +28,6 @@ interface SubscribedFeatureInterface extends FeatureInterface
 
     /**
      * Converts a Feature object into an array.
-     *
-     * @return array
      */
-    public function toArray();
+    public function toArray(): array;
 }

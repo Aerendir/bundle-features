@@ -25,16 +25,16 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 trait HasRecurringPricesProperty
 {
     /** @var array $instantGrossPrices */
-    private $instantGrossPrices = [];
+    private $instantGrossPrices;
 
     /** @var array $instantNetPrices */
-    private $instantNetPrices = [];
+    private $instantNetPrices;
 
     /** @var array $grossPrices */
-    private $grossPrices = [];
+    private $grossPrices;
 
     /** @var array $netPrices */
-    private $netPrices = [];
+    private $netPrices;
 
     /** @var string $pricesType */
     private $pricesType;
@@ -53,6 +53,10 @@ trait HasRecurringPricesProperty
      */
     public function __construct(array $details = [])
     {
+        $this->instantGrossPrices = [];
+        $this->instantNetPrices = [];
+        $this->grossPrices = [];
+        $this->netPrices = [];
         if (isset($details['net_prices'])) {
             $this->setPrices($details['net_prices'], 'net');
         }
@@ -60,12 +64,6 @@ trait HasRecurringPricesProperty
         if (isset($details['gross_prices'])) {
             $this->setPrices($details['gross_prices'], 'gross');
         }
-
-        /* Not required anymore
-        if ($this instanceof SubscribedFeatureInterface && !$this instanceof IsRecurringFeatureInterface) {
-            throw new \LogicException('To have recurring prices, a Feature MUST implement IsRecurringFeatureInterface.');
-        }
-        */
     }
 
     /**
@@ -77,7 +75,7 @@ trait HasRecurringPricesProperty
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface
+    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): ?MoneyInterface
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();
@@ -87,7 +85,7 @@ trait HasRecurringPricesProperty
             $type = $this->pricesType;
         }
 
-        $instantPricesProperty = 'net' === $type ? 'instantNetPrice' : 'instantGrossPrice';
+        $instantPricesProperty = 'net' === $type ? 'instantNetPrices' : 'instantGrossPrices';
 
         if (false === isset($this->$instantPricesProperty[$currency][$subscriptionInterval])) {
             $this->$instantPricesProperty[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
@@ -137,7 +135,7 @@ trait HasRecurringPricesProperty
                 return $this->netPrices;
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
+                throw new \InvalidArgumentException(\Safe\sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
         }
     }
 
@@ -205,21 +203,21 @@ trait HasRecurringPricesProperty
 
         $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
-        if (0 < count($this->$pricesProperty)) {
+        if (0 < \count($this->$pricesProperty)) {
             foreach ($this->$pricesProperty as $currency => $prices) {
                 /** @var MoneyInterface $price */
                 foreach ($prices as $subscriptionInterval => $price) {
                     switch ($this->pricesType) {
                         // If currently is "net"...
                         case 'net':
-                            $netPrice                                            = (int) round($price->getBaseAmount() * (1 + $rate));
+                            $netPrice                                            = (int) \round($price->getBaseAmount() * (1 + $rate));
                             $netPrice                                            = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
                             break;
                         // If currently is "gross"...
                         case 'gross':
                             // ... Then we have to set net prices
-                            $grossPrice                                        = (int) round($price->getBaseAmount() / (1 + $rate));
+                            $grossPrice                                        = (int) \round($price->getBaseAmount() / (1 + $rate));
                             $grossPrice                                        = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                             $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
                             break;
@@ -241,7 +239,7 @@ trait HasRecurringPricesProperty
         $this->pricesType = $pricesType;
         $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
 
-        if (0 < count($prices)) {
+        if (0 < \count($prices)) {
             foreach ($prices as $currency => $price) {
                 $currency = new Currency($currency);
 
@@ -298,10 +296,10 @@ trait HasRecurringPricesProperty
                 $daysInInterval = 365;
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
+                throw new \InvalidArgumentException(\Safe\sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
         }
 
-        $pricePerDay = (int) floor($price->getBaseAmount() / $daysInInterval);
+        $pricePerDay = (int) \floor($price->getBaseAmount() / $daysInInterval);
 
         // Calculate the remaining days
         $nextRenewOn = clone $this->subscription->getNextRenewOn();
@@ -309,7 +307,6 @@ trait HasRecurringPricesProperty
         /** @var \DateInterval $remainingDays */
         $remainingDays = $nextRenewOn->diff(new \DateTime());
 
-        /* @var \DateInterval $remainingDays */
         $instantPrice = $pricePerDay * $remainingDays->days;
 
         return new Money(['baseAmount' => $instantPrice, 'currency' => $currency]);

@@ -41,10 +41,10 @@ final class FeaturesFactory
     /**
      * @param string $kind
      */
-    public static function setKind(string $kind)
+    public static function setKind(string $kind): void
     {
-        if (false === in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
+            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
         self::$kind = $kind;
     }
@@ -115,7 +115,7 @@ final class FeaturesFactory
         return null;
     }
 
-    public static function checkKindIsSet()
+    public static function checkKindIsSet(): void
     {
         if (null === self::$kind) {
             throw new \LogicException('Before you can create features you have to set the kind you want to generate. Use FeaturesFactory::setKind().');

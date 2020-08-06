@@ -38,15 +38,47 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * {@inheritdoc}
  */
-class FeaturesType extends AbstractType
+final class FeaturesType extends AbstractType
 {
+    /**
+     * @var string
+     */
+    private const SUBSCRIPTION = 'subscription';
+    /**
+     * @var string
+     */
+    private const REQUIRED = 'required';
+    /**
+     * @var string
+     */
+    private const ATTR = 'attr';
+    /**
+     * @var string
+     */
+    private const DATA_FEATURE = 'data-feature';
+    /**
+     * @var string
+     */
+    private const GROSS = 'gross';
+    /**
+     * @var string
+     */
+    private const DATA_GROSS_INSTANT_AMOUNT = 'data-gross-instant-amount';
+    /**
+     * @var string
+     */
+    private const NET = 'net';
+    /**
+     * @var string
+     */
+    private const DATA_NET_INSTANT_AMOUNT = 'data-net-instant-amount';
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var SubscribedFeaturesCollection $subscribedFeatures */
-        $subscribedFeatures = $options['subscription']->getFeatures();
+        $subscribedFeatures = $options[self::SUBSCRIPTION]->getFeatures();
 
         /** @var ConfiguredFeatureInterface $configuredFeature */
         foreach ($options['configured_features']->getValues() as $configuredFeature) {
@@ -54,19 +86,19 @@ class FeaturesType extends AbstractType
             $subscribedFeature = $subscribedFeatures->get($configuredFeature->getName());
 
             // Process the right kind of feature
-            switch (get_class($configuredFeature)) {
+            switch (\get_class($configuredFeature)) {
                 case ConfiguredBooleanFeature::class:
-                    $builder->add($configuredFeature->getName(), CheckboxType::class, $this->getBooleanFeatureOptions($options['subscription'], $subscribedFeature));
+                    $builder->add($configuredFeature->getName(), CheckboxType::class, $this->getBooleanFeatureOptions($options[self::SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new BooleanFeatureTransformer($configuredFeature->getName(), $subscribedFeatures));
                     break;
                 case ConfiguredCountableFeature::class:
                     /** @var ConfiguredCountableFeature $configuredFeature */
-                    $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getCountableFeaturePacksOptions($options['subscription'], $subscribedFeature));
+                    $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getCountableFeaturePacksOptions($options[self::SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new CountableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
                     break;
                 case ConfiguredRechargeableFeature::class:
                     /** @var ConfiguredRechargeableFeature $configuredFeature */
-                    $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getRechargeableFeaturePacksOptions($options['subscription'], $subscribedFeature));
+                    $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getRechargeableFeaturePacksOptions($options[self::SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new RechargeableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
                     break;
             }
@@ -76,13 +108,13 @@ class FeaturesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setRequired([
             'configured_features',
-            'subscription',
+            self::SUBSCRIPTION,
         ]);
     }
 
@@ -95,15 +127,15 @@ class FeaturesType extends AbstractType
     private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $subscribedFeature = null): array
     {
         return [
-            'required' => false,
-            'attr'     => [
-                'data-feature'              => 'boolean',
+            self::REQUIRED => false,
+            self::ATTR     => [
+                self::DATA_FEATURE              => 'boolean',
                 'data-toggle'               => 'toggle',
                 'data-already-active'       => $subscribedFeature->isStillActive(),
-                'data-gross-amount'         => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
-                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
-                'data-net-amount'           => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
-                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
+                'data-gross-amount'         => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                self::DATA_GROSS_INSTANT_AMOUNT => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                'data-net-amount'           => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
+                self::DATA_NET_INSTANT_AMOUNT   => $this->formatPriceForDataAttribute($subscribedFeature->getConfiguredFeature()->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
             ],
         ];
     }
@@ -117,9 +149,9 @@ class FeaturesType extends AbstractType
     private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature): array
     {
         return [
-            'required' => true,
-            'attr'     => [
-                'data-feature' => 'countable',
+            self::REQUIRED => true,
+            self::ATTR     => [
+                self::DATA_FEATURE => 'countable',
                 'data-name'    => $subscribedFeature->getName(),
             ],
             'choices'     => $this->getCountableFeaturePacks($subscribedFeature->getConfiguredFeature()),
@@ -136,9 +168,9 @@ class FeaturesType extends AbstractType
     private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature): array
     {
         return [
-            'required' => true,
-            'attr'     => [
-                'data-feature' => 'rechargeable',
+            self::REQUIRED => true,
+            self::ATTR     => [
+                self::DATA_FEATURE => 'rechargeable',
                 'data-name'    => $subscribedFeature->getName(),
             ],
             'choices'     => $this->getRechargeableFeaturePacks($subscribedFeature->getConfiguredFeature()),
@@ -148,10 +180,8 @@ class FeaturesType extends AbstractType
 
     /**
      * @param ConfiguredCountableFeatureInterface $feature
-     *
-     * @return array
      */
-    private function getCountableFeaturePacks(ConfiguredCountableFeatureInterface $feature)
+    private function getCountableFeaturePacks(ConfiguredCountableFeatureInterface $feature): array
     {
         $choices = [];
         /** @var ConfiguredCountableFeaturePack $pack */
@@ -164,10 +194,8 @@ class FeaturesType extends AbstractType
 
     /**
      * @param ConfiguredRechargeableFeatureInterface $feature
-     *
-     * @return array
      */
-    private function getRechargeableFeaturePacks(ConfiguredRechargeableFeatureInterface $feature)
+    private function getRechargeableFeaturePacks(ConfiguredRechargeableFeatureInterface $feature): array
     {
         $choices = [];
         /** @var ConfiguredRechargeableFeaturePack $pack */
@@ -181,12 +209,10 @@ class FeaturesType extends AbstractType
     /**
      * @param SubscriptionInterface               $subscription
      * @param ConfiguredCountableFeatureInterface $configuredFeature
-     *
-     * @return \Closure
      */
-    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature)
+    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature): callable
     {
-        return function ($val) use ($subscription, $configuredFeature) {
+        return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredCountableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
@@ -202,10 +228,10 @@ class FeaturesType extends AbstractType
             $isPackAlreadyActive = $subscribedPack === $val;
 
             return [
-                'data-gross-amount'         => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
-                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'gross')),
-                'data-net-amount'           => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
-                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), 'net')),
+                'data-gross-amount'         => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                self::DATA_GROSS_INSTANT_AMOUNT => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::GROSS)),
+                'data-net-amount'           => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
+                self::DATA_NET_INSTANT_AMOUNT   => $this->formatPriceForDataAttribute($pack->getInstantPrice($subscription->getCurrency(), $subscription->getRenewInterval(), self::NET)),
                 'data-already-subscribed'   => $isPackAlreadyActive,
             ];
         };
@@ -214,18 +240,16 @@ class FeaturesType extends AbstractType
     /**
      * @param SubscriptionInterface                  $subscription
      * @param ConfiguredRechargeableFeatureInterface $configuredFeature
-     *
-     * @return \Closure
      */
-    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature)
+    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature): callable
     {
-        return function ($val) use ($subscription, $configuredFeature) {
+        return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredRechargeableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
             return [
-                'data-gross-instant-amount' => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), 'gross')),
-                'data-net-instant-amount'   => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), 'net')),
+                self::DATA_GROSS_INSTANT_AMOUNT => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), self::GROSS)),
+                self::DATA_NET_INSTANT_AMOUNT   => $this->formatPriceForDataAttribute($pack->getPrice($subscription->getCurrency(), self::NET)),
             ];
         };
     }
@@ -239,13 +263,13 @@ class FeaturesType extends AbstractType
      */
     private function formatPriceForDataAttribute(MoneyInterface $amount)
     {
-        $splitted = explode('.', $amount->getHumanAmount());
+        $splitted = \explode('.', $amount->getHumanAmount());
 
         $result = (int) $splitted[0];
 
         if (0 !== (int) $splitted[1]) {
             $sum    = '0.' . $splitted[1];
-            $result = $result + (float) $sum;
+            $result += (float) $sum;
         }
 
         return $result;

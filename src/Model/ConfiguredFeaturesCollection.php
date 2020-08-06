@@ -18,8 +18,11 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
 /**
  * {@inheritdoc}
  */
-class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
+final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
+    /**
+     * @var string
+     */
     const KIND = 'configured';
 
     /** @var bool $taxSet */
@@ -47,7 +50,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
      *
      * @return $this
      */
-    public function setSubscription(SubscriptionInterface $subscription)
+    public function setSubscription(SubscriptionInterface $subscription): self
     {
         foreach ($this->getValues() as $feature) {
             if ($feature instanceof HasRecurringPricesInterface || $feature instanceof ConfiguredCountableFeatureInterface) {
@@ -61,7 +64,7 @@ class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @param float $rate
      */
-    public function setTax(float $rate, string $name)
+    public function setTax(float $rate, string $name): void
     {
         foreach ($this->getValues() as $feature) {
             if (

@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
 /**
  * {@inheritdoc}
  */
-class ConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
+final class ConfiguredRechargeableFeature extends AbstractFeature implements ConfiguredRechargeableFeatureInterface
 {
     use HasConfiguredPacksProperty {
         HasConfiguredPacksProperty::setPacks as setPacksProperty;

@@ -17,7 +17,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
 /**
  * {@inheritdoc}
  */
-class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBooleanFeatureInterface
+final class ConfiguredBooleanFeature extends AbstractFeature implements ConfiguredBooleanFeatureInterface
 {
     use HasRecurringPricesProperty {
         HasRecurringPricesProperty::__construct as RecurringConstruct;

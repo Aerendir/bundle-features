@@ -16,8 +16,17 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 interface FeatureInterface
 {
+    /**
+     * @var string
+     */
     const BOOLEAN      = 'boolean';
+    /**
+     * @var string
+     */
     const COUNTABLE    = 'countable';
+    /**
+     * @var string
+     */
     const RECHARGEABLE = 'rechargeable';
 
     /**

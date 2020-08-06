@@ -19,10 +19,25 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 interface SubscriptionInterface
 {
+    /**
+     * @var string
+     */
     const DAILY    = 'daily';
+    /**
+     * @var string
+     */
     const WEEKLY   = 'weekly';
+    /**
+     * @var string
+     */
     const BIWEEKLY = 'biweekly';
+    /**
+     * @var string
+     */
     const MONTHLY  = 'monthly';
+    /**
+     * @var string
+     */
     const YEARLY   = 'yearly';
 
     /**
@@ -56,10 +71,8 @@ interface SubscriptionInterface
 
     /**
      * Do not set the return typecasting until a currency type is created.
-     *
-     * @return Currency
      */
-    public function getCurrency();
+    public function getCurrency(): \Money\Currency;
 
     /**
      * Forces the features to be returned as a ConfiguredFeaturesCollection.
@@ -97,10 +110,8 @@ interface SubscriptionInterface
      * If it is not set, is because this is a new subscription, so the next payment is immediate.
      *
      * The logic of the app will set this date one month or one year in the future.
-     *
-     * @return \DateTime
      */
-    public function getNextRenewOn();
+    public function getNextRenewOn(): \DateTime;
 
     /**
      * The date on which the feature were subscribed on.

@@ -18,7 +18,7 @@ interface IsRecurringFeatureInterface
      *
      * @return \DateTime|null
      */
-    public function getActiveUntil();
+    public function getActiveUntil(): ?\DateTime;
 
     /**
      * @return bool

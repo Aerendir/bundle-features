@@ -39,7 +39,7 @@ use Symfony\Component\Form\FormFactory;
 /**
  * Contains method to manage features plans.
  */
-class FeaturesManager
+final class FeaturesManager
 {
     /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
@@ -58,8 +58,34 @@ class FeaturesManager
 
     /** @var array $differences The added and removed features */
     private $differences = [
-        'added'   => [],
-        'removed' => [],
+        self::ADDED   => [],
+        self::REMOVED => [],
+    ];
+    /**
+     * @var string
+     */
+    private const ADDED = 'added';
+    /**
+     * @var string
+     */
+    private const REMOVED = 'removed';
+    /**
+     * @var string
+     */
+    private const TYPE = 'type';
+    /**
+     * @var string
+     */
+    private const GROSS = 'gross';
+    /**
+     * @var int[]
+     */
+    private const INTERVALS = [
+        SubscriptionInterface::DAILY    => 0,
+        SubscriptionInterface::WEEKLY   => 1,
+        SubscriptionInterface::BIWEEKLY => 2,
+        SubscriptionInterface::MONTHLY  => 3,
+        SubscriptionInterface::YEARLY   => 4,
     ];
 
     /**
@@ -152,14 +178,14 @@ class FeaturesManager
                     /** @var ConfiguredBooleanFeatureInterface $details */
                     $features[$name] = [
                         'active_until' => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
-                        'type'         => $details->getType(),
+                        self::TYPE         => $details->getType(),
                         'enabled'      => $details->isEnabled(),
                     ];
                     break;
                 case 'countable':
                     /** @var ConfiguredCountableFeatureInterface $details */
                     $features[$name] = [
-                        'type'              => $details->getType(),
+                        self::TYPE              => $details->getType(),
                         'subscribed_pack'   => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
                         'remained_quantity' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
@@ -167,7 +193,7 @@ class FeaturesManager
                 case 'rechargeable':
                     /** @var ConfiguredRechargeableFeatureInterface $details */
                     $features[$name] = [
-                        'type'                   => $details->getType(),
+                        self::TYPE                   => $details->getType(),
                         'last_recharge_on'       => new \DateTime(),
                         'last_recharge_quantity' => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                         'remained_quantity'      => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
@@ -196,8 +222,8 @@ class FeaturesManager
          * May happen that a premium feature is activate and paid, then is deactivated but it is still in the subscription interval.
          * If it is activated again during the subscription interval, it were already paid, so it hasn't to be paid again.
          */
-        foreach ($this->getDifferences('added') as $feature) {
-            $featureName = is_array($feature) ? key($feature) : $feature;
+        foreach ($this->getDifferences(self::ADDED) as $feature) {
+            $featureName = \is_array($feature) ? \key($feature) : $feature;
             /** @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface $checkingFeature */
             $checkingFeature = $this->getSubscription()->getFeatures()->get($featureName);
 
@@ -206,14 +232,18 @@ class FeaturesManager
                 $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
                 $price             = null;
 
-                switch (get_class($checkingFeature)) {
+                switch (\get_class($checkingFeature)) {
                     // These two have recurring features, so they can or cannot be still active
                     case SubscribedBooleanFeature::class:
                         if (true === $checkingFeature->isStillActive()) {
                             // If it is still active, we have to charge nothing, so continue processing next feature
-                            continue;
+                            // continue, // Here there was a continue, but Rector reports a PHP warning
+                            // PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"?
+                            // When you read this comment, evaluate if the bundle continues to work as expected or not.
+                            // If it continues to work as expected, remove this entire comment.
+                            break;
                         }
-                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
+                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
                         break;
                     case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
@@ -223,7 +253,7 @@ class FeaturesManager
                              *
                              * @var SubscribedCountableFeatureInterface
                              */
-                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
+                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
                         }
                         break;
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
@@ -233,7 +263,7 @@ class FeaturesManager
                          *
                          * @var SubscribedRechargeableFeatureInterface
                          */
-                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'gross');
+                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::GROSS);
                         break;
                 }
 
@@ -248,17 +278,15 @@ class FeaturesManager
 
     /**
      * @param string $type
-     *
-     * @return array
      */
-    public function getDifferences($type = null)
+    public function getDifferences(string $type = null): array
     {
         if (null === $this->differences) {
             throw new \LogicException('No differences calculated. You have to first call findDifferences().');
         }
 
-        if ('added' !== $type && 'removed' !== $type && null !== $type) {
-            throw new \InvalidArgumentException(sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
+        if (self::ADDED !== $type && self::REMOVED !== $type && null !== $type) {
+            throw new \InvalidArgumentException(\Safe\sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
         }
 
         return null === $type ? $this->differences : $this->differences[$type];
@@ -267,10 +295,8 @@ class FeaturesManager
     /**
      * @param string                $actionUrl
      * @param SubscriptionInterface $subscription
-     *
-     * @return FormBuilderInterface
      */
-    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription)
+    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): \Symfony\Component\Form\FormBuilderInterface
     {
         // Generate this form only once
         static $form = null;
@@ -283,7 +309,7 @@ class FeaturesManager
             }
 
             if (false === $this->getConfiguredFeatures()->isTaxSet()) {
-                throw new \RuntimeException('To generate a valid form you have to set a Tax. Call first setTax() and then you\'ll can call getFeaturesFormBuilder(). Ex.: FeaturesManager::setTax()->getFeaturesFormBuilder()');
+                throw new \RuntimeException("To generate a valid form you have to set a Tax. Call first setTax() and then you'll can call getFeaturesFormBuilder(). Ex.: FeaturesManager::setTax()->getFeaturesFormBuilder()");
             }
 
             // Clone the $subscription so we can use it to compare changes
@@ -314,11 +340,10 @@ class FeaturesManager
      * it exists in the given Subscription, it has its same status (if enabled in the Subscription, it will be enabled,
      * disabled instead).
      *
-     * @return ConfiguredFeaturesCollection
      *
      * @todo Method to implement
      */
-    public function getPremiumFeaturesReview()
+    public function getPremiumFeaturesReview(): \SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection
     {
         return $this->getConfiguredFeatures();
     }
@@ -326,7 +351,7 @@ class FeaturesManager
     /**
      * Reverts the Subscription to the state before the editings.
      */
-    public function rollbackSubscription()
+    public function rollbackSubscription(): void
     {
         $this->subscription
             ->setCurrency($this->oldSubscription->getCurrency())
@@ -340,7 +365,7 @@ class FeaturesManager
      * @param SubscriptionInterface        $subscription
      * @param SubscribedFeaturesCollection $features
      */
-    public function syncSubscription(SubscriptionInterface $subscription, SubscribedFeaturesCollection $features)
+    public function syncSubscription(SubscriptionInterface $subscription, SubscribedFeaturesCollection $features): void
     {
         foreach ($features as $featureName => $feature) {
             $toggle = $feature->isEnabled() ? 'enable' : 'disable';
@@ -355,7 +380,7 @@ class FeaturesManager
      *
      * @param SubscribedFeaturesCollection|null $newFeatures
      */
-    public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null)
+    public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null): void
     {
         if (null !== $newFeatures) {
             /**
@@ -386,7 +411,7 @@ class FeaturesManager
     /**
      * Renews the countable features at the end of the renew period.
      */
-    public function refreshSubscription()
+    public function refreshSubscription(): void
     {
         $subscription = $this->getSubscription();
 
@@ -499,7 +524,7 @@ class FeaturesManager
     /**
      * @param FormFactory $formFactory
      */
-    public function setFormFactory(FormFactory $formFactory)
+    public function setFormFactory(FormFactory $formFactory): void
     {
         $this->formFactory = $formFactory;
     }
@@ -507,7 +532,7 @@ class FeaturesManager
     /**
      * @param InvoicesManager $invoicesManager
      */
-    public function setInvoicesManager(InvoicesManager $invoicesManager)
+    public function setInvoicesManager(InvoicesManager $invoicesManager): void
     {
         $this->invoicesManager = $invoicesManager;
     }
@@ -569,11 +594,11 @@ class FeaturesManager
             // If the Feature is in the old collection but doesn't exist in the new collection...
             if (false === $newFeatures->containsKey($oldFeature->getName())) {
                 // ... It was removed and in this case we can simply set it as removed as we don't need much details
-                $this->differences['removed'][] = $oldFeature->getName();
+                $this->differences[self::REMOVED][] = $oldFeature->getName();
                 continue;
             }
 
-            switch (get_class($oldFeature)) {
+            switch (\get_class($oldFeature)) {
                 // If is a BooleanFeature...
                 case SubscribedBooleanFeature::class:
                     /** @var SubscribedBooleanFeature $oldFeature */
@@ -583,7 +608,7 @@ class FeaturesManager
                         && false === $newFeatures->get($oldFeature->getName())->isEnabled()
                     ) {
                         // ... It was removed
-                        $this->differences['removed'][] = $oldFeature->getName();
+                        $this->differences[self::REMOVED][] = $oldFeature->getName();
                     }
                     break;
                 // If is a CountableFeature...
@@ -606,13 +631,12 @@ class FeaturesManager
                         // ... and then we compare them. If they are not equal...
                         if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
                             // ... the pack was removed (changed)
-                            $this->differences['removed'][] = [$oldFeature->getName() => $oldSubscribedPack->getNumOfUnits()];
+                            $this->differences[self::REMOVED][] = [$oldFeature->getName() => $oldSubscribedPack->getNumOfUnits()];
                         }
                     }
                     break;
                 case SubscribedRechargeableFeature::class:
-                    // Just as a placeholder for clarity. A RechargeableFeature cannot be removed.
-                    continue;
+                    break;
                     break;
             }
         }
@@ -633,7 +657,7 @@ class FeaturesManager
              * plan.
              */
             $featureDetails = '';
-            switch (get_class($newFeature)) {
+            switch (\get_class($newFeature)) {
                 // If is a BooleanFeature...
                 case SubscribedBooleanFeature::class:
                     // ... we simply need its name
@@ -654,14 +678,14 @@ class FeaturesManager
             // ... If the feature was not in the old collection but exists in the new collection...
             if (false === $oldFeatures->containsKey($newFeature->getName())) {
                 // ... It was added for sure
-                $this->differences['added'][] = $featureDetails;
+                $this->differences[self::ADDED][] = $featureDetails;
                 continue;
             }
 
             // If the new feature already was in the old collection...
             if (true === $oldFeatures->containsKey($newFeature->getName())) {
                 // We need to know which kind of feature we are checking to know how to do the check
-                switch (get_class($newFeature)) {
+                switch (\get_class($newFeature)) {
                     // If is a BooleanFeature...
                     case SubscribedBooleanFeature::class:
                         // If now, in the new subscription, is enabled...
@@ -670,7 +694,7 @@ class FeaturesManager
                             && false === $oldFeatures->get($newFeature->getName())->isEnabled()
                         ) {
                             // ... then, it was added
-                            $this->differences['added'][] = $featureDetails;
+                            $this->differences[self::ADDED][] = $featureDetails;
                         }
                         break;
                     // If is a CountableFeature...
@@ -684,7 +708,7 @@ class FeaturesManager
                         // We first get the subscribed packages and then we compare them. If they are not equal...
                         if ($oldSubscribedPack->getNumOfUnits() !== $newSubscribedPack->getNumOfUnits()) {
                             // ... the pack was removed (changed)
-                            $this->differences['added'][] = $featureDetails;
+                            $this->differences[self::ADDED][] = $featureDetails;
                         }
                         break;
                     // If it is a RechargeableFeature...
@@ -692,7 +716,7 @@ class FeaturesManager
                         // ... if a rechargin pack exists...
                         if ($newFeature->hasRechargingPack()) {
                             // ... We are simply recharging the feature
-                            $this->differences['added'][] = $featureDetails;
+                            $this->differences[self::ADDED][] = $featureDetails;
                         }
                         break;
                 }
@@ -705,7 +729,7 @@ class FeaturesManager
     /**
      * Updates the amount of the next payment for the provided subscription object.
      */
-    private function updateNextPaymentAmount()
+    private function updateNextPaymentAmount(): void
     {
         $this->getSubscription()->setNextRenewAmount($this->calculateSubscriptionAmount());
     }
@@ -714,17 +738,9 @@ class FeaturesManager
      * Updates the renew period based on Countable features present (to the smallest interval) and sets the next renew
      * date.
      */
-    private function refreshCountableFeatures()
+    private function refreshCountableFeatures(): void
     {
-        $intervals = [
-            SubscriptionInterface::DAILY    => 0,
-            SubscriptionInterface::WEEKLY   => 1,
-            SubscriptionInterface::BIWEEKLY => 2,
-            SubscriptionInterface::MONTHLY  => 3,
-            SubscriptionInterface::YEARLY   => 4,
-        ];
         $refreshInterval = SubscriptionInterface::MONTHLY;
-
         /** @var SubscribedCountableFeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures()->getValues() as $feature) {
             if ($feature instanceof SubscribedCountableFeatureInterface) {
@@ -732,7 +748,7 @@ class FeaturesManager
                 $configuredFeature = $feature->getConfiguredFeature();
 
                 // If the configured renew period is smaller than the current renew period...
-                if ($intervals[$configuredFeature->getRefreshPeriod()] < $intervals[$refreshInterval]) {
+                if (self::INTERVALS[$configuredFeature->getRefreshPeriod()] < self::INTERVALS[$refreshInterval]) {
                     // Set the configured renew period as the new current renew period
                     $refreshInterval = $configuredFeature->getRefreshPeriod();
                 }
@@ -741,13 +757,10 @@ class FeaturesManager
                 $feature->refresh();
             }
         }
-
         $nextRefreshOn = $this->getSubscription()->getNextRefreshOn() ?? clone $this->getSubscription()->getSubscribedOn();
-
         $this->getSubscription()
             ->setSmallestRefreshInterval($refreshInterval)
             ->setNextRefreshOn($nextRefreshOn);
-
         switch ($this->getSubscription()->getSmallestRefreshInterval()) {
             // We need to clone the \DateTime object to change its reference
             // @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/working-with-datetime.html
@@ -782,16 +795,16 @@ class FeaturesManager
     /**
      * Updates the date until the features in the Subscription are active.
      */
-    private function updateUntilDates()
+    private function updateUntilDates(): void
     {
         $validUntil = $this->getSubscription()->getNextRenewOn();
 
         /** @var array $feature */
-        foreach ($this->getDifferences('added') as $feature) {
+        foreach ($this->getDifferences(self::ADDED) as $feature) {
             // If this is an array, this is a Package...
-            if (is_array($feature)) {
+            if (\is_array($feature)) {
                 // So we need the key of the array that is the feature's name
-                $feature = key($feature);
+                $feature = \key($feature);
             }
 
             if (false === $this->getSubscription()->has($feature)) {

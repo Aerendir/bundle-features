@@ -23,12 +23,12 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 /**
  * {@inheritdoc}
  */
-class SHQFeaturesExtension extends Extension
+final class SHQFeaturesExtension extends Extension
 {
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
@@ -52,7 +52,7 @@ class SHQFeaturesExtension extends Extension
      * @param string           $drawer
      * @param ContainerBuilder $containerBuilder
      */
-    private function createFormatterService(string $drawer, ContainerBuilder $containerBuilder)
+    private function createFormatterService(string $drawer, ContainerBuilder $containerBuilder): void
     {
         $drawerServiceName = null;
         $drawerDefinition  = null;
@@ -73,7 +73,7 @@ class SHQFeaturesExtension extends Extension
      * @param array            $setConfig
      * @param ContainerBuilder $containerBuilder
      */
-    private function createFeaturesService(string $name, array $setConfig, ContainerBuilder $containerBuilder)
+    private function createFeaturesService(string $name, array $setConfig, ContainerBuilder $containerBuilder): void
     {
         // Create the feature manager definition
         $featureManagerDefinition = new Definition(FeaturesManager::class, [$setConfig['features']]);
@@ -87,7 +87,7 @@ class SHQFeaturesExtension extends Extension
      * @param array            $setConfig
      * @param ContainerBuilder $containerBuilder
      */
-    private function createInvoicesService(string $name, array $setConfig, ContainerBuilder $containerBuilder)
+    private function createInvoicesService(string $name, array $setConfig, ContainerBuilder $containerBuilder): void
     {
         $arrayWriterDefinition     = $containerBuilder->findDefinition('shq_features.array_writer');
         $defaultDrawer             = $setConfig['default_drawer'] ?? null;

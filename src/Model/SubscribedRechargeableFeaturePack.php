@@ -14,6 +14,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * The recharging pack of the SubscribedRechargeableFeature.
  */
-class SubscribedRechargeableFeaturePack extends SubscribedFeaturePack
+final class SubscribedRechargeableFeaturePack extends SubscribedFeaturePack
 {
 }

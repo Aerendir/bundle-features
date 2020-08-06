@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  *
  * An Header line to use to draw an header in the invoice lines.
  */
-class InvoiceSectionHeader implements \JsonSerializable
+final class InvoiceSectionHeader implements \JsonSerializable
 {
     /** @var string $header */
     private $header;
@@ -29,18 +29,12 @@ class InvoiceSectionHeader implements \JsonSerializable
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    public function getHeader(): string
     {
         return $this->header;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->__toArray();
     }
@@ -48,15 +42,12 @@ class InvoiceSectionHeader implements \JsonSerializable
     /**
      * @param array $data
      */
-    public function hydrate(array $data)
+    public function hydrate(array $data): void
     {
         $this->header = $data['header'];
     }
 
-    /**
-     * @return array
-     */
-    public function __toArray()
+    public function __toArray(): array
     {
         return [
             'header' => $this->getHeader(),

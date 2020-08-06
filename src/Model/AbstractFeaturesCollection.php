@@ -19,6 +19,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
  */
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
+    /**
+     * @var null
+     */
     const KIND = null;
 
     /** @var AbstractFeaturesCollection $booleans */
@@ -39,10 +42,10 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             $elements = [];
         }
 
-        if (0 < count($elements)) {
+        if (0 < \count($elements)) {
             foreach ($elements as $feature => $details) {
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
-                if (is_array($details)) {
+                if (\is_array($details)) {
                     switch ($details['type']) {
                         case FeatureInterface::BOOLEAN:
                             $elements[$feature] = FeaturesFactory::createBoolean($feature, $details);
@@ -57,7 +60,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                             break;
 
                         default:
-                            throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $details['type']));
+                            throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $details['type']));
                     }
                 }
             }
@@ -66,10 +69,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         parent::__construct($elements);
     }
 
-    /**
-     * @return AbstractFeaturesCollection
-     */
-    public function getBooleanFeatures()
+    public function getBooleanFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
     {
         if (null === $this->booleans) {
             // Cache the result
@@ -79,10 +79,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         return $this->booleans;
     }
 
-    /**
-     * @return AbstractFeaturesCollection
-     */
-    public function getCountableFeatures()
+    public function getCountableFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
     {
         if (null === $this->countables) {
             // Cache the result
@@ -92,10 +89,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         return $this->countables;
     }
 
-    /**
-     * @return AbstractFeaturesCollection
-     */
-    public function getRechargeableFeatures()
+    public function getRechargeableFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result
@@ -107,14 +101,12 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
 
     /**
      * @param string $type
-     *
-     * @return \Closure
      */
-    private function getFilterPredictate(string $type)
+    private function getFilterPredictate(string $type): callable
     {
         $featureClass = $this->getFeatureClass($type);
 
-        return function ($element) use ($featureClass) {
+        return function ($element) use ($featureClass): BaseObject {
             if ($element instanceof $featureClass) {
                 return $element;
             }
@@ -132,7 +124,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             case 'boolean':
         }
 
-        return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . ucfirst(FeaturesFactory::getKind()) . ucfirst($type) . 'Feature';
+        return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . \ucfirst(FeaturesFactory::getKind()) . \ucfirst($type) . 'Feature';
     }
 
     public function __clone()

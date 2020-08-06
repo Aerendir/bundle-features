@@ -16,7 +16,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureProperty;
 /**
  * {@inheritdoc}
  */
-class SubscribedBooleanFeature extends AbstractSubscribedFeature implements SubscribedBooleanFeatureInterface
+final class SubscribedBooleanFeature extends AbstractSubscribedFeature implements SubscribedBooleanFeatureInterface
 {
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
@@ -24,6 +24,10 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
 
     /** @var bool $enabled */
     private $enabled = false;
+    /**
+     * @var string
+     */
+    private const ENABLED = 'enabled';
 
     /**
      * {@inheritdoc}
@@ -34,7 +38,7 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
         $details['type'] = self::BOOLEAN;
 
         $this->disable();
-        if (isset($details['enabled']) && true === $details['enabled']) {
+        if (isset($details[self::ENABLED]) && true === $details[self::ENABLED]) {
             $this->enable();
         }
 
@@ -74,11 +78,11 @@ class SubscribedBooleanFeature extends AbstractSubscribedFeature implements Subs
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function toArray(): array
     {
-        return array_merge([
-            'active_until' => json_decode(json_encode($this->getActiveUntil()), true),
-            'enabled'      => $this->isEnabled(),
+        return \array_merge([
+            'active_until' => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            self::ENABLED      => $this->isEnabled(),
         ], parent::toArray());
     }
 }

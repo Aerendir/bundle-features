@@ -28,7 +28,7 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface;
+    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): ?MoneyInterface;
 
     /**
      * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string

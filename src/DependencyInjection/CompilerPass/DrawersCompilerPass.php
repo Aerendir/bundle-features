@@ -17,15 +17,15 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Configure the Formatters with all required other services and parameters.
  */
-class DrawersCompilerPass implements CompilerPassInterface
+final class DrawersCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $translatorDefinition = $container->findDefinition('translator.default');
-        foreach ($container->findTaggedServiceIds('shq_features.invoice_drawer') as $service => $tags) {
+        foreach (\array_keys($container->findTaggedServiceIds('shq_features.invoice_drawer')) as $service) {
             $drawerDefinition = $container->getDefinition($service);
             $locale           = $container->getParameter('locale');
             $drawerDefinition->addMethodCall('setTranslator', [$translatorDefinition, $locale]);

@@ -17,20 +17,20 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Set the appropriate FeaturesHandler for each created FeaturesManager.
  */
-class FeaturesManagersCompilerPass implements CompilerPassInterface
+final class FeaturesManagersCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
-        foreach ($container->findTaggedServiceIds('shq_features.feature_manager') as $service => $tags) {
+        foreach (\array_keys($container->findTaggedServiceIds('shq_features.feature_manager')) as $service) {
             $managerDefinition = $container->getDefinition($service);
 
             $formFactoryDefinition = $container->findDefinition('form.factory');
             $managerDefinition->addMethodCall('setFormFactory', [$formFactoryDefinition]);
 
-            $aliasIdParts = explode('.', $service);
+            $aliasIdParts = \explode('.', $service);
 
             $invoicesManagerAlias      = $aliasIdParts[0] . '.' . $aliasIdParts[1] . '.' . $aliasIdParts[2] . '.invoices';
             $invoicesManagerDefinition = $container->findDefinition($invoicesManagerAlias);

@@ -20,7 +20,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredCountableFeature with a corrispondent price.
  */
-class ConfiguredCountableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
+final class ConfiguredCountableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasRecurringPricesInterface
 {
     use HasRecurringPricesProperty;
     use CanBeFreeProperty;

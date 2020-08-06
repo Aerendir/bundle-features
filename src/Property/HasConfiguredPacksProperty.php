@@ -28,7 +28,7 @@ trait HasConfiguredPacksProperty
      *
      * @return ConfiguredFeaturePackInterface|null
      */
-    public function getPack(int $numOfUnits)
+    public function getPack(int $numOfUnits): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface
     {
         return $this->hasPack($numOfUnits) ? $this->packs[$numOfUnits] : null;
     }
@@ -67,7 +67,7 @@ trait HasConfiguredPacksProperty
                     $pack = new $packClass($numOfUnits, $prices, $pricesType);
                     break;
                 default:
-                    throw new \RuntimeException(sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
+                    throw new \RuntimeException(\Safe\sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
             }
 
             // If the subscription is set, set it in the pack, too (maybe the pack doesn't have a subscription property, so check for it)

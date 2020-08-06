@@ -18,16 +18,14 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
 /**
  * {@inheritdoc}
  */
-class CountableFeatureTransformer extends AbstractFeatureTransformer
+final class CountableFeatureTransformer extends AbstractFeatureTransformer
 {
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
      * @param SubscribedCountableFeature|null $feature
-     *
-     * @return string
      */
-    public function transform($feature)
+    public function transform($feature): int
     {
         if ($feature instanceof SubscribedCountableFeature) {
             return $feature->getSubscribedPack()->getNumOfUnits();
@@ -40,10 +38,8 @@ class CountableFeatureTransformer extends AbstractFeatureTransformer
      * Transforms a form value into a Feature object.
      *
      * @param int $pack
-     *
-     * @return SubscribedCountableFeatureInterface
      */
-    public function reverseTransform($pack)
+    public function reverseTransform($pack): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
         // future here will set also the price at which the pack were bought

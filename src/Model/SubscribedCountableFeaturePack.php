@@ -14,6 +14,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 /**
  * The subscribed pack of the SubscribedCountableFeature.
  */
-class SubscribedCountableFeaturePack extends SubscribedFeaturePack
+final class SubscribedCountableFeaturePack extends SubscribedFeaturePack
 {
 }

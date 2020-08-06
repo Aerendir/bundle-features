@@ -16,8 +16,11 @@ use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 /**
  * {@inheritdoc}
  */
-class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements \JsonSerializable
+final class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements \JsonSerializable
 {
+    /**
+     * @var string
+     */
     const KIND = 'subscribed';
 
     /**
@@ -32,7 +35,7 @@ class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function toArray(): array
     {
         $return = [];
         /**
@@ -49,7 +52,7 @@ class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->toArray();
     }

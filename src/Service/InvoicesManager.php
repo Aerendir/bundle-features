@@ -33,7 +33,7 @@ use SHQ\Component\ArrayWriter\ArrayWriter;
 /**
  * Manages the Invoices.
  */
-class InvoicesManager
+final class InvoicesManager
 {
     /** @var ArrayWriter $arrayWriter */
     private $arrayWriter;
@@ -49,6 +49,14 @@ class InvoicesManager
 
     /** @var SubscriptionInterface $subscription */
     private $subscription;
+    /**
+     * @var string
+     */
+    private const GROSS = 'gross';
+    /**
+     * @var string
+     */
+    private const NET = 'net';
 
     /**
      * @param array       $configuredFeatures
@@ -116,7 +124,7 @@ class InvoicesManager
      *
      * @return mixed
      */
-    public function drawInvoice(InvoiceInterface $invoice, string $drawer = null)
+    public function drawInvoice(InvoiceInterface $invoice, string $drawer = null): array
     {
         return $this->getDrawer($drawer)->draw($invoice);
     }
@@ -129,7 +137,7 @@ class InvoicesManager
     public function getDrawer(string $drawer = null): InvoiceDrawerInterface
     {
         // If a Drawer were passed and it exists
-        if (null !== $drawer && in_array($drawer, $this->drawers)) {
+        if (null !== $drawer && \in_array($drawer, $this->drawers)) {
             // Use it
             $drawer = $this->drawers[$drawer];
         }
@@ -187,7 +195,7 @@ class InvoicesManager
             $grossPrice = null;
             $netPrice   = null;
             // The feature has to be added
-            switch (get_class($feature)) {
+            switch (\get_class($feature)) {
                 case SubscribedBooleanFeature::class:
                     /**
                      * The price is recurrent, so we need to pass the subscription interval.
@@ -195,8 +203,8 @@ class InvoicesManager
                      * @var ConfiguredBooleanFeatureInterface
                      * @var SubscribedBooleanFeatureInterface $feature
                      */
-                    $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
-                    $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'net');
+                    $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
+                    $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::NET);
                     break;
                 case SubscribedCountableFeature::class:
                     /**
@@ -206,8 +214,8 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'gross');
-                    $netPrice   = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), 'net');
+                    $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
+                    $netPrice   = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::NET);
                     $quantity   = $feature->getSubscribedPack()->getNumOfUnits();
                     break;
                 case SubscribedRechargeableFeature::class:
@@ -218,8 +226,8 @@ class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'gross');
-                    $netPrice   = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), 'net');
+                    $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::GROSS);
+                    $netPrice   = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::NET);
                     $quantity   = $feature->getRechargingPack()->getNumOfUnits();
                     break;
             }
@@ -266,8 +274,8 @@ class InvoicesManager
              */
             foreach ($addedFeatures as $feature) {
                 // If $feature is a Rechargeable one, we have to extract its name (that is the key of the deeper array)
-                if (is_array($feature)) {
-                    $feature = key($feature);
+                if (\is_array($feature)) {
+                    $feature = \key($feature);
                 }
 
                 // We now get the Subscribed*Feature object directly from the Subscription as it is already updated at this point

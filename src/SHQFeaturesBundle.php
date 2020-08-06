@@ -21,18 +21,18 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * {@inheritdoc}
  */
-class SHQFeaturesBundle extends Bundle
+final class SHQFeaturesBundle extends Bundle
 {
     /**
      * {@inheritdoc}
      */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
         $container->addCompilerPass(new FeaturesManagersCompilerPass());
         $container->addCompilerPass(new InvoiceManagersCompilerPass());
         $container->addCompilerPass(new DrawersCompilerPass());
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [realpath(__DIR__ . '/Model')]));
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [\Safe\realpath(__DIR__ . '/Model')]));
     }
 }

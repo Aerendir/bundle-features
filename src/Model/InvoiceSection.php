@@ -18,7 +18,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 /**
  * Represents a section into the Invoice.
  */
-class InvoiceSection implements \JsonSerializable
+final class InvoiceSection implements \JsonSerializable
 {
     /** @var Currency $currency */
     private $currency;
@@ -34,6 +34,14 @@ class InvoiceSection implements \JsonSerializable
 
     /** @var MoneyInterface $netTotal */
     private $netTotal;
+    /**
+     * @var string
+     */
+    private const BASE_AMOUNT = 'baseAmount';
+    /**
+     * @var string
+     */
+    private const CURRENCY = 'currency';
 
     /**
      * @param Currency $currency
@@ -41,8 +49,8 @@ class InvoiceSection implements \JsonSerializable
     public function __construct(Currency $currency)
     {
         $this->currency   = $currency;
-        $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $currency]);
-        $this->netTotal   = new Money(['baseAmount' => 0, 'currency' => $currency]);
+        $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $currency]);
+        $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $currency]);
     }
 
     /**
@@ -53,10 +61,7 @@ class InvoiceSection implements \JsonSerializable
         return $this->currency;
     }
 
-    /**
-     * @return InvoiceSectionHeader
-     */
-    public function getHeader()
+    public function getHeader(): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSectionHeader
     {
         return $this->header;
     }
@@ -69,10 +74,7 @@ class InvoiceSection implements \JsonSerializable
         return isset($this->header);
     }
 
-    /**
-     * @return InvoiceSection
-     */
-    public function removeHeader(): InvoiceSection
+    public function removeHeader(): self
     {
         $this->header = null;
 
@@ -81,10 +83,8 @@ class InvoiceSection implements \JsonSerializable
 
     /**
      * @param InvoiceSectionHeader $header
-     *
-     * @return InvoiceSection
      */
-    public function setHeader(InvoiceSectionHeader $header): InvoiceSection
+    public function setHeader(InvoiceSectionHeader $header): self
     {
         $this->header = $header;
 
@@ -94,16 +94,14 @@ class InvoiceSection implements \JsonSerializable
     /**
      * @param InvoiceLine $line
      * @param string|null $id
-     *
-     * @return InvoiceSection
      */
-    public function addLine(InvoiceLine $line, string $id = null): InvoiceSection
+    public function addLine(InvoiceLine $line, string $id = null): self
     {
-        switch (gettype($id)) {
+        switch (\gettype($id)) {
             case 'string':
             case 'integer':
                 if ($this->hasLine($id)) {
-                    throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
+                    throw new \LogicException(\Safe\sprintf('The section "%s" already exists. You cannot add it again', $id));
                 }
 
                 $this->lines[$id] = $line;
@@ -112,7 +110,7 @@ class InvoiceSection implements \JsonSerializable
                 $this->lines[] = $line;
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', gettype($id)));
+                throw new \InvalidArgumentException(\Safe\sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
         }
 
         // Set the new Total
@@ -124,10 +122,8 @@ class InvoiceSection implements \JsonSerializable
 
     /**
      * @param int|string $id
-     *
-     * @return InvoiceLine|null
      */
-    public function getLine($id)
+    public function getLine($id): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine
     {
         return $this->lines[$id] ?? null;
     }
@@ -142,13 +138,11 @@ class InvoiceSection implements \JsonSerializable
 
     /**
      * @param int|string $id
-     *
-     * @return bool
      */
-    public function hasLine($id)
+    public function hasLine($id): bool
     {
-        if (false === is_string($id) && false === is_int($id)) {
-            throw new \InvalidArgumentException(sprintf('Only strings or integers are accepted as $id. "%s" passed.', gettype($id)));
+        if (false === \is_string($id) && false === \is_int($id)) {
+            throw new \InvalidArgumentException(\Safe\sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id)));
         }
 
         return isset($this->lines[$id]);
@@ -192,7 +186,7 @@ class InvoiceSection implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $return = [];
         if (null !== $this->getHeader()) {
@@ -212,10 +206,10 @@ class InvoiceSection implements \JsonSerializable
     /**
      * Recalculates the total of the invoice.
      */
-    private function recalculateTotal()
+    private function recalculateTotal(): void
     {
-        $this->grossTotal = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
-        $this->netTotal   = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
+        $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
+        $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
 
         /** @var InvoiceLine $line */
         foreach ($this->getLines() as $line) {

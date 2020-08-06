@@ -32,7 +32,7 @@ trait IsRecurringFeatureProperty
     /**
      * {@inheritdoc}
      */
-    public function getActiveUntil()
+    public function getActiveUntil(): ?\DateTime
     {
         return $this->activeUntil;
     }

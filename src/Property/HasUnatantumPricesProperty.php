@@ -45,7 +45,7 @@ trait HasUnatantumPricesProperty
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getPrice($currency, string $type = null)
+    public function getPrice($currency, string $type = null): ?\SerendipityHQ\Component\ValueObjects\Money\MoneyInterface
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();
@@ -93,7 +93,7 @@ trait HasUnatantumPricesProperty
                 return $this->netPrices;
                 break;
             default:
-                throw new \InvalidArgumentException(sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
+                throw new \InvalidArgumentException(\Safe\sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
         }
     }
 
@@ -129,20 +129,20 @@ trait HasUnatantumPricesProperty
 
         $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
-        if (0 < count($this->$pricesProperty)) {
+        if (0 < \count($this->$pricesProperty)) {
             /** @var MoneyInterface $price */
             foreach ($this->$pricesProperty as $currency => $price) {
                 switch ($this->pricesType) {
                     // If currently is "net"...
                     case 'net':
-                        $netPrice                     = (int) round($price->getBaseAmount() * (1 + $rate));
+                        $netPrice                     = (int) \round($price->getBaseAmount() * (1 + $rate));
                         $netPrice                     = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
                     case 'gross':
                         // ... Then we have to set net prices
-                        $grossPrice                 = (int) round($price->getBaseAmount() / (1 + $rate));
+                        $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
                         $grossPrice                 = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
                         break;

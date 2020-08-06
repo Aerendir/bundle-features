@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
  *
  * A Pack represents an amount of units of the ConfiguredRechargeableFeature with a corrispondent price.
  */
-class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
+final class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implements ConfiguredFeaturePackInterface, HasUnatantumPricesInterface
 {
     use HasUnatantumPricesProperty;
 

@@ -122,6 +122,9 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
+
+            // Bugged
+            Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class
         ]
     );
 };
