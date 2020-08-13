@@ -28,7 +28,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInter
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
-use SHQ\Component\ArrayWriter\ArrayWriter;
+use SerendipityHQ\Component\ArrayWriter\ArrayWriter;
 
 /**
  * Manages the Invoices.

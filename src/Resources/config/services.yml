@@ -1,4 +1,4 @@
 services:
     shq_features.array_writer:
-        class: SHQ\Component\ArrayWriter\ArrayWriter
+        class: SerendipityHQ\Component\ArrayWriter\ArrayWriter
         public: false
