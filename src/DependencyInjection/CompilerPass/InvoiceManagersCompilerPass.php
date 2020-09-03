@@ -37,11 +37,6 @@ final class InvoiceManagersCompilerPass implements CompilerPassInterface
         }
     }
 
-    /**
-     * @param ContainerBuilder $containerBuilder
-     *
-     * @return array
-     */
     private function getFormatters(ContainerBuilder $containerBuilder): array
     {
         $drawers = $containerBuilder->findTaggedServiceIds('shq_features.invoice_drawer');

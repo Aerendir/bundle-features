@@ -16,8 +16,5 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 interface FeaturePackInterface
 {
-    /**
-     * @return int
-     */
     public function getNumOfUnits(): int;
 }

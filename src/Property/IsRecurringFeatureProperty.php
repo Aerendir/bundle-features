@@ -19,9 +19,6 @@ trait IsRecurringFeatureProperty
     /** @var \DateTime $activeUntil */
     private $activeUntil;
 
-    /**
-     * @param array $details
-     */
     public function __construct(array $details = [])
     {
         if (isset($details['active_until'])) {

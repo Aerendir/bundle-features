@@ -18,18 +18,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
  */
 interface SubscribedBooleanFeatureInterface extends IsRecurringFeatureInterface, SubscribedFeatureInterface
 {
-    /**
-     * @return FeatureInterface
-     */
     public function disable(): FeatureInterface;
 
-    /**
-     * @return FeatureInterface
-     */
     public function enable(): FeatureInterface;
 
-    /**
-     * @return bool
-     */
     public function isEnabled(): bool;
 }

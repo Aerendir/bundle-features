@@ -16,8 +16,5 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 interface SubscribedFeaturePackInterface extends FeaturePackInterface
 {
-    /**
-     * @return array
-     */
     public function toArray(): array;
 }

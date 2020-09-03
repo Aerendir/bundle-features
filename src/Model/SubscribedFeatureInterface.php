@@ -21,9 +21,6 @@ interface SubscribedFeatureInterface extends FeatureInterface
      */
     public function getConfiguredFeature(): ConfiguredFeatureInterface;
 
-    /**
-     * @param ConfiguredFeatureInterface $configuredFeature
-     */
     public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature);
 
     /**

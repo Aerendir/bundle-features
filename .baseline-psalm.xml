@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.13.1@afd8874a9e4562eac42a02de90e42e430c3a1db1">
+<files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
   <file src="src/DependencyInjection/CompilerPass/DrawersCompilerPass.php">
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$service</code>
@@ -25,9 +25,6 @@
     </MixedAssignment>
   </file>
   <file src="src/DependencyInjection/Configuration.php">
-    <DeprecatedMethod occurrences="1">
-      <code>root</code>
-    </DeprecatedMethod>
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
       <code>$numOfUnits</code>
@@ -92,8 +89,7 @@
       <code>$prices[$currency]['_']</code>
       <code>$price['_']</code>
     </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="4">
-      <code>$tree[self::INVOICES][self::DRAWERS]</code>
+    <MixedArrayAssignment occurrences="3">
       <code>$tree[self::INVOICES][self::DRAWERS]</code>
       <code>$tree[self::INVOICES][self::DRAWERS]</code>
       <code>$sets[$set][self::FEATURES]</code>
@@ -230,9 +226,6 @@
     <PossiblyUndefinedMethod occurrences="1">
       <code>children</code>
     </PossiblyUndefinedMethod>
-    <UndefinedThisPropertyFetch occurrences="1">
-      <code>$this-&gt;allowedDrawers</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
     <MixedArgument occurrences="3">
@@ -363,46 +356,26 @@
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/InvoiceDrawer/PlainTextDrawer.php">
-    <ImplicitToStringCast occurrences="4">
-      <code>$invoice-&gt;getGrossTotal()-&gt;getCurrency()</code>
-      <code>$invoice-&gt;getNetTotal()-&gt;getCurrency()</code>
+    <ImplicitToStringCast occurrences="2">
       <code>$line-&gt;getNetAmount()-&gt;getCurrency()</code>
       <code>$line-&gt;getGrossAmount()-&gt;getCurrency()</code>
     </ImplicitToStringCast>
-    <InvalidOperand occurrences="1">
-      <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
-    </InvalidOperand>
     <InvalidReturnStatement occurrences="1">
       <code>$return</code>
     </InvalidReturnStatement>
     <InvalidReturnType occurrences="1">
       <code>string</code>
     </InvalidReturnType>
-    <InvalidScalarArgument occurrences="5">
-      <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
-      <code>$invoice-&gt;getNetTotal()-&gt;getHumanAmount()</code>
-      <code>$invoice-&gt;getGrossTotal()-&gt;getHumanAmount()</code>
+    <InvalidScalarArgument occurrences="2">
       <code>$line-&gt;getNetAmount()-&gt;getHumanAmount()</code>
       <code>$line-&gt;getGrossAmount()-&gt;getHumanAmount()</code>
     </InvalidScalarArgument>
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>array</code>
+    </MismatchingDocblockReturnType>
     <MissingConstructor occurrences="1">
       <code>$tableWidth</code>
     </MissingConstructor>
-    <MixedArgument occurrences="1">
-      <code>$section</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$section</code>
-    </MixedAssignment>
-    <PossiblyFalseOperand occurrences="3">
-      <code>\iconv_strlen($equalsSeparatorShort)</code>
-      <code>\mb_strtoupper($this-&gt;getTranslator()-&gt;trans('shq_features.invoice.total.label', [], self::INVOICE))</code>
-      <code>\iconv_strlen($totalGrossAmount)</code>
-    </PossiblyFalseOperand>
-    <PossiblyNullReference occurrences="2">
-      <code>hasHeader</code>
-      <code>getHeader</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Model/AbstractFeature.php">
     <MixedAssignment occurrences="1">
@@ -470,6 +443,9 @@
     <NoInterfaceProperties occurrences="1">
       <code>$this-&gt;refreshPeriod</code>
     </NoInterfaceProperties>
+    <ParamNameMismatch occurrences="1">
+      <code>$class</code>
+    </ParamNameMismatch>
     <PropertyNotSetInConstructor occurrences="5">
       <code>$packs</code>
       <code>$refreshPeriod</code>
@@ -498,6 +474,9 @@
     <MixedAssignment occurrences="1">
       <code>$this-&gt;freeRecharge</code>
     </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$class</code>
+    </ParamNameMismatch>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$freeRecharge</code>
       <code>ConfiguredRechargeableFeature</code>
@@ -647,9 +626,6 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>SubscribedCountableFeaturePack</code>
     </ImplementedReturnTypeMismatch>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>\DateTime</code>
-    </MismatchingDocblockReturnType>
     <MixedArgument occurrences="4">
       <code>$details['subscribed_pack']</code>
       <code>$details['remained_quantity']</code>
@@ -660,9 +636,6 @@
       <code>$details[self::LAST_REFRESH_ON]['date']</code>
       <code>$details[self::LAST_REFRESH_ON]['timezone']</code>
     </MixedArrayAccess>
-    <MixedInferredReturnType occurrences="1">
-      <code>\DateTime</code>
-    </MixedInferredReturnType>
     <PossiblyInvalidMethodCall occurrences="1">
       <code>toArray</code>
     </PossiblyInvalidMethodCall>
@@ -670,6 +643,9 @@
       <code>$lastRefreshOn</code>
       <code>SubscribedCountableFeature</code>
     </PropertyNotSetInConstructor>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;getLastRefreshOn()</code>
+    </TypeDoesNotContainNull>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
@@ -744,7 +720,7 @@
       <code>$prices</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>ConfiguredFeaturePackInterface|null</code>
+      <code>?\SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="1">
       <code>new $packClass($numOfUnits, $prices, $pricesType)</code>

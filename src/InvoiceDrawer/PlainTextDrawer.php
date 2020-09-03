@@ -21,34 +21,18 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
  */
 final class PlainTextDrawer extends AbstractInvoiceDrawer
 {
-    /**
-     * @var string
-     */
     private const INVOICE = 'Invoice';
-    /**
-     * @var string
-     */
+
     private const QUANTITY = 'quantity';
-    /**
-     * @var string
-     */
+
     private const DESCRIPTION = 'description';
-    /**
-     * @var string
-     */
+
     private const BASE_AMOUNT = 'baseAmount';
-    /**
-     * @var string
-     */
+
     private const MIN_WIDTH = 'min_width';
     /** @var int $tableWidth */
     private $tableWidth;
 
-    /**
-     * @param InvoiceInterface $invoice
-     *
-     * @return array
-     */
     public function draw(InvoiceInterface $invoice): array
     {
         $detailsTables = [];
@@ -93,19 +77,11 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
         ];
     }
 
-    /**
-     * @return int
-     */
     public function getTableWidth(): int
     {
         return $this->tableWidth;
     }
 
-    /**
-     * @param InvoiceSection $section
-     *
-     * @return string
-     */
     private function buildInvoiceTextTable(InvoiceSection $section): string
     {
         $tableData = [
@@ -161,12 +137,6 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
         return $return;
     }
 
-    /**
-     * @param string $char
-     * @param int    $length
-     *
-     * @return string
-     */
     private function drawSeparator(string $char, int $length): string
     {
         $separator = '';

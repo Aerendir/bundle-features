@@ -40,25 +40,14 @@ use Symfony\Component\Form\FormFactory;
  */
 final class FeaturesManager
 {
-    /**
-     * @var string
-     */
     private const ADDED = 'added';
-    /**
-     * @var string
-     */
+
     private const REMOVED = 'removed';
-    /**
-     * @var string
-     */
+
     private const TYPE = 'type';
-    /**
-     * @var string
-     */
+
     private const GROSS = 'gross';
-    /**
-     * @var int[]
-     */
+    /** @var int[] */
     private const INTERVALS = [
         SubscriptionInterface::DAILY    => 0,
         SubscriptionInterface::WEEKLY   => 1,
@@ -87,9 +76,6 @@ final class FeaturesManager
         self::REMOVED => [],
     ];
 
-    /**
-     * @param array $configuredFeatures
-     */
     public function __construct(array $configuredFeatures)
     {
         $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
@@ -97,25 +83,18 @@ final class FeaturesManager
 
     /**
      * Returns all the configured features.
-     *
-     * @return ConfiguredFeaturesCollection
      */
     public function getConfiguredFeatures(): ConfiguredFeaturesCollection
     {
         return $this->configuredFeatures;
     }
 
-    /**
-     * @return SubscriptionInterface
-     */
     public function getSubscription(): SubscriptionInterface
     {
         return $this->subscription;
     }
 
     /**
-     * @param SubscriptionInterface $subscription
-     *
      * @return FeaturesManager
      */
     public function setSubscription(SubscriptionInterface $subscription): self
@@ -141,12 +120,6 @@ final class FeaturesManager
         return $this;
     }
 
-    /**
-     * @param float  $rate
-     * @param string $name
-     *
-     * @return self
-     */
     public function setTax(float $rate, string $name): self
     {
         $this->getConfiguredFeatures()->setTax($rate, $name);
@@ -156,11 +129,7 @@ final class FeaturesManager
     }
 
     /**
-     * @param string $subscriptionInterval
-     *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
-     *
-     * @return SubscribedFeaturesCollection
      */
     public function buildDefaultSubscriptionFeatures(string $subscriptionInterval): SubscribedFeaturesCollection
     {
@@ -291,10 +260,6 @@ final class FeaturesManager
         return null === $type ? $this->differences : $this->differences[$type];
     }
 
-    /**
-     * @param string                $actionUrl
-     * @param SubscriptionInterface $subscription
-     */
     public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): \Symfony\Component\Form\FormBuilderInterface
     {
         // Generate this form only once
@@ -359,10 +324,6 @@ final class FeaturesManager
             ->setNextRenewOn($this->oldSubscription->getNextRenewOn());
     }
 
-    /**
-     * @param SubscriptionInterface        $subscription
-     * @param SubscribedFeaturesCollection $features
-     */
     public function syncSubscription(SubscriptionInterface $subscription, SubscribedFeaturesCollection $features): void
     {
         foreach ($features as $featureName => $feature) {
@@ -375,8 +336,6 @@ final class FeaturesManager
      * Update the subscription object after features are added or removed.
      *
      * It updates the next payment amount and the dates until the features are active.
-     *
-     * @param SubscribedFeaturesCollection|null $newFeatures
      */
     public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null): void
     {
@@ -426,7 +385,7 @@ final class FeaturesManager
 
             // If the feature doesn't exist anymore in the configuration (as it were removed by the developer)
             if (null === $configuredRenewingFeature) {
-                // Remvoe it from the Subscription too
+                // Remove it from the Subscription too
                 $subscription->getFeatures()->removeElement($feature);
 
                 // And continue with the next feature
@@ -444,100 +403,26 @@ final class FeaturesManager
         $subscription->forceFeaturesUpdate();
     }
 
-    /**
-     * Calculates the bitmask of the boolean features selected
-     * by the merchant and returns the corresponding value in binary format.
-     *
-     * @param  $features
-     * @param array $options
-     *
-     * @return int
-     */
-    /*
-    protected function calculatePlanId(PremiumStoreEmbeddable $features, array $options)
-    {
-        // No feature is selected
-        $booleanBitmask = 0;
-        $amount = 0;
-
-        if ($features->hasAds()) {
-            $amount += $this->plans['boolean']['ads']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::ADS;
-        }
-
-        if ($features->hasSeo()) {
-            $amount += $this->plans['boolean']['seo']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::SEO;
-        }
-
-        if ($features->hasSocial()) {
-            $amount += $this->plans['boolean']['social']['price'][$options['currency']][$options['interval']];
-            $booleanBitmask += PremiumStoreEmbeddable::SOCIAL;
-        }
-
-        $booleanBitmask = decbin($booleanBitmask);
-
-        return
-            $booleanBitmask
-            . '_' . $options['interval']
-            . '_' . $options['trial_period_days']
-            . '_' . $options['currency']
-            . '_' . $amount;
-    }
-    */
-
-    /**
-     * Sets the general configurations (as prices, for examples) in the FeatureINterface objects loaded from a
-     * SubscriptionInterface object.
-     *
-     * @param SubscriptionInterface $subscription
-     */
-    /*
-    private function configurePricesInSubscriptionFeatures(SubscriptionInterface $subscription)
-    {
-        /** @var FeatureInterface $feature *
-        foreach ($subscription->getFeatures() as $feature) {
-            $prices = $this->getConfiguredFeatures()->get($feature->getName())->getPrices();
-            $feature->setPrices($prices);
-        }
-    }
-    */
-
-    /**
-     * @return FormFactory
-     */
     public function getFormFactory(): FormFactory
     {
         return $this->formFactory;
     }
 
-    /**
-     * @return InvoicesManager
-     */
     public function getInvoicesManager(): InvoicesManager
     {
         return $this->invoicesManager;
     }
 
-    /**
-     * @param FormFactory $formFactory
-     */
     public function setFormFactory(FormFactory $formFactory): void
     {
         $this->formFactory = $formFactory;
     }
 
-    /**
-     * @param InvoicesManager $invoicesManager
-     */
     public function setInvoicesManager(InvoicesManager $invoicesManager): void
     {
         $this->invoicesManager = $invoicesManager;
     }
 
-    /**
-     * @return MoneyInterface
-     */
     private function calculateSubscriptionAmount(): MoneyInterface
     {
         $total = new Money(['baseAmount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
@@ -569,8 +454,6 @@ final class FeaturesManager
      * Calculate differences between two FeaturesCollections.
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
-     *
-     * @param SubscribedFeaturesCollection $newFeatures
      *
      * @return array
      */
@@ -634,7 +517,6 @@ final class FeaturesManager
                     }
                     break;
                 case SubscribedRechargeableFeature::class:
-                    break;
                     break;
             }
         }

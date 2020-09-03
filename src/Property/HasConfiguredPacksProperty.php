@@ -23,29 +23,16 @@ trait HasConfiguredPacksProperty
     /** @var array $packs */
     private $packs;
 
-    /**
-     * @param int $numOfUnits
-     *
-     * @return ConfiguredFeaturePackInterface|null
-     */
     public function getPack(int $numOfUnits): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface
     {
         return $this->hasPack($numOfUnits) ? $this->packs[$numOfUnits] : null;
     }
 
-    /**
-     * @return array
-     */
     public function getPacks(): array
     {
         return $this->packs;
     }
 
-    /**
-     * @param int $numOfUnits
-     *
-     * @return bool
-     */
     public function hasPack(int $numOfUnits): bool
     {
         return isset($this->packs[$numOfUnits]);

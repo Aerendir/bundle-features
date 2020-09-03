@@ -26,8 +26,6 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      * But if cumulate() is called, the new $remainedQuantity is 9:
      *
      *     ($previousRemainedQuantity = 4) + ($rechargeQuantity = 5).
-     *
-     * @return SubscribedCountableFeatureInterface
      */
     public function cumulate(): SubscribedCountableFeatureInterface;
 
@@ -35,8 +33,6 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
-     *
-     * @return \DateTime|null
      */
     public function getLastRefreshOn(): ? \DateTime;
 
@@ -52,8 +48,6 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
 
     /**
      * Checks if the refresh period is elapsed for this feature.
-     *
-     * @return bool
      */
     public function isRefreshPeriodElapsed(): bool;
 
@@ -64,15 +58,8 @@ interface SubscribedCountableFeatureInterface extends SubscribedFeatureInterface
 
     /**
      * Sets the date on which the renew happened.
-     *
-     * @param \DateTime $lastRenewOn
-     *
-     * @return SubscribedCountableFeatureInterface
      */
     public function setLastRefreshOn(\DateTime $lastRenewOn): SubscribedCountableFeatureInterface;
 
-    /**
-     * @param SubscribedCountableFeaturePack $pack
-     */
     public function setSubscribedPack(SubscribedCountableFeaturePack $pack);
 }

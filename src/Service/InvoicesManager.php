@@ -27,21 +27,16 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
-use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use SerendipityHQ\Component\ArrayWriter\ArrayWriter;
+use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * Manages the Invoices.
  */
 final class InvoicesManager
 {
-    /**
-     * @var string
-     */
     private const GROSS = 'gross';
-    /**
-     * @var string
-     */
+
     private const NET = 'net';
     /** @var ArrayWriter $arrayWriter */
     private $arrayWriter;
@@ -58,11 +53,6 @@ final class InvoicesManager
     /** @var SubscriptionInterface $subscription */
     private $subscription;
 
-    /**
-     * @param array       $configuredFeatures
-     * @param ArrayWriter $arrayWriter
-     * @param string|null $defaultFormatter
-     */
     public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, string $defaultFormatter = null)
     {
         $this->arrayWriter        = $arrayWriter;
@@ -72,25 +62,18 @@ final class InvoicesManager
 
     /**
      * Returns all the configured features.
-     *
-     * @return ConfiguredFeaturesCollection
      */
     public function getConfiguredFeatures(): ConfiguredFeaturesCollection
     {
         return $this->configuredFeatures;
     }
 
-    /**
-     * @return SubscriptionInterface
-     */
     public function getSubscription(): SubscriptionInterface
     {
         return $this->subscription;
     }
 
     /**
-     * @param SubscriptionInterface $subscription
-     *
      * @return InvoicesManager
      */
     public function setSubscription(SubscriptionInterface $subscription): self
@@ -101,9 +84,6 @@ final class InvoicesManager
     }
 
     /**
-     * @param string                 $name
-     * @param InvoiceDrawerInterface $drawer
-     *
      * @return InvoicesManager
      */
     public function addDrawer(string $name, InvoiceDrawerInterface $drawer): self
@@ -119,9 +99,6 @@ final class InvoicesManager
     }
 
     /**
-     * @param InvoiceInterface $invoice
-     * @param string|null      $drawer
-     *
      * @return mixed
      */
     public function drawInvoice(InvoiceInterface $invoice, string $drawer = null): array
@@ -129,11 +106,6 @@ final class InvoicesManager
         return $this->getDrawer($drawer)->draw($invoice);
     }
 
-    /**
-     * @param string|null $drawer
-     *
-     * @return InvoiceDrawerInterface
-     */
     public function getDrawer(string $drawer = null): InvoiceDrawerInterface
     {
         // If a Drawer were passed and it exists
@@ -164,10 +136,7 @@ final class InvoicesManager
      * IsRecurringFeature(s).
      * This is useful to show the user his next invoice amount.
      *
-     * @param InvoiceInterface $invoice
-     * @param array            $addedFeatures
-     *
-     * @return InvoiceInterface
+     * @param array $addedFeatures
      */
     public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null): InvoiceInterface
     {
@@ -185,8 +154,7 @@ final class InvoicesManager
      * The two cases MUST be keep distinguished as in the first we have to add to the InvoiceSection only the newly
      * added features; in the second, instead, we have to add all the subscribed features.
      *
-     * @param InvoiceSection $section
-     * @param array          $addedFeatures
+     * @param array $addedFeatures
      */
     public function populateSection(InvoiceSection $section, array $addedFeatures = null): void
     {
@@ -251,10 +219,6 @@ final class InvoicesManager
      * Subscription.
      *
      * Then builds the array to process to add the features to
-     *
-     * @param array|null $addedFeatures
-     *
-     * @return array
      */
     private function buildPopulatingFeatures(?array $addedFeatures): array
     {

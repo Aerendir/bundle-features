@@ -68,10 +68,6 @@ trait CanBeConsumedProperty
 
     /**
      * Used internally only to set the value when the object is hydrated from the database.
-     *
-     * @param int $remainedQuantity
-     *
-     * @return CanBeConsumedInterface
      */
     protected function setRemainedQuantity(int $remainedQuantity): CanBeConsumedInterface
     {

@@ -31,11 +31,6 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     /** @var SubscribedFeaturesCollection|null $subscribedFeatures */
     private $subscribedFeatures;
 
-    /**
-     * @param string                       $featureName
-     * @param SubscribedFeaturesCollection $subscribedFeatures
-     * @param array|null                   $configuredPacks
-     */
     public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks = null)
     {
         $this->configuredPacks    = $configuredPacks;
@@ -44,8 +39,6 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param int $pack
-     *
      * @return ConfiguredCountableFeaturePack|ConfiguredRechargeableFeaturePack
      */
     public function getConfiguredPack(int $pack)
@@ -61,17 +54,11 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         return $this->configuredPacks[$pack];
     }
 
-    /**
-     * @return string
-     */
     public function getFeatureName(): string
     {
         return $this->featureName;
     }
 
-    /**
-     * @return SubscribedFeatureInterface
-     */
     public function getCurrentTransformingFeature(): SubscribedFeatureInterface
     {
         return $this->getSubscribedFeatures()->get($this->getFeatureName());

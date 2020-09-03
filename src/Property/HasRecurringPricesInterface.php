@@ -20,9 +20,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -31,52 +29,22 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
     public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): ?MoneyInterface;
 
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
-     *
-     * @return MoneyInterface
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
     public function getPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface;
 
-    /**
-     * @param string|null $type
-     *
-     * @return array
-     */
     public function getPrices(string $type = null): array;
 
-    /**
-     * @return string
-     */
     public function getTaxName(): string;
 
-    /**
-     * @return float
-     */
     public function getTaxRate(): float;
 
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
-     *
-     * @return bool
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
     public function hasPrice($currency, string $subscriptionInterval, string $type = null): bool;
 
-    /**
-     * @param SubscriptionInterface $subscription
-     *
-     * @return HasRecurringPricesInterface
-     */
     public function setSubscription(SubscriptionInterface $subscription): HasRecurringPricesInterface;
 
-    /**
-     * @param float  $rate
-     * @param string $name
-     *
-     * @return HasRecurringPricesInterface
-     */
     public function setTax(float $rate, string $name): HasRecurringPricesInterface;
 }

@@ -102,17 +102,11 @@ final class ConfiguredCountableFeature extends AbstractFeature implements Config
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTaxName(): string
     {
         return $this->taxName;
     }
 
-    /**
-     * @return float
-     */
     public function getTaxRate(): float
     {
         return $this->taxRate;

@@ -25,11 +25,6 @@ final class ConfiguredCountableFeaturePack extends AbstractFeaturePack implement
     use HasRecurringPricesProperty;
     use CanBeFreeProperty;
 
-    /**
-     * @param int    $numOfUnits
-     * @param array  $prices
-     * @param string $pricesType
-     */
     public function __construct(int $numOfUnits, array $prices, string $pricesType)
     {
         $this->setPrices($prices, $pricesType);

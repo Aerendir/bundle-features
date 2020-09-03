@@ -41,7 +41,6 @@ trait HasUnatantumPricesProperty
 
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null     $type
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
@@ -58,27 +57,16 @@ trait HasUnatantumPricesProperty
         return $this->getPrices($type)[$currency] ?? new Money(['baseAmount' => 0, 'currency' => new Currency($currency)]);
     }
 
-    /**
-     * @return string
-     */
     public function getTaxName(): string
     {
         return $this->taxName;
     }
 
-    /**
-     * @return float
-     */
     public function getTaxRate(): float
     {
         return $this->taxRate;
     }
 
-    /**
-     * @param string|null $type
-     *
-     * @return array
-     */
     public function getPrices(string $type = null): array
     {
         if (null === $type) {
@@ -99,9 +87,6 @@ trait HasUnatantumPricesProperty
 
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string|null     $type
-     *
-     * @return bool
      */
     public function hasPrice($currency, string $type = null): bool
     {
@@ -116,12 +101,6 @@ trait HasUnatantumPricesProperty
         return isset($this->getPrices($type)[$currency]);
     }
 
-    /**
-     * @param float  $rate
-     * @param string $name
-     *
-     * @return HasUnatantumPricesInterface
-     */
     public function setTax(float $rate, string $name): HasUnatantumPricesInterface
     {
         $this->taxName = $name;
@@ -155,9 +134,6 @@ trait HasUnatantumPricesProperty
     }
 
     /**
-     * @param array  $prices
-     * @param string $pricesType
-     *
      * @return ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack
      */
     private function setPrices(array $prices, string $pricesType)

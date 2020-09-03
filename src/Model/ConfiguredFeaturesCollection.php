@@ -20,9 +20,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
  */
 final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
-    /**
-     * @var string
-     */
     const KIND = 'configured';
 
     /** @var bool $taxSet */
@@ -37,17 +34,12 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
         parent::__construct($elements);
     }
 
-    /**
-     * @return bool
-     */
     public function isTaxSet(): bool
     {
         return $this->taxSet;
     }
 
     /**
-     * @param SubscriptionInterface $subscription
-     *
      * @return $this
      */
     public function setSubscription(SubscriptionInterface $subscription): self
@@ -61,9 +53,6 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
         return $this;
     }
 
-    /**
-     * @param float $rate
-     */
     public function setTax(float $rate, string $name): void
     {
         foreach ($this->getValues() as $feature) {

@@ -48,10 +48,6 @@ final class SHQFeaturesExtension extends Extension
         }
     }
 
-    /**
-     * @param string           $drawer
-     * @param ContainerBuilder $containerBuilder
-     */
     private function createFormatterService(string $drawer, ContainerBuilder $containerBuilder): void
     {
         $drawerServiceName = null;
@@ -68,11 +64,6 @@ final class SHQFeaturesExtension extends Extension
         $containerBuilder->setDefinition($drawerServiceName, $drawerDefinition);
     }
 
-    /**
-     * @param string           $name
-     * @param array            $setConfig
-     * @param ContainerBuilder $containerBuilder
-     */
     private function createFeaturesService(string $name, array $setConfig, ContainerBuilder $containerBuilder): void
     {
         // Create the feature manager definition
@@ -82,11 +73,6 @@ final class SHQFeaturesExtension extends Extension
         $containerBuilder->setDefinition($serviceName, $featureManagerDefinition);
     }
 
-    /**
-     * @param string           $name
-     * @param array            $setConfig
-     * @param ContainerBuilder $containerBuilder
-     */
     private function createInvoicesService(string $name, array $setConfig, ContainerBuilder $containerBuilder): void
     {
         $arrayWriterDefinition     = $containerBuilder->findDefinition('shq_features.array_writer');

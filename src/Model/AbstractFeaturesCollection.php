@@ -19,9 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
  */
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
-    /**
-     * @var null
-     */
+    /** @var null */
     const KIND = null;
 
     /** @var AbstractFeaturesCollection $booleans */
@@ -99,9 +97,6 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         return $this->rechargeables;
     }
 
-    /**
-     * @param string $type
-     */
     private function getFilterPredictate(string $type): callable
     {
         $featureClass = $this->getFeatureClass($type);
@@ -114,8 +109,6 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     }
 
     /**
-     * @param string $type
-     *
      * @return string
      */
     private function getFeatureClass(string $type)

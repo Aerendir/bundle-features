@@ -48,9 +48,6 @@ trait HasRecurringPricesProperty
     /** @var float $taxRate */
     private $taxRate;
 
-    /**
-     * @param array $details
-     */
     public function __construct(array $details = [])
     {
         $this->instantGrossPrices = [];
@@ -67,9 +64,7 @@ trait HasRecurringPricesProperty
     }
 
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      *
      * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
@@ -95,11 +90,7 @@ trait HasRecurringPricesProperty
     }
 
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
-     *
-     * @return MoneyInterface
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
     public function getPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface
     {
@@ -116,11 +107,6 @@ trait HasRecurringPricesProperty
         return $this->getPrices($type)[$currency][$subscriptionInterval] ?? new Money(['baseAmount' => 0, 'currency' => new Currency($currency)]);
     }
 
-    /**
-     * @param string|null $type
-     *
-     * @return array
-     */
     public function getPrices(string $type = null): array
     {
         if (null === $type) {
@@ -139,28 +125,18 @@ trait HasRecurringPricesProperty
         }
     }
 
-    /**
-     * @return string
-     */
     public function getTaxName(): string
     {
         return $this->taxName;
     }
 
-    /**
-     * @return float
-     */
     public function getTaxRate(): float
     {
         return $this->taxRate;
     }
 
     /**
-     * @param Currency|string $currency             This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     * @param string          $subscriptionInterval
-     * @param string|null     $type
-     *
-     * @return bool
+     * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
     public function hasPrice($currency, string $subscriptionInterval, string $type = null): bool
     {
@@ -177,11 +153,6 @@ trait HasRecurringPricesProperty
         return isset($this->getPrices($type)[$currency][$subscriptionInterval]);
     }
 
-    /**
-     * @param SubscriptionInterface $subscription
-     *
-     * @return HasRecurringPricesInterface
-     */
     public function setSubscription(SubscriptionInterface $subscription): HasRecurringPricesInterface
     {
         $this->subscription = $subscription;
@@ -190,12 +161,6 @@ trait HasRecurringPricesProperty
         return $this;
     }
 
-    /**
-     * @param float  $rate
-     * @param string $name
-     *
-     * @return HasRecurringPricesInterface
-     */
     public function setTax(float $rate, string $name): HasRecurringPricesInterface
     {
         $this->taxName = $name;
@@ -230,10 +195,6 @@ trait HasRecurringPricesProperty
         return $this;
     }
 
-    /**
-     * @param array  $prices
-     * @param string $pricesType
-     */
     private function setPrices(array $prices, string $pricesType)
     {
         $this->pricesType = $pricesType;
@@ -266,13 +227,6 @@ trait HasRecurringPricesProperty
         }
     }
 
-    /**
-     * @param string $currency
-     * @param string $subscriptionInterval
-     * @param string $pricesType
-     *
-     * @return MoneyInterface
-     */
     private function calculateInstantPrice(string $currency, string $subscriptionInterval, string $pricesType): MoneyInterface
     {
         if ( ! $this->subscription instanceof SubscriptionInterface) {

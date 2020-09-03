@@ -22,27 +22,16 @@ trait CanHaveFreePackProperty
     /** @var ConfiguredFeaturePackInterface $freePack */
     private $freePack;
 
-    /**
-     * @return ConfiguredFeaturePackInterface
-     */
     public function getFreePack(): ConfiguredFeaturePackInterface
     {
         return $this->freePack;
     }
 
-    /**
-     * @return bool
-     */
     public function hasFreePack(): bool
     {
         return null !== $this->freePack;
     }
 
-    /**
-     * @param ConfiguredFeaturePackInterface $pack
-     *
-     * @return ConfiguredFeatureInterface
-     */
     public function setFreePack(ConfiguredFeaturePackInterface $pack): ConfiguredFeatureInterface
     {
         $this->freePack = $pack;

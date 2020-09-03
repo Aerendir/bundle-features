@@ -22,9 +22,6 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceLine implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
     private const CURRENCY = 'currency';
     /** @var MoneyInterface$grossAmount */
     private $grossAmount;
@@ -44,25 +41,16 @@ final class InvoiceLine implements \JsonSerializable
     /** @var float $taxRate */
     private $taxRate;
 
-    /**
-     * @return MoneyInterface
-     */
     public function getGrossAmount(): MoneyInterface
     {
         return $this->grossAmount;
     }
 
-    /**
-     * @return MoneyInterface
-     */
     public function getNetAmount(): MoneyInterface
     {
         return $this->netAmount;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
         return $this->description;
@@ -76,17 +64,11 @@ final class InvoiceLine implements \JsonSerializable
         return $this->quantity;
     }
 
-    /**
-     * @return string
-     */
     public function getTaxName(): string
     {
         return $this->taxName;
     }
 
-    /**
-     * @return float
-     */
     public function getTaxRate(): float
     {
         return $this->taxRate;
@@ -94,8 +76,6 @@ final class InvoiceLine implements \JsonSerializable
 
     /**
      * @param MoneyInterface$grossAmount
-     *
-     * @return self
      */
     public function setGrossAmount(MoneyInterface $grossAmount): self
     {
@@ -106,8 +86,6 @@ final class InvoiceLine implements \JsonSerializable
 
     /**
      * @param MoneyInterface$netAmount
-     *
-     * @return self
      */
     public function setNetAmount(MoneyInterface $netAmount): self
     {
@@ -116,11 +94,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param string $description
-     *
-     * @return self
-     */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -129,8 +102,6 @@ final class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param int|null $quantity
-     *
      * @return InvoiceLine
      */
     public function setQuantity(?int $quantity): self
@@ -141,8 +112,6 @@ final class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param string $taxName
-     *
      * @return InvoiceLine
      */
     public function setTaxName(string $taxName): self
@@ -153,8 +122,6 @@ final class InvoiceLine implements \JsonSerializable
     }
 
     /**
-     * @param float $taxRate
-     *
      * @return InvoiceLine
      */
     public function setTaxRate(float $taxRate): self
@@ -164,17 +131,11 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function jsonSerialize(): array
     {
         return $this->__toArray();
     }
 
-    /**
-     * @param array $data
-     */
     public function hydrate(array $data): void
     {
         $grossAmount = new Money(['baseAmount' => (int) $data['gross_amount'], self::CURRENCY => new Currency($data[self::CURRENCY])]);

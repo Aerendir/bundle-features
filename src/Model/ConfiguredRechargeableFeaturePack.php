@@ -23,11 +23,6 @@ final class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implem
 {
     use HasUnatantumPricesProperty;
 
-    /**
-     * @param int    $numOfUnits
-     * @param array  $prices
-     * @param string $pricesType
-     */
     public function __construct(int $numOfUnits, array $prices, string $pricesType)
     {
         $this->setPrices($prices, $pricesType);

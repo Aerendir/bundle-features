@@ -18,8 +18,5 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
  */
 interface CanBeFreeInterface
 {
-    /**
-     * @return bool
-     */
     public function isFree(): bool;
 }

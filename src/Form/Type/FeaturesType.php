@@ -40,37 +40,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 final class FeaturesType extends AbstractType
 {
-    /**
-     * @var string
-     */
     private const SUBSCRIPTION = 'subscription';
-    /**
-     * @var string
-     */
+
     private const REQUIRED = 'required';
-    /**
-     * @var string
-     */
+
     private const ATTR = 'attr';
-    /**
-     * @var string
-     */
+
     private const DATA_FEATURE = 'data-feature';
-    /**
-     * @var string
-     */
+
     private const GROSS = 'gross';
-    /**
-     * @var string
-     */
+
     private const DATA_GROSS_INSTANT_AMOUNT = 'data-gross-instant-amount';
-    /**
-     * @var string
-     */
+
     private const NET = 'net';
-    /**
-     * @var string
-     */
+
     private const DATA_NET_INSTANT_AMOUNT = 'data-net-instant-amount';
 
     /**
@@ -119,12 +102,6 @@ final class FeaturesType extends AbstractType
         ]);
     }
 
-    /**
-     * @param SubscriptionInterface                  $subscription
-     * @param SubscribedBooleanFeatureInterface|null $subscribedFeature
-     *
-     * @return array
-     */
     private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $subscribedFeature = null): array
     {
         return [
@@ -141,12 +118,6 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    /**
-     * @param SubscriptionInterface               $subscription
-     * @param SubscribedCountableFeatureInterface $subscribedFeature
-     *
-     * @return array
-     */
     private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature): array
     {
         return [
@@ -160,12 +131,6 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    /**
-     * @param SubscriptionInterface                  $subscription
-     * @param SubscribedRechargeableFeatureInterface $subscribedFeature
-     *
-     * @return array
-     */
     private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature): array
     {
         return [
@@ -179,9 +144,6 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    /**
-     * @param ConfiguredCountableFeatureInterface $feature
-     */
     private function getCountableFeaturePacks(ConfiguredCountableFeatureInterface $feature): array
     {
         $choices = [];
@@ -193,9 +155,6 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    /**
-     * @param ConfiguredRechargeableFeatureInterface $feature
-     */
     private function getRechargeableFeaturePacks(ConfiguredRechargeableFeatureInterface $feature): array
     {
         $choices = [];
@@ -207,10 +166,6 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    /**
-     * @param SubscriptionInterface               $subscription
-     * @param ConfiguredCountableFeatureInterface $configuredFeature
-     */
     private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature): callable
     {
         return function ($val) use ($subscription, $configuredFeature): array {
@@ -238,10 +193,6 @@ final class FeaturesType extends AbstractType
         };
     }
 
-    /**
-     * @param SubscriptionInterface                  $subscription
-     * @param ConfiguredRechargeableFeatureInterface $configuredFeature
-     */
     private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature): callable
     {
         return function ($val) use ($subscription, $configuredFeature): array {
@@ -257,8 +208,6 @@ final class FeaturesType extends AbstractType
 
     /**
      * A really dirty way of getting a float or an integer removing the trailing 0s if float.
-     *
-     * @param MoneyInterface $amount
      *
      * @return float|int
      */

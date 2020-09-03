@@ -21,9 +21,6 @@ final class InvoiceSectionHeader implements \JsonSerializable
     /** @var string $header */
     private $header;
 
-    /**
-     * @param string $header
-     */
     public function __construct(string $header)
     {
         $this->header = $header;
@@ -39,9 +36,6 @@ final class InvoiceSectionHeader implements \JsonSerializable
         return $this->__toArray();
     }
 
-    /**
-     * @param array $data
-     */
     public function hydrate(array $data): void
     {
         $this->header = $data['header'];

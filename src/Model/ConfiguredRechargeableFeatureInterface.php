@@ -19,15 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
  */
 interface ConfiguredRechargeableFeatureInterface extends ConfiguredFeatureInterface, HasUnatantumPricesInterface, HasConfiguredPacksInterface
 {
-    /**
-     * @return int
-     */
     public function getFreeRecharge(): int;
 
-    /**
-     * @param int $freeRecharge
-     *
-     * @return ConfiguredRechargeableFeatureInterface
-     */
     public function setFreeRecharge(int $freeRecharge): ConfiguredRechargeableFeatureInterface;
 }

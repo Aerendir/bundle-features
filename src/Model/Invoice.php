@@ -22,17 +22,10 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 abstract class Invoice implements InvoiceInterface
 {
-    /**
-     * @var string
-     */
     private const BASE_AMOUNT = 'baseAmount';
-    /**
-     * @var string
-     */
+
     private const CURRENCY = 'currency';
-    /**
-     * @var string
-     */
+
     private const _DEFAULT = '_default';
     /**
      * @var Currency

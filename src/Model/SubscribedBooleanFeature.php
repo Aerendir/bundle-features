@@ -21,9 +21,7 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
-    /**
-     * @var string
-     */
+
     private const ENABLED = 'enabled';
 
     /** @var bool $enabled */

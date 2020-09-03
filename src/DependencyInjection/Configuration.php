@@ -27,45 +27,25 @@ final class Configuration implements ConfigurationInterface
 {
     /** @var string[] The allowed drawers */
     private const ALLOWED_DRAWERS = ['plain_text'];
-    /**
-     * @var string
-     */
+
     private const INVOICES = 'invoices';
-    /**
-     * @var string
-     */
+
     private const DRAWERS = 'drawers';
-    /**
-     * @var string
-     */
+
     private const SETS = 'sets';
-    /**
-     * @var string
-     */
+
     private const DEFAULT_DRAWER = 'default_drawer';
-    /**
-     * @var string
-     */
+
     private const FEATURES = 'features';
-    /**
-     * @var string
-     */
+
     private const PRICE = 'price';
-    /**
-     * @var string
-     */
+
     private const UNITARY_PRICE = 'unitary_price';
-    /**
-     * @var string
-     */
+
     private const PACKS = 'packs';
-    /**
-     * @var string
-     */
+
     private const RECURRING = 'recurring';
-    /**
-     * @var string
-     */
+
     private const UNATANTUM = 'unatantum';
 
     /** @var array $foundDrawers The drawers found as default ones in features sets */
@@ -197,9 +177,6 @@ final class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    /**
-     * @param array $tree
-     */
     private function validateTree(array $tree): array
     {
         $this->validateInvoiceDrawers($tree[self::INVOICES][self::DRAWERS]);
@@ -208,9 +185,6 @@ final class Configuration implements ConfigurationInterface
         return $tree;
     }
 
-    /**
-     * @param array $drawers
-     */
     private function validateInvoiceDrawers(array $drawers): void
     {
         foreach ($drawers as $drawer) {
@@ -218,9 +192,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $drawer
-     */
     private function validateInvoiceDrawer(string $drawer): void
     {
         if (false === \in_array($drawer, self::ALLOWED_DRAWERS)) {
@@ -239,8 +210,6 @@ final class Configuration implements ConfigurationInterface
 
     /**
      * Validates all the configured features sets.
-     *
-     * @param array $sets
      */
     private function validateSets(array $sets): void
     {
@@ -255,10 +224,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param array  $features
-     */
     private function validateFeatures(string $set, array $features): void
     {
         foreach ($features as $feature => $config) {
@@ -267,11 +232,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
     private function validateFeatureConfig(string $set, string $feature, array $config): void
     {
         switch ($config['type']) {
@@ -287,22 +247,12 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
     private function validateBoolean(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
         $this->validateRecurringPrice($set, $feature . '.price', $config[self::PRICE]);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
     private function validateCountable(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
@@ -312,11 +262,6 @@ final class Configuration implements ConfigurationInterface
         $this->validatePackages($set, $feature, $config[self::PACKS], self::RECURRING);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
     private function validateRechargeable(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
@@ -326,11 +271,6 @@ final class Configuration implements ConfigurationInterface
         $this->validatePackages($set, $feature, $config[self::PACKS], self::UNATANTUM);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $price
-     */
     private function validateRecurringPrice(string $set, string $feature, array $price): void
     {
         // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
@@ -346,11 +286,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param string $currency
-     */
     private function validateCurrency(string $set, string $feature, string $currency): void
     {
         $currencies = new ISOCurrencies();
@@ -360,12 +295,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param string $currency
-     * @param array  $subscriptions
-     */
     private function validateSubscriptionPeriods(string $set, string $feature, string $currency, array $subscriptions): void
     {
         // At least one subscription period has to be set
@@ -374,12 +303,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $packs
-     * @param string $subscriptionType
-     */
     private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType): void
     {
         // If empty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
@@ -415,11 +338,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $price
-     */
     private function validateUnatantumPrice(string $set, string $feature, array $price): void
     {
         if (false === empty($price)) {
@@ -430,9 +348,6 @@ final class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param array $tree
-     */
     private function processTree(array $tree): array
     {
         // Move all default drawers to the foundDrawers property to make them globally available
@@ -456,10 +371,6 @@ final class Configuration implements ConfigurationInterface
 
     /**
      * Processes all the configured features Sets.
-     *
-     * @param array $sets
-     *
-     * @return array
      */
     private function processSets(array $sets): array
     {
@@ -476,9 +387,6 @@ final class Configuration implements ConfigurationInterface
         return $sets;
     }
 
-    /**
-     * @param array $features
-     */
     private function processFeatures(array $features): array
     {
         foreach ($features as $feature => $config) {
@@ -489,8 +397,6 @@ final class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $config
-     *
      * @return array
      */
     private function processFeatureConfig(array $config)
@@ -511,9 +417,6 @@ final class Configuration implements ConfigurationInterface
         return $result;
     }
 
-    /**
-     * @param array $config
-     */
     private function processBoolean(array $config): array
     {
         $config[$this->pricesKey] = $config[self::PRICE];
@@ -529,9 +432,6 @@ final class Configuration implements ConfigurationInterface
         return $config;
     }
 
-    /**
-     * @param array $config
-     */
     private function processCountable(array $config): array
     {
         $config[self::PACKS] = $this->processPackages($config[self::PACKS], self::RECURRING);
@@ -546,9 +446,6 @@ final class Configuration implements ConfigurationInterface
         return $config;
     }
 
-    /**
-     * @param array $config
-     */
     private function processRechargeable(array $config): array
     {
         unset(
@@ -564,9 +461,6 @@ final class Configuration implements ConfigurationInterface
         return $config;
     }
 
-    /**
-     * @param array $prices
-     */
     private function processRecurringPrice(array $prices): array
     {
         // If no prices are specified, the feature is free
@@ -582,7 +476,6 @@ final class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $packs
      * @param $subscriptionType
      *
      * @return array
@@ -618,9 +511,6 @@ final class Configuration implements ConfigurationInterface
         return $packs;
     }
 
-    /**
-     * @param array $prices
-     */
     private function processUnatantumPrice(array $prices): array
     {
         foreach ($prices as $currency => $price) {

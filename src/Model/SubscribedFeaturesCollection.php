@@ -18,9 +18,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
  */
 final class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
     const KIND = 'subscribed';
 
     /**

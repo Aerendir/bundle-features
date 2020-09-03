@@ -16,9 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
  */
 trait CanBeFreeProperty
 {
-    /**
-     * @return bool
-     */
     public function isFree(): bool
     {
         return empty($this->netPrices) && empty($this->grossPrices);

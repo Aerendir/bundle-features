@@ -28,9 +28,6 @@ final class FeaturesFactory
     /** @var string $kind */
     private static $kind;
 
-    /**
-     * @return string
-     */
     public static function getKind(): string
     {
         self::checkKindIsSet();
@@ -38,9 +35,6 @@ final class FeaturesFactory
         return self::$kind;
     }
 
-    /**
-     * @param string $kind
-     */
     public static function setKind(string $kind): void
     {
         if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
@@ -50,9 +44,6 @@ final class FeaturesFactory
     }
 
     /**
-     * @param string $name
-     * @param array  $details
-     *
      * @return ConfiguredBooleanFeature|SubscribedBooleanFeature|null
      */
     public static function createBoolean(string $name, array $details = [])
@@ -72,9 +63,6 @@ final class FeaturesFactory
     }
 
     /**
-     * @param string $name
-     * @param array  $details
-     *
      * @return ConfiguredCountableFeature|SubscribedCountableFeature|null
      */
     public static function createCountable(string $name, array $details = [])
@@ -94,9 +82,6 @@ final class FeaturesFactory
     }
 
     /**
-     * @param string $name
-     * @param array  $details
-     *
      * @return ConfiguredRechargeableFeature|SubscribedRechargeableFeature|null
      */
     public static function createRechargeable(string $name, array $details = [])

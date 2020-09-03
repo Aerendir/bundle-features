@@ -23,9 +23,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
     use CanBeConsumedProperty;
-    /**
-     * @var string
-     */
+
     private const LAST_REFRESH_ON = 'last_refresh_on';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
@@ -92,9 +90,6 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         return $this->remainedQuantity;
     }
 
-    /**
-     * @return SubscribedCountableFeaturePack
-     */
     public function getSubscribedPack(): SubscribedCountableFeaturePack
     {
         return $this->subscribedPack;

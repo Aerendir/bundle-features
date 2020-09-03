@@ -20,13 +20,8 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceSection implements \JsonSerializable
 {
-    /**
-     * @var string
-     */
     private const BASE_AMOUNT = 'baseAmount';
-    /**
-     * @var string
-     */
+
     private const CURRENCY = 'currency';
     /** @var Currency $currency */
     private $currency;
@@ -43,9 +38,6 @@ final class InvoiceSection implements \JsonSerializable
     /** @var MoneyInterface $netTotal */
     private $netTotal;
 
-    /**
-     * @param Currency $currency
-     */
     public function __construct(Currency $currency)
     {
         $this->currency   = $currency;
@@ -53,9 +45,6 @@ final class InvoiceSection implements \JsonSerializable
         $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $currency]);
     }
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency
     {
         return $this->currency;
@@ -66,9 +55,6 @@ final class InvoiceSection implements \JsonSerializable
         return $this->header;
     }
 
-    /**
-     * @return bool
-     */
     public function hasHeader(): bool
     {
         return isset($this->header);
@@ -81,9 +67,6 @@ final class InvoiceSection implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param InvoiceSectionHeader $header
-     */
     public function setHeader(InvoiceSectionHeader $header): self
     {
         $this->header = $header;
@@ -91,10 +74,6 @@ final class InvoiceSection implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param InvoiceLine $line
-     * @param string|null $id
-     */
     public function addLine(InvoiceLine $line, string $id = null): self
     {
         switch (\gettype($id)) {
@@ -128,9 +107,6 @@ final class InvoiceSection implements \JsonSerializable
         return $this->lines[$id] ?? null;
     }
 
-    /**
-     * @return array
-     */
     public function getLines(): array
     {
         return $this->lines;
@@ -167,17 +143,11 @@ final class InvoiceSection implements \JsonSerializable
         return false;
     }
 
-    /**
-     * @return MoneyInterface
-     */
     public function getGrossTotal(): MoneyInterface
     {
         return $this->grossTotal;
     }
 
-    /**
-     * @return MoneyInterface
-     */
     public function getNetTotal(): MoneyInterface
     {
         return $this->netTotal;

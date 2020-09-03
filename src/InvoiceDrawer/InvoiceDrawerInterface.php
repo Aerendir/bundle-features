@@ -19,8 +19,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 interface InvoiceDrawerInterface
 {
     /**
-     * @param InvoiceInterface $invoice
-     *
      * @return mixed
      */
     public function draw(InvoiceInterface $invoice): array;

@@ -19,20 +19,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface;
  */
 interface CanHaveFreePackInterface
 {
-    /**
-     * @return ConfiguredFeaturePackInterface
-     */
     public function getFreePack(): ConfiguredFeaturePackInterface;
 
-    /**
-     * @return bool
-     */
     public function hasFreePack(): bool;
 
-    /**
-     * @param ConfiguredFeaturePackInterface $pack
-     *
-     * @return ConfiguredFeatureInterface
-     */
     public function setFreePack(ConfiguredFeaturePackInterface $pack): ConfiguredFeatureInterface;
 }

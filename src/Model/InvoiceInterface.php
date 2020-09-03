@@ -33,20 +33,14 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function removeHeader();
 
-    /**
-     * @param InvoiceSectionHeader $header
-     */
     public function setHeader(InvoiceSectionHeader $header);
 
     /**
      * Adds an Invoice line to the _default section of this invoice.
      *
-     * @param InvoiceLine $line
-     * @param string      $id   The ID of the line to make it identifiable so it can be retrieved with the getLine method
-     *
-     * @return InvoiceInterface
+     * @param string|null $id The ID of the line to make it identifiable so it can be retrieved with the getLine method
      */
-    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface;
+    public function addLine(InvoiceLine $line, ?string $id = null): InvoiceInterface;
 
     /**
      * Returns a specific line of the _default section of the Invoice.
@@ -55,9 +49,6 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function getLine($id): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
 
-    /**
-     * @return array
-     */
     public function getLines(): array;
 
     /**
@@ -72,10 +63,6 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function removeLine($id);
 
-    /**
-     * @param InvoiceSection $section
-     * @param string|null    $id
-     */
     public function addSection(InvoiceSection $section, string $id = null): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 
     /**
@@ -85,15 +72,11 @@ interface InvoiceInterface extends \JsonSerializable
 
     /**
      * Get the sections of the Invoice.
-     *
-     * @return array
      */
     public function getSections(): array;
 
     /**
      * @param int|string $id
-     *
-     * @return bool
      */
     public function hasSection($id): bool;
 
@@ -104,24 +87,12 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function removeSection($id);
 
-    /**
-     * @return Currency
-     */
     public function getCurrency(): Currency;
 
-    /**
-     * @return \DateTime
-     */
     public function getIssuedOn(): \DateTime;
 
-    /**
-     * @return MoneyInterface
-     */
     public function getGrossTotal(): MoneyInterface;
 
-    /**
-     * @return MoneyInterface
-     */
     public function getNetTotal(): MoneyInterface;
 
     /**

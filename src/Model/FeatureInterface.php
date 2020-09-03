@@ -16,34 +16,18 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 interface FeatureInterface
 {
-    /**
-     * @var string
-     */
     const BOOLEAN      = 'boolean';
-    /**
-     * @var string
-     */
+
     const COUNTABLE    = 'countable';
-    /**
-     * @var string
-     */
+
     const RECHARGEABLE = 'rechargeable';
 
     /**
      * FeatureInterface constructor.
-     *
-     * @param string $name
-     * @param array  $details
      */
     public function __construct(string $name, array $details = []);
 
-    /**
-     * @return string
-     */
     public function getName(): string;
 
-    /**
-     * @return string
-     */
     public function getType(): string;
 }

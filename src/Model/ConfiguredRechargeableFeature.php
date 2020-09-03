@@ -82,12 +82,6 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
         return $this->setPacksProperty($packs, ConfiguredRechargeableFeaturePack::class);
     }
 
-    /**
-     * @param float  $rate
-     * @param string $name
-     *
-     * @return HasUnatantumPricesInterface
-     */
     public function setTax(float $rate, string $name): HasUnatantumPricesInterface
     {
         $this->setTaxProperty($rate, $name);

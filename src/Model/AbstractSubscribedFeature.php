@@ -19,9 +19,6 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
     /** @var ConfiguredFeatureInterface $configuredFeature */
     private $configuredFeature;
 
-    /**
-     * @return ConfiguredFeatureInterface
-     */
     public function getConfiguredFeature(): ConfiguredFeatureInterface
     {
         if (null === $this->configuredFeature) {
@@ -31,9 +28,6 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
         return $this->configuredFeature;
     }
 
-    /**
-     * @param ConfiguredFeatureInterface $configuredFeature
-     */
     public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
     {
         $this->configuredFeature = $configuredFeature;
