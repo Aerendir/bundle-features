@@ -15,6 +15,7 @@
 </p>
 <p align="center">
     <a href="https://www.php.net/manual/en/book.intl.php"><img src="https://img.shields.io/badge/Suggests-ext--intl-%238892BF?style=flat-square&logo=php"></a>
+    <a href="https://www.php.net/manual/en/book.json.php"><img src="https://img.shields.io/badge/Suggests-ext--json-%238892BF?style=flat-square&logo=php"></a>
     <img src="https://img.shields.io/badge/Suggests-serendipity__hq/component--text--matrix-%238892BF?style=flat-square">
 </p>
 
