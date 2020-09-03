@@ -39,9 +39,6 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
         return $this->taxSet;
     }
 
-    /**
-     * @return $this
-     */
     public function setSubscription(SubscriptionInterface $subscription): self
     {
         foreach ($this->getValues() as $feature) {
