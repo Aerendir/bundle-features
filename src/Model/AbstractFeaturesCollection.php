@@ -108,10 +108,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         };
     }
 
-    /**
-     * @return string
-     */
-    private function getFeatureClass(string $type)
+    private function getFeatureClass(string $type): string
     {
         switch ($type) {
             case 'boolean':
