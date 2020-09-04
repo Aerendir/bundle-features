@@ -34,7 +34,7 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
      */
     public function getPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface;
 
-    public function getPrices(string $type = null): array;
+    public function getPrices(string $type = null): ?array;
 
     public function getTaxName(): string;
 
