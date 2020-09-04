@@ -17,7 +17,6 @@ return [
     // PhanTypeMismatchArgumentNullable : 7 occurrences
     // PhanCompatiblePHP7 : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
-    // PhanUndeclaredTypeParameter : 5 occurrences
     // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanUnreferencedUseNormal : 4 occurrences
@@ -27,6 +26,7 @@ return [
     // PhanWriteOnlyPrivateProperty : 3 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
+    // PhanUndeclaredTypeParameter : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanParamSignatureMismatch : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
@@ -70,7 +70,6 @@ return [
         'src/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
         'src/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
         'src/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
-        'src/Property/HasRecurringPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPrivateProperty'],
         'src/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],

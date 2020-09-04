@@ -486,7 +486,7 @@ parameters:
 			path: src/Model/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type \\$this\\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\)\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
 			count: 1
 			path: src/Model/ConfiguredFeaturesCollection.php
 
@@ -936,22 +936,7 @@ parameters:
 			path: src/Property/HasConfiguredPacksInterface.php
 
 		-
-			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getInstantPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
-			count: 1
-			path: src/Property/HasRecurringPricesInterface.php
-
-		-
-			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
-			count: 1
-			path: src/Property/HasRecurringPricesInterface.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Property/HasRecurringPricesInterface.php
-
-		-
-			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasRecurringPricesInterface\\:\\:hasPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
 			path: src/Property/HasRecurringPricesInterface.php
 

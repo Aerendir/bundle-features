@@ -300,9 +300,7 @@
       <code>$subscribedFeature</code>
       <code>$subscribedFeature</code>
     </ArgumentTypeCoercion>
-    <ImplicitToStringCast occurrences="4">
-      <code>$subscription-&gt;getCurrency()</code>
-      <code>$subscription-&gt;getCurrency()</code>
+    <ImplicitToStringCast occurrences="2">
       <code>$subscription-&gt;getCurrency()</code>
       <code>$subscription-&gt;getCurrency()</code>
     </ImplicitToStringCast>
@@ -729,13 +727,6 @@
       <code>$packClass</code>
     </UndefinedVariable>
   </file>
-  <file src="src/Property/HasRecurringPricesInterface.php">
-    <UndefinedDocblockClass occurrences="3">
-      <code>Currency|string</code>
-      <code>Currency|string</code>
-      <code>Currency|string</code>
-    </UndefinedDocblockClass>
-  </file>
   <file src="src/Property/HasRecurringPricesProperty.php">
     <InvalidOperand occurrences="5">
       <code>1 + $rate</code>
@@ -777,11 +768,6 @@
       <code>MoneyInterface|null</code>
       <code>MoneyInterface</code>
     </MixedInferredReturnType>
-    <MoreSpecificImplementedParamType occurrences="3">
-      <code>$currency</code>
-      <code>$currency</code>
-      <code>$currency</code>
-    </MoreSpecificImplementedParamType>
     <TypeDoesNotContainNull occurrences="1">
       <code>null === $this-&gt;subscription-&gt;getSubscribedOn()</code>
     </TypeDoesNotContainNull>
@@ -823,9 +809,6 @@
     </MoreSpecificImplementedParamType>
   </file>
   <file src="src/Service/FeaturesManager.php">
-    <ImplicitToStringCast occurrences="1">
-      <code>$this-&gt;getSubscription()-&gt;getCurrency()</code>
-    </ImplicitToStringCast>
     <LessSpecificReturnStatement occurrences="1">
       <code>$totalCharges</code>
     </LessSpecificReturnStatement>
