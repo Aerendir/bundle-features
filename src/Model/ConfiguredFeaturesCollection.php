@@ -12,8 +12,8 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasRecurringPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasUnatantumPricesInterface;
 
 /**
  * {@inheritdoc}

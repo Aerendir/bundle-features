@@ -11,10 +11,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasConfiguredPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasConfiguredPacksProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasUnatantumPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasUnatantumPricesProperty;
 
 /**
  * {@inheritdoc}

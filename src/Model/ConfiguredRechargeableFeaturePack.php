@@ -11,8 +11,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasUnatantumPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasUnatantumPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasUnatantumPricesProperty;
 
 /**
  * RechargeableFeatures can be bought in packs.

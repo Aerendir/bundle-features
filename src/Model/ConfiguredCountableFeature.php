@@ -11,9 +11,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanHaveFreePackProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasConfiguredPacksProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\CanHaveFreePackProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasConfiguredPacksInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasConfiguredPacksProperty;
 
 /**
  * {@inheritdoc}

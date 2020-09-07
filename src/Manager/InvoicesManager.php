@@ -26,7 +26,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterfac
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ArrayWriter\ArrayWriter;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 

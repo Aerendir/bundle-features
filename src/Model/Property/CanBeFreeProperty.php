@@ -9,14 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Property;
 
 /**
- * Implemented by features or packages that can be free.
- *
- * A Feature or a Pack is free if its price property is empty.
+ * Concrete implementetion of the CanBeFreeInterface.
  */
-interface CanBeFreeInterface
+trait CanBeFreeProperty
 {
-    public function isFree(): bool;
+    public function isFree(): bool
+    {
+        return empty($this->netPrices) && empty($this->grossPrices);
+    }
 }

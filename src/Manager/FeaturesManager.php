@@ -29,7 +29,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

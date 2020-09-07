@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Property;
 
 /**
  * Implemented by features or packages that can be consumed (Countable and Rechargeable).

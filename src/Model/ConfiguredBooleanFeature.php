@@ -11,8 +11,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasRecurringPricesProperty;
 
 /**
  * {@inheritdoc}

@@ -11,9 +11,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\CanBeFreeProperty;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Property\HasRecurringPricesProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\CanBeFreeProperty;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasRecurringPricesInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\HasRecurringPricesProperty;
 
 /**
  * CountableFeatures can be bought in packs on each subscription period.

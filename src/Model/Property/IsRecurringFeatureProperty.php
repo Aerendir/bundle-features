@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Property;
 
 /**
  * Manages properties of a Recurring feature.

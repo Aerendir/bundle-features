@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\IsRecurringFeatureInterface;
 
 /**
  * {@inheritdoc}

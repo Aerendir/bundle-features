@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Property;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Property;
 
 use Money\Currency;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
