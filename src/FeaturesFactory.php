@@ -11,14 +11,14 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 
 /**
  * Creates Features objects.

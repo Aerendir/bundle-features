@@ -14,19 +14,17 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\Type;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\BooleanFeatureTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\CountableFeatureTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\RechargeableFeatureTransformer;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeaturePack;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeaturePack;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\AbstractType;
@@ -102,7 +100,7 @@ final class FeaturesType extends AbstractType
         ]);
     }
 
-    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeatureInterface $subscribedFeature = null): array
+    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeature $subscribedFeature = null): array
     {
         return [
             self::REQUIRED => false,
@@ -118,7 +116,7 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeatureInterface $subscribedFeature): array
+    private function getCountableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedCountableFeature $subscribedFeature): array
     {
         return [
             self::REQUIRED => true,
@@ -131,7 +129,7 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeatureInterface $subscribedFeature): array
+    private function getRechargeableFeaturePacksOptions(SubscriptionInterface $subscription, SubscribedRechargeableFeature $subscribedFeature): array
     {
         return [
             self::REQUIRED => true,
@@ -144,7 +142,7 @@ final class FeaturesType extends AbstractType
         ];
     }
 
-    private function getCountableFeaturePacks(ConfiguredCountableFeatureInterface $feature): array
+    private function getCountableFeaturePacks(ConfiguredCountableFeature $feature): array
     {
         $choices = [];
         /** @var ConfiguredCountableFeaturePack $pack */
@@ -155,7 +153,7 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    private function getRechargeableFeaturePacks(ConfiguredRechargeableFeatureInterface $feature): array
+    private function getRechargeableFeaturePacks(ConfiguredRechargeableFeature $feature): array
     {
         $choices = [];
         /** @var ConfiguredRechargeableFeaturePack $pack */
@@ -166,13 +164,13 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeatureInterface $configuredFeature): callable
+    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): callable
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredCountableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
-            /** @var SubscribedCountableFeatureInterface $subscribedFeature */
+            /** @var SubscribedCountableFeature $subscribedFeature */
             $subscribedFeature = $subscription->getFeatures()->get($configuredFeature->getName());
 
             $subscribedPack = $subscribedFeature->getSubscribedPack();
@@ -193,7 +191,7 @@ final class FeaturesType extends AbstractType
         };
     }
 
-    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeatureInterface $configuredFeature): callable
+    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): callable
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredRechargeableFeaturePack $pack */

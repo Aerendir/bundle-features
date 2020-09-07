@@ -55,7 +55,7 @@ final class SHQFeaturesExtension extends Extension
         // Create the drawer definition
         switch ($drawer) {
             case 'plain_text':
-                $drawerDefinition  = new Definition(PlainTextDrawer::class, [$locale, $translatorReference]);
+                $drawerDefinition  = new Definition(PlainTextDrawer::class, [$translatorReference, $locale]);
                 $drawerServiceName = 'shq_features.drawer.plain_text';
                 break;
             default:

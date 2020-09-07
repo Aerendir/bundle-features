@@ -12,6 +12,8 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -19,15 +21,11 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 interface SubscriptionInterface
 {
-    const DAILY    = 'daily';
-
-    const WEEKLY   = 'weekly';
-
-    const BIWEEKLY = 'biweekly';
-
-    const MONTHLY  = 'monthly';
-
-    const YEARLY   = 'yearly';
+    public const DAILY    = 'daily';
+    public const WEEKLY   = 'weekly';
+    public const BIWEEKLY = 'biweekly';
+    public const MONTHLY  = 'monthly';
+    public const YEARLY   = 'yearly';
 
     public static function calculateActiveUntil(string $interval): \DateTime;
 

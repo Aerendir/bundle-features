@@ -13,23 +13,20 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -140,12 +137,12 @@ final class FeaturesManager
 
         /**
          * @var string
-         * @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface|FeatureInterface $details
+         * @var ConfiguredBooleanFeature|ConfiguredCountableFeature|ConfiguredRechargeableFeature|FeatureInterface $details
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             switch ($details->getType()) {
                 case 'boolean':
-                    /** @var ConfiguredBooleanFeatureInterface $details */
+                    /** @var ConfiguredBooleanFeature $details */
                     $features[$name] = [
                         'active_until'     => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                         self::TYPE         => $details->getType(),
@@ -153,7 +150,7 @@ final class FeaturesManager
                     ];
                     break;
                 case 'countable':
-                    /** @var ConfiguredCountableFeatureInterface $details */
+                    /** @var ConfiguredCountableFeature $details */
                     $features[$name] = [
                         self::TYPE              => $details->getType(),
                         'subscribed_pack'       => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
@@ -161,7 +158,7 @@ final class FeaturesManager
                     ];
                     break;
                 case 'rechargeable':
-                    /** @var ConfiguredRechargeableFeatureInterface $details */
+                    /** @var ConfiguredRechargeableFeature $details */
                     $features[$name] = [
                         self::TYPE                   => $details->getType(),
                         'last_recharge_on'           => new \DateTime(),
@@ -194,11 +191,11 @@ final class FeaturesManager
          */
         foreach ($this->getDifferences(self::ADDED) as $feature) {
             $featureName = \is_array($feature) ? \key($feature) : $feature;
-            /** @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface $checkingFeature */
+            /** @var SubscribedBooleanFeature|SubscribedCountableFeature|SubscribedRechargeableFeature $checkingFeature */
             $checkingFeature = $this->getSubscription()->getFeatures()->get($featureName);
 
             if (null !== $checkingFeature) {
-                /** @var ConfiguredBooleanFeatureInterface|ConfiguredCountableFeatureInterface|ConfiguredRechargeableFeatureInterface $configuredFeature */
+                /** @var ConfiguredBooleanFeature|ConfiguredCountableFeature|ConfiguredRechargeableFeature $configuredFeature */
                 $configuredFeature = $this->getConfiguredFeatures()->get($featureName);
                 $price             = null;
 
@@ -217,11 +214,11 @@ final class FeaturesManager
                         break;
                     case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
-                        if ($configuredFeature instanceof ConfiguredCountableFeatureInterface) {
+                        if ($configuredFeature instanceof ConfiguredCountableFeature) {
                             /**
                              * For the moment force the code to get the pack's instant price.
                              *
-                             * @var SubscribedCountableFeatureInterface
+                             * @var SubscribedCountableFeature $price
                              */
                             $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
                         }
@@ -231,7 +228,7 @@ final class FeaturesManager
                         /**
                          * For the moment force the code to get the pack's instant price.
                          *
-                         * @var SubscribedRechargeableFeatureInterface
+                         * @var SubscribedRechargeableFeature
                          */
                         $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::GROSS);
                         break;
@@ -246,9 +243,6 @@ final class FeaturesManager
         return $totalCharges;
     }
 
-    /**
-     * @param string $type
-     */
     public function getDifferences(string $type = null): array
     {
         if (null === $this->differences) {
@@ -351,7 +345,7 @@ final class FeaturesManager
                 $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
 
                 // @todo Is this required? Didn't the form already updated the Subscription object? In fact I have an oldSubscription
-                if ($existentFeature instanceof SubscribedBooleanFeatureInterface) {
+                if ($existentFeature instanceof SubscribedBooleanFeature) {
                     $toggle = $newFeature->isEnabled() ? 'enable' : 'disable';
                     $existentFeature->$toggle();
                 }
@@ -377,12 +371,12 @@ final class FeaturesManager
         /** @var FeatureInterface $feature */
         foreach ($subscription->getFeatures()->getValues() as $feature) {
             // If this is not a Countable Feature...
-            if ( ! $feature instanceof SubscribedCountableFeatureInterface) {
+            if ( ! $feature instanceof SubscribedCountableFeature) {
                 // Simply continue as it hasn't be renew
                 continue;
             }
 
-            /** @var ConfiguredCountableFeatureInterface $configuredRenewingFeature Get the configured feature * */
+            /** @var ConfiguredCountableFeature $configuredRenewingFeature Get the configured feature * */
             $configuredRenewingFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
             // If the feature doesn't exist anymore in the configuration (as it were removed by the developer)
@@ -394,7 +388,7 @@ final class FeaturesManager
                 continue;
             }
 
-            /** @var SubscribedCountableFeatureInterface $feature Refresh the feature if the refresh period is elapsed * */
+            /** @var SubscribedCountableFeature $feature Refresh the feature if the refresh period is elapsed * */
             if ($feature->isRefreshPeriodElapsed()) {
                 $feature->refresh();
             }
@@ -425,7 +419,7 @@ final class FeaturesManager
                 continue;
             }
 
-            if ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled()) {
+            if ($feature instanceof SubscribedBooleanFeature && $feature->isEnabled()) {
                 $price = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval());
 
                 if ($price instanceof MoneyInterface) {
@@ -484,7 +478,7 @@ final class FeaturesManager
                     /**
                      * ... and was in the old collection and in the new collection, too ...
                      *
-                     * @var SubscribedCountableFeatureInterface
+                     * @var SubscribedCountableFeature
                      */
                     if (true === $newFeatures->containsKey($oldFeature->getName())) {
                         /**
@@ -515,7 +509,7 @@ final class FeaturesManager
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
          *
-         * @var SubscribedBooleanFeatureInterface|SubscribedCountableFeatureInterface|SubscribedRechargeableFeatureInterface
+         * @var SubscribedBooleanFeature|SubscribedCountableFeature|SubscribedRechargeableFeature
          */
         foreach ($newFeatures as $newFeature) {
             /*
@@ -532,12 +526,12 @@ final class FeaturesManager
                     break;
                 // If is a CountableFeature...
                 case SubscribedCountableFeature::class:
-                    /** @var SubscribedCountableFeatureInterface $featureDetails */
+                    /** @var SubscribedCountableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getSubscribedPack()->getNumOfUnits()];
                     break;
                 // If is a CountableFeature...
                 case SubscribedRechargeableFeature::class:
-                    /** @var SubscribedRechargeableFeatureInterface $featureDetails */
+                    /** @var SubscribedRechargeableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getRechargingPack()->getNumOfUnits()];
                     break;
             }
@@ -608,10 +602,10 @@ final class FeaturesManager
     private function refreshCountableFeatures(): void
     {
         $refreshInterval = SubscriptionInterface::MONTHLY;
-        /** @var SubscribedCountableFeatureInterface $feature */
+        /** @var SubscribedCountableFeature $feature */
         foreach ($this->getSubscription()->getFeatures()->getValues() as $feature) {
-            if ($feature instanceof SubscribedCountableFeatureInterface) {
-                /** @var ConfiguredCountableFeatureInterface $configuredFeature */
+            if ($feature instanceof SubscribedCountableFeature) {
+                /** @var ConfiguredCountableFeature $configuredFeature */
                 $configuredFeature = $feature->getConfiguredFeature();
 
                 // If the configured renew period is smaller than the current renew period...

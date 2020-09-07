@@ -12,21 +12,18 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\InvoiceDrawerInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredRechargeableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ArrayWriter\ArrayWriter;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -143,8 +140,6 @@ final class InvoicesManager
      * If it is not passed, the invoice is populated with the current Subscription and takes into account only the
      * IsRecurringFeature(s).
      * This is useful to show the user his next invoice amount.
-     *
-     * @param array $addedFeatures
      */
     public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null): InvoiceInterface
     {
@@ -161,12 +156,10 @@ final class InvoicesManager
      *
      * The two cases MUST be keep distinguished as in the first we have to add to the InvoiceSection only the newly
      * added features; in the second, instead, we have to add all the subscribed features.
-     *
-     * @param array $addedFeatures
      */
     public function populateSection(InvoiceSection $section, array $addedFeatures = null): void
     {
-        /** @var SubscribedBooleanFeatureInterface $feature */
+        /** @var SubscribedBooleanFeature $feature */
         foreach ($this->buildPopulatingFeatures($addedFeatures) as $feature) {
             $grossPrice = null;
             $netPrice   = null;
@@ -176,16 +169,16 @@ final class InvoicesManager
                     /**
                      * The price is recurrent, so we need to pass the subscription interval.
                      *
-                     * @var ConfiguredBooleanFeatureInterface
-                     * @var SubscribedBooleanFeatureInterface $feature
+                     * @var ConfiguredBooleanFeature
+                     * @var SubscribedBooleanFeature $feature
                      */
                     $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
                     $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::NET);
                     break;
                 case SubscribedCountableFeature::class:
                     /**
-                     * @var ConfiguredCountableFeatureInterface
-                     * @var SubscribedCountableFeatureInterface $feature
+                     * @var ConfiguredCountableFeature
+                     * @var SubscribedCountableFeature $feature
                      */
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
@@ -196,8 +189,8 @@ final class InvoicesManager
                     break;
                 case SubscribedRechargeableFeature::class:
                     /**
-                     * @var ConfiguredRechargeableFeatureInterface
-                     * @var SubscribedRechargeableFeatureInterface $feature
+                     * @var ConfiguredRechargeableFeature
+                     * @var SubscribedRechargeableFeature $feature
                      */
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
@@ -263,7 +256,7 @@ final class InvoicesManager
         foreach ($this->getSubscription()->getFeatures() as $feature) {
             if (
                 // If is a still enabled BooleanFeature
-                ($feature instanceof SubscribedBooleanFeatureInterface && $feature->isEnabled())
+                ($feature instanceof SubscribedBooleanFeature && $feature->isEnabled())
                 // OR is a still active RecurringFeature
                 || ($feature instanceof IsRecurringFeatureInterface && $feature->isStillActive())
             ) {

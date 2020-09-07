@@ -11,9 +11,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeaturePack;
 
 /**
  * {@inheritdoc}
@@ -36,14 +35,14 @@ final class RechargeableFeatureTransformer extends AbstractFeatureTransformer
      *
      * @param string $pack
      */
-    public function reverseTransform($pack): SubscribedRechargeableFeatureInterface
+    public function reverseTransform($pack): SubscribedRechargeableFeature
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
         // future here will set also the price at which the pack were bought
         $configuredPack = $this->getConfiguredPack($pack);
         $subscribedPack = new SubscribedRechargeableFeaturePack(['num_of_units' => $configuredPack->getNumOfUnits()]);
 
-        /** @var SubscribedRechargeableFeatureInterface $subscribedFeature */
+        /** @var SubscribedRechargeableFeature $subscribedFeature */
         $subscribedFeature = $this->getCurrentTransformingFeature();
         $subscribedFeature->setRecharginPack($subscribedPack);
 

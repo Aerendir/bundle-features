@@ -11,9 +11,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeaturePack;
 
 /**
  * {@inheritdoc}

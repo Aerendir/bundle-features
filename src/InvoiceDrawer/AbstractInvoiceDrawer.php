@@ -11,7 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
 
-use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Abstract class to create an InvoiceDrawer.
@@ -24,10 +24,10 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     /** @var \NumberFormatter */
     private $currencyFormatter;
 
-    /** @var Translator $translator */
+    /** @var TranslatorInterface $translator */
     private $translator;
 
-    public function __construct(Translator $translator, string $locale)
+    public function __construct(TranslatorInterface $translator, string $locale)
     {
         if (\class_exists(\NumberFormatter::class)) {
             $this->currencyFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
@@ -46,7 +46,7 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
         return $this->currencyFormatter;
     }
 
-    protected function getTranslator(): Translator
+    protected function getTranslator(): TranslatorInterface
     {
         return $this->translator;
     }

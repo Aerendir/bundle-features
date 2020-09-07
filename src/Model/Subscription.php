@@ -13,6 +13,8 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -34,7 +36,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var SubscribedFeaturesCollection
+     * @var array|SubscribedFeaturesCollection
      *
      * @ORM\Column(name="features", type="json", nullable=true)
      */
