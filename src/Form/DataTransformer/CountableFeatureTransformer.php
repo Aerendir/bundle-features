@@ -39,7 +39,7 @@ final class CountableFeatureTransformer extends AbstractFeatureTransformer
      *
      * @param int $pack
      */
-    public function reverseTransform($pack): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedCountableFeatureInterface
+    public function reverseTransform($pack): SubscribedCountableFeatureInterface
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
         // future here will set also the price at which the pack were bought

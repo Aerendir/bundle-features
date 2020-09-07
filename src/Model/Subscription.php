@@ -145,7 +145,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrency(): \Money\Currency
+    public function getCurrency(): Currency
     {
         if (null === $this->currency) {
             $this->currency = new Currency('EUR');

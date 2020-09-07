@@ -42,6 +42,7 @@ return PhpCsFixer\Config::create()
             ]
         ],
         'combine_consecutive_unsets' => true,
+        'fully_qualified_strict_types' => true,
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
         'no_multiline_whitespace_before_semicolons' => true,
@@ -49,6 +50,7 @@ return PhpCsFixer\Config::create()
         'no_short_echo_tag' => true,
         'no_superfluous_phpdoc_tags' => true,
         'no_unreachable_default_argument_value' => true,
+        'no_unused_imports' => true,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'not_operator_with_space' => true,

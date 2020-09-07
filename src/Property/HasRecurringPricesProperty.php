@@ -168,7 +168,7 @@ trait HasRecurringPricesProperty
 
         $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
-        if (is_countable($this->$pricesProperty) && 0 < \count($this->$pricesProperty)) {
+        if (\is_countable($this->$pricesProperty) && 0 < \count($this->$pricesProperty)) {
             foreach ($this->$pricesProperty as $currency => $prices) {
                 /** @var MoneyInterface $price */
                 foreach ($prices as $subscriptionInterval => $price) {

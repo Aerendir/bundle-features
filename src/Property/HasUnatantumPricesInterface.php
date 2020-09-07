@@ -23,7 +23,7 @@ interface HasUnatantumPricesInterface
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getPrice($currency, string $type = null): ?\SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
+    public function getPrice($currency, string $type = null): ?MoneyInterface;
 
     public function getPrices(string $type = null): array;
 

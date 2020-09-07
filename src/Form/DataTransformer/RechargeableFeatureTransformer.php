@@ -36,7 +36,7 @@ final class RechargeableFeatureTransformer extends AbstractFeatureTransformer
      *
      * @param string $pack
      */
-    public function reverseTransform($pack): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedRechargeableFeatureInterface
+    public function reverseTransform($pack): SubscribedRechargeableFeatureInterface
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
         // future here will set also the price at which the pack were bought

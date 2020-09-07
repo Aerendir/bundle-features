@@ -24,7 +24,7 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function __construct($currency);
 
-    public function getHeader(): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSectionHeader;
+    public function getHeader(): ?InvoiceSectionHeader;
 
     public function hasHeader(): bool;
 
@@ -47,7 +47,7 @@ interface InvoiceInterface extends \JsonSerializable
      *
      * @param string!int $id
      */
-    public function getLine($id): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine;
+    public function getLine($id): InvoiceLine;
 
     public function getLines(): array;
 
@@ -63,12 +63,12 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function removeLine($id);
 
-    public function addSection(InvoiceSection $section, string $id = null): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
+    public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface;
 
     /**
      * @param int|string $id
      */
-    public function getSection($id): ? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection;
+    public function getSection($id): ?InvoiceSection;
 
     /**
      * Get the sections of the Invoice.

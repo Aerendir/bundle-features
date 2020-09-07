@@ -306,7 +306,7 @@ final class FeaturesManager
      *
      * @todo Method to implement
      */
-    public function getPremiumFeaturesReview(): \SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturesCollection
+    public function getPremiumFeaturesReview(): ConfiguredFeaturesCollection
     {
         return $this->getConfiguredFeatures();
     }

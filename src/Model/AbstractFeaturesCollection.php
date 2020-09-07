@@ -67,7 +67,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         parent::__construct($elements);
     }
 
-    public function getBooleanFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
+    public function getBooleanFeatures(): AbstractFeaturesCollection
     {
         if (null === $this->booleans) {
             // Cache the result
@@ -77,7 +77,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         return $this->booleans;
     }
 
-    public function getCountableFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
+    public function getCountableFeatures(): AbstractFeaturesCollection
     {
         if (null === $this->countables) {
             // Cache the result
@@ -87,7 +87,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         return $this->countables;
     }
 
-    public function getRechargeableFeatures(): \SerendipityHQ\Bundle\FeaturesBundle\Model\AbstractFeaturesCollection
+    public function getRechargeableFeatures(): AbstractFeaturesCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result

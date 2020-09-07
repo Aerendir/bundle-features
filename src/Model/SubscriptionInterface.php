@@ -43,7 +43,7 @@ interface SubscriptionInterface
     /**
      * Do not set the return typecasting until a currency type is created.
      */
-    public function getCurrency(): \Money\Currency;
+    public function getCurrency(): Currency;
 
     /**
      * Forces the features to be returned as a ConfiguredFeaturesCollection.

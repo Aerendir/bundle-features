@@ -24,7 +24,7 @@ final class FeaturesCollectionTransformer implements DataTransformerInterface
      *
      * @param array $features
      */
-    public function transform($features): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection
+    public function transform($features): SubscribedFeaturesCollection
     {
         return new SubscribedFeaturesCollection($features);
     }
@@ -34,7 +34,7 @@ final class FeaturesCollectionTransformer implements DataTransformerInterface
      *
      * @param SubscribedFeaturesCollection $features
      */
-    public function reverseTransform($features): \SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection
+    public function reverseTransform($features): SubscribedFeaturesCollection
     {
         return $features;
     }

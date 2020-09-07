@@ -50,7 +50,7 @@ final class InvoiceSection implements \JsonSerializable
         return $this->currency;
     }
 
-    public function getHeader(): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSectionHeader
+    public function getHeader(): InvoiceSectionHeader
     {
         return $this->header;
     }
@@ -102,7 +102,7 @@ final class InvoiceSection implements \JsonSerializable
     /**
      * @param int|string $id
      */
-    public function getLine($id): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine
+    public function getLine($id): ?InvoiceLine
     {
         return $this->lines[$id] ?? null;
     }

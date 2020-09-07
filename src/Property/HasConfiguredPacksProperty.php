@@ -23,7 +23,7 @@ trait HasConfiguredPacksProperty
     /** @var array $packs */
     private $packs;
 
-    public function getPack(int $numOfUnits): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface
+    public function getPack(int $numOfUnits): ?ConfiguredFeaturePackInterface
     {
         return $this->hasPack($numOfUnits) ? $this->packs[$numOfUnits] : null;
     }

@@ -92,7 +92,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getHeader(): ?\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSectionHeader
+    public function getHeader(): ?InvoiceSectionHeader
     {
         return $this->sections[self::_DEFAULT]->getHeader();
     }
@@ -140,7 +140,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getLine($id): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine
+    public function getLine($id): InvoiceLine
     {
         return $this->sections[self::_DEFAULT]->getLine($id);
     }
@@ -176,7 +176,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function addSection(InvoiceSection $section, string $id = null): \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface
+    public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface
     {
         if ($this->getCurrency()->getCode() !== $section->getCurrency()->getCode()) {
             throw new \LogicException(\Safe\sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this->getCurrency()->getCode(), $section->getCurrency()->getCode()));
@@ -208,7 +208,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getSection($id): ? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection
+    public function getSection($id): ?InvoiceSection
     {
         if (self::_DEFAULT === $id && false === isset($this->sections[self::_DEFAULT])) {
             $this->sections[self::_DEFAULT] = new InvoiceSection($this->getCurrency());
