@@ -231,6 +231,236 @@ parameters:
 			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:\\$oldSubscription has no typehint specified\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:\\$differences type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
+			count: 5
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:buildDefaultSubscriptionFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\FeatureInterface\\:\\:isEnabled\\(\\)\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getInstantPrice\\(\\)\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Cannot call method getInstantPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getPack\\(\\)\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Cannot call method getPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) should return SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money but returns SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:getDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:getPremiumFeaturesReview\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:syncSubscription\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:updateSubscription\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:findDifferences\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:findDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Cannot call method modify\\(\\) on DateTime\\|null\\.$#"
+			count: 5
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$feature has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$feature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:has\\(\\) expects string, int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$featureName of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:addFeature\\(\\) expects string, int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:\\$defaultDrawer \\(string\\|null\\) does not accept SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:drawInvoice\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:getDrawer\\(\\) should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\|string\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:populateInvoice\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$section of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:populateSection\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\|null given\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:populateSection\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
+			count: 3
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Cannot call method getNumOfUnits\\(\\) on int\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\.$#"
+			count: 3
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxName\\(\\)\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxRate\\(\\)\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^PHPDoc tag @var has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\AbstractFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/AbstractFeature.php
@@ -954,234 +1184,4 @@ parameters:
 			message: "#^Parameter \\$currency of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\HasUnatantumPricesInterface\\:\\:hasPrice\\(\\) has invalid typehint type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Property\\\\Currency\\.$#"
 			count: 1
 			path: src/Property/HasUnatantumPricesInterface.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$oldSubscription has no typehint specified\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:\\$differences type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
-			count: 5
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:buildDefaultSubscriptionFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\FeatureInterface\\:\\:isEnabled\\(\\)\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getInstantPrice\\(\\)\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Cannot call method getInstantPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredRechargeableFeatureInterface\\:\\:getPack\\(\\)\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Cannot call method getPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:calculateTotalChargesForNewFeatures\\(\\) should return SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\Money but returns SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:getPremiumFeaturesReview\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:syncSubscription\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:updateSubscription\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeatureInterface will always evaluate to false\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:findDifferences\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscribedFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\FeaturesManager\\:\\:findDifferences\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Cannot call method modify\\(\\) on DateTime\\|null\\.$#"
-			count: 5
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$feature has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$feature of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:has\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$featureName of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:addFeature\\(\\) expects string, int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/Service/FeaturesManager.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:\\$configuredFeatures type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:__construct\\(\\) has parameter \\$configuredFeatures with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:getConfiguredFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturesCollection\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:\\$defaultDrawer \\(string\\|null\\) does not accept SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:drawInvoice\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:getDrawer\\(\\) should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\|string\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:populateInvoice\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$section of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:populateSection\\(\\) expects SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection, SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\|null given\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:populateSection\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
-			count: 3
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Cannot call method getNumOfUnits\\(\\) on int\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeaturePackInterface\\.$#"
-			count: 3
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxName\\(\\)\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredFeatureInterface\\:\\:getTaxRate\\(\\)\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) has parameter \\$addedFeatures with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Service\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
-
-		-
-			message: "#^PHPDoc tag @var has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Service/InvoicesManager.php
 

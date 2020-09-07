@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;

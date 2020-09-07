@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SerendipityHQ\Bundle\FeaturesBundle\Service;
+namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\InvoiceDrawerInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredBooleanFeatureInterface;

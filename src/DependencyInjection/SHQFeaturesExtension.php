@@ -12,8 +12,8 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\PlainTextDrawer;
-use SerendipityHQ\Bundle\FeaturesBundle\Service\FeaturesManager;
-use SerendipityHQ\Bundle\FeaturesBundle\Service\InvoicesManager;
+use SerendipityHQ\Bundle\FeaturesBundle\Manager\FeaturesManager;
+use SerendipityHQ\Bundle\FeaturesBundle\Manager\InvoicesManager;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
