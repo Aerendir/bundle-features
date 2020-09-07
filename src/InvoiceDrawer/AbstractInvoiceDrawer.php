@@ -18,7 +18,7 @@ use Symfony\Component\Translation\Translator;
  */
 abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
 {
-    /** @var string|null */
+    /** @var string */
     public $locale;
 
     /** @var \NumberFormatter */
@@ -27,7 +27,7 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     /** @var Translator $translator */
     private $translator;
 
-    public function setTranslator(Translator $translator, string $locale)
+    public function __construct(Translator $translator, string $locale)
     {
         if (\class_exists(\NumberFormatter::class)) {
             $this->currencyFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);

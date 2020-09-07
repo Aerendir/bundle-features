@@ -108,7 +108,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\ClassMethod\NewlineBeforeNewAssignSetRector::class,
             Rector\CodingStyle\Rector\ClassMethod\RemoveDoubleUnderscoreInMethodNameRector::class,
             Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector::class,
-            Rector\CodingStyle\Rector\Identical\IdenticalFalseToBooleanNotRector::class,
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
             Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
@@ -128,6 +127,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
             Rector\DoctrineCodeQuality\Rector\Property\CorrectDefaultTypesOnEntityPropertyRector::class,
             Rector\DoctrineCodeQuality\Rector\Class_\MoveCurrentDateTimeDefaultInEntityToConstructorRector::class,
+            Rector\SOLID\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
         ]
     );
 };

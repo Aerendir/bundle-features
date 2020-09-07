@@ -33,7 +33,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * Contains method to manage features plans.
@@ -58,7 +58,7 @@ final class FeaturesManager
     /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
-    /** @var FormFactory $formFactory */
+    /** @var FormFactoryInterface $formFactory */
     private $formFactory;
 
     /** @var InvoicesManager $invoicesManager */
@@ -76,9 +76,11 @@ final class FeaturesManager
         self::REMOVED => [],
     ];
 
-    public function __construct(array $configuredFeatures)
+    public function __construct(array $configuredFeatures, InvoicesManager $invoicesManager, FormFactoryInterface $formFactory)
     {
         $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
+        $this->formFactory        = $formFactory;
+        $this->invoicesManager    = $invoicesManager;
     }
 
     /**
@@ -279,7 +281,7 @@ final class FeaturesManager
             // Clone the $subscription so we can use it to compare changes
             $this->oldSubscription = clone $subscription;
 
-            $form = $this->getFormFactory()->createBuilder(FormType::class, [
+            $form = $this->formFactory->createBuilder(FormType::class, [
                 'action' => $actionUrl,
                 'method' => 'POST',
             ])
@@ -403,24 +405,9 @@ final class FeaturesManager
         $subscription->forceFeaturesUpdate();
     }
 
-    public function getFormFactory(): FormFactory
-    {
-        return $this->formFactory;
-    }
-
     public function getInvoicesManager(): InvoicesManager
     {
         return $this->invoicesManager;
-    }
-
-    public function setFormFactory(FormFactory $formFactory): void
-    {
-        $this->formFactory = $formFactory;
-    }
-
-    public function setInvoicesManager(InvoicesManager $invoicesManager): void
-    {
-        $this->invoicesManager = $invoicesManager;
     }
 
     private function calculateSubscriptionAmount(): MoneyInterface

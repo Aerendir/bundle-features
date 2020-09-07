@@ -1,4 +1,0 @@
-services:
-    shq_features.array_writer:
-        class: SerendipityHQ\Component\ArrayWriter\ArrayWriter
-        public: false

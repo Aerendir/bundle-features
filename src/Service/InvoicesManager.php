@@ -53,11 +53,18 @@ final class InvoicesManager
     /** @var SubscriptionInterface $subscription */
     private $subscription;
 
-    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, string $defaultFormatter = null)
+    /**
+     * @param array<string, InvoiceDrawerInterface> $drawers
+     */
+    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, string $defaultFormatter = null, array $drawers = [])
     {
         $this->arrayWriter        = $arrayWriter;
-        $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
         $this->defaultDrawer      = $defaultFormatter;
+        $this->configuredFeatures = new ConfiguredFeaturesCollection($configuredFeatures);
+
+        foreach ($drawers as $drawerName => $drawer) {
+            $this->addDrawer($drawerName, $drawer);
+        }
     }
 
     /**

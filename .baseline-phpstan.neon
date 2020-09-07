@@ -1,32 +1,17 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\CompilerPass\\\\InvoiceManagersCompilerPass\\:\\:getFormatters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php
-
-		-
-			message: "#^Cannot call method addTag\\(\\) on Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\|null\\.$#"
-			count: 1
-			path: src/DependencyInjection/SHQFeaturesExtension.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:setDefinition\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/DependencyInjection/SHQFeaturesExtension.php
-
-		-
-			message: "#^Parameter \\#2 \\$definition of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:setDefinition\\(\\) expects Symfony\\\\Component\\\\DependencyInjection\\\\Definition, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\|null given\\.$#"
-			count: 1
-			path: src/DependencyInjection/SHQFeaturesExtension.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFeaturesService\\(\\) has parameter \\$setConfig with no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#4 \\$drawers of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createInvoicesService\\(\\) expects array\\<string, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\>, array\\<int\\|string, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\> given\\.$#"
 			count: 1
 			path: src/DependencyInjection/SHQFeaturesExtension.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createInvoicesService\\(\\) has parameter \\$setConfig with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/DependencyInjection/SHQFeaturesExtension.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFeaturesService\\(\\) has parameter \\$setConfig with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/DependencyInjection/SHQFeaturesExtension.php
 
@@ -201,11 +186,6 @@ parameters:
 			path: src/Form/Type/FeaturesType.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\AbstractInvoiceDrawer\\:\\:setTranslator\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/InvoiceDrawer/AbstractInvoiceDrawer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\:\\:draw\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
@@ -376,6 +356,11 @@ parameters:
 			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Offset string does not exist on array\\|null\\.$#"
+			count: 2
+			path: src/Model/ConfiguredBooleanFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredBooleanFeature\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/ConfiguredBooleanFeature.php
@@ -383,6 +368,11 @@ parameters:
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
+			path: src/Model/ConfiguredBooleanFeature.php
+
+		-
+			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
+			count: 1
 			path: src/Model/ConfiguredBooleanFeature.php
 
 		-
@@ -451,6 +441,11 @@ parameters:
 			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-
+			message: "#^Offset string does not exist on array\\|null\\.$#"
+			count: 2
+			path: src/Model/ConfiguredCountableFeaturePack.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\ConfiguredCountableFeaturePack\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/ConfiguredCountableFeaturePack.php
@@ -458,6 +453,11 @@ parameters:
 		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 2
+			path: src/Model/ConfiguredCountableFeaturePack.php
+
+		-
+			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
+			count: 1
 			path: src/Model/ConfiguredCountableFeaturePack.php
 
 		-

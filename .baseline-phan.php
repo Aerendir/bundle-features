@@ -9,14 +9,14 @@
  */
 return [
     // # Issue statistics:
-    // PhanUnreferencedPublicMethod : 30+ occurrences
+    // PhanUnreferencedPublicMethod : 25+ occurrences
     // PhanPluginUnreachableCode : 15+ occurrences
     // PhanUnreferencedClosure : 9 occurrences
     // PhanTypeMismatchReturn : 8 occurrences
     // PhanTypeMismatchArgument : 7 occurrences
-    // PhanTypeMismatchArgumentNullable : 7 occurrences
     // PhanCompatiblePHP7 : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
+    // PhanTypeMismatchArgumentNullable : 5 occurrences
     // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanUnreferencedUseNormal : 4 occurrences
@@ -45,13 +45,13 @@ return [
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'src/DependencyInjection/Configuration.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
-        'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClass'],
+        'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanUnreferencedClass'],
         'src/FeaturesFactory.php' => ['PhanPluginUnreachableCode'],
         'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanUndeclaredMethod'],
         'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanUndeclaredMethod'],
         'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Form/Type/FeaturesType.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClosure'],
-        'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanUnreferencedPublicMethod', 'PhanWriteOnlyPublicProperty'],
+        'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanWriteOnlyPublicProperty'],
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
         'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanUnreferencedPublicMethod'],
         'src/Model/AbstractFeaturesCollection.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],

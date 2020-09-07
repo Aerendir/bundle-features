@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.15@de6e7f324f44dde540ebe7ebd4eb481b97c86f30">
-  <file src="src/DependencyInjection/CompilerPass/DrawersCompilerPass.php">
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$service</code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="1">
-      <code>$locale</code>
-    </MixedAssignment>
-  </file>
-  <file src="src/DependencyInjection/CompilerPass/FeaturesManagersCompilerPass.php">
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$service</code>
-      <code>$service</code>
-    </MixedArgumentTypeCoercion>
-  </file>
-  <file src="src/DependencyInjection/CompilerPass/InvoiceManagersCompilerPass.php">
-    <MixedArgumentTypeCoercion occurrences="3">
-      <code>$service</code>
-      <code>$key</code>
-      <code>$drawer</code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="1">
-      <code>$drawer</code>
-    </MixedAssignment>
-  </file>
   <file src="src/DependencyInjection/Configuration.php">
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
@@ -228,25 +204,21 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="4">
       <code>$drawer</code>
+      <code>$locale</code>
       <code>$creatingSetName</code>
       <code>$setConfig</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="1">
       <code>$config['invoices']['drawers']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="4">
+      <code>$locale</code>
       <code>$drawer</code>
       <code>$setConfig</code>
       <code>$defaultDrawer</code>
     </MixedAssignment>
-    <PossiblyNullArgument occurrences="1">
-      <code>$drawerServiceName</code>
-    </PossiblyNullArgument>
-    <PossiblyNullReference occurrences="1">
-      <code>addTag</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
     <InvalidNullableReturnType occurrences="1">
@@ -348,6 +320,14 @@
       <code>getInstantPrice</code>
     </PossiblyUndefinedMethod>
   </file>
+  <file src="src/InvoiceDrawer/AbstractInvoiceDrawer.php">
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>$currencyFormatter</code>
+    </PropertyNotSetInConstructor>
+    <UninitializedProperty occurrences="1">
+      <code>$this-&gt;currencyFormatter</code>
+    </UninitializedProperty>
+  </file>
   <file src="src/InvoiceDrawer/InvoiceDrawerInterface.php">
     <MismatchingDocblockReturnType occurrences="1">
       <code>mixed</code>
@@ -371,9 +351,9 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>array</code>
     </MismatchingDocblockReturnType>
-    <MissingConstructor occurrences="1">
+    <PropertyNotSetInConstructor occurrences="1">
       <code>$tableWidth</code>
-    </MissingConstructor>
+    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/AbstractFeature.php">
     <MixedAssignment occurrences="1">
@@ -509,14 +489,14 @@
       <code>$line</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="9">
-      <code>?\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSectionHeader</code>
+      <code>?InvoiceSectionHeader</code>
       <code>bool</code>
       <code>removeHeader</code>
-      <code>\SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceLine</code>
+      <code>InvoiceLine</code>
       <code>array</code>
       <code>bool</code>
       <code>removeLine</code>
-      <code>? \SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceSection</code>
+      <code>?InvoiceSection</code>
       <code>removeSection</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="9">
@@ -718,7 +698,7 @@
       <code>$prices</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>?\SerendipityHQ\Bundle\FeaturesBundle\Model\ConfiguredFeaturePackInterface</code>
+      <code>?ConfiguredFeaturePackInterface</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="1">
       <code>new $packClass($numOfUnits, $prices, $pricesType)</code>
@@ -885,9 +865,7 @@
       <code>getInstantPrice</code>
       <code>getPack</code>
     </PossiblyUndefinedMethod>
-    <PropertyNotSetInConstructor occurrences="4">
-      <code>$formFactory</code>
-      <code>$invoicesManager</code>
+    <PropertyNotSetInConstructor occurrences="2">
       <code>$subscription</code>
       <code>$oldSubscription</code>
     </PropertyNotSetInConstructor>
