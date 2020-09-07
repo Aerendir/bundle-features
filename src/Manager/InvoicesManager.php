@@ -38,6 +38,7 @@ final class InvoicesManager
     private const GROSS = 'gross';
 
     private const NET = 'net';
+
     /** @var ArrayWriter $arrayWriter */
     private $arrayWriter;
 

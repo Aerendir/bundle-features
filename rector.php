@@ -118,6 +118,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
             Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
             Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class,
+            Rector\SOLID\Rector\Class_\RepeatedLiteralToClassConstantRector::class,
             Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
             Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,

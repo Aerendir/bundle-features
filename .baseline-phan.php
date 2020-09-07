@@ -9,7 +9,6 @@
  */
 return [
     // # Issue statistics:
-    // PhanUnreferencedPublicMethod : 25+ occurrences
     // PhanPluginUnreachableCode : 15+ occurrences
     // PhanUnreferencedClosure : 9 occurrences
     // PhanTypeMismatchReturn : 8 occurrences
@@ -19,7 +18,6 @@ return [
     // PhanTypeMismatchArgumentNullable : 5 occurrences
     // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
-    // PhanUnreferencedUseNormal : 4 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchDeclaredParamNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
@@ -53,29 +51,28 @@ return [
         'src/Form/Type/FeaturesType.php' => ['PhanTypeMismatchArgumentNullable', 'PhanUnreferencedClosure'],
         'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanWriteOnlyPublicProperty'],
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
-        'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal', 'PhanUnreferencedPublicMethod'],
-        'src/Model/AbstractFeaturesCollection.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant', 'PhanUnreferencedPublicMethod'],
-        'src/Model/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnreferencedPublicMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal'],
+        'src/Manager/FeaturesManager.php' => ['PhanTypeMismatchDeclaredParamNullable'],
+        'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchPropertyProbablyReal', 'PhanWriteOnlyPrivateProperty'],
+        'src/Model/AbstractFeaturesCollection.php' => ['PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanTypeMismatchArgument', 'PhanUndeclaredTypeReturnType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
+        'src/Model/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Model/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceLine.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyProbablyReal'],
-        'src/Model/InvoiceSectionHeader.php' => ['PhanUnreferencedPublicMethod'],
         'src/Model/SubscribedCountableFeature.php' => ['PhanParamSignatureMismatch', 'PhanPluginUnreachableCode'],
         'src/Model/SubscribedCountableFeatureInterface.php' => ['ConstReferenceClassNotImported'],
         'src/Model/SubscribedRechargeableFeature.php' => ['PhanWriteOnlyPrivateProperty'],
-        'src/Model/Subscription.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedPublicMethod'],
-        'src/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
+        'src/Model/Subscription.php' => ['PhanTypeMismatchArgument'],
+        'src/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
-        'src/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
+        'src/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
-        'src/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod', 'PhanWriteOnlyPrivateProperty'],
+        'src/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
         'src/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
-        'src/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn', 'PhanUnreferencedPublicMethod'],
-        'src/Service/FeaturesManager.php' => ['PhanTypeMismatchDeclaredParamNullable', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal'],
-        'src/Service/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredParamNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchPropertyProbablyReal', 'PhanUnreferencedPublicMethod', 'PhanUnreferencedUseNormal', 'PhanWriteOnlyPrivateProperty'],
+        'src/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanPluginUnreachableCode', 'PhanTypeMismatchReturn'],
+        'src/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

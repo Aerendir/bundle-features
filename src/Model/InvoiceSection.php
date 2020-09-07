@@ -20,9 +20,6 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceSection implements \JsonSerializable
 {
-    private const BASE_AMOUNT = 'baseAmount';
-
-    private const CURRENCY = 'currency';
     /** @var Currency $currency */
     private $currency;
 
@@ -41,8 +38,8 @@ final class InvoiceSection implements \JsonSerializable
     public function __construct(Currency $currency)
     {
         $this->currency   = $currency;
-        $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $currency]);
-        $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $currency]);
+        $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $currency]);
+        $this->netTotal   = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $currency]);
     }
 
     public function getCurrency(): Currency
@@ -178,8 +175,8 @@ final class InvoiceSection implements \JsonSerializable
      */
     private function recalculateTotal(): void
     {
-        $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
-        $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
+        $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
+        $this->netTotal   = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
 
         /** @var InvoiceLine $line */
         foreach ($this->getLines() as $line) {

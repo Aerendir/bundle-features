@@ -21,15 +21,6 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
  */
 final class PlainTextDrawer extends AbstractInvoiceDrawer
 {
-    private const INVOICE = 'Invoice';
-
-    private const QUANTITY = 'quantity';
-
-    private const DESCRIPTION = 'description';
-
-    private const BASE_AMOUNT = 'baseAmount';
-
-    private const MIN_WIDTH = 'min_width';
     /** @var int $tableWidth */
     private $tableWidth;
 
@@ -57,7 +48,7 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
             $detailsTable .= $sectionContent . "\n";
         }
 
-        $totalGrossAmount = \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], self::INVOICE))
+        $totalGrossAmount = \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
             . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getNetTotal()->getHumanAmount(), $invoice->getGrossTotal()->getCurrency())
             . ' (' . $this->getCurrencyFormatter()->formatCurrency($invoice->getGrossTotal()->getHumanAmount(), $invoice->getNetTotal()->getCurrency()) . ')';
         /*
@@ -86,18 +77,18 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
     {
         $tableData = [
             [
-                self::QUANTITY         => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], self::INVOICE)),
-                self::DESCRIPTION      => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], self::INVOICE)),
-                self::BASE_AMOUNT      => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], self::INVOICE)),
+                'quantity'    => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
+                'description' => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
+                'baseAmount'  => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
             ],
         ];
 
         /** @var InvoiceLine $line */
         foreach ($section->getLines() as $line) {
             $lineData = [
-                self::QUANTITY         => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
-                self::DESCRIPTION      => $line->getDescription(),
-                self::BASE_AMOUNT      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
+                'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
+                'description' => $line->getDescription(),
+                'baseAmount'  => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
             $tableData[] = $lineData;
@@ -116,17 +107,17 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
             'sep_h'             => ' ',
             'show_head_top_sep' => false,
             'columns'           => [
-                self::QUANTITY => [
-                    self::MIN_WIDTH => 10,
-                    'max_width'     => 10,
+                'quantity' => [
+                    'min_width' => 10,
+                    'max_width' => 10,
                 ],
-                self::DESCRIPTION => [
-                    'max_width'     => 32,
-                    self::MIN_WIDTH => 32,
+                'description' => [
+                    'max_width' => 32,
+                    'min_width' => 32,
                 ],
-                self::BASE_AMOUNT => [
-                    'align'         => 'right',
-                    self::MIN_WIDTH => 18,
+                'baseAmount' => [
+                    'align'     => 'right',
+                    'min_width' => 18,
                 ],
             ],
         ];

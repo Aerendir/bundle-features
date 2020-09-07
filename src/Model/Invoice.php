@@ -22,11 +22,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 abstract class Invoice implements InvoiceInterface
 {
-    private const BASE_AMOUNT = 'baseAmount';
-
-    private const CURRENCY = 'currency';
-
-    private const _DEFAULT = '_default';
+    private const SECTION_DEFAULT = '_default';
     /**
      * @var Currency
      * @ORM\Column(name="currency", type="currency", nullable=false)
@@ -78,11 +74,11 @@ abstract class Invoice implements InvoiceInterface
         }
 
         if (null === $this->grossTotal) {
-            $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
+            $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         }
 
         if (null === $this->netTotal) {
-            $this->netTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
+            $this->netTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         }
 
         // Generate the Invoice number
@@ -94,7 +90,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getHeader(): ?InvoiceSectionHeader
     {
-        return $this->sections[self::_DEFAULT]->getHeader();
+        return $this->sections[self::SECTION_DEFAULT]->getHeader();
     }
 
     /**
@@ -102,7 +98,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function hasHeader(): bool
     {
-        return $this->sections[self::_DEFAULT]->hasHeader();
+        return $this->sections[self::SECTION_DEFAULT]->hasHeader();
     }
 
     /**
@@ -110,7 +106,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function removeHeader()
     {
-        return $this->sections[self::_DEFAULT]->removeHeader();
+        return $this->sections[self::SECTION_DEFAULT]->removeHeader();
     }
 
     /**
@@ -118,7 +114,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function setHeader(InvoiceSectionHeader $header)
     {
-        $this->sections[self::_DEFAULT]->setHeader($header);
+        $this->sections[self::SECTION_DEFAULT]->setHeader($header);
     }
 
     /**
@@ -126,11 +122,11 @@ abstract class Invoice implements InvoiceInterface
      */
     public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface
     {
-        if (false === isset($this->sections[self::_DEFAULT])) {
-            $this->sections[self::_DEFAULT] = new InvoiceSection($this->getCurrency());
+        if (false === isset($this->sections[self::SECTION_DEFAULT])) {
+            $this->sections[self::SECTION_DEFAULT] = new InvoiceSection($this->getCurrency());
         }
 
-        $this->sections[self::_DEFAULT]->addLine($line, $id);
+        $this->sections[self::SECTION_DEFAULT]->addLine($line, $id);
 
         $this->recalculateTotal();
 
@@ -142,7 +138,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getLine($id): InvoiceLine
     {
-        return $this->sections[self::_DEFAULT]->getLine($id);
+        return $this->sections[self::SECTION_DEFAULT]->getLine($id);
     }
 
     /**
@@ -150,7 +146,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getLines(): array
     {
-        return $this->sections[self::_DEFAULT]->getLines();
+        return $this->sections[self::SECTION_DEFAULT]->getLines();
     }
 
     /**
@@ -158,7 +154,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function hasLine($id): bool
     {
-        return $this->sections[self::_DEFAULT]->hasLine($id);
+        return $this->sections[self::SECTION_DEFAULT]->hasLine($id);
     }
 
     /**
@@ -166,7 +162,7 @@ abstract class Invoice implements InvoiceInterface
      */
     public function removeLine($id)
     {
-        $return = $this->sections[self::_DEFAULT]->removeLine($id);
+        $return = $this->sections[self::SECTION_DEFAULT]->removeLine($id);
 
         $this->recalculateTotal();
 
@@ -210,8 +206,8 @@ abstract class Invoice implements InvoiceInterface
      */
     public function getSection($id): ?InvoiceSection
     {
-        if (self::_DEFAULT === $id && false === isset($this->sections[self::_DEFAULT])) {
-            $this->sections[self::_DEFAULT] = new InvoiceSection($this->getCurrency());
+        if (self::SECTION_DEFAULT === $id && false === isset($this->sections[self::SECTION_DEFAULT])) {
+            $this->sections[self::SECTION_DEFAULT] = new InvoiceSection($this->getCurrency());
         }
 
         return $this->sections[$id] ?? null;
@@ -328,8 +324,8 @@ abstract class Invoice implements InvoiceInterface
      */
     private function recalculateTotal()
     {
-        $this->grossTotal = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
-        $this->netTotal   = new Money([self::BASE_AMOUNT => 0, self::CURRENCY => $this->getCurrency()]);
+        $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
+        $this->netTotal   = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
 
         /** @var InvoiceSection $section */
         foreach ($this->getSections() as $section) {

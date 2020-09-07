@@ -54,7 +54,7 @@ trait HasUnatantumPricesProperty
             $type = $this->pricesType;
         }
 
-        return $this->getPrices($type)[$currency] ?? new Money(['baseAmount' => 0, 'currency' => new Currency($currency)]);
+        return $this->getPrices($type)[$currency] ?? new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => new Currency($currency)]);
     }
 
     public function getTaxName(): string
@@ -115,14 +115,14 @@ trait HasUnatantumPricesProperty
                     // If currently is "net"...
                     case 'net':
                         $netPrice                     = (int) \round($price->getBaseAmount() * (1 + $rate));
-                        $netPrice                     = new Money(['baseAmount' => $netPrice, 'currency' => $currency]);
+                        $netPrice                     = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
                     case 'gross':
                         // ... Then we have to set net prices
                         $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
-                        $grossPrice                 = new Money(['baseAmount' => $grossPrice, 'currency' => $currency]);
+                        $grossPrice                 = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
                         break;
                 }
@@ -142,7 +142,7 @@ trait HasUnatantumPricesProperty
         $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
 
         foreach ($prices as $currency => $price) {
-            $this->$priceProperty[$currency] = new Money(['baseAmount' => $price, 'currency' => new Currency($currency)]);
+            $this->$priceProperty[$currency] = new Money([MoneyInterface::BASE_AMOUNT => $price, MoneyInterface::CURRENCY => new Currency($currency)]);
         }
 
         /** @var ConfiguredRechargeableFeatureInterface|ConfiguredRechargeableFeaturePack $this */

@@ -138,8 +138,8 @@ final class InvoiceLine implements \JsonSerializable
 
     public function hydrate(array $data): void
     {
-        $grossAmount = new Money(['baseAmount' => (int) $data['gross_amount'], self::CURRENCY => new Currency($data[self::CURRENCY])]);
-        $netAmount   = new Money(['baseAmount' => (int) $data['net_amount'], self::CURRENCY => new Currency($data[self::CURRENCY])]);
+        $grossAmount = new Money([MoneyInterface::BASE_AMOUNT => (int) $data['gross_amount'], MoneyInterface::CURRENCY => new Currency($data[self::CURRENCY])]);
+        $netAmount   = new Money([MoneyInterface::BASE_AMOUNT => (int) $data['net_amount'], MoneyInterface::CURRENCY => new Currency($data[self::CURRENCY])]);
         $this->setDescription($data['description']);
         $this->setGrossAmount($grossAmount);
         $this->setNetAmount($netAmount);

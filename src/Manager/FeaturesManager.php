@@ -183,7 +183,7 @@ final class FeaturesManager
      */
     public function calculateTotalChargesForNewFeatures(SubscribedFeaturesCollection $newFeatures)
     {
-        $totalCharges = new Money(['baseAmount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
+        $totalCharges = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getSubscription()->getCurrency()]);
 
         // Calculate the added and removed Boolena features and the changed packages in Countable features
         $this->findDifferences($newFeatures);
@@ -412,7 +412,7 @@ final class FeaturesManager
 
     private function calculateSubscriptionAmount(): MoneyInterface
     {
-        $total = new Money(['baseAmount' => 0, 'currency' => $this->getSubscription()->getCurrency()]);
+        $total = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getSubscription()->getCurrency()]);
 
         /** @var FeatureInterface $feature */
         foreach ($this->getSubscription()->getFeatures() as $feature) {
