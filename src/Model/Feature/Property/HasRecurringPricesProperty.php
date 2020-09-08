@@ -84,15 +84,16 @@ trait HasRecurringPricesProperty
         $instantPricesProperty = FeatureInterface::PRICE_NET === $type ? 'instantNetPrices' : 'instantGrossPrices';
         $instantPrices         = $this->$instantPricesProperty;
 
-        if (false === \is_array($instantPrices)) {
+        if (null !== $instantPrices && false === \is_array($instantPrices)) {
             throw new \RuntimeException('Something went wrong returning instant prices.');
         }
 
         if (false === isset($instantPrices[$currency][$subscriptionInterval])) {
-            $this->$instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
+            $instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
+            $this->$instantPricesProperty = $instantPrices;
         }
 
-        return $this->$instantPrices[$currency][$subscriptionInterval] ?? null;
+        return $instantPrices[$currency][$subscriptionInterval] ?? null;
     }
 
     /**
