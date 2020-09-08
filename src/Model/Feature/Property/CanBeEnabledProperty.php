@@ -16,14 +16,20 @@ trait CanBeEnabledProperty
     /** @var bool $enabled */
     private $enabled = false;
 
-    public function disable(): void
+    public function disable(): CanBeEnabledInterface
     {
         $this->enabled = false;
+
+        /** @var CanBeEnabledInterface $this */
+        return $this;
     }
 
-    public function enable(): void
+    public function enable(): CanBeEnabledInterface
     {
         $this->enabled = true;
+
+        /** @var CanBeEnabledInterface $this */
+        return $this;
     }
 
     public function isEnabled(): bool

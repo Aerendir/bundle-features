@@ -20,9 +20,9 @@ interface CanBeEnabledInterface
 {
     public const FIELD_ENABLED = 'enabled';
 
-    public function disable(): void;
+    public function disable(): CanBeEnabledInterface;
 
-    public function enable(): void;
+    public function enable(): CanBeEnabledInterface;
 
     public function isEnabled(): bool;
 }

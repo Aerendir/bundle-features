@@ -9,17 +9,18 @@
  */
 return [
     // # Issue statistics:
+    // PhanTypeMismatchReturn : 10+ occurrences
     // PhanUnreferencedClosure : 9 occurrences
-    // PhanTypeMismatchReturn : 8 occurrences
-    // PhanCompatiblePHP7 : 6 occurrences
     // PhanTypeMismatchArgument : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
     // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
+    // PhanCompatiblePHP7 : 3 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanWriteOnlyPrivateProperty : 3 occurrences
+    // PhanTypeInvalidPropertyName : 2 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
@@ -54,10 +55,11 @@ return [
         'src/Model/Feature/Configured/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Configured/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn'],
+        'src/Model/Feature/Property/CanBeEnabledProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
         'src/Model/Feature/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
-        'src/Model/Feature/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
+        'src/Model/Feature/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidPropertyName', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
         'src/Model/Feature/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Model/Feature/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn'],

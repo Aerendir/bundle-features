@@ -82,12 +82,17 @@ trait HasRecurringPricesProperty
         }
 
         $instantPricesProperty = FeatureInterface::PRICE_NET === $type ? 'instantNetPrices' : 'instantGrossPrices';
+        $instantPrices         = $this->$instantPricesProperty;
 
-        if (false === isset($this->$instantPricesProperty[$currency][$subscriptionInterval])) {
-            $this->$instantPricesProperty[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
+        if (false === \is_array($instantPrices)) {
+            throw new \RuntimeException('Something went wrong returning instant prices.');
         }
 
-        return $this->$instantPricesProperty[$currency][$subscriptionInterval] ?? null;
+        if (false === isset($instantPrices[$currency][$subscriptionInterval])) {
+            $this->$instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
+        }
+
+        return $this->$instantPrices[$currency][$subscriptionInterval] ?? null;
     }
 
     /**
@@ -194,13 +199,14 @@ trait HasRecurringPricesProperty
         return $this;
     }
 
-    private function setPrices(array $prices, string $pricesType)
+    private function setPrices(array $settingPrices, string $pricesType)
     {
         $this->pricesType = $pricesType;
         $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
+        $setPrices        = $this->$priceProperty;
 
-        if (0 < \count($prices)) {
-            foreach ($prices as $currency => $price) {
+        if (0 < \count($settingPrices)) {
+            foreach ($settingPrices as $currency => $price) {
                 $currency = new Currency($currency);
 
                 if (isset($price[SubscriptionInterface::MONTHLY])) {
@@ -210,7 +216,7 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::MONTHLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
-                    $this->$priceProperty[$currency->getCode()][SubscriptionInterface::MONTHLY] = $amount;
+                    $setPrices[$currency->getCode()][SubscriptionInterface::MONTHLY] = $amount;
                 }
 
                 if (isset($price[SubscriptionInterface::YEARLY])) {
@@ -220,10 +226,12 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::YEARLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
-                    $this->$priceProperty[$currency->getCode()][SubscriptionInterface::YEARLY] = $amount;
+                    $setPrices[$currency->getCode()][SubscriptionInterface::YEARLY] = $amount;
                 }
             }
         }
+
+        $this->$priceProperty = $setPrices;
     }
 
     private function calculateInstantPrice(string $currency, string $subscriptionInterval, string $pricesType): MoneyInterface

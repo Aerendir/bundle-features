@@ -42,17 +42,11 @@ trait CanBeConsumedProperty
         return $this->consume(1);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConsumedQuantity(): int
     {
         return $this->consumedQuantity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRemainedQuantity(): int
     {
         return $this->remainedQuantity;

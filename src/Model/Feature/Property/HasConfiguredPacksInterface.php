@@ -27,9 +27,15 @@ interface HasConfiguredPacksInterface
      */
     public function getPack(int $numOfUnits);
 
+    /**
+     * @return ConfiguredCountableFeaturePack[]|ConfiguredFeaturePackInterface[]|ConfiguredRechargeableFeaturePack[]
+     */
     public function getPacks(): array;
 
     public function hasPack(int $numOfUnits): bool;
 
+    /**
+     * @param ConfiguredCountableFeaturePack[]|ConfiguredFeaturePackInterface[]|ConfiguredRechargeableFeaturePack[] $packs
+     */
     public function setPacks(array $packs, string $packClass = null): HasConfiguredPacksInterface;
 }

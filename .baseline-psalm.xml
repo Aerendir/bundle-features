@@ -614,13 +614,12 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Feature/Property/HasConfiguredPacksProperty.php">
+    <LessSpecificImplementedReturnType occurrences="1">
+      <code>array</code>
+    </LessSpecificImplementedReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;subscription</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$pricesType</code>
-      <code>$prices</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>?ConfiguredFeaturePackInterface</code>
     </MixedInferredReturnType>
@@ -648,22 +647,28 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$currency</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="4">
+    <MixedArrayAccess occurrences="6">
       <code>$price[SubscriptionInterface::MONTHLY]</code>
       <code>$price[SubscriptionInterface::MONTHLY]</code>
+      <code>$setPrices[$currency-&gt;getCode()]</code>
       <code>$price[SubscriptionInterface::YEARLY]</code>
       <code>$price[SubscriptionInterface::YEARLY]</code>
+      <code>$setPrices[$currency-&gt;getCode()]</code>
     </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="2">
+    <MixedArrayAssignment occurrences="4">
       <code>$this-&gt;grossPrices[$currency][$subscriptionInterval]</code>
       <code>$this-&gt;netPrices[$currency][$subscriptionInterval]</code>
+      <code>$setPrices[$currency-&gt;getCode()]</code>
+      <code>$setPrices[$currency-&gt;getCode()]</code>
     </MixedArrayAssignment>
     <MixedArrayOffset occurrences="2">
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="6">
+      <code>$instantPrices</code>
       <code>$prices</code>
+      <code>$setPrices</code>
       <code>$price</code>
       <code>$amount</code>
       <code>$amount</code>

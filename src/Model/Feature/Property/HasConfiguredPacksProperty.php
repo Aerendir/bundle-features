@@ -23,11 +23,17 @@ trait HasConfiguredPacksProperty
     /** @var array $packs */
     private $packs;
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPack(int $numOfUnits): ?ConfiguredFeaturePackInterface
     {
         return $this->hasPack($numOfUnits) ? $this->packs[$numOfUnits] : null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getPacks(): array
     {
         return $this->packs;

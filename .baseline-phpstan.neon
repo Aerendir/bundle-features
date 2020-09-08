@@ -591,7 +591,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
@@ -612,16 +612,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
@@ -671,7 +661,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
@@ -701,17 +691,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:\\$packs type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
@@ -824,16 +804,6 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Property\\\\HasConfiguredPacksInterface\\:\\:getPacks\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Property/HasConfiguredPacksInterface.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Property\\\\HasConfiguredPacksInterface\\:\\:setPacks\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Property/HasConfiguredPacksInterface.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Property\\\\HasRecurringPricesInterface\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
