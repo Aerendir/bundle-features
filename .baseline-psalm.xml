@@ -516,19 +516,18 @@
     </MixedAssignment>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
-    <InvalidReturnType occurrences="1">
-      <code>BaseObject</code>
-    </InvalidReturnType>
+    <InvalidDocblock occurrences="3">
+      <code>protected $booleans;</code>
+      <code>protected $countables;</code>
+      <code>protected $rechargeables;</code>
+    </InvalidDocblock>
     <MissingClosureParamType occurrences="1">
       <code>$element</code>
     </MissingClosureParamType>
-    <MixedArgumentTypeCoercion occurrences="6">
+    <MixedArgumentTypeCoercion occurrences="3">
       <code>$feature</code>
       <code>$feature</code>
       <code>$feature</code>
-      <code>$this-&gt;getFilterPredictate(FeatureInterface::TYPE_BOOLEAN)</code>
-      <code>$this-&gt;getFilterPredictate(FeatureInterface::TYPE_COUNTABLE)</code>
-      <code>$this-&gt;getFilterPredictate(FeatureInterface::TYPE_RECHARGEABLE)</code>
     </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="2">
       <code>$details</code>
@@ -537,17 +536,6 @@
     <MixedClone occurrences="1">
       <code>clone $element</code>
     </MixedClone>
-    <MixedReturnStatement occurrences="1">
-      <code>$element</code>
-    </MixedReturnStatement>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$booleans</code>
-      <code>$countables</code>
-      <code>$rechargeables</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedClass occurrences="1">
-      <code>BaseObject</code>
-    </UndefinedClass>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredBooleanFeature.php">
     <PropertyNotSetInConstructor occurrences="1">
@@ -581,10 +569,30 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
+    <InvalidDocblock occurrences="3">
+      <code>protected function getBooleanFeatures(): \Countable</code>
+      <code>protected function getCountableFeatures(): \Countable</code>
+      <code>protected function getRechargeableFeatures(): \Countable</code>
+    </InvalidDocblock>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
+    </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="2">
       <code>$feature</code>
       <code>$feature</code>
     </MixedAssignment>
+    <MixedInferredReturnType occurrences="3">
+      <code>ConfiguredFeaturesCollection&amp;ConfiguredBooleanFeature[]</code>
+      <code>ConfiguredFeaturesCollection&amp;ConfiguredCountableFeature[]</code>
+      <code>ConfiguredFeaturesCollection&amp;ConfiguredRechargeableFeature[]</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="3">
+      <code>$this-&gt;booleans</code>
+      <code>$this-&gt;countables</code>
+      <code>$this-&gt;rechargeables</code>
+    </MixedReturnStatement>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeature.php">
     <MixedArgument occurrences="3">
@@ -756,9 +764,29 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
+    <InvalidDocblock occurrences="3">
+      <code>protected function getBooleanFeatures(): \Countable</code>
+      <code>protected function getCountableFeatures(): \Countable</code>
+      <code>protected function getRechargeableFeatures(): \Countable</code>
+    </InvalidDocblock>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
+    </MixedArgumentTypeCoercion>
     <MixedArrayOffset occurrences="1">
       <code>$return[$featureName]</code>
     </MixedArrayOffset>
+    <MixedInferredReturnType occurrences="3">
+      <code>SubscribedFeaturesCollection&amp;SubscribedBooleanFeature[]</code>
+      <code>SubscribedFeaturesCollection&amp;SubscribedCountableFeature[]</code>
+      <code>SubscribedFeaturesCollection&amp;SubscribedRechargeableFeature[]</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="3">
+      <code>$this-&gt;booleans</code>
+      <code>$this-&gt;countables</code>
+      <code>$this-&gt;rechargeables</code>
+    </MixedReturnStatement>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
     <MixedArgument occurrences="3">

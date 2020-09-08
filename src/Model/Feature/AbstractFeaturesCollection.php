@@ -13,26 +13,38 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
     const KIND = null;
 
-    /** @var AbstractFeaturesCollection $booleans */
-    private $booleans;
+    /** @var ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]|SubscribedFeaturesCollection&SubscribedBooleanFeature[]|null $booleans
+     * @var null */
+    protected $booleans;
 
-    /** @var AbstractFeaturesCollection $countables */
-    private $countables;
+    /** @var ConfiguredFeaturesCollection&ConfiguredCountableFeature[]|SubscribedFeaturesCollection&SubscribedCountableFeature[]|null $countables
+     * @var null */
+    protected $countables;
 
-    /** @var AbstractFeaturesCollection $rechargeables */
-    private $rechargeables;
+    /** @var ConfiguredFeaturesCollection&ConfiguredRechargeableFeature[]|SubscribedFeaturesCollection&SubscribedRechargeableFeature[]|null $rechargeables
+     * @var null */
+    protected $rechargeables;
 
-    /**
-     * @param array $elements
-     */
-    public function __construct($elements = [])
+    public function __construct(string $kind, ?array $elements = [])
     {
+        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
+            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+        }
+
         if (null === $elements) {
             $elements = [];
         }
@@ -43,15 +55,15 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                 if (\is_array($details)) {
                     switch ($details[FeatureInterface::FIELD_TYPE]) {
                         case FeatureInterface::TYPE_BOOLEAN:
-                            $elements[$feature] = FeaturesFactory::createBoolean($feature, $details);
+                            $elements[$feature] = FeaturesFactory::createBoolean($kind, $feature, $details);
                             break;
 
                         case FeatureInterface::TYPE_COUNTABLE:
-                            $elements[$feature] = FeaturesFactory::createCountable($feature, $details);
+                            $elements[$feature] = FeaturesFactory::createCountable($kind, $feature, $details);
                             break;
 
                         case FeatureInterface::TYPE_RECHARGEABLE:
-                            $elements[$feature] = FeaturesFactory::createRechargeable($feature, $details);
+                            $elements[$feature] = FeaturesFactory::createRechargeable($kind, $feature, $details);
                             break;
 
                         default:
@@ -64,54 +76,31 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         parent::__construct($elements);
     }
 
-    public function getBooleanFeatures(): AbstractFeaturesCollection
+    protected function getFilterPredictate(string $kind, string $type): callable
     {
-        if (null === $this->booleans) {
-            // Cache the result
-            $this->booleans = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_BOOLEAN));
-        }
+        $featureClass = $this->getFeatureClass($kind, $type);
 
-        return $this->booleans;
-    }
-
-    public function getCountableFeatures(): AbstractFeaturesCollection
-    {
-        if (null === $this->countables) {
-            // Cache the result
-            $this->countables = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_COUNTABLE));
-        }
-
-        return $this->countables;
-    }
-
-    public function getRechargeableFeatures(): AbstractFeaturesCollection
-    {
-        if (null === $this->rechargeables) {
-            // Cache the result
-            $this->rechargeables = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_RECHARGEABLE));
-        }
-
-        return $this->rechargeables;
-    }
-
-    private function getFilterPredictate(string $type): callable
-    {
-        $featureClass = $this->getFeatureClass($type);
-
-        return function ($element) use ($featureClass): BaseObject {
-            if ($element instanceof $featureClass) {
-                return $element;
-            }
+        return function ($element) use ($featureClass): bool {
+            return $element instanceof $featureClass;
         };
     }
 
-    private function getFeatureClass(string $type): string
+    private function getFeatureClass(string $kind, string $type): string
     {
-        switch ($type) {
-            case FeatureInterface::TYPE_BOOLEAN:
+        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
+            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
-        return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . \ucfirst(FeaturesFactory::getKind()) . \ucfirst($type) . 'Feature';
+        switch ($type) {
+            case FeatureInterface::TYPE_BOOLEAN:
+                return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredBooleanFeature::class : SubscribedBooleanFeature::class;
+            case FeatureInterface::TYPE_COUNTABLE:
+                return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredCountableFeature::class : SubscribedCountableFeature::class;
+            case FeatureInterface::TYPE_RECHARGEABLE:
+                return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredRechargeableFeature::class : SubscribedRechargeableFeature::class;
+            default:
+                throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $type));
+        }
     }
 
     public function __clone()

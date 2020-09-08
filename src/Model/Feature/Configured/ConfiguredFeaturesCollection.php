@@ -11,15 +11,12 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
-use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasUnatantumPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
-/**
- * {@inheritdoc}
- */
 final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
     const KIND = 'configured';
@@ -32,8 +29,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
      */
     public function __construct(array $elements = [])
     {
-        FeaturesFactory::setKind(self::KIND);
-        parent::__construct($elements);
+        parent::__construct(self::KIND, $elements);
     }
 
     public function isTaxSet(): bool
@@ -67,5 +63,44 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
         }
 
         $this->taxSet = true;
+    }
+
+    /**
+     * @return ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]
+     */
+    protected function getBooleanFeatures(): \Countable
+    {
+        if (null === $this->booleans) {
+            // Cache the result
+            $this->booleans = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN));
+        }
+
+        return $this->booleans;
+    }
+
+    /**
+     * @return ConfiguredFeaturesCollection&ConfiguredCountableFeature[]
+     */
+    protected function getCountableFeatures(): \Countable
+    {
+        if (null === $this->countables) {
+            // Cache the result
+            $this->countables = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE));
+        }
+
+        return $this->countables;
+    }
+
+    /**
+     * @return ConfiguredFeaturesCollection&ConfiguredRechargeableFeature[]
+     */
+    protected function getRechargeableFeatures(): \Countable
+    {
+        if (null === $this->rechargeables) {
+            // Cache the result
+            $this->rechargeables = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE));
+        }
+
+        return $this->rechargeables;
     }
 }

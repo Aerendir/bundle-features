@@ -25,32 +25,12 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRecha
  */
 final class FeaturesFactory
 {
-    /** @var string $kind */
-    private static $kind;
-
-    public static function getKind(): string
-    {
-        self::checkKindIsSet();
-
-        return self::$kind;
-    }
-
-    public static function setKind(string $kind): void
-    {
-        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
-        }
-        self::$kind = $kind;
-    }
-
     /**
      * @return ConfiguredBooleanFeature|SubscribedBooleanFeature|null
      */
-    public static function createBoolean(string $name, array $details = [])
+    public static function createBoolean(string $kind, string $name, array $details = [])
     {
-        self::checkKindIsSet();
-
-        switch (self::$kind) {
+        switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredBooleanFeature($name, $details);
             case SubscribedFeaturesCollection::KIND:
@@ -63,11 +43,9 @@ final class FeaturesFactory
     /**
      * @return ConfiguredCountableFeature|SubscribedCountableFeature|null
      */
-    public static function createCountable(string $name, array $details = [])
+    public static function createCountable(string $kind, string $name, array $details = [])
     {
-        self::checkKindIsSet();
-
-        switch (self::$kind) {
+        switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredCountableFeature($name, $details);
             case SubscribedFeaturesCollection::KIND:
@@ -80,11 +58,9 @@ final class FeaturesFactory
     /**
      * @return ConfiguredRechargeableFeature|SubscribedRechargeableFeature|null
      */
-    public static function createRechargeable(string $name, array $details = [])
+    public static function createRechargeable(string $kind, string $name, array $details = [])
     {
-        self::checkKindIsSet();
-
-        switch (self::$kind) {
+        switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredRechargeableFeature($name, $details);
             case SubscribedFeaturesCollection::KIND:
@@ -92,12 +68,5 @@ final class FeaturesFactory
         }
 
         return null;
-    }
-
-    public static function checkKindIsSet(): void
-    {
-        if (null === self::$kind) {
-            throw new \LogicException('Before you can create features you have to set the kind you want to generate. Use FeaturesFactory::setKind().');
-        }
     }
 }

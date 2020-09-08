@@ -471,77 +471,22 @@ parameters:
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
+			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredBooleanFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedBooleanFeature\\[\\]\\|null \\$booleans\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 64$#"
 			count: 1
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
+			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredCountableFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedCountableFeature\\[\\]\\|null \\$countables\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 66$#"
 			count: 1
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
+			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredRechargeableFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedRechargeableFeature\\[\\]\\|null \\$rechargeables\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 69$#"
 			count: 1
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:__construct\\(\\) has parameter \\$elements with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and array will always evaluate to false\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:getBooleanFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed,mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
-			count: 3
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:getCountableFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Return typehint of anonymous function has invalid type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\BaseObject\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Anonymous function should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\BaseObject but return statement is missing\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^Anonymous function should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\BaseObject but returns object\\.$#"
 			count: 1
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
@@ -682,6 +627,46 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^PHPDoc tag @return contains unresolvable type\\.$#"
+			count: 3
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed,mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			count: 3
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getBooleanFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getCountableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
@@ -882,6 +867,46 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^PHPDoc tag @return contains unresolvable type\\.$#"
+			count: 3
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed,mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			count: 3
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getBooleanFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getCountableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 

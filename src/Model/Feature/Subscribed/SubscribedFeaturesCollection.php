@@ -11,12 +11,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 
-/**
- * {@inheritdoc}
- */
 final class SubscribedFeaturesCollection extends AbstractFeaturesCollection implements \JsonSerializable
 {
     public const KIND = 'subscribed';
@@ -26,8 +23,7 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
      */
     public function __construct(array $elements = [])
     {
-        FeaturesFactory::setKind(self::KIND);
-        parent::__construct($elements);
+        parent::__construct(self::KIND, $elements);
     }
 
     /**
@@ -53,5 +49,44 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     public function jsonSerialize(): array
     {
         return $this->toArray();
+    }
+
+    /**
+     * @return SubscribedFeaturesCollection&SubscribedBooleanFeature[]
+     */
+    protected function getBooleanFeatures(): \Countable
+    {
+        if (null === $this->booleans) {
+            // Cache the result
+            $this->booleans = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN));
+        }
+
+        return $this->booleans;
+    }
+
+    /**
+     * @return SubscribedFeaturesCollection&SubscribedCountableFeature[]
+     */
+    protected function getCountableFeatures(): \Countable
+    {
+        if (null === $this->countables) {
+            // Cache the result
+            $this->countables = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE));
+        }
+
+        return $this->countables;
+    }
+
+    /**
+     * @return SubscribedFeaturesCollection&SubscribedRechargeableFeature[]
+     */
+    protected function getRechargeableFeatures(): \Countable
+    {
+        if (null === $this->rechargeables) {
+            // Cache the result
+            $this->rechargeables = $this->filter($this->getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE));
+        }
+
+        return $this->rechargeables;
     }
 }
