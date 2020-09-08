@@ -596,11 +596,6 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
-
-		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -681,11 +676,6 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
-
-		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
@@ -756,11 +746,6 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
-			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
@@ -783,11 +768,6 @@ parameters:
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeaturePack\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 2
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
 
 		-

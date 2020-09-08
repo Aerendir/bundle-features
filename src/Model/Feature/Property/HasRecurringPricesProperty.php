@@ -117,10 +117,8 @@ trait HasRecurringPricesProperty
         switch ($type) {
             case FeatureInterface::PRICE_GROSS:
                 return $this->grossPrices;
-                break;
             case FeatureInterface::PRICE_NET:
                 return $this->netPrices;
-                break;
             default:
                 throw new \InvalidArgumentException(\Safe\sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
         }

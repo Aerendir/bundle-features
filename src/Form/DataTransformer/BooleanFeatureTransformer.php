@@ -51,6 +51,7 @@ final class BooleanFeatureTransformer extends AbstractFeatureTransformer
                 break;
             case false:
                 $subscribedFeature->disable();
+                break;
         }
 
         return $subscribedFeature;
