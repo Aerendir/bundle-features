@@ -14,9 +14,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 
-/**
- * {@inheritdoc}
- */
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
@@ -44,7 +41,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             foreach ($elements as $feature => $details) {
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
                 if (\is_array($details)) {
-                    switch ($details['type']) {
+                    switch ($details[FeatureInterface::FIELD_TYPE]) {
                         case FeatureInterface::TYPE_BOOLEAN:
                             $elements[$feature] = FeaturesFactory::createBoolean($feature, $details);
                             break;
@@ -58,7 +55,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                             break;
 
                         default:
-                            throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $details['type']));
+                            throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE]));
                     }
                 }
             }

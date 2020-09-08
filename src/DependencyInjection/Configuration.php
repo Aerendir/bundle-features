@@ -225,7 +225,7 @@ final class Configuration implements ConfigurationInterface
 
     private function validateFeatureConfig(string $set, string $feature, array $config): void
     {
-        switch ($config['type']) {
+        switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $this->validateBoolean($set, $feature, $config);
                 break;
@@ -393,7 +393,7 @@ final class Configuration implements ConfigurationInterface
     private function processFeatureConfig(array $config)
     {
         $result = [];
-        switch ($config['type']) {
+        switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $result = $this->processBoolean($config);
                 break;

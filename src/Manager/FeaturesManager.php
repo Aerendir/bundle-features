@@ -18,6 +18,8 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCount
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
@@ -140,26 +142,26 @@ final class FeaturesManager
                 case FeatureInterface::TYPE_BOOLEAN:
                     /** @var ConfiguredBooleanFeature $details */
                     $features[$name] = [
-                        'active_until'               => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
-                        FeatureInterface::FIELD_TYPE => $details->getType(),
-                        'enabled'                    => $details->isEnabled(),
+                        FeatureInterface::FIELD_TYPE                    => $details->getType(),
+                        CanBeEnabledInterface::FIELD_ENABLED            => $details->isEnabled(),
+                        IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                     ];
                     break;
                 case FeatureInterface::TYPE_COUNTABLE:
                     /** @var ConfiguredCountableFeature $details */
                     $features[$name] = [
-                        FeatureInterface::FIELD_TYPE => $details->getType(),
-                        'subscribed_pack'            => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
-                        'remained_quantity'          => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
+                        FeatureInterface::FIELD_TYPE                      => $details->getType(),
+                        SubscribedCountableFeature::FIELD_SUBSCRIBED_PACK => [SubscribedCountableFeature::FIELD_SUBSCRIBED_NUM_OF_UNITS => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
+                        CanBeConsumedInterface::REMAINED_QUANTITY         => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
                     break;
                 case FeatureInterface::TYPE_RECHARGEABLE:
                     /** @var ConfiguredRechargeableFeature $details */
                     $features[$name] = [
-                        FeatureInterface::FIELD_TYPE => $details->getType(),
-                        'last_recharge_on'           => new \DateTime(),
-                        'last_recharge_quantity'     => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
-                        'remained_quantity'          => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        FeatureInterface::FIELD_TYPE              => $details->getType(),
+                        'last_recharge_on'                        => new \DateTime(),
+                        'last_recharge_quantity'                  => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
+                        CanBeConsumedInterface::REMAINED_QUANTITY => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                     ];
                     break;
             }
@@ -178,7 +180,7 @@ final class FeaturesManager
     {
         $totalCharges = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getSubscription()->getCurrency()]);
 
-        // Calculate the added and removed Boolena features and the changed packages in Countable features
+        // Calculate the added and removed Boolean features and the changed packages in Countable features
         $this->findDifferences($newFeatures);
 
         /*

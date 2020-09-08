@@ -21,7 +21,7 @@ abstract class AbstractFeaturePack implements FeaturePackInterface
 
     public function __construct(array $details)
     {
-        $this->numOfUnits = $details['num_of_units'];
+        $this->numOfUnits = $details[FeaturePackInterface::FIELD_NUM_OF_UNITS];
     }
 
     /**

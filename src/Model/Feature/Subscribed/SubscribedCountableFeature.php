@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
@@ -26,9 +27,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     }
     use CanBeConsumedProperty;
 
-    private const FIELD_ACTIVE_UNTIL    = 'active_until';
-    private const FIELD_LAST_REFRESH_ON = 'last_refresh_on';
-    private const FIELD_SUBSCRIBED_PACK = 'subscribed_pack';
+    public const FIELD_LAST_REFRESH_ON         = 'last_refresh_on';
+    public const FIELD_SUBSCRIBED_PACK         = 'subscribed_pack';
+    public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
     private $previousRemainedQuantity = 0;
@@ -39,18 +40,15 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     /** @var SubscribedCountableFeaturePack $subscribedPack */
     private $subscribedPack;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::TYPE_COUNTABLE;
+        $details[FeatureInterface::FIELD_TYPE] = self::TYPE_COUNTABLE;
 
         $this->RecurringFeatureConstruct($details);
 
-        $this->subscribedPack = new SubscribedCountableFeaturePack($details['subscribed_pack']);
-        $this->setRemainedQuantity($details['remained_quantity']);
+        $this->subscribedPack = new SubscribedCountableFeaturePack($details[SubscribedCountableFeature::FIELD_SUBSCRIBED_PACK]);
+        $this->setRemainedQuantity($details[SubscribedCountableFeature::REMAINED_QUANTITY]);
 
         // If is null we need to set it to NOW
         if (null === $this->lastRefreshOn) {
@@ -201,9 +199,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         return \array_merge([
-            self::FIELD_ACTIVE_UNTIL    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
-            self::FIELD_SUBSCRIBED_PACK => $subscribedPack->toArray(),
-            self::FIELD_LAST_REFRESH_ON => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
+            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            self::FIELD_SUBSCRIBED_PACK                        => $subscribedPack->toArray(),
+            self::FIELD_LAST_REFRESH_ON                        => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
         ], parent::toArray(), $this->consumedToArray());
     }
 }

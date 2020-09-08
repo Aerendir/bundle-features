@@ -11,34 +11,28 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
 
-/**
- * {@inheritdoc}
- */
-final class SubscribedBooleanFeature extends AbstractSubscribedFeature implements IsRecurringFeatureInterface, SubscribedFeatureInterface
+final class SubscribedBooleanFeature extends AbstractSubscribedFeature implements CanBeEnabledInterface, IsRecurringFeatureInterface, SubscribedFeatureInterface
 {
+    use CanBeEnabledProperty;
     use IsRecurringFeatureProperty {
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    public const FIELD_ACTIVE_UNTIL = 'active_until';
-    public const FIELD_ENABLED      = 'enabled';
-
     /** @var bool $enabled */
     private $enabled = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type
         $details[self::FIELD_TYPE] = self::TYPE_BOOLEAN;
 
         $this->disable();
-        if (isset($details[self::FIELD_ENABLED]) && true === $details[self::FIELD_ENABLED]) {
+        if (isset($details[CanBeEnabledInterface::FIELD_ENABLED]) && true === $details[CanBeEnabledInterface::FIELD_ENABLED]) {
             $this->enable();
         }
 
@@ -50,39 +44,11 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     /**
      * {@inheritdoc}
      */
-    public function disable(): self
-    {
-        $this->enabled = false;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function enable(): self
-    {
-        $this->enabled = true;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return \array_merge([
-            self::FIELD_ACTIVE_UNTIL      => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
-            self::FIELD_ENABLED           => $this->isEnabled(),
+            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            CanBeEnabledInterface::FIELD_ENABLED            => $this->isEnabled(),
         ], parent::toArray());
     }
 }

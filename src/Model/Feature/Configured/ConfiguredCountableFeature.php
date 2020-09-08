@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanHaveFreePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanHaveFreePackProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasConfiguredPacksInterface;
@@ -40,7 +41,7 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::TYPE_COUNTABLE;
+        $details[FeatureInterface::FIELD_TYPE] = self::TYPE_COUNTABLE;
 
         if (isset($details['packs'])) {
             $this->setPacks($details['packs']);

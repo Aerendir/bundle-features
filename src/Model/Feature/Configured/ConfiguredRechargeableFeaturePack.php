@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasUnatantumPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasUnatantumPricesProperty;
 
@@ -28,6 +29,6 @@ final class ConfiguredRechargeableFeaturePack extends AbstractFeaturePack implem
     {
         $this->setPrices($prices, $pricesType);
 
-        parent::__construct(['num_of_units' => $numOfUnits]);
+        parent::__construct([FeaturePackInterface::FIELD_NUM_OF_UNITS => $numOfUnits]);
     }
 }

@@ -12,56 +12,32 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeFreeProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasRecurringPricesInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasRecurringPricesProperty;
 
-final class ConfiguredBooleanFeature extends AbstractFeature implements HasRecurringPricesInterface, ConfiguredFeatureInterface
+final class ConfiguredBooleanFeature extends AbstractFeature implements CanBeEnabledInterface, HasRecurringPricesInterface, ConfiguredFeatureInterface
 {
-    use HasRecurringPricesProperty {
-        HasRecurringPricesProperty::__construct as RecurringConstruct;
-    }
+    use CanBeEnabledProperty;
     use CanBeFreeProperty;
+    use HasRecurringPricesProperty {
+        HasRecurringPricesProperty::__construct as RecurringPricesConstruct;
+    }
 
-    private const FIELD_ENABLED = 'enabled';
-
-    /** @var bool $enabled */
-    private $enabled = false;
-
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type
         $details[self::FIELD_TYPE] = self::TYPE_BOOLEAN;
 
         $this->disable();
-        if (isset($details[self::FIELD_ENABLED]) && true === $details[self::FIELD_ENABLED]) {
+        if (isset($details[CanBeEnabledInterface::FIELD_ENABLED]) && true === $details[CanBeEnabledInterface::FIELD_ENABLED]) {
             $this->enable();
         }
 
-        $this->RecurringConstruct($details);
+        $this->RecurringPricesConstruct($details);
 
         parent::__construct($name, $details);
-    }
-
-    public function disable(): ConfiguredBooleanFeature
-    {
-        $this->enabled = false;
-
-        return $this;
-    }
-
-    public function enable(): ConfiguredBooleanFeature
-    {
-        $this->enabled = true;
-
-        return $this;
-    }
-
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
     }
 }

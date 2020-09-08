@@ -16,5 +16,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
  */
 interface FeaturePackInterface
 {
+    public const FIELD_NUM_OF_UNITS = 'num_of_units';
+
     public function getNumOfUnits(): int;
 }

@@ -66,21 +66,6 @@ parameters:
 			path: src/Form/DataTransformer/AbstractFeatureTransformer.php
 
 		-
-			message: "#^Return typehint of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\CountableFeatureTransformer\\:\\:reverseTransform\\(\\) has invalid type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeatureInterface\\.$#"
-			count: 1
-			path: src/Form/DataTransformer/CountableFeatureTransformer.php
-
-		-
-			message: "#^PHPDoc tag @var for variable \\$subscribedFeature contains unknown class SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeatureInterface\\.$#"
-			count: 1
-			path: src/Form/DataTransformer/CountableFeatureTransformer.php
-
-		-
-			message: "#^Call to method setSubscribedPack\\(\\) on an unknown class SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeatureInterface\\.$#"
-			count: 1
-			path: src/Form/DataTransformer/CountableFeatureTransformer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Form\\\\DataTransformer\\\\FeaturesCollectionTransformer\\:\\:transform\\(\\) has parameter \\$features with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Form/DataTransformer/FeaturesCollectionTransformer.php

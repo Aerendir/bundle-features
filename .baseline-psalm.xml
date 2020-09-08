@@ -250,13 +250,6 @@
       <code>$feature</code>
       <code>$pack</code>
     </MoreSpecificImplementedParamType>
-    <UndefinedClass occurrences="1">
-      <code>SubscribedCountableFeatureInterface</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="2">
-      <code>$subscribedFeature</code>
-      <code>$subscribedFeature</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
     <MoreSpecificImplementedParamType occurrences="2">
@@ -726,8 +719,8 @@
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
     <MixedArgument occurrences="4">
-      <code>$details['subscribed_pack']</code>
-      <code>$details['remained_quantity']</code>
+      <code>$details[SubscribedCountableFeature::FIELD_SUBSCRIBED_PACK]</code>
+      <code>$details[SubscribedCountableFeature::REMAINED_QUANTITY]</code>
       <code>$details[self::FIELD_LAST_REFRESH_ON]['timezone']</code>
       <code>$details[self::FIELD_LAST_REFRESH_ON]['date']</code>
     </MixedArgument>

@@ -36,7 +36,7 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::TYPE_RECHARGEABLE;
+        $details[FeatureInterface::FIELD_TYPE] = self::TYPE_RECHARGEABLE;
 
         $this->freeRecharge = $details['free_recharge'];
 

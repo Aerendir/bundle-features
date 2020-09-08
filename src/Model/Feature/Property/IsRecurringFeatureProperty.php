@@ -21,8 +21,8 @@ trait IsRecurringFeatureProperty
 
     public function __construct(array $details = [])
     {
-        if (isset($details['active_until'])) {
-            $this->activeUntil = $details['active_until'] instanceof \DateTime ? $details['active_until'] : new \DateTime($details['active_until']['date'], new \DateTimeZone($details['active_until']['timezone']));
+        if (isset($details[IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL])) {
+            $this->activeUntil = $details[IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL] instanceof \DateTime ? $details[IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL] : new \DateTime($details[IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL][IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL_DATE], new \DateTimeZone($details[IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL][IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL_TIMEZONE]));
         }
     }
 
@@ -34,9 +34,6 @@ trait IsRecurringFeatureProperty
         return $this->activeUntil;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isStillActive(): bool
     {
         if (null === $this->getActiveUntil()) {

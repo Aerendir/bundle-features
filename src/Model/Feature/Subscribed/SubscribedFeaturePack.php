@@ -19,13 +19,10 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeaturePackInterface;
  */
 class SubscribedFeaturePack extends AbstractFeaturePack implements FeaturePackInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return [
-            'num_of_units' => $this->getNumOfUnits(),
+            FeaturePackInterface::FIELD_NUM_OF_UNITS => $this->getNumOfUnits(),
         ];
     }
 }

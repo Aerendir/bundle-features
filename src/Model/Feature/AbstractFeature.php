@@ -11,9 +11,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
-/**
- * {@inheritdoc}
- */
 abstract class AbstractFeature implements FeatureInterface
 {
     /** @var string $name */
@@ -22,26 +19,17 @@ abstract class AbstractFeature implements FeatureInterface
     /** @var string $type */
     private $type;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         $this->name = $name;
         $this->type = $details[self::FIELD_TYPE];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getType(): string
     {
         return $this->type;

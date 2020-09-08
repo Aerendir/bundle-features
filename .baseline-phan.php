@@ -9,8 +9,8 @@
  */
 return [
     // # Issue statistics:
-    // PhanTypeMismatchReturn : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
+    // PhanTypeMismatchReturn : 8 occurrences
     // PhanCompatiblePHP7 : 6 occurrences
     // PhanTypeMismatchArgument : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
@@ -23,7 +23,6 @@ return [
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
-    // PhanUndeclaredTypeReturnType : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanRedefinedClassReference : 1 occurrence
@@ -31,19 +30,20 @@ return [
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
     // PhanTypeMismatchProperty : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
+    // PhanUndeclaredTypeReturnType : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
     // PhanUnextractableAnnotationSuffix : 1 occurrence
     // PhanUnreferencedClass : 1 occurrence
+    // PhanUnreferencedPrivateProperty : 1 occurrence
     // PhanUnreferencedPublicClassConstant : 1 occurrence
     // PhanWriteOnlyPublicProperty : 1 occurrence
-    // UndeclaredTypeInInlineVar : 1 occurrence
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'src/DependencyInjection/Configuration.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanUnreferencedClass'],
         'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanUndeclaredMethod'],
-        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeReturnType', 'UndeclaredTypeInInlineVar'],
+        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanUndeclaredMethod'],
         'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Form/Type/FeaturesType.php' => ['PhanUnreferencedClosure'],
         'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanWriteOnlyPublicProperty'],
@@ -61,6 +61,7 @@ return [
         'src/Model/Feature/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Model/Feature/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn'],
+        'src/Model/Feature/Subscribed/SubscribedBooleanFeature.php' => ['PhanUnreferencedPrivateProperty'],
         'src/Model/Feature/Subscribed/SubscribedCountableFeature.php' => ['ConstReferenceClassNotImported'],
         'src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php' => ['PhanWriteOnlyPrivateProperty'],
         'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],

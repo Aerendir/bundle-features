@@ -11,13 +11,10 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeaturePack;
 
-/**
- * {@inheritdoc}
- */
 final class CountableFeatureTransformer extends AbstractFeatureTransformer
 {
     /**
@@ -39,14 +36,14 @@ final class CountableFeatureTransformer extends AbstractFeatureTransformer
      *
      * @param int $pack
      */
-    public function reverseTransform($pack): SubscribedCountableFeatureInterface
+    public function reverseTransform($pack): SubscribedCountableFeature
     {
         // Also if it seems useless in this moment as we could use directly $pack, we use the configured pack as in the
         // future here will set also the price at which the pack were bought
         $configuredPack = $this->getConfiguredPack($pack);
-        $subscribedPack = new SubscribedCountableFeaturePack(['num_of_units' => $configuredPack->getNumOfUnits()]);
+        $subscribedPack = new SubscribedCountableFeaturePack([FeaturePackInterface::FIELD_NUM_OF_UNITS => $configuredPack->getNumOfUnits()]);
 
-        /** @var SubscribedCountableFeatureInterface $subscribedFeature */
+        /** @var SubscribedCountableFeature $subscribedFeature */
         $subscribedFeature = $this->getCurrentTransformingFeature();
         $subscribedFeature->setSubscribedPack($subscribedPack);
 
