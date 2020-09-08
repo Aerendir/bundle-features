@@ -61,8 +61,8 @@ trait CanBeConsumedProperty
     public function consumedToArray(): array
     {
         return [
-            'consumed_quantity' => $this->getConsumedQuantity(),
-            'remained_quantity' => $this->getRemainedQuantity(),
+            CanBeConsumedInterface::CONSUMED_QUANTITY => $this->getConsumedQuantity(),
+            CanBeConsumedInterface::REMAINED_QUANTITY => $this->getRemainedQuantity(),
         ];
     }
 

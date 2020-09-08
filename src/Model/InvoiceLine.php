@@ -22,7 +22,14 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceLine implements \JsonSerializable
 {
-    private const CURRENCY = 'currency';
+    private const FIELD_CURRENCY     = 'currency';
+    private const FIELD_GROSS_AMOUNT = 'gross_amount';
+    private const FIELD_NET_AMOUNT   = 'net_amount';
+    private const FIELD_DESCRIPTION  = 'description';
+    private const FIELD_QUANTITY     = 'quantity';
+    private const FIELD_TAX_NAME     = 'tax_name';
+    private const FIELD_TAX_RATE     = 'tax_rate';
+
     /** @var MoneyInterface$grossAmount */
     private $grossAmount;
 
@@ -138,26 +145,26 @@ final class InvoiceLine implements \JsonSerializable
 
     public function hydrate(array $data): void
     {
-        $grossAmount = new Money([MoneyInterface::BASE_AMOUNT => (int) $data['gross_amount'], MoneyInterface::CURRENCY => new Currency($data[self::CURRENCY])]);
-        $netAmount   = new Money([MoneyInterface::BASE_AMOUNT => (int) $data['net_amount'], MoneyInterface::CURRENCY => new Currency($data[self::CURRENCY])]);
-        $this->setDescription($data['description']);
+        $grossAmount = new Money([MoneyInterface::BASE_AMOUNT => (int) $data[self::FIELD_GROSS_AMOUNT], MoneyInterface::CURRENCY => new Currency($data[self::FIELD_CURRENCY])]);
+        $netAmount   = new Money([MoneyInterface::BASE_AMOUNT => (int) $data[self::FIELD_NET_AMOUNT], MoneyInterface::CURRENCY => new Currency($data[self::FIELD_CURRENCY])]);
+        $this->setDescription($data[self::FIELD_DESCRIPTION]);
         $this->setGrossAmount($grossAmount);
         $this->setNetAmount($netAmount);
-        $this->setQuantity((int) $data['quantity']);
-        $this->setTaxName($data['tax_name']);
-        $this->setTaxRate($data['tax_rate']);
+        $this->setQuantity((int) $data[self::FIELD_QUANTITY]);
+        $this->setTaxName($data[self::FIELD_TAX_NAME]);
+        $this->setTaxRate($data[self::FIELD_TAX_RATE]);
     }
 
     public function __toArray(): array
     {
         return [
-            'gross_amount'     => $this->getGrossAmount()->getBaseAmount(),
-            'net_amount'       => $this->getNetAmount()->getBaseAmount(),
-            self::CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
-            'description'      => $this->getDescription(),
-            'quantity'         => $this->getQuantity(),
-            'tax_name'         => $this->getTaxName(),
-            'tax_rate'         => $this->getTaxRate(),
+            self::FIELD_GROSS_AMOUNT => $this->getGrossAmount()->getBaseAmount(),
+            self::FIELD_NET_AMOUNT   => $this->getNetAmount()->getBaseAmount(),
+            self::FIELD_CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
+            self::FIELD_DESCRIPTION  => $this->getDescription(),
+            self::FIELD_QUANTITY     => $this->getQuantity(),
+            self::FIELD_TAX_NAME     => $this->getTaxName(),
+            self::FIELD_TAX_RATE     => $this->getTaxRate(),
         ];
     }
 }

@@ -43,8 +43,8 @@ trait HasConfiguredPacksProperty
      */
     public function setPacks(array $packs, string $packClass): HasConfiguredPacksInterface
     {
-        $pricesType = $packs['_pricesType'];
-        unset($packs['_pricesType']);
+        $pricesType = $packs[HasConfiguredPacksInterface::_PRICES_TYPES];
+        unset($packs[HasConfiguredPacksInterface::_PRICES_TYPES]);
 
         foreach ($packs as $numOfUnits => $prices) {
             switch ($packClass) {

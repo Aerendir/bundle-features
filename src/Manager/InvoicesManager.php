@@ -16,6 +16,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBoole
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
@@ -32,10 +33,6 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoicesManager
 {
-    private const GROSS = 'gross';
-
-    private const NET = 'net';
-
     /** @var ArrayWriter $arrayWriter */
     private $arrayWriter;
 
@@ -172,8 +169,8 @@ final class InvoicesManager
                      * @var ConfiguredBooleanFeature
                      * @var SubscribedBooleanFeature $feature
                      */
-                    $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
-                    $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::NET);
+                    $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
+                    $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
                     break;
                 case SubscribedCountableFeature::class:
                     /**
@@ -183,8 +180,8 @@ final class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
-                    $netPrice   = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::NET);
+                    $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
+                    $netPrice   = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
                     $quantity   = $feature->getSubscribedPack()->getNumOfUnits();
                     break;
                 case SubscribedRechargeableFeature::class:
@@ -195,8 +192,8 @@ final class InvoicesManager
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
-                    $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::GROSS);
-                    $netPrice   = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::NET);
+                    $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_GROSS);
+                    $netPrice   = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_NET);
                     $quantity   = $feature->getRechargingPack()->getNumOfUnits();
                     break;
             }

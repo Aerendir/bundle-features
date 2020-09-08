@@ -20,6 +20,9 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
+    public const FIELD_NET_PRICES   = 'net_prices';
+    public const FIELD_GROSS_PRICES = 'gross_prices';
+
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      *

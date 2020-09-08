@@ -40,7 +40,7 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::COUNTABLE;
+        $details['type'] = self::TYPE_COUNTABLE;
 
         if (isset($details['packs'])) {
             $this->setPacks($details['packs']);

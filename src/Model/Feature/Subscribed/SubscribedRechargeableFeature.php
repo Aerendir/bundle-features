@@ -39,7 +39,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::RECHARGEABLE;
+        $details[self::FIELD_TYPE] = self::TYPE_RECHARGEABLE;
 
         $this->setRemainedQuantity($details['remained_quantity']);
         $this->lastRechargeOn       = $details['last_recharge_on'];

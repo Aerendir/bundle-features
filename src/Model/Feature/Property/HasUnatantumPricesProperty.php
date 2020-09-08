@@ -14,6 +14,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 use Money\Currency;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -74,10 +75,10 @@ trait HasUnatantumPricesProperty
         }
 
         switch ($type) {
-            case 'gross':
+            case FeatureInterface::PRICE_GROSS:
                 return $this->grossPrices;
                 break;
-            case 'net':
+            case FeatureInterface::PRICE_NET:
                 return $this->netPrices;
                 break;
             default:
@@ -106,20 +107,20 @@ trait HasUnatantumPricesProperty
         $this->taxName = $name;
         $this->taxRate = $rate;
 
-        $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
+        $pricesProperty = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
         if (0 < \count($this->$pricesProperty)) {
             /** @var MoneyInterface $price */
             foreach ($this->$pricesProperty as $currency => $price) {
                 switch ($this->pricesType) {
                     // If currently is "net"...
-                    case 'net':
+                    case FeatureInterface::PRICE_NET:
                         $netPrice                     = (int) \round($price->getBaseAmount() * (1 + $rate));
                         $netPrice                     = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
                         break;
                     // If currently is "gross"...
-                    case 'gross':
+                    case FeatureInterface::PRICE_GROSS:
                         // ... Then we have to set net prices
                         $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
                         $grossPrice                 = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
@@ -139,7 +140,7 @@ trait HasUnatantumPricesProperty
     private function setPrices(array $prices, string $pricesType)
     {
         $this->pricesType = $pricesType;
-        $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
+        $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
 
         foreach ($prices as $currency => $price) {
             $this->$priceProperty[$currency] = new Money([MoneyInterface::BASE_AMOUNT => $price, MoneyInterface::CURRENCY => new Currency($currency)]);

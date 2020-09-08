@@ -23,7 +23,8 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
         IsRecurringFeatureProperty::__construct as RecurringFeatureConstruct;
     }
 
-    private const ENABLED = 'enabled';
+    public const FIELD_ACTIVE_UNTIL = 'active_until';
+    public const FIELD_ENABLED      = 'enabled';
 
     /** @var bool $enabled */
     private $enabled = false;
@@ -34,10 +35,10 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::BOOLEAN;
+        $details[self::FIELD_TYPE] = self::TYPE_BOOLEAN;
 
         $this->disable();
-        if (isset($details[self::ENABLED]) && true === $details[self::ENABLED]) {
+        if (isset($details[self::FIELD_ENABLED]) && true === $details[self::FIELD_ENABLED]) {
             $this->enable();
         }
 
@@ -80,8 +81,8 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     public function toArray(): array
     {
         return \array_merge([
-            'active_until'     => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
-            self::ENABLED      => $this->isEnabled(),
+            self::FIELD_ACTIVE_UNTIL      => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            self::FIELD_ENABLED           => $this->isEnabled(),
         ], parent::toArray());
     }
 }

@@ -42,7 +42,7 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
     public function toArray(): array
     {
         return [
-            'type' => $this->getType(),
+            self::FIELD_TYPE => $this->getType(),
         ];
     }
 }

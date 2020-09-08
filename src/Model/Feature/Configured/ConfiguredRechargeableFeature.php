@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeature;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasConfiguredPacksInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasConfiguredPacksProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasUnatantumPricesInterface;
@@ -35,7 +36,7 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::RECHARGEABLE;
+        $details['type'] = self::TYPE_RECHARGEABLE;
 
         $this->freeRecharge = $details['free_recharge'];
 
@@ -44,11 +45,11 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
         }
 
         if (isset($details['net_unitary_price'])) {
-            $this->setPrices($details['net_unitary_price'], 'net');
+            $this->setPrices($details['net_unitary_price'], FeatureInterface::PRICE_NET);
         }
 
         if (isset($details['gross_unitary_price'])) {
-            $this->setPrices($details['gross_unitary_price'], 'gross');
+            $this->setPrices($details['gross_unitary_price'], FeatureInterface::PRICE_GROSS);
         }
 
         parent::__construct($name, $details);

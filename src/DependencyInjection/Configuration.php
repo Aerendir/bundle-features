@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -27,26 +28,16 @@ final class Configuration implements ConfigurationInterface
 {
     /** @var string[] The allowed drawers */
     private const ALLOWED_DRAWERS = ['plain_text'];
-
-    private const INVOICES = 'invoices';
-
-    private const DRAWERS = 'drawers';
-
-    private const SETS = 'sets';
-
-    private const DEFAULT_DRAWER = 'default_drawer';
-
-    private const FEATURES = 'features';
-
-    private const PRICE = 'price';
-
-    private const UNITARY_PRICE = 'unitary_price';
-
-    private const PACKS = 'packs';
-
-    private const RECURRING = 'recurring';
-
-    private const UNATANTUM = 'unatantum';
+    private const INVOICES        = 'invoices';
+    private const DRAWERS         = 'drawers';
+    private const SETS            = 'sets';
+    private const DEFAULT_DRAWER  = 'default_drawer';
+    private const FEATURES        = 'features';
+    private const PRICE           = 'price';
+    private const UNITARY_PRICE   = 'unitary_price';
+    private const PACKS           = 'packs';
+    private const RECURRING       = 'recurring';
+    private const UNATANTUM       = 'unatantum';
 
     /** @var array $foundDrawers The drawers found as default ones in features sets */
     private $foundDrawers = [];
@@ -72,7 +63,7 @@ final class Configuration implements ConfigurationInterface
                 ->children()
                     ->arrayNode('prices')
                         ->children()
-                            ->enumNode('are')->values(['net', 'gross'])->defaultValue('gross')->end()
+                            ->enumNode('are')->values([FeatureInterface::PRICE_NET, FeatureInterface::PRICE_GROSS])->defaultValue(FeatureInterface::PRICE_GROSS)->end()
                         ->end()
                     ->end()
                     ->arrayNode('invoices')
@@ -91,7 +82,7 @@ final class Configuration implements ConfigurationInterface
                                     ->prototype('array')
                                         ->children()
                                             ->enumNode('type')
-                                                ->values(['boolean', 'countable', 'rechargeable'])
+                                                ->values([FeatureInterface::TYPE_BOOLEAN, FeatureInterface::TYPE_COUNTABLE, FeatureInterface::TYPE_RECHARGEABLE])
                                                 ->isRequired()
                                                 ->cannotBeEmpty()
                                             ->end()
@@ -235,13 +226,13 @@ final class Configuration implements ConfigurationInterface
     private function validateFeatureConfig(string $set, string $feature, array $config): void
     {
         switch ($config['type']) {
-            case 'boolean':
+            case FeatureInterface::TYPE_BOOLEAN:
                 $this->validateBoolean($set, $feature, $config);
                 break;
-            case 'countable':
+            case FeatureInterface::TYPE_COUNTABLE:
                 $this->validateCountable($set, $feature, $config);
                 break;
-            case 'rechargeable':
+            case FeatureInterface::TYPE_RECHARGEABLE:
                 $this->validateRechargeable($set, $feature, $config);
                 break;
         }
@@ -355,8 +346,8 @@ final class Configuration implements ConfigurationInterface
 
         // Set prices type: gross or net
         $this->pricesType      = $tree['prices']['are'];
-        $this->pricesKey       = 'gross' === $this->pricesType ? 'gross_prices' : 'net_prices';
-        $this->unitaryPriceKey = 'gross' === $this->pricesType ? 'gross_unitary_price' : 'net_unitary_price';
+        $this->pricesKey       = FeatureInterface::PRICE_GROSS === $this->pricesType ? 'gross_prices' : 'net_prices';
+        $this->unitaryPriceKey = FeatureInterface::PRICE_GROSS === $this->pricesType ? 'gross_unitary_price' : 'net_unitary_price';
 
         // Reset the key
         $tree[self::INVOICES][self::DRAWERS] = [];
@@ -403,13 +394,13 @@ final class Configuration implements ConfigurationInterface
     {
         $result = [];
         switch ($config['type']) {
-            case 'boolean':
+            case FeatureInterface::TYPE_BOOLEAN:
                 $result = $this->processBoolean($config);
                 break;
-            case 'countable':
+            case FeatureInterface::TYPE_COUNTABLE:
                 $result = $this->processCountable($config);
                 break;
-            case 'rechargeable':
+            case FeatureInterface::TYPE_RECHARGEABLE:
                 $result = $this->processRechargeable($config);
                 break;
         }

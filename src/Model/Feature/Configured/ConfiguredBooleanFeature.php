@@ -23,6 +23,8 @@ final class ConfiguredBooleanFeature extends AbstractFeature implements HasRecur
     }
     use CanBeFreeProperty;
 
+    private const FIELD_ENABLED = 'enabled';
+
     /** @var bool $enabled */
     private $enabled = false;
 
@@ -32,10 +34,10 @@ final class ConfiguredBooleanFeature extends AbstractFeature implements HasRecur
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::BOOLEAN;
+        $details[self::FIELD_TYPE] = self::TYPE_BOOLEAN;
 
         $this->disable();
-        if (isset($details['enabled']) && true === $details['enabled']) {
+        if (isset($details[self::FIELD_ENABLED]) && true === $details[self::FIELD_ENABLED]) {
             $this->enable();
         }
 

@@ -9,12 +9,12 @@
  */
 return [
     // # Issue statistics:
-    // PhanPluginUnreachableCode : 10+ occurrences
     // PhanTypeMismatchReturn : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
     // PhanCompatiblePHP7 : 6 occurrences
     // PhanTypeMismatchArgument : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
+    // PhanPluginUnreachableCode : 4 occurrences
     // PhanTypeMismatchDeclaredReturn : 4 occurrences
     // PhanUndeclaredProperty : 4 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
@@ -43,7 +43,6 @@ return [
     'file_suppressions' => [
         'src/DependencyInjection/Configuration.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanUnreferencedClass'],
-        'src/FeaturesFactory.php' => ['PhanPluginUnreachableCode'],
         'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanUndeclaredMethod'],
         'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredMethod', 'PhanUndeclaredTypeReturnType', 'UndeclaredTypeInInlineVar'],
         'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],

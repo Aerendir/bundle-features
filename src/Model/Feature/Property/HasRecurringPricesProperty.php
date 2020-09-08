@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -54,12 +55,12 @@ trait HasRecurringPricesProperty
         $this->instantNetPrices   = [];
         $this->grossPrices        = [];
         $this->netPrices          = [];
-        if (isset($details['net_prices'])) {
-            $this->setPrices($details['net_prices'], 'net');
+        if (isset($details[HasRecurringPricesInterface::FIELD_NET_PRICES])) {
+            $this->setPrices($details[HasRecurringPricesInterface::FIELD_NET_PRICES], FeatureInterface::PRICE_NET);
         }
 
-        if (isset($details['gross_prices'])) {
-            $this->setPrices($details['gross_prices'], 'gross');
+        if (isset($details[HasRecurringPricesInterface::FIELD_GROSS_PRICES])) {
+            $this->setPrices($details[HasRecurringPricesInterface::FIELD_GROSS_PRICES], FeatureInterface::PRICE_GROSS);
         }
     }
 
@@ -80,7 +81,7 @@ trait HasRecurringPricesProperty
             $type = $this->pricesType;
         }
 
-        $instantPricesProperty = 'net' === $type ? 'instantNetPrices' : 'instantGrossPrices';
+        $instantPricesProperty = FeatureInterface::PRICE_NET === $type ? 'instantNetPrices' : 'instantGrossPrices';
 
         if (false === isset($this->$instantPricesProperty[$currency][$subscriptionInterval])) {
             $this->$instantPricesProperty[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
@@ -114,10 +115,10 @@ trait HasRecurringPricesProperty
         }
 
         switch ($type) {
-            case 'gross':
+            case FeatureInterface::PRICE_GROSS:
                 return $this->grossPrices;
                 break;
-            case 'net':
+            case FeatureInterface::PRICE_NET:
                 return $this->netPrices;
                 break;
             default:
@@ -166,7 +167,7 @@ trait HasRecurringPricesProperty
         $this->taxName = $name;
         $this->taxRate = $rate;
 
-        $pricesProperty = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
+        $pricesProperty = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
         // ... Then we have to set gross prices
         if (\is_countable($this->$pricesProperty) && 0 < \count($this->$pricesProperty)) {
             foreach ($this->$pricesProperty as $currency => $prices) {
@@ -174,13 +175,13 @@ trait HasRecurringPricesProperty
                 foreach ($prices as $subscriptionInterval => $price) {
                     switch ($this->pricesType) {
                         // If currently is "net"...
-                        case 'net':
+                        case FeatureInterface::PRICE_NET:
                             $netPrice                                            = (int) \round($price->getBaseAmount() * (1 + $rate));
                             $netPrice                                            = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
                             break;
                         // If currently is "gross"...
-                        case 'gross':
+                        case FeatureInterface::PRICE_GROSS:
                             // ... Then we have to set net prices
                             $grossPrice                                        = (int) \round($price->getBaseAmount() / (1 + $rate));
                             $grossPrice                                        = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
@@ -198,7 +199,7 @@ trait HasRecurringPricesProperty
     private function setPrices(array $prices, string $pricesType)
     {
         $this->pricesType = $pricesType;
-        $priceProperty    = 'net' === $this->pricesType ? 'netPrices' : 'grossPrices';
+        $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
 
         if (0 < \count($prices)) {
             foreach ($prices as $currency => $price) {

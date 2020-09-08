@@ -37,13 +37,9 @@ use Symfony\Component\Form\FormFactoryInterface;
  */
 final class FeaturesManager
 {
-    private const ADDED = 'added';
-
+    private const ADDED   = 'added';
     private const REMOVED = 'removed';
 
-    private const TYPE = 'type';
-
-    private const GROSS = 'gross';
     /** @var int[] */
     private const INTERVALS = [
         SubscriptionInterface::DAILY    => 0,
@@ -141,26 +137,26 @@ final class FeaturesManager
          */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             switch ($details->getType()) {
-                case 'boolean':
+                case FeatureInterface::TYPE_BOOLEAN:
                     /** @var ConfiguredBooleanFeature $details */
                     $features[$name] = [
-                        'active_until'     => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
-                        self::TYPE         => $details->getType(),
-                        'enabled'          => $details->isEnabled(),
+                        'active_until'               => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
+                        FeatureInterface::FIELD_TYPE => $details->getType(),
+                        'enabled'                    => $details->isEnabled(),
                     ];
                     break;
-                case 'countable':
+                case FeatureInterface::TYPE_COUNTABLE:
                     /** @var ConfiguredCountableFeature $details */
                     $features[$name] = [
-                        self::TYPE              => $details->getType(),
-                        'subscribed_pack'       => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
-                        'remained_quantity'     => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
+                        FeatureInterface::FIELD_TYPE => $details->getType(),
+                        'subscribed_pack'            => ['num_of_units' => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
+                        'remained_quantity'          => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
                     break;
-                case 'rechargeable':
+                case FeatureInterface::TYPE_RECHARGEABLE:
                     /** @var ConfiguredRechargeableFeature $details */
                     $features[$name] = [
-                        self::TYPE                   => $details->getType(),
+                        FeatureInterface::FIELD_TYPE => $details->getType(),
                         'last_recharge_on'           => new \DateTime(),
                         'last_recharge_quantity'     => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                         'remained_quantity'          => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
@@ -210,7 +206,7 @@ final class FeaturesManager
                             // If it continues to work as expected, remove this entire comment.
                             break;
                         }
-                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
+                        $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                         break;
                     case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
@@ -220,7 +216,7 @@ final class FeaturesManager
                              *
                              * @var SubscribedCountableFeature $price
                              */
-                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), self::GROSS);
+                            $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                         }
                         break;
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
@@ -230,7 +226,7 @@ final class FeaturesManager
                          *
                          * @var SubscribedRechargeableFeature
                          */
-                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), self::GROSS);
+                        $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_GROSS);
                         break;
                 }
 

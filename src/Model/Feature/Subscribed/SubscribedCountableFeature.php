@@ -26,7 +26,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     }
     use CanBeConsumedProperty;
 
-    private const LAST_REFRESH_ON = 'last_refresh_on';
+    private const FIELD_ACTIVE_UNTIL    = 'active_until';
+    private const FIELD_LAST_REFRESH_ON = 'last_refresh_on';
+    private const FIELD_SUBSCRIBED_PACK = 'subscribed_pack';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
     private $previousRemainedQuantity = 0;
@@ -43,7 +45,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     public function __construct(string $name, array $details = [])
     {
         // Set the type
-        $details['type'] = self::COUNTABLE;
+        $details['type'] = self::TYPE_COUNTABLE;
 
         $this->RecurringFeatureConstruct($details);
 
@@ -56,8 +58,8 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         // If we have it passed as a detail (from the database), then we use it
-        if (isset($details[self::LAST_REFRESH_ON])) {
-            $this->lastRefreshOn = $details[self::LAST_REFRESH_ON] instanceof \DateTime ? $details[self::LAST_REFRESH_ON] : new \DateTime($details[self::LAST_REFRESH_ON]['date'], new \DateTimeZone($details[self::LAST_REFRESH_ON]['timezone']));
+        if (isset($details[self::FIELD_LAST_REFRESH_ON])) {
+            $this->lastRefreshOn = $details[self::FIELD_LAST_REFRESH_ON] instanceof \DateTime ? $details[self::FIELD_LAST_REFRESH_ON] : new \DateTime($details[self::FIELD_LAST_REFRESH_ON]['date'], new \DateTimeZone($details[self::FIELD_LAST_REFRESH_ON]['timezone']));
         }
 
         parent::__construct($name, $details);
@@ -199,9 +201,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         return \array_merge([
-            'active_until'        => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
-            'subscribed_pack'     => $subscribedPack->toArray(),
-            self::LAST_REFRESH_ON => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
+            self::FIELD_ACTIVE_UNTIL    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            self::FIELD_SUBSCRIBED_PACK => $subscribedPack->toArray(),
+            self::FIELD_LAST_REFRESH_ON => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
         ], parent::toArray(), $this->consumedToArray());
     }
 }

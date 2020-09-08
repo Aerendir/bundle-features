@@ -45,15 +45,15 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
                 if (\is_array($details)) {
                     switch ($details['type']) {
-                        case FeatureInterface::BOOLEAN:
+                        case FeatureInterface::TYPE_BOOLEAN:
                             $elements[$feature] = FeaturesFactory::createBoolean($feature, $details);
                             break;
 
-                        case FeatureInterface::COUNTABLE:
+                        case FeatureInterface::TYPE_COUNTABLE:
                             $elements[$feature] = FeaturesFactory::createCountable($feature, $details);
                             break;
 
-                        case FeatureInterface::RECHARGEABLE:
+                        case FeatureInterface::TYPE_RECHARGEABLE:
                             $elements[$feature] = FeaturesFactory::createRechargeable($feature, $details);
                             break;
 
@@ -71,7 +71,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     {
         if (null === $this->booleans) {
             // Cache the result
-            $this->booleans = $this->filter($this->getFilterPredictate('boolean'));
+            $this->booleans = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_BOOLEAN));
         }
 
         return $this->booleans;
@@ -81,7 +81,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     {
         if (null === $this->countables) {
             // Cache the result
-            $this->countables = $this->filter($this->getFilterPredictate('countable'));
+            $this->countables = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_COUNTABLE));
         }
 
         return $this->countables;
@@ -91,7 +91,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result
-            $this->rechargeables = $this->filter($this->getFilterPredictate('rechargeable'));
+            $this->rechargeables = $this->filter($this->getFilterPredictate(FeatureInterface::TYPE_RECHARGEABLE));
         }
 
         return $this->rechargeables;
@@ -111,7 +111,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     private function getFeatureClass(string $type): string
     {
         switch ($type) {
-            case 'boolean':
+            case FeatureInterface::TYPE_BOOLEAN:
         }
 
         return '\SerendipityHQ\Bundle\FeaturesBundle\Model\\' . \ucfirst(FeaturesFactory::getKind()) . \ucfirst($type) . 'Feature';

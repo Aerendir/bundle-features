@@ -20,6 +20,8 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRecha
  */
 interface HasConfiguredPacksInterface
 {
+    public const _PRICES_TYPES = '_pricesType';
+
     /**
      * @return ConfiguredCountableFeaturePack|ConfiguredFeaturePackInterface|ConfiguredRechargeableFeaturePack|null
      */

@@ -53,10 +53,8 @@ final class FeaturesFactory
         switch (self::$kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredBooleanFeature($name, $details);
-                break;
             case SubscribedFeaturesCollection::KIND:
                 return new SubscribedBooleanFeature($name, $details);
-                break;
         }
 
         return null;
@@ -72,10 +70,8 @@ final class FeaturesFactory
         switch (self::$kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredCountableFeature($name, $details);
-                break;
             case SubscribedFeaturesCollection::KIND:
                 return new SubscribedCountableFeature($name, $details);
-                break;
         }
 
         return null;
@@ -91,10 +87,8 @@ final class FeaturesFactory
         switch (self::$kind) {
             case ConfiguredFeaturesCollection::KIND:
                 return new ConfiguredRechargeableFeature($name, $details);
-                break;
             case SubscribedFeaturesCollection::KIND:
                 return new SubscribedRechargeableFeature($name, $details);
-                break;
         }
 
         return null;

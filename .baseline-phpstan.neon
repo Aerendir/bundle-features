@@ -21,11 +21,6 @@ parameters:
 			path: src/FeaturesFactory.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 6
-			path: src/FeaturesFactory.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\FeaturesFactory\\:\\:createCountable\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/FeaturesFactory.php

@@ -28,7 +28,7 @@ abstract class AbstractFeature implements FeatureInterface
     public function __construct(string $name, array $details = [])
     {
         $this->name = $name;
-        $this->type = $details['type'];
+        $this->type = $details[self::FIELD_TYPE];
     }
 
     /**
