@@ -90,7 +90,7 @@ trait HasRecurringPricesProperty
 
         if (false === isset($instantPrices[$currency][$subscriptionInterval])) {
             $instantPrices[$currency][$subscriptionInterval] = $this->calculateInstantPrice($currency, $subscriptionInterval, $type);
-            $this->$instantPricesProperty = $instantPrices;
+            $this->$instantPricesProperty                    = $instantPrices;
         }
 
         return $instantPrices[$currency][$subscriptionInterval] ?? null;

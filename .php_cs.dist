@@ -43,6 +43,11 @@ return PhpCsFixer\Config::create()
         ],
         'combine_consecutive_unsets' => true,
         'fully_qualified_strict_types' => true,
+        'global_namespace_import' => [
+            'import_classes' => false,
+            'import_constants' => false,
+            'import_functions' => false,
+        ],
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
         'no_multiline_whitespace_before_semicolons' => true,
