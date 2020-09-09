@@ -1,38 +1,32 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\FeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedBooleanFeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
 
 /**
  * {@inheritdoc}
  */
-class BooleanFeatureTransformer extends AbstractFeatureTransformer
+final class BooleanFeatureTransformer extends AbstractFeatureTransformer
 {
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
      * @param FeatureInterface|null $feature
-     *
-     * @return string
      */
-    public function transform($feature)
+    public function transform($feature): bool
     {
-        if ($feature instanceof SubscribedBooleanFeatureInterface) {
+        if ($feature instanceof SubscribedBooleanFeature) {
             return $feature->isEnabled();
         }
 
@@ -48,7 +42,7 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
      */
     public function reverseTransform($enabled)
     {
-        /** @var SubscribedBooleanFeatureInterface $subscribedFeature */
+        /** @var SubscribedBooleanFeature $subscribedFeature */
         $subscribedFeature = $this->getCurrentTransformingFeature();
 
         switch ($enabled) {
@@ -57,6 +51,7 @@ class BooleanFeatureTransformer extends AbstractFeatureTransformer
                 break;
             case false:
                 $subscribedFeature->disable();
+                break;
         }
 
         return $subscribedFeature;

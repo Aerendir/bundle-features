@@ -1,4 +1,0 @@
-services:
-    shq_features.array_writer:
-        class: SHQ\Component\ArrayWriter\ArrayWriter
-        public: false

@@ -1,36 +1,30 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscribedFeaturesCollection;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**
  * {@inheritdoc}
  */
-class FeaturesCollectionTransformer implements DataTransformerInterface
+final class FeaturesCollectionTransformer implements DataTransformerInterface
 {
     /**
      * Transforms a Feature object into the right value to be set in the form.
      *
      * @param array $features
-     *
-     * @return SubscribedFeaturesCollection
      */
-    public function transform($features)
+    public function transform($features): SubscribedFeaturesCollection
     {
         return new SubscribedFeaturesCollection($features);
     }
@@ -39,10 +33,8 @@ class FeaturesCollectionTransformer implements DataTransformerInterface
      * Transforms a form value into a Feature object.
      *
      * @param SubscribedFeaturesCollection $features
-     *
-     * @return SubscribedFeaturesCollection
      */
-    public function reverseTransform($features)
+    public function reverseTransform($features): SubscribedFeaturesCollection
     {
         return $features;
     }

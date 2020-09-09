@@ -1,22 +1,19 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -27,10 +24,20 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
  *
  * {@inheritdoc}
  */
-class Configuration implements ConfigurationInterface
+final class Configuration implements ConfigurationInterface
 {
-    /** @var array $allowedDrawers The allowed drawers */
-    private $allowedDrawers = ['plain_text'];
+    /** @var string[] The allowed drawers */
+    private const ALLOWED_DRAWERS = ['plain_text'];
+    private const INVOICES        = 'invoices';
+    private const DRAWERS         = 'drawers';
+    private const SETS            = 'sets';
+    private const DEFAULT_DRAWER  = 'default_drawer';
+    private const FEATURES        = 'features';
+    private const PRICE           = 'price';
+    private const UNITARY_PRICE   = 'unitary_price';
+    private const PACKS           = 'packs';
+    private const RECURRING       = 'recurring';
+    private const UNATANTUM       = 'unatantum';
 
     /** @var array $foundDrawers The drawers found as default ones in features sets */
     private $foundDrawers = [];
@@ -47,14 +54,16 @@ class Configuration implements ConfigurationInterface
     /**
      * {@inheritdoc}
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('shq_features')
+        $treeBuilder = new TreeBuilder('shq_features');
+        $rootNode    = $treeBuilder->getRootNode();
+
+        $rootNode
                 ->children()
                     ->arrayNode('prices')
                         ->children()
-                            ->enumNode('are')->values(['net', 'gross'])->defaultValue('gross')->end()
+                            ->enumNode('are')->values([FeatureInterface::PRICE_NET, FeatureInterface::PRICE_GROSS])->defaultValue(FeatureInterface::PRICE_GROSS)->end()
                         ->end()
                     ->end()
                     ->arrayNode('invoices')
@@ -73,7 +82,7 @@ class Configuration implements ConfigurationInterface
                                     ->prototype('array')
                                         ->children()
                                             ->enumNode('type')
-                                                ->values(['boolean', 'countable', 'rechargeable'])
+                                                ->values([FeatureInterface::TYPE_BOOLEAN, FeatureInterface::TYPE_COUNTABLE, FeatureInterface::TYPE_RECHARGEABLE])
                                                 ->isRequired()
                                                 ->cannotBeEmpty()
                                             ->end()
@@ -139,7 +148,7 @@ class Configuration implements ConfigurationInterface
                                 ->end() // End Features
                             ->end()
                             ->enumNode('default_drawer')
-                                ->values($this->allowedDrawers)
+                                ->values(self::ALLOWED_DRAWERS)
                             ->end()
                         ->end()
                     ->end()
@@ -159,48 +168,31 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    /**
-     * @param array $tree
-     *
-     * @return array
-     */
-    private function validateTree(array $tree)
+    private function validateTree(array $tree): array
     {
-        $tree['invoices']['drawers'] = $this->validateInvoiceDrawers($tree['invoices']['drawers']);
-        $tree['sets']                = $this->validateSets($tree['sets']);
+        $this->validateInvoiceDrawers($tree[self::INVOICES][self::DRAWERS]);
+        $this->validateSets($tree[self::SETS]);
 
         return $tree;
     }
 
-    /**
-     * @param array $drawers
-     */
-    private function validateInvoiceDrawers(array $drawers)
+    private function validateInvoiceDrawers(array $drawers): void
     {
         foreach ($drawers as $drawer) {
             $this->validateInvoiceDrawer($drawer);
         }
     }
 
-    /**
-     * @param string $drawer
-     */
-    private function validateInvoiceDrawer(string $drawer)
+    private function validateInvoiceDrawer(string $drawer): void
     {
-        if (false === in_array($drawer, $this->allowedDrawers)) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    'The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.',
-                    $drawer,
-                    implode(', ', $this->allowedDrawers)
-                )
-            );
+        if (false === \in_array($drawer, self::ALLOWED_DRAWERS)) {
+            throw new InvalidConfigurationException(\Safe\sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
         }
 
         // Check the required dependency exists
         switch ($drawer) {
             case 'plain_text':
-                if (false === class_exists(PHPTextMatrix::class)) {
+                if (false === \class_exists(PHPTextMatrix::class)) {
                     throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
                 }
                 break;
@@ -209,31 +201,21 @@ class Configuration implements ConfigurationInterface
 
     /**
      * Validates all the configured features sets.
-     *
-     * @param array $sets
-     *
-     * @return bool
      */
-    private function validateSets(array $sets): bool
+    private function validateSets(array $sets): void
     {
         foreach ($sets as $set => $config) {
             // Validate the default invoice drawer if set
-            if (isset($config['default_drawer'])) {
-                $this->validateInvoiceDrawer($config['default_drawer']);
+            if (isset($config[self::DEFAULT_DRAWER])) {
+                $this->validateInvoiceDrawer($config[self::DEFAULT_DRAWER]);
             }
 
             // Validate the features in the Set
-            $this->validateFeatures($set, $config['features']);
+            $this->validateFeatures($set, $config[self::FEATURES]);
         }
-
-        return true;
     }
 
-    /**
-     * @param string $set
-     * @param array  $features
-     */
-    private function validateFeatures(string $set, array $features)
+    private function validateFeatures(string $set, array $features): void
     {
         foreach ($features as $feature => $config) {
             // Validate the features in the Set
@@ -241,71 +223,46 @@ class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
-    private function validateFeatureConfig(string $set, string $feature, array $config)
+    private function validateFeatureConfig(string $set, string $feature, array $config): void
     {
-        switch ($config['type']) {
-            case 'boolean':
+        switch ($config[FeatureInterface::FIELD_TYPE]) {
+            case FeatureInterface::TYPE_BOOLEAN:
                 $this->validateBoolean($set, $feature, $config);
                 break;
-            case 'countable':
+            case FeatureInterface::TYPE_COUNTABLE:
                 $this->validateCountable($set, $feature, $config);
                 break;
-            case 'rechargeable':
+            case FeatureInterface::TYPE_RECHARGEABLE:
                 $this->validateRechargeable($set, $feature, $config);
                 break;
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
-    private function validateBoolean(string $set, string $feature, array $config)
+    private function validateBoolean(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
-        $this->validateRecurringPrice($set, $feature . '.price', $config['price']);
+        $this->validateRecurringPrice($set, $feature . '.price', $config[self::PRICE]);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
-    private function validateCountable(string $set, string $feature, array $config)
+    private function validateCountable(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
-        $this->validateRecurringPrice($set, $feature . '.packs.', $config['unitary_price']);
+        $this->validateRecurringPrice($set, $feature . '.packs.', $config[self::UNITARY_PRICE]);
 
         // Validate the packages
-        $this->validatePackages($set, $feature, $config['packs'], 'recurring');
+        $this->validatePackages($set, $feature, $config[self::PACKS], self::RECURRING);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $config
-     */
-    private function validateRechargeable(string $set, string $feature, array $config)
+    private function validateRechargeable(string $set, string $feature, array $config): void
     {
         // If not set in the configuration, $config['price'] is automatically set as an empty array
-        $this->validateUnatantumPrice($set, $feature . '.packs', $config['unitary_price']);
+        $this->validateUnatantumPrice($set, $feature . '.packs', $config[self::UNITARY_PRICE]);
 
         // Validate packages
-        $this->validatePackages($set, $feature, $config['packs'], 'unatantum');
+        $this->validatePackages($set, $feature, $config[self::PACKS], self::UNATANTUM);
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $price
-     */
-    private function validateRecurringPrice(string $set, string $feature, array $price)
+    private function validateRecurringPrice(string $set, string $feature, array $price): void
     {
         // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
         if (false === empty($price)) {
@@ -320,81 +277,44 @@ class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param string $currency
-     */
-    private function validateCurrency(string $set, string $feature, string $currency)
+    private function validateCurrency(string $set, string $feature, string $currency): void
     {
         $currencies = new ISOCurrencies();
         $currency   = new Currency($currency);
         if (false === $currencies->contains($currency)) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    '%s.features.%s has an invalid ISO 4217 currency code "%s".',
-                    $set, $feature, $currency
-                )
-            );
+            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency));
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param string $currency
-     * @param array  $subscriptions
-     */
-    private function validateSubscriptionPeriods(string $set, string $feature, string $currency, array $subscriptions)
+    private function validateSubscriptionPeriods(string $set, string $feature, string $currency, array $subscriptions): void
     {
         // At least one subscription period has to be set
         if (null === $subscriptions['monthly'] && null === $subscriptions['yearly']) {
-            throw new InvalidConfigurationException(
-                sprintf(
-                    '%s.features.%s.%s has no subscription period. To create a valid price, you have to set at'
-                    . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at'
-                    . ' all to make the feature free.',
-                    $set, $feature, $currency
-                )
-            );
+            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $packs
-     * @param string $subscriptionType
-     */
-    private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType)
+    private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType): void
     {
-        // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
+        // If empty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
         if (false === empty($packs)) {
-            $alreadyHasFreepack = false;
             // ... It contains packages: validate the number of units and their prices
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
-                if (false === is_int($numOfUnits)) {
-                    throw new InvalidConfigurationException(
-                        sprintf(
-                            '%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.',
-                            $set, $feature, $numOfUnits
-                        )
-                    );
+                if (false === \is_int($numOfUnits)) {
+                    throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits));
                 }
 
                 switch ($subscriptionType) {
-                    case 'recurring':
+                    case self::RECURRING:
                         // Validate the price
                         $this->validateRecurringPrice($set, $feature . '.packs.' . $numOfUnits, $price);
                         break;
-                    case 'unatantum':
+                    case self::UNATANTUM:
                         // If this is a free package
                         if (empty($price)) {
                             // We have to throw an exception as RechargeableFeatures cannot have a free package (it is useless)
-                            throw new InvalidConfigurationException(
-                                sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.',
-                                    $set, $feature, $numOfUnits));
+                            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits));
                         }
 
                         // Validate the price
@@ -409,75 +329,56 @@ class Configuration implements ConfigurationInterface
         }
     }
 
-    /**
-     * @param string $set
-     * @param string $feature
-     * @param array  $price
-     */
-    private function validateUnatantumPrice(string $set, string $feature, array $price)
+    private function validateUnatantumPrice(string $set, string $feature, array $price): void
     {
         if (false === empty($price)) {
-            $currency = key($price);
+            $currency = \key($price);
 
             // Validate the currency
             $this->validateCurrency($set, $feature, $currency);
         }
     }
 
-    /**
-     * @param array $tree
-     *
-     * @return array
-     */
-    private function processTree(array $tree)
+    private function processTree(array $tree): array
     {
         // Move all default drawers to the foundDrawers property to make them globally available
-        $this->foundDrawers = $tree['invoices']['drawers'];
+        $this->foundDrawers = $tree[self::INVOICES][self::DRAWERS];
 
         // Set prices type: gross or net
         $this->pricesType      = $tree['prices']['are'];
-        $this->pricesKey       = 'gross' === $this->pricesType ? 'gross_prices' : 'net_prices';
-        $this->unitaryPriceKey = 'gross' === $this->pricesType ? 'gross_unitary_price' : 'net_unitary_price';
+        $this->pricesKey       = FeatureInterface::PRICE_GROSS === $this->pricesType ? 'gross_prices' : 'net_prices';
+        $this->unitaryPriceKey = FeatureInterface::PRICE_GROSS === $this->pricesType ? 'gross_unitary_price' : 'net_unitary_price';
 
         // Reset the key
-        $tree['invoices']['drawers'] = [];
+        $tree[self::INVOICES][self::DRAWERS] = [];
 
-        $tree['sets'] = $this->processSets($tree['sets']);
+        $tree[self::SETS] = $this->processSets($tree[self::SETS]);
 
         // Readd the default drawers (already - now globally - existent plus the ones found in the single features sets)
-        $tree['invoices']['drawers'] = array_merge($tree['invoices']['drawers'], $this->foundDrawers);
+        $tree[self::INVOICES][self::DRAWERS] = \array_merge($tree[self::INVOICES][self::DRAWERS], $this->foundDrawers);
 
         return $tree;
     }
 
     /**
      * Processes all the configured features Sets.
-     *
-     * @param array $sets
-     *
-     * @return array
      */
     private function processSets(array $sets): array
     {
         foreach ($sets as $set => $config) {
             // If the set has a default invoice drawer set...
-            if (isset($config['default_drawer']) && false === in_array($config['default_drawer'], $this->foundDrawers)) {
+            if (isset($config[self::DEFAULT_DRAWER]) && false === \in_array($config[self::DEFAULT_DRAWER], $this->foundDrawers)) {
                 // ... Add it to the list of the found drawers
-                $this->foundDrawers[] = $config['default_drawer'];
+                $this->foundDrawers[] = $config[self::DEFAULT_DRAWER];
             }
 
-            $sets[$set]['features'] = $this->processFeatures($config['features']);
+            $sets[$set][self::FEATURES] = $this->processFeatures($config[self::FEATURES]);
         }
 
         return $sets;
     }
 
-    /**
-     * @param array $features
-     *
-     * @return array
-     */
-    private function processFeatures(array $features)
+    private function processFeatures(array $features): array
     {
         foreach ($features as $feature => $config) {
             $features[$feature] = $this->processFeatureConfig($config);
@@ -487,21 +388,19 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $config
-     *
      * @return array
      */
     private function processFeatureConfig(array $config)
     {
         $result = [];
-        switch ($config['type']) {
-            case 'boolean':
+        switch ($config[FeatureInterface::FIELD_TYPE]) {
+            case FeatureInterface::TYPE_BOOLEAN:
                 $result = $this->processBoolean($config);
                 break;
-            case 'countable':
+            case FeatureInterface::TYPE_COUNTABLE:
                 $result = $this->processCountable($config);
                 break;
-            case 'rechargeable':
+            case FeatureInterface::TYPE_RECHARGEABLE:
                 $result = $this->processRechargeable($config);
                 break;
         }
@@ -509,75 +408,55 @@ class Configuration implements ConfigurationInterface
         return $result;
     }
 
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
-    private function processBoolean(array $config)
+    private function processBoolean(array $config): array
     {
-        $config[$this->pricesKey] = $config['price'];
+        $config[$this->pricesKey] = $config[self::PRICE];
 
         unset(
             $config['cumulable'],
             $config['free_recharge'],
-            $config['price'],
-            $config['unitary_price'],
-            $config['packs']
+            $config[self::PRICE],
+            $config[self::UNITARY_PRICE],
+            $config[self::PACKS]
         );
 
         return $config;
     }
 
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
-    private function processCountable(array $config)
+    private function processCountable(array $config): array
     {
-        $config['packs'] = $this->processPackages($config['packs'], 'recurring');
+        $config[self::PACKS] = $this->processPackages($config[self::PACKS], self::RECURRING);
 
         unset(
             $config['enabled'],
-            $config['price'],
-            $config['unitary_price'],
+            $config[self::PRICE],
+            $config[self::UNITARY_PRICE],
             $config['free_recharge']
         );
 
         return $config;
     }
 
-    /**
-     * @param array $config
-     *
-     * @return array
-     */
-    private function processRechargeable(array $config)
+    private function processRechargeable(array $config): array
     {
         unset(
             $config['cumulable'],
             $config['enabled'],
-            $config['price']
+            $config[self::PRICE]
         );
 
-        $config[$this->unitaryPriceKey] = $this->processUnatantumPrice($config['unitary_price']);
-        unset($config['unitary_price']);
-        $config['packs'] = $this->processPackages($config['packs'], 'unatantum');
+        $config[$this->unitaryPriceKey] = $this->processUnatantumPrice($config[self::UNITARY_PRICE]);
+        unset($config[self::UNITARY_PRICE]);
+        $config[self::PACKS] = $this->processPackages($config[self::PACKS], self::UNATANTUM);
 
         return $config;
     }
 
-    /**
-     * @param array $prices
-     *
-     * @return array
-     */
-    private function processRecurringPrice(array $prices)
+    private function processRecurringPrice(array $prices): array
     {
         // If no prices are specified, the feature is free
         if (false === empty($prices)) {
-            foreach ($prices as $currency => $price) {
+            foreach (\array_keys($prices) as $currency) {
                 unset(
                     $prices[$currency]['_']
                 );
@@ -588,7 +467,6 @@ class Configuration implements ConfigurationInterface
     }
 
     /**
-     * @param array $packs
      * @param $subscriptionType
      *
      * @return array
@@ -598,7 +476,7 @@ class Configuration implements ConfigurationInterface
         $subscriptionHasFreePackage = false;
         foreach ($packs as $numOfUnits => $prices) {
             switch ($subscriptionType) {
-                case 'recurring':
+                case self::RECURRING:
                     $packs[$numOfUnits] = $this->processRecurringPrice($prices);
 
                     // If this is a free package
@@ -607,14 +485,14 @@ class Configuration implements ConfigurationInterface
                         $subscriptionHasFreePackage = true;
                     }
                     break;
-                case 'unatantum':
+                case self::UNATANTUM:
                     $packs[$numOfUnits] = $this->processUnatantumPrice($prices);
                     break;
             }
         }
 
         // If we are processing a recurring feature that hasn't a free package...
-        if ('recurring' === $subscriptionType && false === $subscriptionHasFreePackage) {
+        if (self::RECURRING === $subscriptionType && false === $subscriptionHasFreePackage) {
             // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
             $packs[0] = [];
         }
@@ -624,12 +502,7 @@ class Configuration implements ConfigurationInterface
         return $packs;
     }
 
-    /**
-     * @param array $prices
-     *
-     * @return array
-     */
-    private function processUnatantumPrice(array $prices)
+    private function processUnatantumPrice(array $prices): array
     {
         foreach ($prices as $currency => $price) {
             $prices[$currency] = $price['_'];

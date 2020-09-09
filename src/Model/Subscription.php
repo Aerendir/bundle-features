@@ -1,22 +1,20 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -38,7 +36,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var SubscribedFeaturesCollection
+     * @var array|SubscribedFeaturesCollection
      *
      * @ORM\Column(name="features", type="json", nullable=true)
      */
@@ -128,7 +126,7 @@ abstract class Subscription implements SubscriptionInterface
     public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval)) {
-            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
+            throw new \InvalidArgumentException(\Safe\sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
         }
     }
 
@@ -137,7 +135,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public static function intervalExists(string $interval): bool
     {
-        return in_array($interval, [
+        return \in_array($interval, [
             SubscriptionInterface::DAILY,
             SubscriptionInterface::WEEKLY,
             SubscriptionInterface::BIWEEKLY,
@@ -149,7 +147,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getCurrency()
+    public function getCurrency(): Currency
     {
         if (null === $this->currency) {
             $this->currency = new Currency('EUR');
@@ -185,7 +183,7 @@ abstract class Subscription implements SubscriptionInterface
     public function getNextRenewAmount(): MoneyInterface
     {
         if (null === $this->nextRenewAmount) {
-            $this->nextRenewAmount = new Money(['baseAmount' => 0, 'currency' => $this->getCurrency()]);
+            $this->nextRenewAmount = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         }
 
         return $this->nextRenewAmount;
@@ -203,17 +201,11 @@ abstract class Subscription implements SubscriptionInterface
         return $this->nextRenewOn;
     }
 
-    /**
-     * @return string|null
-     */
     public function getSmallestRefreshInterval(): ? string
     {
         return $this->smallestRefreshInterval;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getNextRefreshOn(): ? \DateTime
     {
         return $this->nextRefreshOn;
@@ -236,7 +228,7 @@ abstract class Subscription implements SubscriptionInterface
      */
     public function has(string $feature): bool
     {
-        if (0 >= count($this->getFeatures())) {
+        if (0 >= \count($this->getFeatures())) {
             return false;
         }
 

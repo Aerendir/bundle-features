@@ -1,21 +1,19 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Money\Currency;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
@@ -23,52 +21,30 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 interface SubscriptionInterface
 {
-    const DAILY    = 'daily';
-    const WEEKLY   = 'weekly';
-    const BIWEEKLY = 'biweekly';
-    const MONTHLY  = 'monthly';
-    const YEARLY   = 'yearly';
+    public const DAILY    = 'daily';
+    public const WEEKLY   = 'weekly';
+    public const BIWEEKLY = 'biweekly';
+    public const MONTHLY  = 'monthly';
+    public const YEARLY   = 'yearly';
 
-    /**
-     * @param string $interval
-     *
-     * @return \DateTime
-     */
     public static function calculateActiveUntil(string $interval): \DateTime;
 
     /**
-     * @param string $interval
-     *
      * @throws \InvalidArgumentException If the $interval does not exist
      */
     public static function checkIntervalExists(string $interval);
 
-    /**
-     * @param string $interval
-     *
-     * @return bool
-     */
     public static function intervalExists(string $interval): bool;
 
-    /**
-     * @param string           $featureName
-     * @param FeatureInterface $feature
-     *
-     * @return SubscriptionInterface
-     */
     public function addFeature(string $featureName, FeatureInterface $feature): SubscriptionInterface;
 
     /**
      * Do not set the return typecasting until a currency type is created.
-     *
-     * @return Currency
      */
-    public function getCurrency();
+    public function getCurrency(): Currency;
 
     /**
      * Forces the features to be returned as a ConfiguredFeaturesCollection.
-     *
-     * @return SubscribedFeaturesCollection
      */
     public function getFeatures(): SubscribedFeaturesCollection;
 
@@ -76,24 +52,13 @@ interface SubscriptionInterface
      * Get the current subscription interval.
      *
      * By default it is set to "monthly".
-     *
-     * @return string
      */
     public function getRenewInterval(): string;
 
-    /**
-     * @return MoneyInterface
-     */
     public function getNextRenewAmount(): MoneyInterface;
 
-    /**
-     * @return string|null
-     */
     public function getSmallestRefreshInterval(): ? string;
 
-    /**
-     * @return \DateTime|null
-     */
     public function getNextRefreshOn(): ? \DateTime;
 
     /**
@@ -101,113 +66,51 @@ interface SubscriptionInterface
      * If it is not set, is because this is a new subscription, so the next payment is immediate.
      *
      * The logic of the app will set this date one month or one year in the future.
-     *
-     * @return \DateTime
      */
-    public function getNextRenewOn();
+    public function getNextRenewOn(): \DateTime;
 
     /**
      * The date on which the feature were subscribed on.
-     *
-     * @return \DateTime
      */
     public function getSubscribedOn(): \DateTime;
 
-    /**
-     * @param string $feature
-     *
-     * @return bool
-     */
     public function has(string $feature): bool;
 
     /**
      * Shortcut method to check if a Feature in the subscription is still active.
-     *
-     * @param string $feature
-     *
-     * @return bool
      */
     public function isStillActive(string $feature): bool;
 
-    /**
-     * @param Currency $currency
-     *
-     * @return SubscriptionInterface
-     */
     public function setCurrency(Currency $currency): SubscriptionInterface;
 
-    /**
-     * @param SubscribedFeaturesCollection $features
-     *
-     * @return SubscriptionInterface
-     */
     public function setFeatures(SubscribedFeaturesCollection $features): SubscriptionInterface;
 
-    /**
-     * @param string $interval
-     *
-     * @return SubscriptionInterface
-     */
     public function setRenewInterval(string $interval): SubscriptionInterface;
 
-    /**
-     * @return SubscriptionInterface
-     */
     public function setMonthly(): SubscriptionInterface;
 
-    /**
-     * @return SubscriptionInterface
-     */
     public function setYearly(): SubscriptionInterface;
 
-    /**
-     * @param MoneyInterface $amount
-     *
-     * @return SubscriptionInterface
-     */
     public function setNextRenewAmount(MoneyInterface $amount): SubscriptionInterface;
 
-    /**
-     * @param \DateTime $nextPaymentOn
-     *
-     * @return SubscriptionInterface
-     */
     public function setNextRenewOn(\DateTime $nextPaymentOn): SubscriptionInterface;
 
     /**
      * Sets the next payment in one month.
-     *
-     * @return SubscriptionInterface
      */
     public function setNextPaymentInOneMonth(): SubscriptionInterface;
 
     /**
      * Sets the next payment in one month.
-     *
-     * @return SubscriptionInterface
      */
     public function setNextPaymentInOneYear(): SubscriptionInterface;
 
-    /**
-     * @param string $refreshInterval
-     *
-     * @return SubscriptionInterface
-     */
     public function setSmallestRefreshInterval(string $refreshInterval): SubscriptionInterface;
 
-    /**
-     * @param \DateTime $nextRefreshOn
-     *
-     * @return SubscriptionInterface
-     */
     public function setNextRefreshOn(\DateTime $nextRefreshOn): SubscriptionInterface;
 
     /**
      * Sets the date on which the feature were subscribed.
-     *
-     * @param \DateTime $subscribedOn
-     *
-     * @return SubscriptionInterface
      */
     public function setSubscribedOn(\DateTime $subscribedOn): SubscriptionInterface;
 

@@ -1,40 +1,35 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
 
-use Symfony\Component\Translation\Translator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Abstract class to create an InvoiceDrawer.
  */
 abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
 {
+    /** @var string */
+    public $locale;
+
     /** @var \NumberFormatter */
     private $currencyFormatter;
 
-    /** @var Translator $translator */
+    /** @var TranslatorInterface $translator */
     private $translator;
 
-    /**
-     * @param Translator $translator
-     * @param string     $locale
-     */
-    public function setTranslator(Translator $translator, string $locale)
+    public function __construct(TranslatorInterface $translator, string $locale)
     {
-        if (class_exists(\NumberFormatter::class)) {
+        if (\class_exists(\NumberFormatter::class)) {
             $this->currencyFormatter = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
         }
 
@@ -46,18 +41,12 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
         $this->translator = $translator;
     }
 
-    /**
-     * @return \NumberFormatter
-     */
     protected function getCurrencyFormatter(): \NumberFormatter
     {
         return $this->currencyFormatter;
     }
 
-    /**
-     * @return Translator
-     */
-    protected function getTranslator(): Translator
+    protected function getTranslator(): TranslatorInterface
     {
         return $this->translator;
     }

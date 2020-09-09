@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
+
 How to configure Serendipity HQ Features Bundle
 ===============================================
 
@@ -17,7 +19,7 @@ TrustBack.Me permits to merchants to get feedbacks from their own customers and 
 Each Merchant has a Company and each Company has one or more Stores (the self-hosted e-commerce site, the eBay store, the Amazon store, ecc.).
 
 Lets go to analyze the features (not all of them, but only the ones required to illustrate how SerendipityHQ Features Bundle works).
- 
+
 - The merchant can buy the invites at Company level, so the Stores of each Company use the invites bought by the merchant for the whole Company.
 - Each Store Profile can be boosted:
     - Removing Ads
@@ -84,7 +86,7 @@ So, `500` represents FIVE Euros while `5000` represents FIFTY Euros.
 
 We use a money value object internally as this is the correct way of managing monetary values with PHP. [If you are using `float`s you are doing it wrong!](https://github.com/moneyphp/money)
 
-You can read more about Value Objects [here](https://github.com/Aerendir/PHPValueObjects).
+You can read more about Value Objects [here](https://github.com/Aerendir/component-value-objects).
 
 So, once we have explained this strange numbers, the rest could be simpler: each feature has its own name (`ads` and `seo` for Stores and `reminders` for Companies).
 
@@ -112,5 +114,17 @@ Continue reading the documentation to know how to use them or read the specifica
 - [Boolean Feature config details](Features/Specification-Boolean.md)
 - [Countable Feature config details](Features/Specification-Countable.md)
 - [Rechargeable Feature config details](Features/Specification-Rechargeable.md)
+
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />
 
 ([Go back to index](Index.md)) | Next step: To write

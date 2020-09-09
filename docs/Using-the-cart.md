@@ -1,3 +1,5 @@
+*Do you like this bundle? [**Leave a &#9733;**](#js-repo-pjax-container) or run `composer global require symfony/thanks && composer thanks` to say thank you to all libraries you use in your current project, this included!*
+
 HOW TO USE THE JQuery `Cart.js`
 -------------------------------
 
@@ -8,7 +10,7 @@ To use the cart you have to:
 1. Include the `cart.js` script in your pages;
 2. Render the form fields where the user can choose which features he want to enable/buy;
 3. Prepare the overall template to show the information calculated by the Serendipity HQ Features Bundle.
- 
+
 ## STEP 1: Include the `cart.js` script in your pages
 
 Nothing complex here.
@@ -18,7 +20,7 @@ You have to simply include the script in your Javascripts:
     {% block javascripts %}
         {% javascripts
         '@AppBundle/Resources/public/js/jquery-1.11.3.min.js'
-        '@SHQFeaturesBundle/Resources/public/js/Cart.js' 
+        '@SHQFeaturesBundle/Resources/public/js/Cart.js'
         %}
     {% endblock %}
 
@@ -43,7 +45,7 @@ shq_features.manager.store.features
 class StoreController extends Controller
 {
     ...
-    
+
     /**
      * @Route("/subscription", name="store_subscription")
      * @Template()
@@ -58,23 +60,23 @@ class StoreController extends Controller
     public function subscriptionAction(Store $store, Request $request)
     {
         // Here goes your business logic
-        
+
         ...
-        
+
         // Generate the URL to which the form has to submit data
         $actionUrl = $this->get('router')->generate('store_subscription');
-        
+
         /** @var \Symfony\Component\Form\FormInterface $form */
         $form = $this->get('shq_features.manager.store.features')->getFeaturesFormBuilder($actionUrl, $this->getStore()->getSubscription());
-        
+
         // Handle the request
         $form->handleRequest($request);
-        
+
         // Check the form is submitted and data are valid
         if ($form->isSubmitted() && $form->isValid()) {
             // Do your business logic with your new plan
         }
-        
+
         // Return the data required by your view
         return [
             'form' => $form->createView(),
@@ -107,7 +109,7 @@ In your Twig template, put this:
     {% else %}
         You have to immediately pay {{ adsPrice.convertedAmount|localizedcurrency('eur') }}
     {% endif %}
-    
+
     ...
 {% endblock %}
 ```
@@ -144,4 +146,16 @@ This way it can get their prices and update the totals accordingly and show the 
 
 **The only one thign to keep in consideration is that the price of `RechargeableFeature`s is ever the instant one.**
 
-**As they are ever bought _una tantum_, their amount is ever shown in the instant amount to pay, as the recurring one is not affected by them.** 
+**As they are ever bought _una tantum_, their amount is ever shown in the instant amount to pay, as the recurring one is not affected by them.**
+
+<hr />
+<h3 align="center">
+    <b>Do you like this bundle?</b><br />
+    <b><a href="#js-repo-pjax-container">LEAVE A &#9733;</a></b>
+</h3>
+<p align="center">
+    or run<br />
+    <code>composer global require symfony/thanks && composer thanks</code><br />
+    to say thank you to all libraries you use in your current project, this included!
+</p>
+<hr />

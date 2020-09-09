@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer;
@@ -23,16 +19,11 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 /**
  * Formats an Invoice in Plain text.
  */
-class PlainTextDrawer extends AbstractInvoiceDrawer
+final class PlainTextDrawer extends AbstractInvoiceDrawer
 {
     /** @var int $tableWidth */
     private $tableWidth;
 
-    /**
-     * @param InvoiceInterface $invoice
-     *
-     * @return array
-     */
     public function draw(InvoiceInterface $invoice): array
     {
         $detailsTables = [];
@@ -40,24 +31,24 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             $detailsTables[$sectionId] = $this->buildInvoiceTextTable($section);
         }
 
-        $equals_separator       = $this->drawSeparator('=', $this->tableWidth);
-        $dash_separator         = $this->drawSeparator('-', $this->tableWidth);
-        $equals_separator_short = $this->drawSeparator('=', $this->tableWidth - round(35 % $this->tableWidth));
-        $equals_separator_short = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($equals_separator_short)) . $equals_separator_short;
+        $equalsSeparator       = $this->drawSeparator('=', $this->tableWidth);
+        $dashSeparator         = $this->drawSeparator('-', $this->tableWidth);
+        $equalsSeparatorShort  = $this->drawSeparator('=', $this->tableWidth - \round(35 % $this->tableWidth));
+        $equalsSeparatorShort  = $this->drawSeparator(' ', $this->tableWidth - \iconv_strlen($equalsSeparatorShort)) . $equalsSeparatorShort;
 
         $detailsTable = '';
         foreach ($detailsTables as $sectionId => $sectionContent) {
             if ($invoice->getSection($sectionId)->hasHeader()) {
-                $detailsTable .= '_default' === $sectionId ? '' : $dash_separator . "\n";
+                $detailsTable .= '_default' === $sectionId ? '' : $dashSeparator . "\n";
                 $detailsTable .= $invoice->getSection($sectionId)->getHeader()->getHeader() . "\n";
-                $detailsTable .= '_default' === $sectionId ? $equals_separator : $dash_separator;
+                $detailsTable .= '_default' === $sectionId ? $equalsSeparator : $dashSeparator;
                 $detailsTable .= "\n";
             }
 
             $detailsTable .= $sectionContent . "\n";
         }
 
-        $total_gross_amount = mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
+        $totalGrossAmount = \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
             . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getNetTotal()->getHumanAmount(), $invoice->getGrossTotal()->getCurrency())
             . ' (' . $this->getCurrencyFormatter()->formatCurrency($invoice->getGrossTotal()->getHumanAmount(), $invoice->getNetTotal()->getCurrency()) . ')';
         /*
@@ -65,52 +56,42 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
             . ' ' . $invoice->getNetTotal()->getHumanAmount()
             . ' (' . $invoice->getGrossTotal()->getHumanAmount() . ')';
         */
-        $total_gross_amount = $this->drawSeparator(' ', $this->tableWidth - iconv_strlen($total_gross_amount)) . $total_gross_amount;
+        $totalGrossAmount = $this->drawSeparator(' ', $this->tableWidth - \iconv_strlen($totalGrossAmount)) . $totalGrossAmount;
 
-        $data = [
+        return [
             'invoice'                => $invoice,
             'details_table'          => $detailsTable,
             'dot_separator'          => $this->drawSeparator('.', $this->tableWidth),
             'equals_separator'       => $this->drawSeparator('=', $this->tableWidth),
-            'equals_separator_short' => $equals_separator_short,
-            'total_amount'           => $total_gross_amount,
+            'equals_separator_short' => $equalsSeparatorShort,
+            'total_amount'           => $totalGrossAmount,
         ];
-
-        return $data;
     }
 
-    /**
-     * @return int
-     */
     public function getTableWidth(): int
     {
         return $this->tableWidth;
     }
 
-    /**
-     * @param InvoiceSection $section
-     *
-     * @return string
-     */
     private function buildInvoiceTextTable(InvoiceSection $section): string
     {
         $tableData = [
             [
-                'quantity'        => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
-                'description'     => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
-                'baseAmount'      => mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
+                'quantity'    => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.quantity.label', [], 'Invoice')),
+                'description' => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.description.label', [], 'Invoice')),
+                'baseAmount'  => \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.amount.label', [], 'Invoice')),
             ],
         ];
 
         /** @var InvoiceLine $line */
         foreach ($section->getLines() as $line) {
             $lineData = [
-                'quantity'        => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
-                'description'     => $line->getDescription(),
-                'baseAmount'      => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
+                'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
+                'description' => $line->getDescription(),
+                'baseAmount'  => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
                 . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()) . ')',
             ];
-            array_push($tableData, $lineData);
+            $tableData[] = $lineData;
         }
 
         $table = new PHPTextMatrix($tableData);
@@ -147,13 +128,7 @@ class PlainTextDrawer extends AbstractInvoiceDrawer
         return $return;
     }
 
-    /**
-     * @param string $char
-     * @param int    $length
-     *
-     * @return string
-     */
-    private function drawSeparator($char, $length): string
+    private function drawSeparator(string $char, int $length): string
     {
         $separator = '';
 

@@ -1,16 +1,12 @@
 <?php
 
 /*
- * This file is part of the SHQFeaturesBundle.
+ * This file is part of the Serendipity HQ Features Bundle.
  *
- * Copyright Adamo Aerendir Crespi 2016-2017.
+ * Copyright (c) Adamo Aerendir Crespi <aerendir@serendipityhq.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * @author    Adamo Aerendir Crespi <hello@aerendir.me>
- * @copyright Copyright (C) 2016 - 2017 Aerendir. All rights reserved.
- * @license   MIT License.
  */
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
@@ -20,47 +16,32 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  *
  * An Header line to use to draw an header in the invoice lines.
  */
-class InvoiceSectionHeader implements \JsonSerializable
+final class InvoiceSectionHeader implements \JsonSerializable
 {
     /** @var string $header */
     private $header;
 
-    /**
-     * @param string $header
-     */
     public function __construct(string $header)
     {
         $this->header = $header;
     }
 
-    /**
-     * @return string
-     */
-    public function getHeader()
+    public function getHeader(): string
     {
         return $this->header;
     }
 
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return $this->__toArray();
     }
 
-    /**
-     * @param array $data
-     */
-    public function hydrate(array $data)
+    public function hydrate(array $data): void
     {
         $this->header = $data['header'];
     }
 
-    /**
-     * @return array
-     */
-    public function __toArray()
+    public function __toArray(): array
     {
         return [
             'header' => $this->getHeader(),
