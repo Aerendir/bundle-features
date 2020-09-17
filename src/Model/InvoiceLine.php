@@ -39,7 +39,7 @@ final class InvoiceLine implements \JsonSerializable
     /** @var string $description */
     private $description;
 
-    /** @var string $quantity */
+    /** @var int|null $quantity */
     private $quantity;
 
     /** @var string $taxName */
@@ -63,10 +63,7 @@ final class InvoiceLine implements \JsonSerializable
         return $this->description;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getQuantity(): string
+    public function getQuantity(): ?int
     {
         return $this->quantity;
     }
