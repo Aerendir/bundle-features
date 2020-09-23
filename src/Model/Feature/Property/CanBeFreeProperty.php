@@ -37,7 +37,7 @@ trait CanBeFreeProperty
             foreach ($prices as $currency => $billingCycles) {
                 if (isset($billingCycles['monthly'])) {
                     $amount = $billingCycles['monthly'];
-                    if ($amount instanceof Money && $amount->getBaseAmount() === '0') {
+                    if ($amount instanceof Money && '0' === $amount->getBaseAmount()) {
                         return true;
                     }
                 }
@@ -45,7 +45,7 @@ trait CanBeFreeProperty
                 if (isset($billingCycles['yearly'])) {
                     $amount = $billingCycles['yearly'];
 
-                    if ($amount instanceof Money && $amount->getBaseAmount() === '0') {
+                    if ($amount instanceof Money && '0' === $amount->getBaseAmount()) {
                         return true;
                     }
                 }

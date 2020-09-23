@@ -496,7 +496,7 @@ final class Configuration implements ConfigurationInterface
             // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
             $packs[0] = [
                 SubscriptionInterface::MONTHLY => 0,
-                SubscriptionInterface::YEARLY => 0,
+                SubscriptionInterface::YEARLY  => 0,
             ];
         }
 
@@ -514,11 +514,11 @@ final class Configuration implements ConfigurationInterface
         return $prices;
     }
 
-    private function recurringFeatureHasFreePackage(array $prices):bool
+    private function recurringFeatureHasFreePackage(array $prices): bool
     {
         foreach ($prices as $currency => $localizedPrices) {
             $monthly = $localizedPrices[SubscriptionInterface::MONTHLY] ?? null;
-            $yearly = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
+            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
 
             // If this is a free package
             if (0 !== $monthly || 0 !== $yearly) {
