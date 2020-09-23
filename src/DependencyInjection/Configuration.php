@@ -14,6 +14,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
+use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -91,7 +92,7 @@ final class Configuration implements ConfigurationInterface
                                             // type === Rechargeable || type === Countable
                                             ->scalarNode('cumulable')->defaultFalse()->end()
                                             // type === Countable
-                                            ->enumNode('refresh_period')->defaultValue('monthly')->values(['monthly', 'yearly'])->end()
+                                            ->enumNode('refresh_period')->defaultValue(SubscriptionInterface::MONTHLY)->values([SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY])->end()
                                             // type === Rechargeable
                                             ->scalarNode('free_recharge')->defaultValue(0)->end()
                                             // type === Rechargeable (integer) || type === Countable (array)
@@ -107,8 +108,8 @@ final class Configuration implements ConfigurationInterface
                                                     ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
-                                                        ->scalarNode('monthly')->defaultNull()->end()
-                                                        ->scalarNode('yearly')->defaultNull()->end()
+                                                        ->scalarNode(SubscriptionInterface::MONTHLY)->defaultNull()->end()
+                                                        ->scalarNode(SubscriptionInterface::YEARLY)->defaultNull()->end()
                                                         ->scalarNode('_')->defaultNull()->end()
                                                     ->end()
                                                 ->end()
@@ -119,8 +120,8 @@ final class Configuration implements ConfigurationInterface
                                                 ->prototype('array')
                                                     ->children()
                                                         // Define acceptable subscription periods,
-                                                        ->integerNode('monthly')->defaultNull()->end()
-                                                        ->integerNode('yearly')->defaultNull()->end()
+                                                        ->integerNode(SubscriptionInterface::MONTHLY)->defaultNull()->end()
+                                                        ->integerNode(SubscriptionInterface::YEARLY)->defaultNull()->end()
                                                     ->end()
                                                 ->end()
                                             ->end()
@@ -137,8 +138,8 @@ final class Configuration implements ConfigurationInterface
                                                         ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
-                                                        ->scalarNode('monthly')->defaultNull()->end()
-                                                        ->scalarNode('yearly')->defaultNull()->end()
+                                                        ->scalarNode(SubscriptionInterface::MONTHLY)->defaultNull()->end()
+                                                        ->scalarNode(SubscriptionInterface::YEARLY)->defaultNull()->end()
                                                         ->scalarNode('_')->defaultNull()->end()
                                                     ->end()
                                                 ->end()
@@ -289,7 +290,7 @@ final class Configuration implements ConfigurationInterface
     private function validateSubscriptionPeriods(string $set, string $feature, string $currency, array $subscriptions): void
     {
         // At least one subscription period has to be set
-        if (null === $subscriptions['monthly'] && null === $subscriptions['yearly']) {
+        if (null === $subscriptions[SubscriptionInterface::MONTHLY] && null === $subscriptions[SubscriptionInterface::YEARLY]) {
             throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
         }
     }
@@ -479,10 +480,9 @@ final class Configuration implements ConfigurationInterface
                 case self::RECURRING:
                     $packs[$numOfUnits] = $this->processRecurringPrice($prices);
 
-                    // If this is a free package
-                    if (empty($prices)) {
-                        // We have a free package so we haven't to create it
-                        $subscriptionHasFreePackage = true;
+                    // Once the free package is found, we don't need the check anymore
+                    if (false === $subscriptionHasFreePackage) {
+                        $subscriptionHasFreePackage = $this->recurringFeatureHasFreePackage($prices);
                     }
                     break;
                 case self::UNATANTUM:
@@ -494,7 +494,10 @@ final class Configuration implements ConfigurationInterface
         // If we are processing a recurring feature that hasn't a free package...
         if (self::RECURRING === $subscriptionType && false === $subscriptionHasFreePackage) {
             // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
-            $packs[0] = [];
+            $packs[0] = [
+                SubscriptionInterface::MONTHLY => 0,
+                SubscriptionInterface::YEARLY => 0,
+            ];
         }
 
         $packs['_pricesType'] = $this->pricesType;
@@ -509,5 +512,21 @@ final class Configuration implements ConfigurationInterface
         }
 
         return $prices;
+    }
+
+    private function recurringFeatureHasFreePackage(array $prices):bool
+    {
+        foreach ($prices as $currency => $localizedPrices) {
+            $monthly = $localizedPrices[SubscriptionInterface::MONTHLY] ?? null;
+            $yearly = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
+
+            // If this is a free package
+            if (0 !== $monthly || 0 !== $yearly) {
+                // We have a free package so we haven't to create it
+                return false;
+            }
+        }
+
+        return true;
     }
 }
