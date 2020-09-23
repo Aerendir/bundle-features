@@ -13,9 +13,9 @@ return [
     // PhanTypeMismatchArgument : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
     // PhanTypeMismatchDeclaredReturn : 8 occurrences
+    // PhanUndeclaredProperty : 8 occurrences
     // PhanUndeclaredMethod : 6 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
-    // PhanUndeclaredProperty : 4 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
@@ -23,6 +23,7 @@ return [
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
+    // PhanUnusedVariable : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanCompatiblePHP7 : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
@@ -39,7 +40,7 @@ return [
 
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
-        'src/DependencyInjection/Configuration.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
+        'src/DependencyInjection/Configuration.php' => ['PhanUndeclaredMethod', 'PhanUnreferencedClosure', 'PhanUnusedVariable'],
         'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanUnreferencedClass'],
         'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanUndeclaredMethod'],
         'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanUndeclaredMethod'],
@@ -55,7 +56,7 @@ return [
         'src/Model/Feature/Configured/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/CanBeEnabledProperty.php' => ['PhanTypeMismatchReturn'],
-        'src/Model/Feature/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
+        'src/Model/Feature/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty', 'PhanUnusedVariable'],
         'src/Model/Feature/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
         'src/Model/Feature/Property/HasRecurringPricesProperty.php' => ['PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
