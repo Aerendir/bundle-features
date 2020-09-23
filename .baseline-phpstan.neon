@@ -221,11 +221,6 @@ parameters:
 			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between 0 and string will always evaluate to false\\.$#"
-			count: 1
-			path: src/InvoiceDrawer/PlainTextDrawer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\PlainTextDrawer\\:\\:buildInvoiceTextTable\\(\\) should return string but returns bool\\|string\\.$#"
 			count: 1
 			path: src/InvoiceDrawer/PlainTextDrawer.php
@@ -517,7 +512,7 @@ parameters:
 
 		-
 			message: "#^Offset string does not exist on array\\|null\\.$#"
-			count: 2
+			count: 3
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
@@ -587,7 +582,7 @@ parameters:
 
 		-
 			message: "#^Offset string does not exist on array\\|null\\.$#"
-			count: 2
+			count: 3
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
@@ -1004,16 +999,6 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:jsonUnserialize\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Model/InvoiceInterface.php
-
-		-
-			message: "#^PHPDoc tag @return with type int\\|null is incompatible with native type string\\.$#"
-			count: 1
-			path: src/Model/InvoiceLine.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:\\$quantity \\(string\\) does not accept int\\|null\\.$#"
-			count: 1
-			path: src/Model/InvoiceLine.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"

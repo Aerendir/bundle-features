@@ -9,28 +9,26 @@
  */
 return [
     // # Issue statistics:
-    // PhanTypeMismatchDeclaredReturn : 10+ occurrences
     // PhanTypeMismatchReturn : 10+ occurrences
     // PhanTypeMismatchArgument : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
+    // PhanTypeMismatchDeclaredReturn : 8 occurrences
     // PhanUndeclaredMethod : 6 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
     // PhanUndeclaredProperty : 4 occurrences
-    // PhanCompatiblePHP7 : 3 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanWriteOnlyPrivateProperty : 3 occurrences
-    // PhanTypeInvalidPropertyName : 2 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
+    // PhanCompatiblePHP7 : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanRedefinedClassReference : 1 occurrence
     // PhanRedefinedExtendedClass : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
-    // PhanTypeMismatchProperty : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
     // PhanUnextractableAnnotationSuffix : 1 occurrence
@@ -60,7 +58,7 @@ return [
         'src/Model/Feature/Property/CanBeFreeProperty.php' => ['PhanUndeclaredProperty'],
         'src/Model/Feature/Property/CanHaveFreePackProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/HasConfiguredPacksProperty.php' => ['PhanTypeMismatchReturn', 'PhanUndeclaredProperty'],
-        'src/Model/Feature/Property/HasRecurringPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeInvalidPropertyName', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
+        'src/Model/Feature/Property/HasRecurringPricesProperty.php' => ['PhanTypeInvalidLeftOperandOfNumericOp', 'PhanTypeMismatchReturn', 'PhanWriteOnlyPrivateProperty'],
         'src/Model/Feature/Property/HasUnatantumPricesInterface.php' => ['PhanUndeclaredTypeParameter'],
         'src/Model/Feature/Property/HasUnatantumPricesProperty.php' => ['PhanCompatiblePHP7', 'PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn'],
@@ -70,7 +68,6 @@ return [
         'src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php' => ['PhanWriteOnlyPrivateProperty'],
         'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
-        'src/Model/InvoiceLine.php' => ['PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyProbablyReal'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.

@@ -663,7 +663,8 @@
       <code>$price[SubscriptionInterface::YEARLY]</code>
       <code>$setPrices[$currency-&gt;getCode()]</code>
     </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="4">
+    <MixedArrayAssignment occurrences="5">
+      <code>$instantPrices[$currency][$subscriptionInterval]</code>
       <code>$this-&gt;grossPrices[$currency][$subscriptionInterval]</code>
       <code>$this-&gt;netPrices[$currency][$subscriptionInterval]</code>
       <code>$setPrices[$currency-&gt;getCode()]</code>
@@ -685,6 +686,9 @@
       <code>MoneyInterface|null</code>
       <code>MoneyInterface</code>
     </MixedInferredReturnType>
+    <PossiblyNullArrayAssignment occurrences="1">
+      <code>$instantPrices[$currency]</code>
+    </PossiblyNullArrayAssignment>
     <TypeDoesNotContainNull occurrences="1">
       <code>null === $this-&gt;subscription-&gt;getSubscribedOn()</code>
     </TypeDoesNotContainNull>
@@ -893,12 +897,6 @@
       <code>public function setGrossAmount(MoneyInterface $grossAmount): self</code>
       <code>public function setNetAmount(MoneyInterface $netAmount): self</code>
     </InvalidDocblock>
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$quantity</code>
-    </InvalidPropertyAssignmentValue>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>int|null</code>
-    </MismatchingDocblockReturnType>
     <MissingConstructor occurrences="1">
       <code>$grossAmount</code>
     </MissingConstructor>
@@ -909,9 +907,6 @@
       <code>$data[self::FIELD_TAX_NAME]</code>
       <code>$data[self::FIELD_TAX_RATE]</code>
     </MixedArgument>
-    <MixedInferredReturnType occurrences="1">
-      <code>int|null</code>
-    </MixedInferredReturnType>
   </file>
   <file src="src/Model/InvoiceSection.php">
     <MixedAssignment occurrences="2">

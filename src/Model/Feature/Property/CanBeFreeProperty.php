@@ -11,13 +11,47 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
+use SerendipityHQ\Component\ValueObjects\Money\Money;
+
 /**
- * Concrete implementetion of the CanBeFreeInterface.
+ * Concrete implementation of the CanBeFreeInterface.
  */
 trait CanBeFreeProperty
 {
     public function isFree(): bool
     {
-        return empty($this->netPrices) && empty($this->grossPrices);
+        if (empty($this->netPrices) && empty($this->grossPrices)) {
+            return true;
+        }
+
+        $prices = null;
+        if (null !== $this->netPrices) {
+            $prices = $this->netPrices;
+        }
+
+        if (null !== $this->grossPrices) {
+            $prices = $this->grossPrices;
+        }
+
+        if (null !== $prices) {
+            foreach ($prices as $currency => $billingCycles) {
+                if (isset($billingCycles['monthly'])) {
+                    $amount = $billingCycles['monthly'];
+                    if ($amount instanceof Money && $amount->getBaseAmount() === '0') {
+                        return true;
+                    }
+                }
+
+                if (isset($billingCycles['yearly'])) {
+                    $amount = $billingCycles['yearly'];
+
+                    if ($amount instanceof Money && $amount->getBaseAmount() === '0') {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
