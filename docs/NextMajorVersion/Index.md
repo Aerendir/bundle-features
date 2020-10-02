@@ -260,6 +260,10 @@ As you can see, in this advanced scenario we pass a second argument `$subject`.
 
 This is
 
+# Useful information
+
+- https://en.wikipedia.org/wiki/Token_bucket
+
 # Inspiration for this component
 
 - https://github.com/bestit/flagception-sdk/
