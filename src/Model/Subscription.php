@@ -311,8 +311,10 @@ abstract class Subscription implements SubscriptionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param \DateTime|\DateTimeImmutable $nextRenewOn
      */
-    public function setNextRenewOn(\DateTime $nextRenewOn): SubscriptionInterface
+    public function setNextRenewOn(\DateTimeInterface $nextRenewOn): SubscriptionInterface
     {
         $this->nextRenewOn = $nextRenewOn;
 
@@ -353,8 +355,10 @@ abstract class Subscription implements SubscriptionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param \DateTime|\DateTimeImmutable $nextRefreshOn
      */
-    public function setNextRefreshOn(\DateTime $nextRefreshOn): SubscriptionInterface
+    public function setNextRefreshOn(\DateTimeInterface $nextRefreshOn): SubscriptionInterface
     {
         $this->nextRefreshOn = $nextRefreshOn;
 
@@ -363,8 +367,10 @@ abstract class Subscription implements SubscriptionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @param \DateTime|\DateTimeImmutable $subscribedOn
      */
-    public function setSubscribedOn(\DateTime $subscribedOn): SubscriptionInterface
+    public function setSubscribedOn(\DateTimeInterface $subscribedOn): SubscriptionInterface
     {
         $this->subscribedOn = $subscribedOn;
 

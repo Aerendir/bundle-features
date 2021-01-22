@@ -45,8 +45,10 @@ trait IsRecurringFeatureProperty
 
     /**
      * {@inheritdoc}
+     *
+     * @param \DateTime|\DateTimeImmutable $activeUntil
      */
-    public function setActiveUntil(\DateTime $activeUntil): IsRecurringFeatureInterface
+    public function setActiveUntil(\DateTimeInterface $activeUntil): IsRecurringFeatureInterface
     {
         $this->activeUntil = $activeUntil;
 

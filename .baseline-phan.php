@@ -16,6 +16,7 @@ return [
     // PhanUndeclaredProperty : 8 occurrences
     // PhanUndeclaredMethod : 6 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
+    // PhanParamSignatureMismatch : 3 occurrences
     // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
@@ -70,6 +71,7 @@ return [
         'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyProbablyReal'],
+        'src/Model/Subscription.php' => ['PhanParamSignatureMismatch'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

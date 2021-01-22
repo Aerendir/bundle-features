@@ -54,7 +54,7 @@ final class InvoiceSection implements \JsonSerializable
 
     public function hasHeader(): bool
     {
-        return isset($this->header);
+        return null !== $this->header;
     }
 
     public function removeHeader(): self
