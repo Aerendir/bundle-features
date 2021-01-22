@@ -37,7 +37,13 @@
         "bamarni/composer-bin-plugin": "^1.4",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/component-text-matrix": "dev-dev",
-        "symfony/var-dumper": "^4.4|^5.1"
+        "symfony/var-dumper": "^4.4|^5.1",
+        "phpstan/phpstan": "0.12.65",
+        "phpstan/phpstan-phpunit": "0.12.17",
+        "phpstan/phpstan-doctrine": "0.12.26",
+        "phpstan/phpstan-symfony": "0.12.12",
+        "thecodingmachine/phpstan-safe-rule": "1.0.1",
+        "rector/rector": "0.9.9"
     },
     "suggest": {
         "serendipity_hq/component-text-matrix": "Allows tho use of PlainTextDrawer."
