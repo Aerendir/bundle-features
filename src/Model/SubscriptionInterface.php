@@ -57,9 +57,9 @@ interface SubscriptionInterface
 
     public function getNextRenewAmount(): MoneyInterface;
 
-    public function getSmallestRefreshInterval(): ? string;
+    public function getSmallestRefreshInterval(): ?string;
 
-    public function getNextRefreshOn(): ? \DateTime;
+    public function getNextRefreshOn(): ?\DateTime;
 
     /**
      * If the date of the next payment is not set, use the creation date.
