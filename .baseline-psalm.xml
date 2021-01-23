@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.18.2@19aa905f7c3c7350569999a93c40ae91ae4e1626">
+<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
   <file src="src/DependencyInjection/Configuration.php">
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
@@ -56,10 +56,12 @@
       <code>$feature</code>
       <code>$set</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="9">
+    <MixedArrayAccess occurrences="11">
       <code>$config[self::DEFAULT_DRAWER]</code>
       <code>$config[self::FEATURES]</code>
       <code>$config[self::FEATURES]</code>
+      <code>$localizedPrices[SubscriptionInterface::MONTHLY]</code>
+      <code>$localizedPrices[SubscriptionInterface::YEARLY]</code>
       <code>$price['_']</code>
       <code>$prices[$currency]['_']</code>
       <code>$tree['prices']['are']</code>
@@ -218,7 +220,8 @@
     <MixedArrayAccess occurrences="1">
       <code>$config['invoices']['drawers']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="5">
+      <code>$creatingSetName</code>
       <code>$defaultDrawer</code>
       <code>$drawer</code>
       <code>$locale</code>
@@ -277,6 +280,10 @@
       <code>$subscribedFeature</code>
       <code>$subscribedFeature</code>
     </ArgumentTypeCoercion>
+    <InvalidArgument occurrences="2">
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+    </InvalidArgument>
     <InvalidOperand occurrences="1">
       <code>$result += (float) $sum</code>
     </InvalidOperand>
@@ -284,14 +291,10 @@
       <code>$val</code>
       <code>$val</code>
     </MissingClosureParamType>
-    <MixedArgument occurrences="9">
+    <MixedArgument occurrences="5">
       <code>$options[self::OPTION_SUBSCRIPTION]</code>
       <code>$options[self::OPTION_SUBSCRIPTION]</code>
       <code>$options[self::OPTION_SUBSCRIPTION]</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
       <code>$val</code>
       <code>$val</code>
     </MixedArgument>
@@ -299,27 +302,21 @@
       <code>getFeatures</code>
       <code>getValues</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="4">
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+    <PossiblyInvalidArgument occurrences="2">
       <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
       <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullArgument occurrences="4">
+    <PossiblyNullArgument occurrences="6">
       <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
       <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
       <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), FeatureInterface::PRICE_GROSS)</code>
       <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), FeatureInterface::PRICE_NET)</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
     </PossiblyNullArgument>
     <PossiblyNullReference occurrences="1">
       <code>isStillActive</code>
     </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="4">
-      <code>getInstantPrice</code>
-      <code>getInstantPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
-    </PossiblyUndefinedMethod>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
@@ -338,23 +335,43 @@
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/InvoiceDrawer/PlainTextDrawer.php">
-    <ImplicitToStringCast occurrences="2">
+    <ImplicitToStringCast occurrences="4">
+      <code>$invoice-&gt;getGrossTotal()-&gt;getCurrency()</code>
+      <code>$invoice-&gt;getNetTotal()-&gt;getCurrency()</code>
       <code>$line-&gt;getGrossAmount()-&gt;getCurrency()</code>
       <code>$line-&gt;getNetAmount()-&gt;getCurrency()</code>
     </ImplicitToStringCast>
+    <InvalidOperand occurrences="1">
+      <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
+    </InvalidOperand>
     <InvalidReturnStatement occurrences="1">
       <code>$return</code>
     </InvalidReturnStatement>
     <InvalidReturnType occurrences="1">
       <code>string</code>
     </InvalidReturnType>
-    <InvalidScalarArgument occurrences="2">
+    <InvalidScalarArgument occurrences="5">
+      <code>$invoice-&gt;getGrossTotal()-&gt;getHumanAmount()</code>
+      <code>$invoice-&gt;getNetTotal()-&gt;getHumanAmount()</code>
       <code>$line-&gt;getGrossAmount()-&gt;getHumanAmount()</code>
       <code>$line-&gt;getNetAmount()-&gt;getHumanAmount()</code>
+      <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
     </InvalidScalarArgument>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>array</code>
-    </MismatchingDocblockReturnType>
+    <MixedArgument occurrences="1">
+      <code>$section</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$section</code>
+    </MixedAssignment>
+    <PossiblyFalseOperand occurrences="3">
+      <code>\iconv_strlen($equalsSeparatorShort)</code>
+      <code>\iconv_strlen($totalGrossAmount)</code>
+      <code>\mb_strtoupper($this-&gt;getTranslator()-&gt;trans('shq_features.invoice.total.label', [], 'Invoice'))</code>
+    </PossiblyFalseOperand>
+    <PossiblyNullReference occurrences="2">
+      <code>getHeader</code>
+      <code>hasHeader</code>
+    </PossiblyNullReference>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$tableWidth</code>
     </PropertyNotSetInConstructor>
@@ -369,6 +386,10 @@
       <code>$featureName</code>
       <code>$this-&gt;getConfiguredFeatures()-&gt;get($feature)</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="2">
+      <code>$feature</code>
+      <code>$feature</code>
+    </MixedArgumentTypeCoercion>
     <MixedArrayAssignment occurrences="7">
       <code>$this-&gt;differences[self::ADDED][]</code>
       <code>$this-&gt;differences[self::ADDED][]</code>
@@ -417,12 +438,6 @@
     <MoreSpecificReturnType occurrences="1">
       <code>Money</code>
     </MoreSpecificReturnType>
-    <PossiblyInvalidArgument occurrences="4">
-      <code>$feature</code>
-      <code>$feature</code>
-      <code>$feature</code>
-      <code>$feature</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullReference occurrences="6">
       <code>getInstantPrice</code>
       <code>modify</code>
@@ -462,11 +477,8 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>mixed</code>
     </MismatchingDocblockReturnType>
-    <MixedArgument occurrences="4">
-      <code>$feature-&gt;getConfiguredFeature()-&gt;getTaxName()</code>
-      <code>$feature-&gt;getConfiguredFeature()-&gt;getTaxRate()</code>
+    <MixedArgument occurrences="1">
       <code>$netPrice</code>
-      <code>$quantity ?? null</code>
     </MixedArgument>
     <MixedAssignment occurrences="7">
       <code>$feature</code>
@@ -491,10 +503,6 @@
       <code>getPrice</code>
       <code>getPrice</code>
     </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="2">
-      <code>getTaxName</code>
-      <code>getTaxRate</code>
-    </PossiblyUndefinedMethod>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$drawers</code>
       <code>$subscription</code>
@@ -592,16 +600,16 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
+    <InvalidArgument occurrences="3">
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
+    </InvalidArgument>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
       <code>protected function getRechargeableFeatures(): \Countable</code>
     </InvalidDocblock>
-    <MixedArgumentTypeCoercion occurrences="3">
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
-    </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="2">
       <code>$feature</code>
       <code>$feature</code>
@@ -688,6 +696,9 @@
       <code>1 + $rate</code>
       <code>1 + $rate</code>
     </InvalidOperand>
+    <MissingReturnType occurrences="1">
+      <code>setPrices</code>
+    </MissingReturnType>
     <MixedArgument occurrences="1">
       <code>$this-&gt;$pricesProperty</code>
     </MixedArgument>
@@ -713,12 +724,14 @@
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="7">
       <code>$amount</code>
       <code>$amount</code>
+      <code>$currency</code>
       <code>$price</code>
       <code>$prices</code>
       <code>$setPrices</code>
+      <code>$subscriptionInterval</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="2">
       <code>MoneyInterface</code>
@@ -754,7 +767,8 @@
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment occurrences="2">
+      <code>$currency</code>
       <code>$price</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
@@ -769,6 +783,17 @@
     <PossiblyInvalidPropertyAssignmentValue occurrences="1">
       <code>$activeUntil</code>
     </PossiblyInvalidPropertyAssignmentValue>
+  </file>
+  <file src="src/Model/Feature/Subscribed/AbstractSubscribedFeature.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$this-&gt;configuredFeature</code>
+    </LessSpecificReturnStatement>
+    <MissingReturnType occurrences="1">
+      <code>setConfiguredFeature</code>
+    </MissingReturnType>
+    <MoreSpecificReturnType occurrences="1">
+      <code>ConfiguredFeatureInterface</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedBooleanFeature.php">
     <PropertyNotSetInConstructor occurrences="1">
@@ -812,19 +837,16 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
+    <InvalidArgument occurrences="3">
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
+      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
+    </InvalidArgument>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
       <code>protected function getRechargeableFeatures(): \Countable</code>
     </InvalidDocblock>
-    <MixedArgumentTypeCoercion occurrences="3">
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayOffset occurrences="1">
-      <code>$return[$featureName]</code>
-    </MixedArrayOffset>
     <MixedInferredReturnType occurrences="3">
       <code>SubscribedFeaturesCollection&amp;SubscribedBooleanFeature[]</code>
       <code>SubscribedFeaturesCollection&amp;SubscribedCountableFeature[]</code>
@@ -861,10 +883,14 @@
     <InvalidScalarArgument occurrences="1">
       <code>\microtime(true)</code>
     </InvalidScalarArgument>
-    <MissingParamType occurrences="2">
-      <code>$currency</code>
+    <MissingParamType occurrences="1">
       <code>$id</code>
     </MissingParamType>
+    <MissingReturnType occurrences="3">
+      <code>jsonUnserialize</code>
+      <code>recalculateTotal</code>
+      <code>setHeader</code>
+    </MissingReturnType>
     <MixedArgument occurrences="3">
       <code>$line</code>
       <code>$lineId</code>
@@ -874,8 +900,9 @@
       <code>$section['_header']</code>
       <code>$section['_lines']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
+    <MixedAssignment occurrences="5">
       <code>$line</code>
+      <code>$lineId</code>
       <code>$return</code>
       <code>$return</code>
       <code>$section</code>
@@ -987,6 +1014,11 @@
     <InvalidArgument occurrences="1">
       <code>$this-&gt;features</code>
     </InvalidArgument>
+    <MissingReturnType occurrences="3">
+      <code>checkIntervalExists</code>
+      <code>forceFeaturesUpdate</code>
+      <code>hydrateFeatures</code>
+    </MissingReturnType>
     <MixedInferredReturnType occurrences="1">
       <code>bool</code>
     </MixedInferredReturnType>
