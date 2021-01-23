@@ -9,7 +9,8 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.3', '7.4', '8.0']
+                # php: ['7.3', '7.4', '8.0'] PHP 8 causes issues on CI
+                php: ['7.3', '7.4']
                 symfony: ['~4.4', '~5.2']
                 composer-flags: ['--prefer-stable --prefer-lowest', '']
         name: PHP ${{ matrix.php }} SF ${{ matrix.symfony }} (${{ matrix.composer-flags }}) on ${{ matrix.os }}
