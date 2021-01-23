@@ -27,6 +27,9 @@
         <RedundantIdentityWithTrue errorLevel="suppress" />
         <!-- Compatibility issue with SF 3.4: Remove when support will be dropped -->
         <DocblockTypeContradiction errorLevel="suppress" />
+
+        <!-- Causes issue on CI with --prefer-lowest -->
+        <MixedArgumentTypeCoercion errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
