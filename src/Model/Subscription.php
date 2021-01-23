@@ -201,12 +201,12 @@ abstract class Subscription implements SubscriptionInterface
         return $this->nextRenewOn;
     }
 
-    public function getSmallestRefreshInterval(): ? string
+    public function getSmallestRefreshInterval(): ?string
     {
         return $this->smallestRefreshInterval;
     }
 
-    public function getNextRefreshOn(): ? \DateTime
+    public function getNextRefreshOn(): ?\DateTime
     {
         return $this->nextRefreshOn;
     }
