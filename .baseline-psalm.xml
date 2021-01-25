@@ -49,13 +49,6 @@
       <code>$tree[self::SETS]</code>
       <code>$tree[self::SETS]</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="5">
-      <code>$currency</code>
-      <code>$currency</code>
-      <code>$currency</code>
-      <code>$feature</code>
-      <code>$set</code>
-    </MixedArgumentTypeCoercion>
     <MixedArrayAccess occurrences="11">
       <code>$config[self::DEFAULT_DRAWER]</code>
       <code>$config[self::FEATURES]</code>
@@ -386,10 +379,6 @@
       <code>$featureName</code>
       <code>$this-&gt;getConfiguredFeatures()-&gt;get($feature)</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$feature</code>
-      <code>$feature</code>
-    </MixedArgumentTypeCoercion>
     <MixedArrayAssignment occurrences="7">
       <code>$this-&gt;differences[self::ADDED][]</code>
       <code>$this-&gt;differences[self::ADDED][]</code>
@@ -542,11 +531,6 @@
       <code>$countables</code>
       <code>$rechargeables</code>
     </MissingPropertyType>
-    <MixedArgumentTypeCoercion occurrences="3">
-      <code>$feature</code>
-      <code>$feature</code>
-      <code>$feature</code>
-    </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="2">
       <code>$details</code>
       <code>$element</code>
@@ -702,9 +686,6 @@
     <MixedArgument occurrences="1">
       <code>$this-&gt;$pricesProperty</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$currency</code>
-    </MixedArgumentTypeCoercion>
     <MixedArrayAccess occurrences="6">
       <code>$price[SubscriptionInterface::MONTHLY]</code>
       <code>$price[SubscriptionInterface::MONTHLY]</code>
@@ -760,9 +741,6 @@
     <MixedArgument occurrences="1">
       <code>$this-&gt;$pricesProperty</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>$currency</code>
-    </MixedArgumentTypeCoercion>
     <MixedArrayOffset occurrences="2">
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
