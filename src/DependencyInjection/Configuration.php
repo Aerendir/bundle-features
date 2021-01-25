@@ -190,10 +190,8 @@ final class Configuration implements ConfigurationInterface
             throw new InvalidConfigurationException(\Safe\sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
         }
 
-        if ('plain_text' === $drawer) {
-            if (false === \class_exists(PHPTextMatrix::class)) {
-                throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
-            }
+        if ('plain_text' === $drawer && false === \class_exists(PHPTextMatrix::class)) {
+            throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
         }
     }
 
