@@ -1,0 +1,10 @@
+includes:
+    - phpstan.neon
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Those errors are manually added
+        # To actually fix
+        - "#^Parameter \\#1 \\$amount of method NumberFormatter\\:\\:formatCurrency\\(\\) expects float, string given\\.$#"
+        - "#^Parameter \\#2 \\$datetime of static method DateTime\\:\\:createFromFormat\\(\\) expects string, float given\\.$#"
