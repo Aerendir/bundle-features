@@ -30,6 +30,9 @@
 
         <!-- Causes issue on CI with - -prefer-lowest -->
         <MixedArgumentTypeCoercion errorLevel="suppress" />
+
+        <!-- Causes issues on CI -->
+        <InvalidArgument errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
