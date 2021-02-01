@@ -3,13 +3,13 @@ name: PHPunit
 on: [push, pull_request]
 
 jobs:
-    serendipity_hq:
+    phpunit:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest]
-                php: ['7.4', '8.0']
+                php: ['7.3', '7.4', '8.0']
         name: PHP ${{ matrix.php }} on ${{ matrix.os }}
         steps:
             - name: Checkout
@@ -24,7 +24,8 @@ jobs:
 
             - name: Install Composer deps
               run: |
-                  composer update --no-interaction --no-suggest
+                  composer update --no-interaction --no-suggest --no-scripts
+                  composer bin phpunit update
 
             - name: Run PHPunit
               run: |
