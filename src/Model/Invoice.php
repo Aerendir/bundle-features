@@ -25,33 +25,33 @@ abstract class Invoice implements InvoiceInterface
     private const SECTION_DEFAULT = '_default';
     /**
      * @var Currency
-     * @ORM\Column(name="currency", type="currency", nullable=false)
+     * @ORM\Column(name="currency", type="currency")
      */
     private $currency;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="issued_on", type="datetime", nullable=false)
+     * @ORM\Column(name="issued_on", type="datetime")
      */
     private $issuedOn;
 
     /**
      * @var array
-     * @ORM\Column(name="`sections`", type="json", nullable=false)
+     * @ORM\Column(name="`sections`", type="json")
      */
     private $sections;
 
     /**
      * @var MoneyInterface
      *
-     * @ORM\Column(name="gross_total", type="money", nullable=false)
+     * @ORM\Column(name="gross_total", type="money")
      */
     private $grossTotal;
 
     /**
      * @var MoneyInterface
      *
-     * @ORM\Column(name="net_total", type="money", nullable=false)
+     * @ORM\Column(name="net_total", type="money")
      */
     private $netTotal;
 

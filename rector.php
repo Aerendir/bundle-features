@@ -13,12 +13,13 @@ declare(strict_types = 1);
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator) : void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PHP_VERSION_FEATURES, '7.3');
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_73);
 
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
@@ -52,7 +53,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHP_71,
             SetList::PHP_72,
             SetList::PHP_73,
-            SetList::PHPSTAN,
             SetList::PHPUNIT_40,
             SetList::PHPUNIT_50,
             SetList::PHPUNIT_60,
@@ -67,7 +67,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             SetList::PHPUNIT_SPECIFIC_METHOD,
             SetList::PHPUNIT_YIELD_DATA_PROVIDER,
             SetList::UNWRAP_COMPAT,
-            SetList::SOLID,
             SetList::SYMFONY_26,
             SetList::SYMFONY_28,
             SetList::SYMFONY_30,
@@ -98,7 +97,7 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     );
 
     $parameters->set(
-        Option::EXCLUDE_RECTORS,
+        Option::SKIP,
         [
             Rector\CodeQuality\Rector\Catch_\ThrowWithPreviousExceptionRector::class,
             Rector\CodeQuality\Rector\Concat\JoinStringConcatRector::class,
@@ -111,16 +110,11 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\CodingStyle\Rector\Switch_\BinarySwitchToIfElseRector::class,
             Rector\CodingStyle\Rector\Throw_\AnnotateThrowablesRector::class,
             Rector\CodingStyle\Rector\Use_\RemoveUnusedAliasRector::class,
-            Rector\MagicDisclosure\Rector\MethodCall\FluentChainMethodCallToNormalMethodCallRector::class,
             Rector\Php56\Rector\FunctionLike\AddDefaultValueForUndefinedVariableRector::class, // Maybe good one day
             Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector::class,
             Rector\PHPUnit\Rector\ClassMethod\AddDoesNotPerformAssertionToNonAssertingTestRector::class,
             Rector\Privatization\Rector\ClassMethod\PrivatizeLocalOnlyMethodRector::class,
             Rector\Privatization\Rector\MethodCall\PrivatizeLocalGetterToPropertyRector::class,
-            Rector\SOLID\Rector\Class_\MakeUnusedClassesWithChildrenAbstractRector::class,
-            Rector\SOLID\Rector\Class_\RepeatedLiteralToClassConstantRector::class,
-            Rector\SOLID\Rector\ClassMethod\UseInterfaceOverImplementationInConstructorRector::class,
-            Rector\SOLID\Rector\Property\AddFalseDefaultToBoolPropertyRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayParamDocTypeRector::class,
             Rector\TypeDeclaration\Rector\ClassMethod\AddArrayReturnDocTypeRector::class,
 
@@ -128,7 +122,6 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
             Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector::class,
             Rector\DoctrineCodeQuality\Rector\Property\CorrectDefaultTypesOnEntityPropertyRector::class,
             Rector\DoctrineCodeQuality\Rector\Class_\MoveCurrentDateTimeDefaultInEntityToConstructorRector::class,
-            Rector\SOLID\Rector\Class_\ChangeReadOnlyVariableWithDefaultValueToConstantRector::class,
         ]
     );
 };

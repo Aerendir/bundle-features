@@ -26,6 +26,8 @@ interface IsRecurringFeatureInterface
 
     /**
      * Sets the date until which the feature is active.
+     *
+     * @param \DateTime|\DateTimeImmutable $activeUntil
      */
-    public function setActiveUntil(\DateTime $activeUntil): IsRecurringFeatureInterface;
+    public function setActiveUntil(\DateTimeInterface $activeUntil): IsRecurringFeatureInterface;
 }

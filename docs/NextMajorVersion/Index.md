@@ -260,6 +260,16 @@ As you can see, in this advanced scenario we pass a second argument `$subject`.
 
 This is
 
+# Useful information
+
+- Prorated: use to name the amount to pay to be in pair with the chosen plan. For example, if the current plan has a billing cycle of 30 days, and I upgrade the plan the 21st day of the billing cycle, then the prorated amount is calculated on the remaining 9 days of the billing cycle;
+- https://en.wikipedia.org/wiki/Token_bucket
+
+# Other features
+
+- Make possible to set the max amount of times a plan can be downgraded (or upgraded)
+- Make possible to subscribe to multiple plans at the same time
+
 # Inspiration for this component
 
 - https://github.com/bestit/flagception-sdk/

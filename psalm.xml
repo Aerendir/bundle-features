@@ -7,7 +7,6 @@
     hideExternalErrors="true"
     ignoreInternalFunctionNullReturn="false"
     ignoreInternalFunctionFalseReturn="false"
-    requireVoidReturnType="false"
     strictBinaryOperands="true"
     totallyTyped="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -28,6 +27,12 @@
         <RedundantIdentityWithTrue errorLevel="suppress" />
         <!-- Compatibility issue with SF 3.4: Remove when support will be dropped -->
         <DocblockTypeContradiction errorLevel="suppress" />
+
+        <!-- Causes issue on CI with - -prefer-lowest -->
+        <MixedArgumentTypeCoercion errorLevel="suppress" />
+
+        <!-- Causes issues on CI -->
+        <InvalidArgument errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

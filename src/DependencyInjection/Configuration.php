@@ -190,13 +190,8 @@ final class Configuration implements ConfigurationInterface
             throw new InvalidConfigurationException(\Safe\sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
         }
 
-        // Check the required dependency exists
-        switch ($drawer) {
-            case 'plain_text':
-                if (false === \class_exists(PHPTextMatrix::class)) {
-                    throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
-                }
-                break;
+        if ('plain_text' === $drawer && false === \class_exists(PHPTextMatrix::class)) {
+            throw new \RuntimeException('To use the "plain_text\' InvoiceFormatter you have to install "serendipity_hq/PHPTextMatrix dependency in your composer.json');
         }
     }
 
@@ -496,7 +491,7 @@ final class Configuration implements ConfigurationInterface
             // ... We have to create it with 0 $numOfUnits as we always need a free package for a subscribed feature
             $packs[0] = [
                 SubscriptionInterface::MONTHLY => 0,
-                SubscriptionInterface::YEARLY => 0,
+                SubscriptionInterface::YEARLY  => 0,
             ];
         }
 
@@ -514,11 +509,11 @@ final class Configuration implements ConfigurationInterface
         return $prices;
     }
 
-    private function recurringFeatureHasFreePackage(array $prices):bool
+    private function recurringFeatureHasFreePackage(array $prices): bool
     {
         foreach ($prices as $currency => $localizedPrices) {
             $monthly = $localizedPrices[SubscriptionInterface::MONTHLY] ?? null;
-            $yearly = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
+            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
 
             // If this is a free package
             if (0 !== $monthly || 0 !== $yearly) {

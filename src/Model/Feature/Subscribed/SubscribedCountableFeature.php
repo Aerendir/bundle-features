@@ -163,8 +163,10 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
 
     /**
      * Sets the date on which the renew happened.
+     *
+     * @param \DateTime|\DateTimeImmutable $lastRefreshOn
      */
-    public function setLastRefreshOn(\DateTime $lastRefreshOn): self
+    public function setLastRefreshOn(\DateTimeInterface $lastRefreshOn): self
     {
         $this->lastRefreshOn = $lastRefreshOn;
 

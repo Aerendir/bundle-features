@@ -57,9 +57,9 @@ interface SubscriptionInterface
 
     public function getNextRenewAmount(): MoneyInterface;
 
-    public function getSmallestRefreshInterval(): ? string;
+    public function getSmallestRefreshInterval(): ?string;
 
-    public function getNextRefreshOn(): ? \DateTime;
+    public function getNextRefreshOn(): ?\DateTime;
 
     /**
      * If the date of the next payment is not set, use the creation date.
@@ -93,7 +93,10 @@ interface SubscriptionInterface
 
     public function setNextRenewAmount(MoneyInterface $amount): SubscriptionInterface;
 
-    public function setNextRenewOn(\DateTime $nextPaymentOn): SubscriptionInterface;
+    /**
+     * @param \DateTime|\DateTimeImmutable $nextPaymentOn
+     */
+    public function setNextRenewOn(\DateTimeInterface $nextPaymentOn): SubscriptionInterface;
 
     /**
      * Sets the next payment in one month.
@@ -107,12 +110,17 @@ interface SubscriptionInterface
 
     public function setSmallestRefreshInterval(string $refreshInterval): SubscriptionInterface;
 
-    public function setNextRefreshOn(\DateTime $nextRefreshOn): SubscriptionInterface;
+    /**
+     * @param \DateTime|\DateTimeImmutable $nextRefreshOn
+     */
+    public function setNextRefreshOn(\DateTimeInterface $nextRefreshOn): SubscriptionInterface;
 
     /**
      * Sets the date on which the feature were subscribed.
+     *
+     * @param \DateTime|\DateTimeImmutable $subscribedOn
      */
-    public function setSubscribedOn(\DateTime $subscribedOn): SubscriptionInterface;
+    public function setSubscribedOn(\DateTimeInterface $subscribedOn): SubscriptionInterface;
 
     /**
      * If a feature changes, call this method to force Doctrine to intercept the modification and update the Entity.
