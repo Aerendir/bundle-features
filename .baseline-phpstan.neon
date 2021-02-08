@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#3 \\$locale of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createFormatterService\\(\\) expects string, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/DependencyInjection/SHQFeaturesExtension.php
+
+		-
 			message: "#^Parameter \\#4 \\$drawers of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\DependencyInjection\\\\SHQFeaturesExtension\\:\\:createInvoicesService\\(\\) expects array\\<string, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\>, array\\<int\\|string, Symfony\\\\Component\\\\DependencyInjection\\\\Definition\\> given\\.$#"
 			count: 1
 			path: src/DependencyInjection/SHQFeaturesExtension.php
@@ -216,7 +221,7 @@ parameters:
 			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
-			message: "#^Parameter \\#1 \\$num of method NumberFormatter\\:\\:formatCurrency\\(\\) expects float, string given\\.$#"
+			message: "#^Parameter \\#1 \\$amount of method NumberFormatter\\:\\:formatCurrency\\(\\) expects float, string given\\.$#"
 			count: 4
 			path: src/InvoiceDrawer/PlainTextDrawer.php
 
@@ -251,12 +256,12 @@ parameters:
 			path: src/Manager/FeaturesManager.php
 
 		-
-			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
-			count: 5
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:buildDefaultSubscriptionFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
 			path: src/Manager/FeaturesManager.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:buildDefaultSubscriptionFeatures\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\.$#"
+			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
 			path: src/Manager/FeaturesManager.php
 
@@ -312,6 +317,11 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\FeaturesManager\\:\\:updateSubscription\\(\\) has parameter \\$newFeatures with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\.$#"
+			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Call to an undefined method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\FeatureInterface\\:\\:isEnabled\\(\\)\\.$#"
 			count: 1
 			path: src/Manager/FeaturesManager.php
 
@@ -432,11 +442,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Manager/InvoicesManager.php
-
-		-
-			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
 			path: src/Manager/InvoicesManager.php
 
@@ -636,27 +641,12 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getBooleanFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getCountableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
@@ -891,17 +881,7 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getBooleanFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getCountableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
@@ -911,17 +891,12 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) with return type void returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<mixed, mixed\\> but should not return anything\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$sections type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
 		-
-			message: "#^Parameter \\#2 \\$time of static method DateTime\\:\\:createFromFormat\\(\\) expects string, float given\\.$#"
+			message: "#^Parameter \\#2 \\$datetime of static method DateTime\\:\\:createFromFormat\\(\\) expects string, float given\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
