@@ -204,20 +204,18 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="3">
       <code>$creatingSetName</code>
       <code>$drawer</code>
-      <code>$locale</code>
       <code>$setConfig</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="1">
       <code>$config['invoices']['drawers']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="4">
       <code>$creatingSetName</code>
       <code>$defaultDrawer</code>
       <code>$drawer</code>
-      <code>$locale</code>
       <code>$setConfig</code>
     </MixedAssignment>
   </file>
@@ -273,10 +271,6 @@
       <code>$subscribedFeature</code>
       <code>$subscribedFeature</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="2">
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-    </InvalidArgument>
     <InvalidOperand occurrences="1">
       <code>$result += (float) $sum</code>
     </InvalidOperand>
@@ -295,18 +289,6 @@
       <code>getFeatures</code>
       <code>getValues</code>
     </MixedMethodCall>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullArgument occurrences="6">
-      <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
-      <code>$pack-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
-      <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), FeatureInterface::PRICE_GROSS)</code>
-      <code>$pack-&gt;getPrice($subscription-&gt;getCurrency(), FeatureInterface::PRICE_NET)</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_GROSS)</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()-&gt;getInstantPrice($subscription-&gt;getCurrency(), $subscription-&gt;getRenewInterval(), FeatureInterface::PRICE_NET)</code>
-    </PossiblyNullArgument>
     <PossiblyNullReference occurrences="1">
       <code>isStillActive</code>
     </PossiblyNullReference>
@@ -482,10 +464,6 @@
       <code>getPrice</code>
       <code>getPrice</code>
     </MixedMethodCall>
-    <PossiblyNullArgument occurrences="2">
-      <code>$invoice-&gt;getSection('_default')</code>
-      <code>$netPrice</code>
-    </PossiblyNullArgument>
     <PossiblyNullReference occurrences="4">
       <code>getPrice</code>
       <code>getPrice</code>
@@ -584,11 +562,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
-    <InvalidArgument occurrences="3">
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
-    </InvalidArgument>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
@@ -815,11 +788,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
-    <InvalidArgument occurrences="3">
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_BOOLEAN)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_COUNTABLE)</code>
-      <code>$this-&gt;getFilterPredictate(self::KIND, FeatureInterface::TYPE_RECHARGEABLE)</code>
-    </InvalidArgument>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
@@ -989,9 +957,6 @@
     </MixedAssignment>
   </file>
   <file src="src/Model/Subscription.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;features</code>
-    </InvalidArgument>
     <MissingReturnType occurrences="3">
       <code>checkIntervalExists</code>
       <code>forceFeaturesUpdate</code>
