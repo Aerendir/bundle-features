@@ -33,6 +33,8 @@
 
         <!-- Causes issues on CI -->
         <InvalidArgument errorLevel="suppress" />
+        <MixedAssignment errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

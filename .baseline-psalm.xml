@@ -21,34 +21,6 @@
     <MissingParamType occurrences="1">
       <code>$subscriptionType</code>
     </MissingParamType>
-    <MixedArgument occurrences="26">
-      <code>$config</code>
-      <code>$config</code>
-      <code>$config[self::DEFAULT_DRAWER]</code>
-      <code>$config[self::FEATURES]</code>
-      <code>$config[self::FEATURES]</code>
-      <code>$config[self::PACKS]</code>
-      <code>$config[self::PACKS]</code>
-      <code>$config[self::PACKS]</code>
-      <code>$config[self::PACKS]</code>
-      <code>$config[self::PRICE]</code>
-      <code>$config[self::UNITARY_PRICE]</code>
-      <code>$config[self::UNITARY_PRICE]</code>
-      <code>$config[self::UNITARY_PRICE]</code>
-      <code>$drawer</code>
-      <code>$price</code>
-      <code>$price</code>
-      <code>$prices</code>
-      <code>$prices</code>
-      <code>$subscriptions</code>
-      <code>$this-&gt;foundDrawers</code>
-      <code>$tree</code>
-      <code>$tree</code>
-      <code>$tree[self::INVOICES][self::DRAWERS]</code>
-      <code>$tree[self::INVOICES][self::DRAWERS]</code>
-      <code>$tree[self::SETS]</code>
-      <code>$tree[self::SETS]</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="11">
       <code>$config[self::DEFAULT_DRAWER]</code>
       <code>$config[self::FEATURES]</code>
@@ -67,24 +39,6 @@
       <code>$tree[self::INVOICES][self::DRAWERS]</code>
       <code>$tree[self::INVOICES][self::DRAWERS]</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="16">
-      <code>$config</code>
-      <code>$config</code>
-      <code>$config</code>
-      <code>$config</code>
-      <code>$config[$this-&gt;pricesKey]</code>
-      <code>$drawer</code>
-      <code>$localizedPrices</code>
-      <code>$monthly</code>
-      <code>$price</code>
-      <code>$price</code>
-      <code>$prices</code>
-      <code>$prices[$currency]</code>
-      <code>$subscriptions</code>
-      <code>$this-&gt;foundDrawers</code>
-      <code>$this-&gt;pricesType</code>
-      <code>$yearly</code>
-    </MixedAssignment>
     <MixedMethodCall occurrences="112">
       <code>arrayNode</code>
       <code>arrayNode</code>
@@ -204,20 +158,9 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
-    <MixedArgument occurrences="3">
-      <code>$creatingSetName</code>
-      <code>$drawer</code>
-      <code>$setConfig</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="1">
       <code>$config['invoices']['drawers']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
-      <code>$creatingSetName</code>
-      <code>$defaultDrawer</code>
-      <code>$drawer</code>
-      <code>$setConfig</code>
-    </MixedAssignment>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
     <InvalidNullableReturnType occurrences="1">
@@ -278,13 +221,6 @@
       <code>$val</code>
       <code>$val</code>
     </MissingClosureParamType>
-    <MixedArgument occurrences="5">
-      <code>$options[self::OPTION_SUBSCRIPTION]</code>
-      <code>$options[self::OPTION_SUBSCRIPTION]</code>
-      <code>$options[self::OPTION_SUBSCRIPTION]</code>
-      <code>$val</code>
-      <code>$val</code>
-    </MixedArgument>
     <MixedMethodCall occurrences="2">
       <code>getFeatures</code>
       <code>getValues</code>
@@ -332,12 +268,6 @@
       <code>$line-&gt;getNetAmount()-&gt;getHumanAmount()</code>
       <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
     </InvalidScalarArgument>
-    <MixedArgument occurrences="1">
-      <code>$section</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$section</code>
-    </MixedAssignment>
     <PossiblyFalseOperand occurrences="3">
       <code>\iconv_strlen($equalsSeparatorShort)</code>
       <code>\iconv_strlen($totalGrossAmount)</code>
@@ -355,12 +285,6 @@
     <LessSpecificReturnStatement occurrences="1">
       <code>$totalCharges</code>
     </LessSpecificReturnStatement>
-    <MixedArgument occurrences="4">
-      <code>$configuredFeature</code>
-      <code>$featureName</code>
-      <code>$featureName</code>
-      <code>$this-&gt;getConfiguredFeatures()-&gt;get($feature)</code>
-    </MixedArgument>
     <MixedArrayAssignment occurrences="7">
       <code>$this-&gt;differences[self::ADDED][]</code>
       <code>$this-&gt;differences[self::ADDED][]</code>
@@ -370,16 +294,6 @@
       <code>$this-&gt;differences[self::REMOVED][]</code>
       <code>$this-&gt;differences[self::REMOVED][]</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="8">
-      <code>$configuredFeature</code>
-      <code>$existentFeature</code>
-      <code>$feature</code>
-      <code>$feature</code>
-      <code>$featureName</code>
-      <code>$newSubscribedPack</code>
-      <code>$price</code>
-      <code>$price</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="2">
       <code>\Symfony\Component\Form\FormBuilderInterface</code>
       <code>array</code>
@@ -448,18 +362,6 @@
     <MismatchingDocblockReturnType occurrences="1">
       <code>mixed</code>
     </MismatchingDocblockReturnType>
-    <MixedArgument occurrences="1">
-      <code>$netPrice</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="7">
-      <code>$feature</code>
-      <code>$grossPrice</code>
-      <code>$grossPrice</code>
-      <code>$netPrice</code>
-      <code>$netPrice</code>
-      <code>$netPrice</code>
-      <code>$populatingFeatures[]</code>
-    </MixedAssignment>
     <MixedMethodCall occurrences="2">
       <code>getPrice</code>
       <code>getPrice</code>
@@ -482,18 +384,10 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Model/Feature/AbstractFeature.php">
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;type</code>
-    </MixedAssignment>
     <NoInterfaceProperties occurrences="2">
       <code>$this-&gt;name</code>
       <code>$this-&gt;type</code>
     </NoInterfaceProperties>
-  </file>
-  <file src="src/Model/Feature/AbstractFeaturePack.php">
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;numOfUnits</code>
-    </MixedAssignment>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
     <InvalidDocblock occurrences="3">
@@ -509,10 +403,6 @@
       <code>$countables</code>
       <code>$rechargeables</code>
     </MissingPropertyType>
-    <MixedAssignment occurrences="2">
-      <code>$details</code>
-      <code>$element</code>
-    </MixedAssignment>
     <MixedClone occurrences="1">
       <code>clone $element</code>
     </MixedClone>
@@ -530,12 +420,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredCountableFeature.php">
-    <MixedArgument occurrences="1">
-      <code>$details['packs']</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;refreshPeriod</code>
-    </MixedAssignment>
     <NoInterfaceProperties occurrences="1">
       <code>$this-&gt;refreshPeriod</code>
     </NoInterfaceProperties>
@@ -567,10 +451,6 @@
       <code>protected function getCountableFeatures(): \Countable</code>
       <code>protected function getRechargeableFeatures(): \Countable</code>
     </InvalidDocblock>
-    <MixedAssignment occurrences="2">
-      <code>$feature</code>
-      <code>$feature</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="3">
       <code>ConfiguredFeaturesCollection&amp;ConfiguredBooleanFeature[]</code>
       <code>ConfiguredFeaturesCollection&amp;ConfiguredCountableFeature[]</code>
@@ -583,14 +463,6 @@
     </MixedReturnStatement>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeature.php">
-    <MixedArgument occurrences="3">
-      <code>$details['gross_unitary_price']</code>
-      <code>$details['net_unitary_price']</code>
-      <code>$details['packs']</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;freeRecharge</code>
-    </MixedAssignment>
     <ParamNameMismatch occurrences="1">
       <code>$class</code>
     </ParamNameMismatch>
@@ -613,11 +485,6 @@
       <code>$billingCycles['monthly']</code>
       <code>$billingCycles['yearly']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
-      <code>$amount</code>
-      <code>$amount</code>
-      <code>$billingCycles</code>
-    </MixedAssignment>
     <RedundantConditionGivenDocblockType occurrences="2">
       <code>null !== $this-&gt;grossPrices</code>
       <code>null !== $this-&gt;netPrices</code>
@@ -632,9 +499,6 @@
     <LessSpecificImplementedReturnType occurrences="1">
       <code>array</code>
     </LessSpecificImplementedReturnType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;subscription</code>
-    </MixedArgument>
     <MixedInferredReturnType occurrences="1">
       <code>?ConfiguredFeaturePackInterface</code>
     </MixedInferredReturnType>
@@ -656,9 +520,6 @@
     <MissingReturnType occurrences="1">
       <code>setPrices</code>
     </MissingReturnType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;$pricesProperty</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="6">
       <code>$price[SubscriptionInterface::MONTHLY]</code>
       <code>$price[SubscriptionInterface::MONTHLY]</code>
@@ -678,15 +539,6 @@
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="7">
-      <code>$amount</code>
-      <code>$amount</code>
-      <code>$currency</code>
-      <code>$price</code>
-      <code>$prices</code>
-      <code>$setPrices</code>
-      <code>$subscriptionInterval</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="2">
       <code>MoneyInterface</code>
       <code>MoneyInterface|null</code>
@@ -711,17 +563,10 @@
       <code>1 + $rate</code>
       <code>1 + $rate</code>
     </InvalidOperand>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;$pricesProperty</code>
-    </MixedArgument>
     <MixedArrayOffset occurrences="2">
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="2">
-      <code>$currency</code>
-      <code>$price</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>MoneyInterface|null</code>
     </MixedInferredReturnType>
@@ -752,12 +597,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
-    <MixedArgument occurrences="4">
-      <code>$details[SubscribedCountableFeature::FIELD_SUBSCRIBED_PACK]</code>
-      <code>$details[SubscribedCountableFeature::REMAINED_QUANTITY]</code>
-      <code>$details[self::FIELD_LAST_REFRESH_ON]['date']</code>
-      <code>$details[self::FIELD_LAST_REFRESH_ON]['timezone']</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$details[self::FIELD_LAST_REFRESH_ON]['date']</code>
       <code>$details[self::FIELD_LAST_REFRESH_ON]['timezone']</code>
@@ -805,19 +644,10 @@
     </MixedReturnStatement>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
-    <MixedArgument occurrences="3">
-      <code>$details['remained_quantity']</code>
-      <code>$this-&gt;lastRechargeOn['date']</code>
-      <code>$this-&gt;lastRechargeOn['timezone']</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$this-&gt;lastRechargeOn['date']</code>
       <code>$this-&gt;lastRechargeOn['timezone']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
-      <code>$this-&gt;lastRechargeOn</code>
-      <code>$this-&gt;lastRechargeQuantity</code>
-    </MixedAssignment>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$rechargingPack</code>
     </PropertyNotSetInConstructor>
@@ -837,22 +667,10 @@
       <code>recalculateTotal</code>
       <code>setHeader</code>
     </MissingReturnType>
-    <MixedArgument occurrences="3">
-      <code>$line</code>
-      <code>$lineId</code>
-      <code>$section['_header']</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="2">
       <code>$section['_header']</code>
       <code>$section['_lines']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
-      <code>$line</code>
-      <code>$lineId</code>
-      <code>$return</code>
-      <code>$return</code>
-      <code>$section</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="9">
       <code>?InvoiceSection</code>
       <code>?InvoiceSectionHeader</code>
@@ -924,19 +742,8 @@
       <code>$taxName</code>
       <code>$taxRate</code>
     </MissingConstructor>
-    <MixedArgument occurrences="5">
-      <code>$data[self::FIELD_CURRENCY]</code>
-      <code>$data[self::FIELD_CURRENCY]</code>
-      <code>$data[self::FIELD_DESCRIPTION]</code>
-      <code>$data[self::FIELD_TAX_NAME]</code>
-      <code>$data[self::FIELD_TAX_RATE]</code>
-    </MixedArgument>
   </file>
   <file src="src/Model/InvoiceSection.php">
-    <MixedAssignment occurrences="2">
-      <code>$line</code>
-      <code>$lines[$lineId]</code>
-    </MixedAssignment>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -950,11 +757,6 @@
       <code>\is_int($id)</code>
       <code>null !== $this-&gt;header</code>
     </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Model/InvoiceSectionHeader.php">
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;header</code>
-    </MixedAssignment>
   </file>
   <file src="src/Model/Subscription.php">
     <MissingReturnType occurrences="3">
