@@ -262,7 +262,7 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
-			count: 1
+			count: 4
 			path: src/Manager/FeaturesManager.php
 
 		-
@@ -348,6 +348,16 @@ parameters:
 		-
 			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
 			count: 1
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Cannot call method containsKey\\(\\) on array\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\FeatureInterface\\.$#"
+			count: 2
+			path: src/Manager/FeaturesManager.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on array\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\FeatureInterface\\.$#"
+			count: 2
 			path: src/Manager/FeaturesManager.php
 
 		-
@@ -442,6 +452,11 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Manager\\\\InvoicesManager\\:\\:buildPopulatingFeatures\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Manager/InvoicesManager.php
+
+		-
+			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
 			path: src/Manager/InvoicesManager.php
 
