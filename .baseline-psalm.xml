@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.4.1@9fd7a7d885b3a216cff8dec9d8c21a132f275224">
+<files psalm-version="4.5.1@257a1ca672a79dedc852be1285a7b97154646418">
   <file src="src/DependencyInjection/Configuration.php">
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
@@ -240,11 +240,6 @@
       <code>$this-&gt;currencyFormatter</code>
     </UninitializedProperty>
   </file>
-  <file src="src/InvoiceDrawer/InvoiceDrawerInterface.php">
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>mixed</code>
-    </MismatchingDocblockReturnType>
-  </file>
   <file src="src/InvoiceDrawer/PlainTextDrawer.php">
     <ImplicitToStringCast occurrences="4">
       <code>$invoice-&gt;getGrossTotal()-&gt;getCurrency()</code>
@@ -359,9 +354,6 @@
     <InvalidReturnType occurrences="1">
       <code>InvoiceDrawerInterface</code>
     </InvalidReturnType>
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>mixed</code>
-    </MismatchingDocblockReturnType>
     <MixedMethodCall occurrences="2">
       <code>getPrice</code>
       <code>getPrice</code>
@@ -520,7 +512,8 @@
     <MissingReturnType occurrences="1">
       <code>setPrices</code>
     </MissingReturnType>
-    <MixedArrayAccess occurrences="6">
+    <MixedArrayAccess occurrences="7">
+      <code>$instantPrices[$currency][$subscriptionInterval]</code>
       <code>$price[SubscriptionInterface::MONTHLY]</code>
       <code>$price[SubscriptionInterface::MONTHLY]</code>
       <code>$price[SubscriptionInterface::YEARLY]</code>
