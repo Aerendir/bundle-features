@@ -27,6 +27,6 @@ final class SHQFeaturesBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [\Safe\realpath(__DIR__ . '/Model')]));
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [\Safe\realpath(__DIR__ . '/Model')]), 0, 0);
     }
 }

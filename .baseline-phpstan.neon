@@ -527,7 +527,7 @@ parameters:
 
 		-
 			message: "#^Offset string does not exist on array\\|null\\.$#"
-			count: 3
+			count: 2
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
@@ -597,7 +597,7 @@ parameters:
 
 		-
 			message: "#^Offset string does not exist on array\\|null\\.$#"
-			count: 3
+			count: 2
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
@@ -1144,4 +1144,9 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:forceFeaturesUpdate\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Model/SubscriptionInterface.php
+
+		-
+			message: "#^Parameter \\#2 \\$type of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:addCompilerPass\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: src/SHQFeaturesBundle.php
 

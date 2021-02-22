@@ -64,7 +64,7 @@ trait HasConfiguredPacksProperty
             }
 
             // If the subscription is set, set it in the pack, too (maybe the pack doesn't have a subscription property, so check for it)
-            if ($pack instanceof HasRecurringPricesInterface && isset($this->subscription) && null !== $this->subscription) {
+            if ($pack instanceof HasRecurringPricesInterface && (property_exists($this, 'subscription') && null !== $this->subscription) && null !== $this->subscription) {
                 $pack->setSubscription($this->subscription);
             }
 
