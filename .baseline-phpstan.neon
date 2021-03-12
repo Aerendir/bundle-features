@@ -346,11 +346,6 @@ parameters:
 			path: src/Manager/FeaturesManager.php
 
 		-
-			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
-			count: 1
-			path: src/Manager/FeaturesManager.php
-
-		-
 			message: "#^Cannot call method containsKey\\(\\) on array\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\FeatureInterface\\.$#"
 			count: 2
 			path: src/Manager/FeaturesManager.php
@@ -431,8 +426,8 @@ parameters:
 			path: src/Manager/InvoicesManager.php
 
 		-
-			message: "#^Multiple PHPDoc @var tags above single variable assignment are not supported\\.$#"
-			count: 3
+			message: "#^Cannot call method getPrice\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturePackInterface\\|null\\.$#"
+			count: 4
 			path: src/Manager/InvoicesManager.php
 
 		-
