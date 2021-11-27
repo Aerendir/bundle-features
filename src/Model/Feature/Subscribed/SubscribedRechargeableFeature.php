@@ -54,8 +54,10 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRechargeOn(): \DateTime
+    public function getLastRechargeOn(): \DateTimeInterface
     {
         return $this->lastRechargeOn;
     }

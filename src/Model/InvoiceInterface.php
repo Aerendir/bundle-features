@@ -89,7 +89,10 @@ interface InvoiceInterface extends \JsonSerializable
 
     public function getCurrency(): Currency;
 
-    public function getIssuedOn(): \DateTime;
+    /**
+     * @return \DateTime|\DateTimeImmutable
+     */
+    public function getIssuedOn(): \DateTimeInterface;
 
     public function getGrossTotal(): MoneyInterface;
 

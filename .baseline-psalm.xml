@@ -382,6 +382,13 @@
     </NoInterfaceProperties>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
+    <ConstructorSignatureMismatch occurrences="2">
+      <code>$kind</code>
+      <code>public function __construct(string $kind, ?array $elements = [])</code>
+    </ConstructorSignatureMismatch>
+    <ImplementedParamTypeMismatch occurrences="1">
+      <code>$kind</code>
+    </ImplementedParamTypeMismatch>
     <InvalidDocblock occurrences="3">
       <code>protected $booleans;</code>
       <code>protected $countables;</code>
@@ -438,11 +445,20 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
+    <ConstructorSignatureMismatch occurrences="1">
+      <code>$elements</code>
+    </ConstructorSignatureMismatch>
+    <ImplementedParamTypeMismatch occurrences="1">
+      <code>$elements</code>
+    </ImplementedParamTypeMismatch>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
       <code>protected function getRechargeableFeatures(): \Countable</code>
     </InvalidDocblock>
+    <MethodSignatureMismatch occurrences="1">
+      <code>public function __construct(array $elements = [])</code>
+    </MethodSignatureMismatch>
     <MixedInferredReturnType occurrences="3">
       <code>ConfiguredFeaturesCollection&amp;ConfiguredBooleanFeature[]</code>
       <code>ConfiguredFeaturesCollection&amp;ConfiguredCountableFeature[]</code>
@@ -539,9 +555,6 @@
     <PossiblyNullArrayAssignment occurrences="1">
       <code>$instantPrices[$currency]</code>
     </PossiblyNullArrayAssignment>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>null === $this-&gt;subscription-&gt;getSubscribedOn()</code>
-    </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/Feature/Property/HasUnatantumPricesInterface.php">
     <UndefinedDocblockClass occurrences="2">
@@ -604,9 +617,6 @@
       <code>$lastRefreshOn</code>
       <code>SubscribedCountableFeature</code>
     </PropertyNotSetInConstructor>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>null === $this-&gt;getLastRefreshOn()</code>
-    </TypeDoesNotContainNull>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
@@ -620,11 +630,20 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
+    <ConstructorSignatureMismatch occurrences="1">
+      <code>$elements</code>
+    </ConstructorSignatureMismatch>
+    <ImplementedParamTypeMismatch occurrences="1">
+      <code>$elements</code>
+    </ImplementedParamTypeMismatch>
     <InvalidDocblock occurrences="3">
       <code>protected function getBooleanFeatures(): \Countable</code>
       <code>protected function getCountableFeatures(): \Countable</code>
       <code>protected function getRechargeableFeatures(): \Countable</code>
     </InvalidDocblock>
+    <MethodSignatureMismatch occurrences="1">
+      <code>public function __construct(array $elements = [])</code>
+    </MethodSignatureMismatch>
     <MixedInferredReturnType occurrences="3">
       <code>SubscribedFeaturesCollection&amp;SubscribedBooleanFeature[]</code>
       <code>SubscribedFeaturesCollection&amp;SubscribedCountableFeature[]</code>
@@ -770,10 +789,13 @@
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;getFeatures()-&gt;get($feature)-&gt;isStillActive()</code>
     </MixedReturnStatement>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="3">
+    <PossiblyInvalidPropertyAssignmentValue occurrences="6">
       <code>$nextRefreshOn</code>
       <code>$nextRenewOn</code>
       <code>$subscribedOn</code>
+      <code>clone $this-&gt;getNextRenewOn()-&gt;modify('+1 month')</code>
+      <code>clone $this-&gt;getNextRenewOn()-&gt;modify('+1 year')</code>
+      <code>self::calculateActiveUntil($this-&gt;getRenewInterval())</code>
     </PossiblyInvalidPropertyAssignmentValue>
     <TooManyTemplateParams occurrences="1">
       <code>array|SubscribedFeaturesCollection</code>
