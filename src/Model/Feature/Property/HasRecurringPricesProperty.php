@@ -183,6 +183,7 @@ trait HasRecurringPricesProperty
                             $netPrice                                            = (int) \round($price->getBaseAmount() * (1 + $rate));
                             $netPrice                                            = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
+
                             break;
                         // If currently is "gross"...
                         case FeatureInterface::PRICE_GROSS:
@@ -190,6 +191,7 @@ trait HasRecurringPricesProperty
                             $grossPrice                                        = (int) \round($price->getBaseAmount() / (1 + $rate));
                             $grossPrice                                        = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
                             $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
+
                             break;
                     }
                 }
@@ -252,10 +254,12 @@ trait HasRecurringPricesProperty
             case SubscriptionInterface::MONTHLY:
                 // Our ideal month is ever of 31 days
                 $daysInInterval = 31;
+
                 break;
             case SubscriptionInterface::YEARLY:
                 // Our ideal year is ever of 365 days
                 $daysInInterval = 365;
+
                 break;
             default:
                 throw new \InvalidArgumentException(\Safe\sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));

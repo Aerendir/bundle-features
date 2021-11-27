@@ -110,10 +110,12 @@ abstract class Subscription implements SubscriptionInterface
         switch ($interval) {
             case SubscriptionInterface::MONTHLY:
                 $activeUntil->modify('+1 month');
+
                 break;
 
             case SubscriptionInterface::YEARLY:
                 $activeUntil->modify('+1 year');
+
                 break;
         }
 

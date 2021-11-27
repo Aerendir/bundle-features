@@ -116,6 +116,7 @@ trait HasUnatantumPricesProperty
                         $netPrice                     = (int) \round($price->getBaseAmount() * (1 + $rate));
                         $netPrice                     = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
+
                         break;
                     // If currently is "gross"...
                     case FeatureInterface::PRICE_GROSS:
@@ -123,6 +124,7 @@ trait HasUnatantumPricesProperty
                         $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
                         $grossPrice                 = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
+
                         break;
                 }
             }

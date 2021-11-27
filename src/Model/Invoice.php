@@ -186,9 +186,11 @@ abstract class Invoice implements InvoiceInterface
                 }
 
                 $this->sections[$id] = $section;
+
                 break;
             case 'NULL':
                 $this->sections[] = $section;
+
                 break;
             default:
                 throw new \InvalidArgumentException(\Safe\sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));

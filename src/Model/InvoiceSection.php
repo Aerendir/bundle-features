@@ -81,9 +81,11 @@ final class InvoiceSection implements \JsonSerializable
                 }
 
                 $this->lines[$id] = $line;
+
                 break;
             case 'NULL':
                 $this->lines[] = $line;
+
                 break;
             default:
                 throw new \InvalidArgumentException(\Safe\sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
@@ -122,7 +124,7 @@ final class InvoiceSection implements \JsonSerializable
     }
 
     /**
-     * @param string| int $id
+     * @param int|string $id
      *
      * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found
      */

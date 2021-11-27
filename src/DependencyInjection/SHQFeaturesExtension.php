@@ -57,6 +57,7 @@ final class SHQFeaturesExtension extends Extension
             case 'plain_text':
                 $drawerDefinition  = new Definition(PlainTextDrawer::class, [$translatorReference, $locale]);
                 $drawerServiceName = 'shq_features.drawer.plain_text';
+
                 break;
             default:
                 throw new \RuntimeException('The type of drawer "%s" is not recognized.');

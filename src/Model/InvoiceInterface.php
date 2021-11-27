@@ -57,7 +57,7 @@ interface InvoiceInterface extends \JsonSerializable
     public function hasLine($id): bool;
 
     /**
-     * @param string| int $id
+     * @param int|string $id
      *
      * @return bool|InvoiceLine The removed InvoiceLine or false if it isn't found
      */
