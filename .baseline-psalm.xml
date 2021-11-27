@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.4@97fe86c4e158b5a57c5150aa5055c38b5a809aab">
+<files psalm-version="4.13.1@5cf660f63b548ccd4a56f62d916ee4d6028e01a3">
   <file src="src/DependencyInjection/Configuration.php">
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
@@ -156,11 +156,17 @@
     <PossiblyUndefinedMethod occurrences="1">
       <code>children</code>
     </PossiblyUndefinedMethod>
+    <UnusedVariable occurrences="1">
+      <code>$currency</code>
+    </UnusedVariable>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
     <MixedArrayAccess occurrences="1">
       <code>$config['invoices']['drawers']</code>
     </MixedArrayAccess>
+    <PossiblyInvalidCast occurrences="1">
+      <code>$locale</code>
+    </PossiblyInvalidCast>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
     <InvalidNullableReturnType occurrences="1">
@@ -183,6 +189,10 @@
       <code>$enabled</code>
       <code>$feature</code>
     </MoreSpecificImplementedParamType>
+    <ParamNameMismatch occurrences="2">
+      <code>$enabled</code>
+      <code>$feature</code>
+    </ParamNameMismatch>
     <RedundantCondition occurrences="1">
       <code>false</code>
     </RedundantCondition>
@@ -192,12 +202,20 @@
       <code>$feature</code>
       <code>$pack</code>
     </MoreSpecificImplementedParamType>
+    <ParamNameMismatch occurrences="2">
+      <code>$feature</code>
+      <code>$pack</code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
     <MoreSpecificImplementedParamType occurrences="2">
       <code>$features</code>
       <code>$features</code>
     </MoreSpecificImplementedParamType>
+    <ParamNameMismatch occurrences="2">
+      <code>$features</code>
+      <code>$features</code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
     <InvalidScalarArgument occurrences="1">
@@ -207,6 +225,10 @@
       <code>$feature</code>
       <code>$pack</code>
     </MoreSpecificImplementedParamType>
+    <ParamNameMismatch occurrences="2">
+      <code>$feature</code>
+      <code>$pack</code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Form/Type/FeaturesType.php">
     <ArgumentTypeCoercion occurrences="3">
@@ -228,9 +250,19 @@
     <PossiblyNullReference occurrences="1">
       <code>isStillActive</code>
     </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="4">
+      <code>getInstantPrice</code>
+      <code>getInstantPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+    </PossiblyUndefinedMethod>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
+    <UnnecessaryVarAnnotation occurrences="2">
+      <code>ConfiguredCountableFeature</code>
+      <code>ConfiguredRechargeableFeature</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/InvoiceDrawer/AbstractInvoiceDrawer.php">
     <PropertyNotSetInConstructor occurrences="1">
@@ -263,10 +295,9 @@
       <code>$line-&gt;getNetAmount()-&gt;getHumanAmount()</code>
       <code>$this-&gt;tableWidth - \round(35 % $this-&gt;tableWidth)</code>
     </InvalidScalarArgument>
-    <PossiblyFalseOperand occurrences="3">
+    <PossiblyFalseOperand occurrences="2">
       <code>\iconv_strlen($equalsSeparatorShort)</code>
       <code>\iconv_strlen($totalGrossAmount)</code>
-      <code>\mb_strtoupper($this-&gt;getTranslator()-&gt;trans('shq_features.invoice.total.label', [], 'Invoice'))</code>
     </PossiblyFalseOperand>
     <PossiblyNullReference occurrences="2">
       <code>getHeader</code>
@@ -343,6 +374,12 @@
       <code>getInstantPrice</code>
       <code>isEnabled</code>
     </UndefinedInterfaceMethod>
+    <UnnecessaryVarAnnotation occurrences="4">
+      <code>SubscribedBooleanFeature</code>
+      <code>SubscribedCountableFeature</code>
+      <code>SubscribedCountableFeaturePack</code>
+      <code>SubscribedCountableFeaturePack</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Manager/InvoicesManager.php">
     <InvalidPropertyAssignmentValue occurrences="1">
@@ -364,6 +401,10 @@
       <code>getPrice</code>
       <code>getPrice</code>
     </PossiblyNullReference>
+    <PossiblyUndefinedMethod occurrences="2">
+      <code>getTaxName</code>
+      <code>getTaxRate</code>
+    </PossiblyUndefinedMethod>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$drawers</code>
       <code>$subscription</code>
@@ -374,6 +415,11 @@
       <code>getPrice</code>
       <code>getPrice</code>
     </UndefinedInterfaceMethod>
+    <UnnecessaryVarAnnotation occurrences="3">
+      <code>SubscribedBooleanFeature</code>
+      <code>SubscribedCountableFeature</code>
+      <code>SubscribedRechargeableFeature</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Model/Feature/AbstractFeature.php">
     <NoInterfaceProperties occurrences="2">
@@ -389,6 +435,11 @@
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$kind</code>
     </ImplementedParamTypeMismatch>
+    <InvalidCast occurrences="3">
+      <code>$kind</code>
+      <code>$kind</code>
+      <code>$kind</code>
+    </InvalidCast>
     <InvalidDocblock occurrences="3">
       <code>protected $booleans;</code>
       <code>protected $countables;</code>
@@ -469,6 +520,9 @@
       <code>$this-&gt;countables</code>
       <code>$this-&gt;rechargeables</code>
     </MixedReturnStatement>
+    <UnnecessaryVarAnnotation occurrences="1">
+      <code>ConfiguredCountableFeature|HasRecurringPricesInterface|HasUnatantumPricesInterface</code>
+    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeature.php">
     <ParamNameMismatch occurrences="1">
@@ -497,6 +551,9 @@
       <code>null !== $this-&gt;grossPrices</code>
       <code>null !== $this-&gt;netPrices</code>
     </RedundantConditionGivenDocblockType>
+    <UnusedVariable occurrences="1">
+      <code>$currency</code>
+    </UnusedVariable>
   </file>
   <file src="src/Model/Feature/Property/CanHaveFreePackProperty.php">
     <RedundantConditionGivenDocblockType occurrences="1">
@@ -569,6 +626,9 @@
       <code>1 + $rate</code>
       <code>1 + $rate</code>
     </InvalidOperand>
+    <MixedArrayAssignment occurrences="1">
+      <code>$this-&gt;$priceProperty[$currency]</code>
+    </MixedArrayAssignment>
     <MixedArrayOffset occurrences="2">
       <code>$this-&gt;grossPrices[$currency]</code>
       <code>$this-&gt;netPrices[$currency]</code>
@@ -587,15 +647,9 @@
     </PossiblyInvalidPropertyAssignmentValue>
   </file>
   <file src="src/Model/Feature/Subscribed/AbstractSubscribedFeature.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$this-&gt;configuredFeature</code>
-    </LessSpecificReturnStatement>
     <MissingReturnType occurrences="1">
       <code>setConfiguredFeature</code>
     </MissingReturnType>
-    <MoreSpecificReturnType occurrences="1">
-      <code>ConfiguredFeatureInterface</code>
-    </MoreSpecificReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedBooleanFeature.php">
     <PropertyNotSetInConstructor occurrences="1">
@@ -771,6 +825,12 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
+    <InvalidReturnStatement occurrences="1">
+      <code>$this-&gt;features</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>SubscribedFeaturesCollection</code>
+    </InvalidReturnType>
     <MissingReturnType occurrences="3">
       <code>checkIntervalExists</code>
       <code>forceFeaturesUpdate</code>
@@ -782,13 +842,17 @@
     <MixedMethodCall occurrences="1">
       <code>isStillActive</code>
     </MixedMethodCall>
-    <MixedPropertyTypeCoercion occurrences="2">
-      <code>$features</code>
-      <code>new SubscribedFeaturesCollection($this-&gt;features)</code>
-    </MixedPropertyTypeCoercion>
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;getFeatures()-&gt;get($feature)-&gt;isStillActive()</code>
     </MixedReturnStatement>
+    <ParamNameMismatch occurrences="2">
+      <code>$nextRenewOn</code>
+      <code>$renewInterval</code>
+    </ParamNameMismatch>
+    <PossiblyInvalidClone occurrences="2">
+      <code>clone $this-&gt;features</code>
+      <code>clone $this-&gt;features</code>
+    </PossiblyInvalidClone>
     <PossiblyInvalidPropertyAssignmentValue occurrences="6">
       <code>$nextRefreshOn</code>
       <code>$nextRenewOn</code>
@@ -797,9 +861,6 @@
       <code>clone $this-&gt;getNextRenewOn()-&gt;modify('+1 year')</code>
       <code>self::calculateActiveUntil($this-&gt;getRenewInterval())</code>
     </PossiblyInvalidPropertyAssignmentValue>
-    <TooManyTemplateParams occurrences="1">
-      <code>array|SubscribedFeaturesCollection</code>
-    </TooManyTemplateParams>
   </file>
   <file src="src/Model/SubscriptionInterface.php">
     <MissingReturnType occurrences="2">
