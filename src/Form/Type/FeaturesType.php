@@ -64,16 +64,19 @@ final class FeaturesType extends AbstractType
                 case ConfiguredBooleanFeature::class:
                     $builder->add($configuredFeature->getName(), CheckboxType::class, $this->getBooleanFeatureOptions($options[self::OPTION_SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new BooleanFeatureTransformer($configuredFeature->getName(), $subscribedFeatures));
+
                     break;
                 case ConfiguredCountableFeature::class:
                     /** @var ConfiguredCountableFeature $configuredFeature */
                     $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getCountableFeaturePacksOptions($options[self::OPTION_SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new CountableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
+
                     break;
                 case ConfiguredRechargeableFeature::class:
                     /** @var ConfiguredRechargeableFeature $configuredFeature */
                     $builder->add($configuredFeature->getName(), ChoiceType::class, $this->getRechargeableFeaturePacksOptions($options[self::OPTION_SUBSCRIPTION], $subscribedFeature));
                     $builder->get($configuredFeature->getName())->addModelTransformer(new RechargeableFeatureTransformer($configuredFeature->getName(), $subscribedFeatures, $configuredFeature->getPacks()));
+
                     break;
             }
         }

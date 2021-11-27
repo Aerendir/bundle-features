@@ -171,6 +171,7 @@ final class InvoicesManager
                      */
                     $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                     $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
+
                     break;
                 case SubscribedCountableFeature::class:
                     /**
@@ -183,6 +184,7 @@ final class InvoicesManager
                     $grossPrice = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                     $netPrice   = $configuredFeature->getPack($feature->getSubscribedPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
                     $quantity   = $feature->getSubscribedPack()->getNumOfUnits();
+
                     break;
                 case SubscribedRechargeableFeature::class:
                     /**
@@ -195,6 +197,7 @@ final class InvoicesManager
                     $grossPrice = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_GROSS);
                     $netPrice   = $configuredFeature->getPack($feature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_NET);
                     $quantity   = $feature->getRechargingPack()->getNumOfUnits();
+
                     break;
             }
 

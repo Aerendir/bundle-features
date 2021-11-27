@@ -56,14 +56,17 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                     switch ($details[FeatureInterface::FIELD_TYPE]) {
                         case FeatureInterface::TYPE_BOOLEAN:
                             $elements[$feature] = FeaturesFactory::createBoolean($kind, $feature, $details);
+
                             break;
 
                         case FeatureInterface::TYPE_COUNTABLE:
                             $elements[$feature] = FeaturesFactory::createCountable($kind, $feature, $details);
+
                             break;
 
                         case FeatureInterface::TYPE_RECHARGEABLE:
                             $elements[$feature] = FeaturesFactory::createRechargeable($kind, $feature, $details);
+
                             break;
 
                         default:
