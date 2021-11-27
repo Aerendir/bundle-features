@@ -224,12 +224,15 @@ final class Configuration implements ConfigurationInterface
         switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $this->validateBoolean($set, $feature, $config);
+
                 break;
             case FeatureInterface::TYPE_COUNTABLE:
                 $this->validateCountable($set, $feature, $config);
+
                 break;
             case FeatureInterface::TYPE_RECHARGEABLE:
                 $this->validateRechargeable($set, $feature, $config);
+
                 break;
         }
     }
@@ -305,6 +308,7 @@ final class Configuration implements ConfigurationInterface
                     case self::RECURRING:
                         // Validate the price
                         $this->validateRecurringPrice($set, $feature . '.packs.' . $numOfUnits, $price);
+
                         break;
                     case self::UNATANTUM:
                         // If this is a free package
@@ -315,6 +319,7 @@ final class Configuration implements ConfigurationInterface
 
                         // Validate the price
                         $this->validateUnatantumPrice($set, $feature . '.packs.' . $numOfUnits, $price);
+
                         break;
                 }
 
@@ -392,12 +397,15 @@ final class Configuration implements ConfigurationInterface
         switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $result = $this->processBoolean($config);
+
                 break;
             case FeatureInterface::TYPE_COUNTABLE:
                 $result = $this->processCountable($config);
+
                 break;
             case FeatureInterface::TYPE_RECHARGEABLE:
                 $result = $this->processRechargeable($config);
+
                 break;
         }
 
@@ -479,9 +487,11 @@ final class Configuration implements ConfigurationInterface
                     if (false === $subscriptionHasFreePackage) {
                         $subscriptionHasFreePackage = $this->recurringFeatureHasFreePackage($prices);
                     }
+
                     break;
                 case self::UNATANTUM:
                     $packs[$numOfUnits] = $this->processUnatantumPrice($prices);
+
                     break;
             }
         }
@@ -513,7 +523,7 @@ final class Configuration implements ConfigurationInterface
     {
         foreach ($prices as $currency => $localizedPrices) {
             $monthly = $localizedPrices[SubscriptionInterface::MONTHLY] ?? null;
-            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
+            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY]  ?? null;
 
             // If this is a free package
             if (0 !== $monthly || 0 !== $yearly) {

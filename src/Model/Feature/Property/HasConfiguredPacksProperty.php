@@ -58,6 +58,7 @@ trait HasConfiguredPacksProperty
                 case ConfiguredCountableFeaturePack::class:
                     /** @var ConfiguredFeaturePackInterface $pack */
                     $pack = new $packClass($numOfUnits, $prices, $pricesType);
+
                     break;
                 default:
                     throw new \RuntimeException(\Safe\sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
