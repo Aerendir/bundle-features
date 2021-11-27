@@ -206,7 +206,7 @@ trait HasRecurringPricesProperty
         $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
         $setPrices        = $this->$priceProperty;
 
-        if (0 < \count($settingPrices)) {
+        if ([] !== $settingPrices) {
             foreach ($settingPrices as $currency => $price) {
                 $currency = new Currency($currency);
 

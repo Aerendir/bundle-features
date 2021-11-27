@@ -260,8 +260,10 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getIssuedOn(): \DateTime
+    public function getIssuedOn(): \DateTimeInterface
     {
         return $this->issuedOn;
     }

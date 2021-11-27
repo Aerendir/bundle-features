@@ -25,7 +25,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRecha
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
-    const KIND = null;
+    public const KIND = null;
 
     /** @var ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]|SubscribedFeaturesCollection&SubscribedBooleanFeature[]|null $booleans
      * @var null */
@@ -49,7 +49,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             $elements = [];
         }
 
-        if (0 < \count($elements)) {
+        if ([] !== $elements) {
             foreach ($elements as $feature => $details) {
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
                 if (\is_array($details)) {

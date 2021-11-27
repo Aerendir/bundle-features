@@ -102,7 +102,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public static function calculateActiveUntil(string $interval): \DateTime
+    public static function calculateActiveUntil(string $interval): \DateTimeInterface
     {
         self::checkIntervalExists($interval);
 
@@ -191,8 +191,10 @@ abstract class Subscription implements SubscriptionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getNextRenewOn(): \DateTime
+    public function getNextRenewOn(): \DateTimeInterface
     {
         if (null === $this->nextRenewOn) {
             $this->nextRenewOn = self::calculateActiveUntil($this->getRenewInterval());
@@ -206,7 +208,10 @@ abstract class Subscription implements SubscriptionInterface
         return $this->smallestRefreshInterval;
     }
 
-    public function getNextRefreshOn(): ?\DateTime
+    /**
+     * @return \DateTime|\DateTimeImmutable|null
+     */
+    public function getNextRefreshOn(): ?\DateTimeInterface
     {
         return $this->nextRefreshOn;
     }
@@ -214,7 +219,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubscribedOn(): \DateTime
+    public function getSubscribedOn(): \DateTimeInterface
     {
         if (null === $this->subscribedOn) {
             $this->subscribedOn = new \DateTime();

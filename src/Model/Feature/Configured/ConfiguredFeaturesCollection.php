@@ -19,7 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
 final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
-    const KIND = 'configured';
+    public const KIND = 'configured';
 
     /** @var bool $taxSet */
     private $taxSet = false;

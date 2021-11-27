@@ -85,8 +85,10 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRefreshOn(): \DateTime
+    public function getLastRefreshOn(): \DateTimeInterface
     {
         return $this->lastRefreshOn;
     }
