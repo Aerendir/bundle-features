@@ -1,6 +1,6 @@
 name: PHPStan
 
-on: [ push, pull_request ]
+on: [ push ]
 
 jobs:
     phpstan:
@@ -10,7 +10,6 @@ jobs:
             matrix:
                 os: [ ubuntu-latest ]
                 php: [ '7.3', '7.4', '8.0' ]
-                composer-flags: [ '--prefer-stable --prefer-lowest', '' ]
                 symfony: [ '~4.4', '~5.2' ]
 
         steps:
@@ -37,16 +36,17 @@ jobs:
 
             -   name: Fix Symfony version
                 run: |
-                    composer req symfony/flex --no-scripts
+                    composer req symfony/flex --no-update
                     composer config extra.symfony.require "${{ matrix.symfony }}"
 
             -   name: Remove Rector
                 run: |
-                    composer rem rector/rector --dev --no-scripts
+                    composer rem rector/rector --dev --no-update
 
             -   name: Install Composer deps
                 run: |
-                    composer update ${{ matrix.composer-flags }} --no-interaction  --no-scripts
+                    composer update --no-interaction  --no-scripts
+                    composer bin phpunit update
 
             -   name: Remove Kernel.php
                 run: |
