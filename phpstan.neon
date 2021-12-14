@@ -17,3 +17,8 @@ parameters:
         - tests
     excludePaths:
         - */src/DependencyInjection/Configuration.php
+        - */src/Form/DataTransformer/AbstractFeatureTransformer.php
+        - */src/Form/Type/FeaturesType.php
+        - */src/Manager/FeaturesManager.php
+        - */src/Manager/InvoicesManager.php
+        - */src/Model/Subscription.php
