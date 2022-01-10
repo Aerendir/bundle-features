@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -77,7 +78,7 @@ final class InvoiceSection implements \JsonSerializable
             case 'string':
             case 'integer':
                 if ($this->hasLine($id)) {
-                    throw new \LogicException(\Safe\sprintf('The section "%s" already exists. You cannot add it again', $id));
+                    throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
                 }
 
                 $this->lines[$id] = $line;
@@ -88,7 +89,7 @@ final class InvoiceSection implements \JsonSerializable
 
                 break;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
+                throw new \InvalidArgumentException(sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
         }
 
         // Set the new Total
@@ -117,7 +118,7 @@ final class InvoiceSection implements \JsonSerializable
     public function hasLine($id): bool
     {
         if (false === \is_string($id) && false === \is_int($id)) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id)));
+            throw new \InvalidArgumentException(sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id)));
         }
 
         return isset($this->lines[$id]);

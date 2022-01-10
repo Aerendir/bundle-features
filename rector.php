@@ -48,6 +48,10 @@ return static function (ContainerConfigurator $containerConfigurator) : void {
     $containerConfigurator->import(SetList::SAFE_07);
     $containerConfigurator->import(SetList::TYPE_DECLARATION);
 
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+    $parameters->set(Option::IMPORT_DOC_BLOCKS, true);
+    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
+
     $parameters->set(
         Option::SKIP,
         [

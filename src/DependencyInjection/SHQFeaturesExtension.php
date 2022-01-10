@@ -14,6 +14,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\PlainTextDrawer;
 use SerendipityHQ\Bundle\FeaturesBundle\Manager\FeaturesManager;
 use SerendipityHQ\Bundle\FeaturesBundle\Manager\InvoicesManager;
+use SerendipityHQ\Component\ArrayWriter\ArrayWriter;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -32,7 +33,7 @@ final class SHQFeaturesExtension extends Extension
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
 
-        $arrayWriterDefinition = new Definition(\SerendipityHQ\Component\ArrayWriter\ArrayWriter::class);
+        $arrayWriterDefinition = new Definition(ArrayWriter::class);
         $formFactoryReference  = new Reference('form.factory');
         $translatorReference   = new Reference('translator.default');
         $locale                = $container->getParameter('locale');

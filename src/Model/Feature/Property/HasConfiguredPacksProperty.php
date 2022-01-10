@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
@@ -61,7 +62,7 @@ trait HasConfiguredPacksProperty
 
                     break;
                 default:
-                    throw new \RuntimeException(\Safe\sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
+                    throw new \RuntimeException(sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
             }
 
             // If the subscription is set, set it in the pack, too (maybe the pack doesn't have a subscription property, so check for it)

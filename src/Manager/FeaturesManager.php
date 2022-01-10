@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
@@ -32,6 +33,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 /**
@@ -254,13 +256,13 @@ final class FeaturesManager
         }
 
         if (self::ADDED !== $type && self::REMOVED !== $type && null !== $type) {
-            throw new \InvalidArgumentException(\Safe\sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
+            throw new \InvalidArgumentException(sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
         }
 
         return null === $type ? $this->differences : $this->differences[$type];
     }
 
-    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): \Symfony\Component\Form\FormBuilderInterface
+    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): FormBuilderInterface
     {
         // Generate this form only once
         static $form = null;

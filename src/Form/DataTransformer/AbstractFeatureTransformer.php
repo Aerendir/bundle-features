@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatureInterface;
@@ -48,7 +49,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         }
 
         if (false === isset($this->configuredPacks[$pack])) {
-            throw new \RuntimeException(\Safe\sprintf('The requested pack "%s" doesn\'t exist', $pack));
+            throw new \RuntimeException(sprintf('The requested pack "%s" doesn\'t exist', $pack));
         }
 
         return $this->configuredPacks[$pack];

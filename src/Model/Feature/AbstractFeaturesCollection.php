@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
@@ -42,7 +43,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     public function __construct(string $kind, ?array $elements = [])
     {
         if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+            throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
         if (null === $elements) {
@@ -70,7 +71,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                             break;
 
                         default:
-                            throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE]));
+                            throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE]));
                     }
                 }
             }
@@ -91,7 +92,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     private function getFeatureClass(string $kind, string $type): string
     {
         if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+            throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
         switch ($type) {
@@ -102,7 +103,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             case FeatureInterface::TYPE_RECHARGEABLE:
                 return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredRechargeableFeature::class : SubscribedRechargeableFeature::class;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $type));
+                throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $type));
         }
     }
 

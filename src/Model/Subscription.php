@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -128,7 +129,7 @@ abstract class Subscription implements SubscriptionInterface
     public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval)) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
+            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
         }
     }
 
