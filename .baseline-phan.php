@@ -30,8 +30,6 @@ return [
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanCompatiblePHP7 : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
-    // PhanRedefinedClassReference : 1 occurrence
-    // PhanRedefinedExtendedClass : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
     // PhanTypeMismatchDimFetch : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
@@ -54,7 +52,7 @@ return [
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
         'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal'],
         'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchDimFetch', 'PhanTypeMismatchPropertyProbablyReal', 'PhanWriteOnlyPrivateProperty'],
-        'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanImpossibleIntersectionType', 'PhanRedefinedClassReference', 'PhanRedefinedExtendedClass', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
+        'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanImpossibleIntersectionType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
         'src/Model/Feature/Configured/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Configured/ConfiguredFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedProtectedMethod'],
         'src/Model/Feature/Configured/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
