@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -102,7 +103,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public static function calculateActiveUntil(string $interval): \DateTime
+    public static function calculateActiveUntil(string $interval): \DateTimeInterface
     {
         self::checkIntervalExists($interval);
 
@@ -110,10 +111,12 @@ abstract class Subscription implements SubscriptionInterface
         switch ($interval) {
             case SubscriptionInterface::MONTHLY:
                 $activeUntil->modify('+1 month');
+
                 break;
 
             case SubscriptionInterface::YEARLY:
                 $activeUntil->modify('+1 year');
+
                 break;
         }
 
@@ -126,7 +129,7 @@ abstract class Subscription implements SubscriptionInterface
     public static function checkIntervalExists(string $interval)
     {
         if (false === self::intervalExists($interval)) {
-            throw new \InvalidArgumentException(\Safe\sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
+            throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
         }
     }
 
@@ -191,8 +194,10 @@ abstract class Subscription implements SubscriptionInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getNextRenewOn(): \DateTime
+    public function getNextRenewOn(): \DateTimeInterface
     {
         if (null === $this->nextRenewOn) {
             $this->nextRenewOn = self::calculateActiveUntil($this->getRenewInterval());
@@ -206,7 +211,10 @@ abstract class Subscription implements SubscriptionInterface
         return $this->smallestRefreshInterval;
     }
 
-    public function getNextRefreshOn(): ?\DateTime
+    /**
+     * @return \DateTime|\DateTimeImmutable|null
+     */
+    public function getNextRefreshOn(): ?\DateTimeInterface
     {
         return $this->nextRefreshOn;
     }
@@ -214,7 +222,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * {@inheritdoc}
      */
-    public function getSubscribedOn(): \DateTime
+    public function getSubscribedOn(): \DateTimeInterface
     {
         if (null === $this->subscribedOn) {
             $this->subscribedOn = new \DateTime();

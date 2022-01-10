@@ -27,7 +27,10 @@ interface SubscriptionInterface
     public const MONTHLY  = 'monthly';
     public const YEARLY   = 'yearly';
 
-    public static function calculateActiveUntil(string $interval): \DateTime;
+    /**
+     * @return \DateTime|\DateTimeImmutable
+     */
+    public static function calculateActiveUntil(string $interval): \DateTimeInterface;
 
     /**
      * @throws \InvalidArgumentException If the $interval does not exist
@@ -59,20 +62,27 @@ interface SubscriptionInterface
 
     public function getSmallestRefreshInterval(): ?string;
 
-    public function getNextRefreshOn(): ?\DateTime;
+    /**
+     * @return \DateTime|\DateTimeImmutable|null
+     */
+    public function getNextRefreshOn(): ?\DateTimeInterface;
 
     /**
      * If the date of the next payment is not set, use the creation date.
      * If it is not set, is because this is a new subscription, so the next payment is immediate.
      *
      * The logic of the app will set this date one month or one year in the future.
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getNextRenewOn(): \DateTime;
+    public function getNextRenewOn(): \DateTimeInterface;
 
     /**
      * The date on which the feature were subscribed on.
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getSubscribedOn(): \DateTime;
+    public function getSubscribedOn(): \DateTimeInterface;
 
     public function has(string $feature): bool;
 

@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <psalm
-    phpVersion="7.3"
+    phpVersion="7.4"
     cacheDirectory="./var/cache/psalm"
-    allowPhpStormGenerics="true"
     checkForThrowsDocblock="true"
     hideExternalErrors="true"
     ignoreInternalFunctionNullReturn="false"
@@ -33,6 +32,8 @@
 
         <!-- Causes issues on CI -->
         <InvalidArgument errorLevel="suppress" />
+        <MixedAssignment errorLevel="suppress" />
+        <MixedArgument errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
@@ -126,7 +127,7 @@ trait HasRecurringPricesProperty
             case FeatureInterface::PRICE_NET:
                 return $this->netPrices;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
+                throw new \InvalidArgumentException(sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
         }
     }
 
@@ -183,6 +184,7 @@ trait HasRecurringPricesProperty
                             $netPrice                                            = (int) \round($price->getBaseAmount() * (1 + $rate));
                             $netPrice                                            = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
+
                             break;
                         // If currently is "gross"...
                         case FeatureInterface::PRICE_GROSS:
@@ -190,6 +192,7 @@ trait HasRecurringPricesProperty
                             $grossPrice                                        = (int) \round($price->getBaseAmount() / (1 + $rate));
                             $grossPrice                                        = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
                             $this->netPrices[$currency][$subscriptionInterval] = $grossPrice;
+
                             break;
                     }
                 }
@@ -206,7 +209,7 @@ trait HasRecurringPricesProperty
         $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';
         $setPrices        = $this->$priceProperty;
 
-        if (0 < \count($settingPrices)) {
+        if ([] !== $settingPrices) {
             foreach ($settingPrices as $currency => $price) {
                 $currency = new Currency($currency);
 
@@ -252,13 +255,15 @@ trait HasRecurringPricesProperty
             case SubscriptionInterface::MONTHLY:
                 // Our ideal month is ever of 31 days
                 $daysInInterval = 31;
+
                 break;
             case SubscriptionInterface::YEARLY:
                 // Our ideal year is ever of 365 days
                 $daysInInterval = 365;
+
                 break;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
+                throw new \InvalidArgumentException(sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval));
         }
 
         $pricePerDay = (int) \floor($price->getBaseAmount() / $daysInInterval);

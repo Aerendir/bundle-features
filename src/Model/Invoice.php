@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
@@ -175,23 +176,25 @@ abstract class Invoice implements InvoiceInterface
     public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface
     {
         if ($this->getCurrency()->getCode() !== $section->getCurrency()->getCode()) {
-            throw new \LogicException(\Safe\sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this->getCurrency()->getCode(), $section->getCurrency()->getCode()));
+            throw new \LogicException(sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this->getCurrency()->getCode(), $section->getCurrency()->getCode()));
         }
 
         switch (\gettype($id)) {
             case 'string':
             case 'integer':
                 if ($this->hasSection($id)) {
-                    throw new \LogicException(\Safe\sprintf('The section "%s" already exists. You cannot add it again', $id));
+                    throw new \LogicException(sprintf('The section "%s" already exists. You cannot add it again', $id));
                 }
 
                 $this->sections[$id] = $section;
+
                 break;
             case 'NULL':
                 $this->sections[] = $section;
+
                 break;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
+                throw new \InvalidArgumentException(sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id)));
         }
 
         // Set the new Total
@@ -227,7 +230,7 @@ abstract class Invoice implements InvoiceInterface
     public function hasSection($id): bool
     {
         if (false === \is_string($id) && false === \is_int($id)) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id)));
+            throw new \InvalidArgumentException(sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id)));
         }
 
         return isset($this->sections[$id]);
@@ -260,8 +263,10 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getIssuedOn(): \DateTime
+    public function getIssuedOn(): \DateTimeInterface
     {
         return $this->issuedOn;
     }

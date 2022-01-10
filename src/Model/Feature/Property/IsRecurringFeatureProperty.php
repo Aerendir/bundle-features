@@ -28,8 +28,10 @@ trait IsRecurringFeatureProperty
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable|null
      */
-    public function getActiveUntil(): ?\DateTime
+    public function getActiveUntil(): ?\DateTimeInterface
     {
         return $this->activeUntil;
     }

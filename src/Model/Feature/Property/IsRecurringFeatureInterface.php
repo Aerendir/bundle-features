@@ -19,8 +19,10 @@ interface IsRecurringFeatureInterface
 
     /**
      * The date until which the feature is active.
+     *
+     * @return \DateTime|\DateTimeImmutable|null
      */
-    public function getActiveUntil(): ?\DateTime;
+    public function getActiveUntil(): ?\DateTimeInterface;
 
     public function isStillActive(): bool;
 

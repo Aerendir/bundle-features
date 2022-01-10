@@ -11,6 +11,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
@@ -47,7 +49,7 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
     public function toArray(): array
     {
         return \array_merge([
-            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL => json_decode(json_encode($this->getActiveUntil(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
             CanBeEnabledInterface::FIELD_ENABLED            => $this->isEnabled(),
         ], parent::toArray());
     }

@@ -13,6 +13,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
@@ -187,7 +188,7 @@ final class Configuration implements ConfigurationInterface
     private function validateInvoiceDrawer(string $drawer): void
     {
         if (false === \in_array($drawer, self::ALLOWED_DRAWERS)) {
-            throw new InvalidConfigurationException(\Safe\sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
+            throw new InvalidConfigurationException(sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
         }
 
         if ('plain_text' === $drawer && false === \class_exists(PHPTextMatrix::class)) {
@@ -224,12 +225,15 @@ final class Configuration implements ConfigurationInterface
         switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $this->validateBoolean($set, $feature, $config);
+
                 break;
             case FeatureInterface::TYPE_COUNTABLE:
                 $this->validateCountable($set, $feature, $config);
+
                 break;
             case FeatureInterface::TYPE_RECHARGEABLE:
                 $this->validateRechargeable($set, $feature, $config);
+
                 break;
         }
     }
@@ -278,7 +282,7 @@ final class Configuration implements ConfigurationInterface
         $currencies = new ISOCurrencies();
         $currency   = new Currency($currency);
         if (false === $currencies->contains($currency)) {
-            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency));
+            throw new InvalidConfigurationException(sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency));
         }
     }
 
@@ -286,7 +290,7 @@ final class Configuration implements ConfigurationInterface
     {
         // At least one subscription period has to be set
         if (null === $subscriptions[SubscriptionInterface::MONTHLY] && null === $subscriptions[SubscriptionInterface::YEARLY]) {
-            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
+            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
         }
     }
 
@@ -298,23 +302,25 @@ final class Configuration implements ConfigurationInterface
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
                 if (false === \is_int($numOfUnits)) {
-                    throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits));
+                    throw new InvalidConfigurationException(sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits));
                 }
 
                 switch ($subscriptionType) {
                     case self::RECURRING:
                         // Validate the price
                         $this->validateRecurringPrice($set, $feature . '.packs.' . $numOfUnits, $price);
+
                         break;
                     case self::UNATANTUM:
                         // If this is a free package
                         if (empty($price)) {
                             // We have to throw an exception as RechargeableFeatures cannot have a free package (it is useless)
-                            throw new InvalidConfigurationException(\Safe\sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits));
+                            throw new InvalidConfigurationException(sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits));
                         }
 
                         // Validate the price
                         $this->validateUnatantumPrice($set, $feature . '.packs.' . $numOfUnits, $price);
+
                         break;
                 }
 
@@ -392,12 +398,15 @@ final class Configuration implements ConfigurationInterface
         switch ($config[FeatureInterface::FIELD_TYPE]) {
             case FeatureInterface::TYPE_BOOLEAN:
                 $result = $this->processBoolean($config);
+
                 break;
             case FeatureInterface::TYPE_COUNTABLE:
                 $result = $this->processCountable($config);
+
                 break;
             case FeatureInterface::TYPE_RECHARGEABLE:
                 $result = $this->processRechargeable($config);
+
                 break;
         }
 
@@ -479,9 +488,11 @@ final class Configuration implements ConfigurationInterface
                     if (false === $subscriptionHasFreePackage) {
                         $subscriptionHasFreePackage = $this->recurringFeatureHasFreePackage($prices);
                     }
+
                     break;
                 case self::UNATANTUM:
                     $packs[$numOfUnits] = $this->processUnatantumPrice($prices);
+
                     break;
             }
         }
@@ -513,7 +524,7 @@ final class Configuration implements ConfigurationInterface
     {
         foreach ($prices as $currency => $localizedPrices) {
             $monthly = $localizedPrices[SubscriptionInterface::MONTHLY] ?? null;
-            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY] ?? null;
+            $yearly  = $localizedPrices[SubscriptionInterface::YEARLY]  ?? null;
 
             // If this is a free package
             if (0 !== $monthly || 0 !== $yearly) {

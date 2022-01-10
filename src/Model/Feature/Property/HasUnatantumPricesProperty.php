@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
 use Money\Currency;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
@@ -80,7 +81,7 @@ trait HasUnatantumPricesProperty
             case FeatureInterface::PRICE_NET:
                 return $this->netPrices;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
+                throw new \InvalidArgumentException(sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type));
         }
     }
 
@@ -116,6 +117,7 @@ trait HasUnatantumPricesProperty
                         $netPrice                     = (int) \round($price->getBaseAmount() * (1 + $rate));
                         $netPrice                     = new Money([MoneyInterface::BASE_AMOUNT => $netPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->grossPrices[$currency] = $netPrice;
+
                         break;
                     // If currently is "gross"...
                     case FeatureInterface::PRICE_GROSS:
@@ -123,6 +125,7 @@ trait HasUnatantumPricesProperty
                         $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
                         $grossPrice                 = new Money([MoneyInterface::BASE_AMOUNT => $grossPrice, MoneyInterface::CURRENCY => $currency]);
                         $this->netPrices[$currency] = $grossPrice;
+
                         break;
                 }
             }

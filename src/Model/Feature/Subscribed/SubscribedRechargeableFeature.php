@@ -11,6 +11,9 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProperty;
 
@@ -54,8 +57,10 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 
     /**
      * {@inheritdoc}
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRechargeOn(): \DateTime
+    public function getLastRechargeOn(): \DateTimeInterface
     {
         return $this->lastRechargeOn;
     }
@@ -74,7 +79,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function getRechargingPack(): SubscribedRechargeableFeaturePack
     {
         if (false === $this->hasRechargingPack()) {
-            throw new \LogicException(\Safe\sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this->getName()));
+            throw new \LogicException(sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this->getName()));
         }
 
         return $this->rechargingPack;
@@ -117,7 +122,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     public function toArray(): array
     {
         return \array_merge([
-            'last_recharge_on'       => \Safe\json_decode(\Safe\json_encode($this->getLastRechargeOn()), true),
+            'last_recharge_on'       => json_decode(json_encode($this->getLastRechargeOn(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
             'last_recharge_quantity' => $this->getLastRechargeQuantity(),
         ], parent::toArray(), $this->consumedToArray());
     }

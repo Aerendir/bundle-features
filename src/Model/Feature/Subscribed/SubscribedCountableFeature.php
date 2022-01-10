@@ -11,6 +11,8 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
@@ -85,8 +87,10 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
+     *
+     * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRefreshOn(): \DateTime
+    public function getLastRefreshOn(): \DateTimeInterface
     {
         return $this->lastRefreshOn;
     }
@@ -201,9 +205,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         return \array_merge([
-            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL    => \Safe\json_decode(\Safe\json_encode($this->getActiveUntil()), true),
+            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL    => json_decode(json_encode($this->getActiveUntil(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
             self::FIELD_SUBSCRIBED_PACK                        => $subscribedPack->toArray(),
-            self::FIELD_LAST_REFRESH_ON                        => \Safe\json_decode(\Safe\json_encode($this->getLastRefreshOn()), true),
+            self::FIELD_LAST_REFRESH_ON                        => json_decode(json_encode($this->getLastRefreshOn(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
         ], parent::toArray(), $this->consumedToArray());
     }
 }

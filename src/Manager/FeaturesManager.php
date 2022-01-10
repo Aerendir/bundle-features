@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
@@ -32,6 +33,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
 /**
@@ -146,6 +148,7 @@ final class FeaturesManager
                         CanBeEnabledInterface::FIELD_ENABLED            => $details->isEnabled(),
                         IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL => false === $this->getConfiguredFeatures()->get($name)->isEnabled() ? null : $activeUntil,
                     ];
+
                     break;
                 case FeatureInterface::TYPE_COUNTABLE:
                     /** @var ConfiguredCountableFeature $details */
@@ -154,6 +157,7 @@ final class FeaturesManager
                         SubscribedCountableFeature::FIELD_SUBSCRIBED_PACK => [SubscribedCountableFeature::FIELD_SUBSCRIBED_NUM_OF_UNITS => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits()],
                         CanBeConsumedInterface::REMAINED_QUANTITY         => $this->getConfiguredFeatures()->get($name)->getFreePack()->getNumOfUnits(),
                     ];
+
                     break;
                 case FeatureInterface::TYPE_RECHARGEABLE:
                     /** @var ConfiguredRechargeableFeature $details */
@@ -163,6 +167,7 @@ final class FeaturesManager
                         'last_recharge_quantity'                  => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                         CanBeConsumedInterface::REMAINED_QUANTITY => $this->getConfiguredFeatures()->get($name)->getFreeRecharge(),
                     ];
+
                     break;
             }
         }
@@ -209,6 +214,7 @@ final class FeaturesManager
                             break;
                         }
                         $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
+
                         break;
                     case SubscribedCountableFeature::class:
                         // @todo Support unitary_prices for CountableFeatures https://github.com/Aerendir/bundle-features/issues/1
@@ -220,6 +226,7 @@ final class FeaturesManager
                              */
                             $price = $configuredFeature->getPack($checkingFeature->getSubscribedPack()->getNumOfUnits())->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                         }
+
                         break;
                     // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
                     case SubscribedRechargeableFeature::class:
@@ -229,6 +236,7 @@ final class FeaturesManager
                          * @var SubscribedRechargeableFeature
                          */
                         $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_GROSS);
+
                         break;
                 }
 
@@ -248,13 +256,13 @@ final class FeaturesManager
         }
 
         if (self::ADDED !== $type && self::REMOVED !== $type && null !== $type) {
-            throw new \InvalidArgumentException(\Safe\sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
+            throw new \InvalidArgumentException(sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type));
         }
 
         return null === $type ? $this->differences : $this->differences[$type];
     }
 
-    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): \Symfony\Component\Form\FormBuilderInterface
+    public function getFeaturesFormBuilder(string $actionUrl, SubscriptionInterface $subscription): FormBuilderInterface
     {
         // Generate this form only once
         static $form = null;
@@ -455,6 +463,7 @@ final class FeaturesManager
             if (false === $newFeatures->containsKey($oldFeature->getName())) {
                 // ... It was removed and in this case we can simply set it as removed as we don't need much details
                 $this->differences[self::REMOVED][] = $oldFeature->getName();
+
                 continue;
             }
 
@@ -470,6 +479,7 @@ final class FeaturesManager
                         // ... It was removed
                         $this->differences[self::REMOVED][] = $oldFeature->getName();
                     }
+
                     break;
                 // If is a CountableFeature...
                 case SubscribedCountableFeature::class:
@@ -494,6 +504,7 @@ final class FeaturesManager
                             $this->differences[self::REMOVED][] = [$oldFeature->getName() => $oldSubscribedPack->getNumOfUnits()];
                         }
                     }
+
                     break;
                 case SubscribedRechargeableFeature::class:
                     break;
@@ -521,16 +532,19 @@ final class FeaturesManager
                 case SubscribedBooleanFeature::class:
                     // ... we simply need its name
                     $featureDetails = $newFeature->getName();
+
                     break;
                 // If is a CountableFeature...
                 case SubscribedCountableFeature::class:
                     /** @var SubscribedCountableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getSubscribedPack()->getNumOfUnits()];
+
                     break;
                 // If is a CountableFeature...
                 case SubscribedRechargeableFeature::class:
                     /** @var SubscribedRechargeableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getRechargingPack()->getNumOfUnits()];
+
                     break;
             }
 
@@ -538,6 +552,7 @@ final class FeaturesManager
             if (false === $oldFeatures->containsKey($newFeature->getName())) {
                 // ... It was added for sure
                 $this->differences[self::ADDED][] = $featureDetails;
+
                 continue;
             }
 
@@ -555,6 +570,7 @@ final class FeaturesManager
                             // ... then, it was added
                             $this->differences[self::ADDED][] = $featureDetails;
                         }
+
                         break;
                     // If is a CountableFeature...
                     case SubscribedCountableFeature::class:
@@ -569,6 +585,7 @@ final class FeaturesManager
                             // ... the pack was removed (changed)
                             $this->differences[self::ADDED][] = $featureDetails;
                         }
+
                         break;
                     // If it is a RechargeableFeature...
                     case SubscribedRechargeableFeature::class:
@@ -577,6 +594,7 @@ final class FeaturesManager
                             // ... We are simply recharging the feature
                             $this->differences[self::ADDED][] = $featureDetails;
                         }
+
                         break;
                 }
             }
@@ -627,26 +645,31 @@ final class FeaturesManager
                 $this->getSubscription()->setNextRefreshOn(
                     clone $this->getSubscription()->getNextRefreshOn()->modify('+1 day')
                 );
+
                 break;
             case SubscriptionInterface::WEEKLY:
                 $this->getSubscription()->setNextRefreshOn(
                     clone $this->getSubscription()->getNextRefreshOn()->modify('+1 week')
                 );
+
                 break;
             case SubscriptionInterface::BIWEEKLY:
                 $this->getSubscription()->setNextRefreshOn(
                     clone $this->getSubscription()->getNextRefreshOn()->modify('+2 week')
                 );
+
                 break;
             case SubscriptionInterface::MONTHLY:
                 $this->getSubscription()->setNextRefreshOn(
                     clone $this->getSubscription()->getNextRefreshOn()->modify('+1 month')
                 );
+
                 break;
             case SubscriptionInterface::YEARLY:
                 $this->getSubscription()->setNextRefreshOn(
                     clone $this->getSubscription()->getNextRefreshOn()->modify('+1 year')
                 );
+
                 break;
         }
     }

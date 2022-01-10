@@ -12,6 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
@@ -25,7 +26,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRecha
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
-    const KIND = null;
+    public const KIND = null;
 
     /** @var ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]|SubscribedFeaturesCollection&SubscribedBooleanFeature[]|null $booleans
      * @var null */
@@ -42,32 +43,35 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     public function __construct(string $kind, ?array $elements = [])
     {
         if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+            throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
         if (null === $elements) {
             $elements = [];
         }
 
-        if (0 < \count($elements)) {
+        if ([] !== $elements) {
             foreach ($elements as $feature => $details) {
                 // Required as the Collection can be instantiated by the ArrayCollection::filter() method (see FeaturesHandler)
                 if (\is_array($details)) {
                     switch ($details[FeatureInterface::FIELD_TYPE]) {
                         case FeatureInterface::TYPE_BOOLEAN:
                             $elements[$feature] = FeaturesFactory::createBoolean($kind, $feature, $details);
+
                             break;
 
                         case FeatureInterface::TYPE_COUNTABLE:
                             $elements[$feature] = FeaturesFactory::createCountable($kind, $feature, $details);
+
                             break;
 
                         case FeatureInterface::TYPE_RECHARGEABLE:
                             $elements[$feature] = FeaturesFactory::createRechargeable($kind, $feature, $details);
+
                             break;
 
                         default:
-                            throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE]));
+                            throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE]));
                     }
                 }
             }
@@ -88,7 +92,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     private function getFeatureClass(string $kind, string $type): string
     {
         if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
-            throw new \InvalidArgumentException(\Safe\sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
+            throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
         switch ($type) {
@@ -99,7 +103,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
             case FeatureInterface::TYPE_RECHARGEABLE:
                 return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredRechargeableFeature::class : SubscribedRechargeableFeature::class;
             default:
-                throw new \InvalidArgumentException(\Safe\sprintf('Unknown feature of type "%s".', $type));
+                throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $type));
         }
     }
 

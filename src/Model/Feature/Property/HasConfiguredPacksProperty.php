@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
+use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
@@ -58,13 +59,14 @@ trait HasConfiguredPacksProperty
                 case ConfiguredCountableFeaturePack::class:
                     /** @var ConfiguredFeaturePackInterface $pack */
                     $pack = new $packClass($numOfUnits, $prices, $pricesType);
+
                     break;
                 default:
-                    throw new \RuntimeException(\Safe\sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
+                    throw new \RuntimeException(sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass));
             }
 
             // If the subscription is set, set it in the pack, too (maybe the pack doesn't have a subscription property, so check for it)
-            if ($pack instanceof HasRecurringPricesInterface && isset($this->subscription) && null !== $this->subscription) {
+            if ($pack instanceof HasRecurringPricesInterface && (property_exists($this, 'subscription') && null !== $this->subscription) && null !== $this->subscription) {
                 $pack->setSubscription($this->subscription);
             }
 
