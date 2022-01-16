@@ -28,15 +28,15 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     /** @var null */
     public const KIND = null;
 
-    /** @var ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]|SubscribedFeaturesCollection&SubscribedBooleanFeature[]|null $booleans
+    /** @var ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection|SubscribedBooleanFeature[]|SubscribedFeaturesCollection|null $booleans
      * @var null */
     protected $booleans;
 
-    /** @var ConfiguredFeaturesCollection&ConfiguredCountableFeature[]|SubscribedFeaturesCollection&SubscribedCountableFeature[]|null $countables
+    /** @var ConfiguredCountableFeature[]|ConfiguredFeaturesCollection|SubscribedCountableFeature[]|SubscribedFeaturesCollection|null $countables
      * @var null */
     protected $countables;
 
-    /** @var ConfiguredFeaturesCollection&ConfiguredRechargeableFeature[]|SubscribedFeaturesCollection&SubscribedRechargeableFeature[]|null $rechargeables
+    /** @var ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]|SubscribedFeaturesCollection|SubscribedRechargeableFeature[]|null $rechargeables
      * @var null */
     protected $rechargeables;
 

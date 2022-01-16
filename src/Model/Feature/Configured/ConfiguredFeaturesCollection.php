@@ -66,7 +66,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]
+     * @return ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection
      */
     protected function getBooleanFeatures(): \Countable
     {
@@ -79,7 +79,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredCountableFeature[]
+     * @return ConfiguredCountableFeature[]|ConfiguredFeaturesCollection
      */
     protected function getCountableFeatures(): \Countable
     {
@@ -92,7 +92,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredRechargeableFeature[]
+     * @return ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]
      */
     protected function getRechargeableFeatures(): \Countable
     {
