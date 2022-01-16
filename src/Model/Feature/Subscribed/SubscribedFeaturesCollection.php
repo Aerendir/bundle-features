@@ -52,7 +52,7 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedBooleanFeature[]
+     * @return SubscribedBooleanFeature[]|SubscribedFeaturesCollection
      */
     protected function getBooleanFeatures(): \Countable
     {
@@ -65,7 +65,7 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedCountableFeature[]
+     * @return SubscribedCountableFeature[]|SubscribedFeaturesCollection
      */
     protected function getCountableFeatures(): \Countable
     {
@@ -78,7 +78,7 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedRechargeableFeature[]
+     * @return SubscribedFeaturesCollection|SubscribedRechargeableFeature[]
      */
     protected function getRechargeableFeatures(): \Countable
     {

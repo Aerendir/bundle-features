@@ -433,19 +433,9 @@
       <code>$kind</code>
       <code>$kind</code>
     </InvalidCast>
-    <InvalidDocblock occurrences="3">
-      <code>protected $booleans;</code>
-      <code>protected $countables;</code>
-      <code>protected $rechargeables;</code>
-    </InvalidDocblock>
     <MissingClosureParamType occurrences="1">
       <code>$element</code>
     </MissingClosureParamType>
-    <MissingPropertyType occurrences="3">
-      <code>$booleans</code>
-      <code>$countables</code>
-      <code>$rechargeables</code>
-    </MissingPropertyType>
     <MixedClone occurrences="1">
       <code>clone $element</code>
     </MixedClone>
@@ -495,24 +485,19 @@
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$elements</code>
     </ImplementedParamTypeMismatch>
-    <InvalidDocblock occurrences="3">
-      <code>protected function getBooleanFeatures(): \Countable</code>
-      <code>protected function getCountableFeatures(): \Countable</code>
-      <code>protected function getRechargeableFeatures(): \Countable</code>
-    </InvalidDocblock>
     <MethodSignatureMismatch occurrences="1">
       <code>public function __construct(array $elements = [])</code>
     </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType occurrences="3">
+      <code>ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection</code>
+      <code>ConfiguredCountableFeature[]|ConfiguredFeaturesCollection</code>
+      <code>ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]</code>
+    </MismatchingDocblockReturnType>
     <MixedInferredReturnType occurrences="3">
-      <code>ConfiguredFeaturesCollection&amp;ConfiguredBooleanFeature[]</code>
-      <code>ConfiguredFeaturesCollection&amp;ConfiguredCountableFeature[]</code>
-      <code>ConfiguredFeaturesCollection&amp;ConfiguredRechargeableFeature[]</code>
+      <code>ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection</code>
+      <code>ConfiguredCountableFeature[]|ConfiguredFeaturesCollection</code>
+      <code>ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="3">
-      <code>$this-&gt;booleans</code>
-      <code>$this-&gt;countables</code>
-      <code>$this-&gt;rechargeables</code>
-    </MixedReturnStatement>
     <UnnecessaryVarAnnotation occurrences="1">
       <code>ConfiguredCountableFeature|HasRecurringPricesInterface|HasUnatantumPricesInterface</code>
     </UnnecessaryVarAnnotation>
@@ -683,24 +668,19 @@
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$elements</code>
     </ImplementedParamTypeMismatch>
-    <InvalidDocblock occurrences="3">
-      <code>protected function getBooleanFeatures(): \Countable</code>
-      <code>protected function getCountableFeatures(): \Countable</code>
-      <code>protected function getRechargeableFeatures(): \Countable</code>
-    </InvalidDocblock>
     <MethodSignatureMismatch occurrences="1">
       <code>public function __construct(array $elements = [])</code>
     </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType occurrences="3">
+      <code>SubscribedBooleanFeature[]|SubscribedFeaturesCollection</code>
+      <code>SubscribedCountableFeature[]|SubscribedFeaturesCollection</code>
+      <code>SubscribedFeaturesCollection|SubscribedRechargeableFeature[]</code>
+    </MismatchingDocblockReturnType>
     <MixedInferredReturnType occurrences="3">
-      <code>SubscribedFeaturesCollection&amp;SubscribedBooleanFeature[]</code>
-      <code>SubscribedFeaturesCollection&amp;SubscribedCountableFeature[]</code>
-      <code>SubscribedFeaturesCollection&amp;SubscribedRechargeableFeature[]</code>
+      <code>SubscribedBooleanFeature[]|SubscribedFeaturesCollection</code>
+      <code>SubscribedCountableFeature[]|SubscribedFeaturesCollection</code>
+      <code>SubscribedFeaturesCollection|SubscribedRechargeableFeature[]</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="3">
-      <code>$this-&gt;booleans</code>
-      <code>$this-&gt;countables</code>
-      <code>$this-&gt;rechargeables</code>
-    </MixedReturnStatement>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
     <MixedArrayAccess occurrences="2">
@@ -860,10 +840,5 @@
       <code>checkIntervalExists</code>
       <code>forceFeaturesUpdate</code>
     </MissingReturnType>
-  </file>
-  <file src="src/SHQFeaturesBundle.php">
-    <InvalidScalarArgument occurrences="1">
-      <code>0</code>
-    </InvalidScalarArgument>
   </file>
 </files>

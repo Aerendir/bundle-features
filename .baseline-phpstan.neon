@@ -126,21 +126,6 @@ parameters:
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
-			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredBooleanFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedBooleanFeature\\[\\]\\|null \\$booleans\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 64$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredCountableFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedCountableFeature\\[\\]\\|null \\$countables\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 66$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
-			message: "#^PHPDoc tag @var has invalid value \\(ConfiguredFeaturesCollection&ConfiguredRechargeableFeature\\[\\]\\|SubscribedFeaturesCollection&SubscribedRechargeableFeature\\[\\]\\|null \\$rechargeables\\)\\: Unexpected token \"\\|\", expected TOKEN_OTHER at offset 69$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -276,13 +261,23 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getBooleanFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^PHPDoc tag @return contains unresolvable type\\.$#"
-			count: 3
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getCountableFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\:\\:setSubscription\\(\\) return type has no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\.$#"
+			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
@@ -486,6 +481,21 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getBooleanFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getCountableFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:getRechargeableFeatures\\(\\) should return iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
@@ -493,11 +503,6 @@ parameters:
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
-
-		-
-			message: "#^PHPDoc tag @return contains unresolvable type\\.$#"
-			count: 3
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
@@ -729,9 +734,4 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\SubscriptionInterface\\:\\:setFeatures\\(\\) has parameter \\$features with no value type specified in iterable type SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\.$#"
 			count: 1
 			path: src/Model/SubscriptionInterface.php
-
-		-
-			message: "#^Parameter \\#2 \\$type of method Symfony\\\\Component\\\\DependencyInjection\\\\ContainerBuilder\\:\\:addCompilerPass\\(\\) expects string, int given\\.$#"
-			count: 1
-			path: src/SHQFeaturesBundle.php
 
