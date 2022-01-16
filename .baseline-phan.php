@@ -9,11 +9,11 @@
  */
 return [
     // # Issue statistics:
-    // PhanTypeMismatchArgument : 10+ occurrences
     // PhanTypeMismatchReturn : 10+ occurrences
+    // PhanTypeMismatchArgument : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
+    // PhanTypeMismatchDeclaredReturn : 8 occurrences
     // PhanUndeclaredProperty : 8 occurrences
-    // PhanImpossibleIntersectionType : 6 occurrences
     // PhanUndeclaredMethod : 6 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
     // PhanParamSignatureMismatch : 3 occurrences
@@ -21,7 +21,6 @@ return [
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanWriteOnlyPrivateProperty : 3 occurrences
-    // PhanTypeMismatchDeclaredReturn : 2 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyProbablyReal : 2 occurrences
     // PhanTypeMismatchReturnSuperType : 2 occurrences
@@ -52,9 +51,9 @@ return [
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
         'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal'],
         'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchDimFetch', 'PhanTypeMismatchPropertyProbablyReal', 'PhanWriteOnlyPrivateProperty'],
-        'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanImpossibleIntersectionType', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
+        'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
         'src/Model/Feature/Configured/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicFinalMethodParameter'],
-        'src/Model/Feature/Configured/ConfiguredFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedProtectedMethod'],
+        'src/Model/Feature/Configured/ConfiguredFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedProtectedMethod'],
         'src/Model/Feature/Configured/ConfiguredRechargeableFeature.php' => ['PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Property/CanBeConsumedProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Property/CanBeEnabledProperty.php' => ['PhanTypeMismatchReturn'],
@@ -67,13 +66,12 @@ return [
         'src/Model/Feature/Property/IsRecurringFeatureProperty.php' => ['PhanTypeMismatchReturn'],
         'src/Model/Feature/Subscribed/SubscribedBooleanFeature.php' => ['PhanUnreferencedPrivateProperty'],
         'src/Model/Feature/Subscribed/SubscribedCountableFeature.php' => ['ConstReferenceClassNotImported'],
-        'src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanUnreferencedProtectedMethod'],
+        'src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedProtectedMethod'],
         'src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php' => ['PhanWriteOnlyPrivateProperty'],
         'src/Model/Invoice.php' => ['PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyProbablyReal'],
         'src/Model/Subscription.php' => ['PhanParamSignatureMismatch'],
-        'src/SHQFeaturesBundle.php' => ['PhanTypeMismatchArgument'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
