@@ -191,6 +191,11 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
 		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:\\$packs is never written, only read\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:\\$packs type has no value type specified in iterable type array\\.$#"
 			count: 2
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
