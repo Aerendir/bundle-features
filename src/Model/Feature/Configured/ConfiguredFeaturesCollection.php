@@ -11,6 +11,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasRecurringPricesInterface;
@@ -68,7 +69,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @return ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection
      */
-    protected function getBooleanFeatures(): \Countable
+    protected function getBooleanFeatures(): ArrayCollection
     {
         if (null === $this->booleans) {
             // Cache the result
@@ -81,7 +82,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @return ConfiguredCountableFeature[]|ConfiguredFeaturesCollection
      */
-    protected function getCountableFeatures(): \Countable
+    protected function getCountableFeatures(): ArrayCollection
     {
         if (null === $this->countables) {
             // Cache the result
@@ -94,7 +95,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     /**
      * @return ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]
      */
-    protected function getRechargeableFeatures(): \Countable
+    protected function getRechargeableFeatures(): ArrayCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result

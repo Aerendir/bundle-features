@@ -40,10 +40,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class FeaturesType extends AbstractType
 {
     private const KEY_ATTR                  = 'attr';
+
     private const KEY_REQUIRED              = 'required';
+
     private const OPTION_SUBSCRIPTION       = 'subscription';
+
     private const DATA_FEATURE              = 'data-feature';
+
     private const DATA_INSTANT_AMOUNT_GROSS = 'data-gross-instant-amount';
+
     private const DATA_INSTANT_AMOUNT_NET   = 'data-net-instant-amount';
 
     /**

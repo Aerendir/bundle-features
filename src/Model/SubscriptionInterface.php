@@ -22,9 +22,13 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface SubscriptionInterface
 {
     public const DAILY    = 'daily';
+
     public const WEEKLY   = 'weekly';
+
     public const BIWEEKLY = 'biweekly';
+
     public const MONTHLY  = 'monthly';
+
     public const YEARLY   = 'yearly';
 
     /**

@@ -25,7 +25,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatur
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeaturePack;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
@@ -42,6 +41,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 final class FeaturesManager
 {
     private const ADDED   = 'added';
+
     private const REMOVED = 'removed';
 
     /** @var int[] */
@@ -52,6 +52,7 @@ final class FeaturesManager
         SubscriptionInterface::MONTHLY  => 3,
         SubscriptionInterface::YEARLY   => 4,
     ];
+
     /** @var ConfiguredFeaturesCollection $configuredFeatures */
     private $configuredFeatures;
 
@@ -93,9 +94,6 @@ final class FeaturesManager
         return $this->subscription;
     }
 
-    /**
-     * @return FeaturesManager
-     */
     public function setSubscription(SubscriptionInterface $subscription): self
     {
         $this->subscription = $subscription;
@@ -104,8 +102,6 @@ final class FeaturesManager
 
         /**
          * Set the Configured feature in each subscribed feature.
-         *
-         * @var SubscribedFeatureInterface
          */
         foreach ($subscription->getFeatures()->getValues() as $subscribedFeature) {
             $configuredFeature = $this->getConfiguredFeatures()->get($subscribedFeature->getName());
@@ -135,10 +131,6 @@ final class FeaturesManager
         $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
         $features    = [];
 
-        /**
-         * @var string
-         * @var ConfiguredBooleanFeature|ConfiguredCountableFeature|ConfiguredRechargeableFeature|FeatureInterface $details
-         */
         foreach ($this->getConfiguredFeatures() as $name => $details) {
             switch ($details->getType()) {
                 case FeatureInterface::TYPE_BOOLEAN:
@@ -178,10 +170,8 @@ final class FeaturesManager
     /**
      * @param SubscribedFeaturesCollection $newFeatures This comes from the form, not from the Subscription! The Subscription is
      *                                                  not yet synced with these new Features!
-     *
-     * @return Money
      */
-    public function calculateTotalChargesForNewFeatures(SubscribedFeaturesCollection $newFeatures)
+    public function calculateTotalChargesForNewFeatures(SubscribedFeaturesCollection $newFeatures): MoneyInterface
     {
         $totalCharges = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getSubscription()->getCurrency()]);
 
@@ -213,6 +203,7 @@ final class FeaturesManager
                             // If it continues to work as expected, remove this entire comment.
                             break;
                         }
+
                         $price = $configuredFeature->getInstantPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
 
                         break;
@@ -232,8 +223,6 @@ final class FeaturesManager
                     case SubscribedRechargeableFeature::class:
                         /**
                          * For the moment force the code to get the pack's instant price.
-                         *
-                         * @var SubscribedRechargeableFeature
                          */
                         $price = $configuredFeature->getPack($checkingFeature->getRechargingPack()->getNumOfUnits())->getPrice($this->getSubscription()->getCurrency(), FeatureInterface::PRICE_GROSS);
 
@@ -344,8 +333,6 @@ final class FeaturesManager
         if (null !== $newFeatures) {
             /**
              * Before all, update the features, setting the new enabled status or adding the feature if not already present.
-             *
-             * @var FeatureInterface
              */
             foreach ($newFeatures as $newFeature) {
                 $existentFeature = $this->getSubscription()->getFeatures()->get($newFeature->getName());
@@ -455,8 +442,6 @@ final class FeaturesManager
          * A feature is removed if:
          * 1. It was in the old collection but doesn't exist in the new collection;
          * 2. It was in the old collection and was enabled and is in the new collection but is not enabled
-         *
-         * @var FeatureInterface
          */
         foreach ($oldFeatures as $oldFeature) {
             // If the Feature is in the old collection but doesn't exist in the new collection...
@@ -485,15 +470,10 @@ final class FeaturesManager
                 case SubscribedCountableFeature::class:
                     /**
                      * ... and was in the old collection and in the new collection, too ...
-                     *
-                     * @var SubscribedCountableFeature
                      */
                     if (true === $newFeatures->containsKey($oldFeature->getName())) {
                         /**
                          * We first get the subscribed packages...
-                         *
-                         * @var SubscribedCountableFeaturePack
-                         * @var SubscribedCountableFeaturePack $newSubscribedPack
                          */
                         $oldSubscribedPack = $oldFeature->getSubscribedPack();
                         $newSubscribedPack = $newFeatures->get($oldFeature->getName())->getSubscribedPack();
@@ -517,8 +497,6 @@ final class FeaturesManager
          * A feature is added if:
          * 1. It was not in the old collection but exists in the new collection;
          * 2. It was in the old collection and was not enabled and is in the new collection too but is enabled
-         *
-         * @var SubscribedBooleanFeature|SubscribedCountableFeature|SubscribedRechargeableFeature
          */
         foreach ($newFeatures as $newFeature) {
             /*
@@ -634,6 +612,7 @@ final class FeaturesManager
                 $feature->refresh();
             }
         }
+
         $nextRefreshOn = $this->getSubscription()->getNextRefreshOn() ?? clone $this->getSubscription()->getSubscribedOn();
         $this->getSubscription()
             ->setSmallestRefreshInterval($refreshInterval)

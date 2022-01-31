@@ -446,6 +446,11 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
+			message: "#^PHPDoc tag @return with type DateTime\\|DateTimeImmutable is not subtype of native type DateTime\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:\\$activeUntil \\(DateTime\\) does not accept DateTime\\|DateTimeImmutable\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
@@ -461,7 +466,7 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between null and DateTime\\|DateTimeImmutable will always evaluate to false\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between null and DateTime will always evaluate to false\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -507,11 +512,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
-
-		-
-			message: "#^PHPDoc tag @var above foreach loop does not specify variable name\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 

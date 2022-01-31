@@ -131,7 +131,6 @@ trait HasUnatantumPricesProperty
             }
         }
 
-        /** @var $this HasUnatantumPricesInterface */
         return $this;
     }
 

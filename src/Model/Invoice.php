@@ -24,6 +24,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 abstract class Invoice implements InvoiceInterface
 {
     private const SECTION_DEFAULT = '_default';
+
     /**
      * @var Currency
      * @ORM\Column(name="currency", type="currency")

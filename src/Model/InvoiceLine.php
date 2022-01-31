@@ -23,11 +23,17 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 final class InvoiceLine implements \JsonSerializable
 {
     private const FIELD_CURRENCY     = 'currency';
+
     private const FIELD_GROSS_AMOUNT = 'gross_amount';
+
     private const FIELD_NET_AMOUNT   = 'net_amount';
+
     private const FIELD_DESCRIPTION  = 'description';
+
     private const FIELD_QUANTITY     = 'quantity';
+
     private const FIELD_TAX_NAME     = 'tax_name';
+
     private const FIELD_TAX_RATE     = 'tax_rate';
 
     /** @var MoneyInterface$grossAmount */
@@ -78,9 +84,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this->taxRate;
     }
 
-    /**
-     * @param MoneyInterface$grossAmount
-     */
     public function setGrossAmount(MoneyInterface $grossAmount): self
     {
         $this->grossAmount = $grossAmount;
@@ -88,9 +91,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param MoneyInterface$netAmount
-     */
     public function setNetAmount(MoneyInterface $netAmount): self
     {
         $this->netAmount = $netAmount;
@@ -105,9 +105,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
@@ -115,9 +112,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setTaxName(string $taxName): self
     {
         $this->taxName = $taxName;
@@ -125,9 +119,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setTaxRate(float $taxRate): self
     {
         $this->taxRate = $taxRate;

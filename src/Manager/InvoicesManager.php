@@ -12,10 +12,7 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
 use SerendipityHQ\Bundle\FeaturesBundle\InvoiceDrawer\InvoiceDrawerInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturesCollection;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
@@ -75,9 +72,6 @@ final class InvoicesManager
         return $this->subscription;
     }
 
-    /**
-     * @return InvoicesManager
-     */
     public function setSubscription(SubscriptionInterface $subscription): self
     {
         $this->subscription = $subscription;
@@ -85,9 +79,6 @@ final class InvoicesManager
         return $this;
     }
 
-    /**
-     * @return InvoicesManager
-     */
     public function addDrawer(string $name, InvoiceDrawerInterface $drawer): self
     {
         // If this is the default drawer
@@ -165,19 +156,12 @@ final class InvoicesManager
                 case SubscribedBooleanFeature::class:
                     /**
                      * The price is recurrent, so we need to pass the subscription interval.
-                     *
-                     * @var ConfiguredBooleanFeature
-                     * @var SubscribedBooleanFeature $feature
                      */
                     $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                     $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
 
                     break;
                 case SubscribedCountableFeature::class:
-                    /**
-                     * @var ConfiguredCountableFeature
-                     * @var SubscribedCountableFeature $feature
-                     */
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is recurrent, so we need to pass the subscription interval // @todo For the moment force the use of packs' prices
@@ -187,10 +171,6 @@ final class InvoicesManager
 
                     break;
                 case SubscribedRechargeableFeature::class:
-                    /**
-                     * @var ConfiguredRechargeableFeature
-                     * @var SubscribedRechargeableFeature $feature
-                     */
                     $configuredFeature = $this->getConfiguredFeatures()->get($feature->getName());
 
                     // The price is unatantum, so we don't need to pass the subscription interval // @todo For the moment force the use of packs' prices
@@ -234,8 +214,6 @@ final class InvoicesManager
              * These features are in the form [0 => [feature_name => 10]], as they have to tell the feature name and amount
              * bought while the other kind of features (Boolean and Countable) only tell the name of the feature and so
              * are in the form [0 => 'feature_name'].
-             *
-             * @var array|string
              */
             foreach ($addedFeatures as $feature) {
                 // If $feature is a Rechargeable one, we have to extract its name (that is the key of the deeper array)

@@ -17,6 +17,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 interface CanBeConsumedInterface
 {
     public const CONSUMED_QUANTITY = 'consumed_quantity';
+
     public const REMAINED_QUANTITY = 'remained_quantity';
 
     /**

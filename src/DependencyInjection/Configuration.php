@@ -30,15 +30,25 @@ final class Configuration implements ConfigurationInterface
 {
     /** @var string[] The allowed drawers */
     private const ALLOWED_DRAWERS = ['plain_text'];
+
     private const INVOICES        = 'invoices';
+
     private const DRAWERS         = 'drawers';
+
     private const SETS            = 'sets';
+
     private const DEFAULT_DRAWER  = 'default_drawer';
+
     private const FEATURES        = 'features';
+
     private const PRICE           = 'price';
+
     private const UNITARY_PRICE   = 'unitary_price';
+
     private const PACKS           = 'packs';
+
     private const RECURRING       = 'recurring';
+
     private const UNATANTUM       = 'unatantum';
 
     /** @var array $foundDrawers The drawers found as default ones in features sets */
@@ -389,10 +399,7 @@ final class Configuration implements ConfigurationInterface
         return $features;
     }
 
-    /**
-     * @return array
-     */
-    private function processFeatureConfig(array $config)
+    private function processFeatureConfig(array $config): array
     {
         $result = [];
         switch ($config[FeatureInterface::FIELD_TYPE]) {
@@ -473,10 +480,8 @@ final class Configuration implements ConfigurationInterface
 
     /**
      * @param $subscriptionType
-     *
-     * @return array
      */
-    private function processPackages(array $packs, $subscriptionType)
+    private function processPackages(array $packs, $subscriptionType): array
     {
         $subscriptionHasFreePackage = false;
         foreach ($packs as $numOfUnits => $prices) {

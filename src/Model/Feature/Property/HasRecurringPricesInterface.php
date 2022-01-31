@@ -21,6 +21,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 interface HasRecurringPricesInterface extends CanBeFreeInterface
 {
     public const FIELD_NET_PRICES   = 'net_prices';
+
     public const FIELD_GROSS_PRICES = 'gross_prices';
 
     /**

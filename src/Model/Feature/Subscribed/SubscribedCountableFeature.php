@@ -30,7 +30,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     use CanBeConsumedProperty;
 
     public const FIELD_LAST_REFRESH_ON         = 'last_refresh_on';
+
     public const FIELD_SUBSCRIBED_PACK         = 'subscribed_pack';
+
     public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
@@ -78,6 +80,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         if (null === $this->previousRemainedQuantity) {
             throw new \LogicException('You cannot use cumulate() before refreshing the subscription with refresh().');
         }
+
         $this->remainedQuantity = $this->getRemainedQuantity() + $this->previousRemainedQuantity;
 
         return $this;
@@ -90,7 +93,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
      *
      * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRefreshOn(): \DateTimeInterface
+    public function getLastRefreshOn(): \DateTime
     {
         return $this->lastRefreshOn;
     }

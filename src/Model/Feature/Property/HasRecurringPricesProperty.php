@@ -220,6 +220,7 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::MONTHLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
+
                     $setPrices[$currency->getCode()][SubscriptionInterface::MONTHLY] = $amount;
                 }
 
@@ -230,6 +231,7 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::YEARLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
+
                     $setPrices[$currency->getCode()][SubscriptionInterface::YEARLY] = $amount;
                 }
             }
@@ -243,6 +245,7 @@ trait HasRecurringPricesProperty
         if ( ! $this->subscription instanceof SubscriptionInterface) {
             throw new \RuntimeException('Before you can get instant prices you have to set a Subscription with setSubscription().');
         }
+
         $price = $this->getPrice($currency, $subscriptionInterval, $pricesType);
 
         // If the feature is not already subscribed or if it was subscribed today

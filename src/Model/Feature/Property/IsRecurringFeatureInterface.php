@@ -14,7 +14,9 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 interface IsRecurringFeatureInterface
 {
     public const FIELD_ACTIVE_UNTIL          = 'active_until';
+
     public const FIELD_ACTIVE_UNTIL_DATE     = 'date';
+
     public const FIELD_ACTIVE_UNTIL_TIMEZONE = 'timezone';
 
     /**

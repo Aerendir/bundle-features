@@ -231,10 +231,14 @@
     </ParamNameMismatch>
   </file>
   <file src="src/Form/Type/FeaturesType.php">
-    <ArgumentTypeCoercion occurrences="3">
+    <ArgumentTypeCoercion occurrences="7">
       <code>$subscribedFeature</code>
       <code>$subscribedFeature</code>
       <code>$subscribedFeature</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
     </ArgumentTypeCoercion>
     <InvalidOperand occurrences="1">
       <code>$result += (float) $sum</code>
@@ -250,15 +254,15 @@
     <PossiblyNullReference occurrences="1">
       <code>isStillActive</code>
     </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="4">
-      <code>getInstantPrice</code>
-      <code>getInstantPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
-    </PossiblyUndefinedMethod>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
+    <UndefinedInterfaceMethod occurrences="4">
+      <code>getInstantPrice</code>
+      <code>getInstantPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+    </UndefinedInterfaceMethod>
     <UnnecessaryVarAnnotation occurrences="2">
       <code>ConfiguredCountableFeature</code>
       <code>ConfiguredRechargeableFeature</code>
@@ -308,9 +312,6 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Manager/FeaturesManager.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$totalCharges</code>
-    </LessSpecificReturnStatement>
     <MixedArrayAssignment occurrences="7">
       <code>$this-&gt;differences[self::ADDED][]</code>
       <code>$this-&gt;differences[self::ADDED][]</code>
@@ -324,12 +325,20 @@
       <code>FormBuilderInterface</code>
       <code>array</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="16">
+    <MixedMethodCall occurrences="27">
       <code>$toggle</code>
       <code>getFreePack</code>
       <code>getFreePack</code>
       <code>getFreeRecharge</code>
       <code>getFreeRecharge</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
+      <code>getName</code>
       <code>getNumOfUnits</code>
       <code>getNumOfUnits</code>
       <code>getNumOfUnits</code>
@@ -337,18 +346,18 @@
       <code>getPrice</code>
       <code>getSubscribedPack</code>
       <code>getSubscribedPack</code>
+      <code>getType</code>
       <code>isEnabled</code>
       <code>isEnabled</code>
       <code>isEnabled</code>
       <code>isEnabled</code>
+      <code>isEnabled</code>
+      <code>setConfiguredFeature</code>
     </MixedMethodCall>
     <MixedReturnStatement occurrences="2">
       <code>$form</code>
       <code>null === $type ? $this-&gt;differences : $this-&gt;differences[$type]</code>
     </MixedReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>Money</code>
-    </MoreSpecificReturnType>
     <PossiblyNullReference occurrences="6">
       <code>getInstantPrice</code>
       <code>modify</code>
@@ -370,14 +379,12 @@
       <code>\is_array($feature)</code>
       <code>null !== $checkingFeature</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedInterfaceMethod occurrences="2">
+    <UndefinedInterfaceMethod occurrences="1">
       <code>getInstantPrice</code>
-      <code>isEnabled</code>
     </UndefinedInterfaceMethod>
-    <UnnecessaryVarAnnotation occurrences="4">
+    <UnnecessaryVarAnnotation occurrences="3">
       <code>SubscribedBooleanFeature</code>
       <code>SubscribedCountableFeature</code>
-      <code>SubscribedCountableFeaturePack</code>
       <code>SubscribedCountableFeaturePack</code>
     </UnnecessaryVarAnnotation>
   </file>
@@ -391,35 +398,26 @@
     <InvalidReturnType occurrences="1">
       <code>InvoiceDrawerInterface</code>
     </InvalidReturnType>
-    <MixedMethodCall occurrences="2">
+    <MixedMethodCall occurrences="10">
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
       <code>getPrice</code>
       <code>getPrice</code>
     </MixedMethodCall>
-    <PossiblyNullReference occurrences="4">
-      <code>getPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
-    </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="2">
-      <code>getTaxName</code>
-      <code>getTaxRate</code>
-    </PossiblyUndefinedMethod>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$drawers</code>
       <code>$subscription</code>
     </PropertyNotSetInConstructor>
-    <UndefinedInterfaceMethod occurrences="4">
-      <code>getPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
+    <UndefinedInterfaceMethod occurrences="2">
+      <code>getTaxName</code>
+      <code>getTaxRate</code>
     </UndefinedInterfaceMethod>
-    <UnnecessaryVarAnnotation occurrences="3">
-      <code>SubscribedBooleanFeature</code>
-      <code>SubscribedCountableFeature</code>
-      <code>SubscribedRechargeableFeature</code>
-    </UnnecessaryVarAnnotation>
   </file>
   <file src="src/Model/Feature/AbstractFeature.php">
     <NoInterfaceProperties occurrences="2">
@@ -635,10 +633,16 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
+    <MismatchingDocblockReturnType occurrences="1">
+      <code>\DateTime|\DateTimeImmutable</code>
+    </MismatchingDocblockReturnType>
     <MixedArrayAccess occurrences="2">
       <code>$details[self::FIELD_LAST_REFRESH_ON]['date']</code>
       <code>$details[self::FIELD_LAST_REFRESH_ON]['timezone']</code>
     </MixedArrayAccess>
+    <MixedInferredReturnType occurrences="1">
+      <code>\DateTime|\DateTimeImmutable</code>
+    </MixedInferredReturnType>
     <PossiblyInvalidMethodCall occurrences="1">
       <code>toArray</code>
     </PossiblyInvalidMethodCall>
@@ -676,11 +680,17 @@
       <code>SubscribedCountableFeature[]|SubscribedFeaturesCollection</code>
       <code>SubscribedFeaturesCollection|SubscribedRechargeableFeature[]</code>
     </MismatchingDocblockReturnType>
+    <MixedArrayOffset occurrences="1">
+      <code>$return[$featureName]</code>
+    </MixedArrayOffset>
     <MixedInferredReturnType occurrences="3">
       <code>SubscribedBooleanFeature[]|SubscribedFeaturesCollection</code>
       <code>SubscribedCountableFeature[]|SubscribedFeaturesCollection</code>
       <code>SubscribedFeaturesCollection|SubscribedRechargeableFeature[]</code>
     </MixedInferredReturnType>
+    <MixedMethodCall occurrences="1">
+      <code>toArray</code>
+    </MixedMethodCall>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
     <MixedArrayAccess occurrences="2">
@@ -770,10 +780,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/InvoiceLine.php">
-    <InvalidDocblock occurrences="2">
-      <code>public function setGrossAmount(MoneyInterface $grossAmount): self</code>
-      <code>public function setNetAmount(MoneyInterface $netAmount): self</code>
-    </InvalidDocblock>
     <MissingConstructor occurrences="5">
       <code>$description</code>
       <code>$grossAmount</code>
