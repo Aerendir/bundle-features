@@ -33,6 +33,7 @@
         <InvalidArgument errorLevel="suppress" />
         <MixedAssignment errorLevel="suppress" />
         <MixedArgument errorLevel="suppress" />
+        <UndefinedDocblockClass errorLevel="suppress" />
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
