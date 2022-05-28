@@ -18,8 +18,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 final class InvoiceSectionHeader implements \JsonSerializable
 {
-    /** @var string $header */
-    private $header;
+    private string $header;
 
     public function __construct(string $header)
     {

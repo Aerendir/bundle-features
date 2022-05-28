@@ -24,13 +24,11 @@ use Symfony\Component\Form\DataTransformerInterface;
 abstract class AbstractFeatureTransformer implements DataTransformerInterface
 {
     /** @var array|null Used only by Countable and Rechargeable features */
-    private $configuredPacks;
+    private ?array $configuredPacks = null;
 
-    /** @var string $field */
-    private $featureName;
+    private string $featureName;
 
-    /** @var SubscribedFeaturesCollection|null $subscribedFeatures */
-    private $subscribedFeatures;
+    private ?SubscribedFeaturesCollection $subscribedFeatures;
 
     public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks = null)
     {
@@ -65,7 +63,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         return $this->getSubscribedFeatures()->get($this->getFeatureName());
     }
 
-    public function getSubscribedFeatures(): SubscribedFeaturesCollection
+    public function getSubscribedFeatures(): ?SubscribedFeaturesCollection
     {
         return $this->subscribedFeatures;
     }

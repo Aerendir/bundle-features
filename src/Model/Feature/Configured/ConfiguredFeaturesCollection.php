@@ -22,8 +22,7 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
     public const KIND = 'configured';
 
-    /** @var bool $taxSet */
-    private $taxSet = false;
+    private bool $taxSet = false;
 
     /**
      * {@inheritdoc}

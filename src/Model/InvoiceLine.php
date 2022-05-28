@@ -36,23 +36,17 @@ final class InvoiceLine implements \JsonSerializable
 
     private const FIELD_TAX_RATE     = 'tax_rate';
 
-    /** @var MoneyInterface$grossAmount */
-    private $grossAmount;
+    private MoneyInterface $grossAmount;
 
-    /** @var MoneyInterface$netAmount */
-    private $netAmount;
+    private MoneyInterface $netAmount;
 
-    /** @var string $description */
-    private $description;
+    private string $description;
 
-    /** @var int|null $quantity */
-    private $quantity;
+    private int $quantity;
 
-    /** @var string $taxName */
-    private $taxName;
+    private string $taxName;
 
-    /** @var float $taxRate */
-    private $taxRate;
+    private float $taxRate;
 
     public function getGrossAmount(): MoneyInterface
     {
@@ -69,7 +63,7 @@ final class InvoiceLine implements \JsonSerializable
         return $this->description;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): int
     {
         return $this->quantity;
     }

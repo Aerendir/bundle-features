@@ -36,13 +36,11 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
-    private $previousRemainedQuantity = 0;
+    private int $previousRemainedQuantity = 0;
 
-    /** @var \DateTime $lastRefreshOn */
-    private $lastRefreshOn;
+    private \DateTimeInterface $lastRefreshOn;
 
-    /** @var SubscribedCountableFeaturePack $subscribedPack */
-    private $subscribedPack;
+    private SubscribedCountableFeaturePack $subscribedPack;
 
     public function __construct(string $name, array $details = [])
     {
@@ -90,10 +88,8 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
-     *
-     * @return \DateTime|\DateTimeImmutable
      */
-    public function getLastRefreshOn(): \DateTime
+    public function getLastRefreshOn(): \DateTimeInterface
     {
         return $this->lastRefreshOn;
     }

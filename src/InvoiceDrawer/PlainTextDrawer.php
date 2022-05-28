@@ -21,8 +21,7 @@ use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
  */
 final class PlainTextDrawer extends AbstractInvoiceDrawer
 {
-    /** @var int $tableWidth */
-    private $tableWidth;
+    private int $tableWidth;
 
     public function draw(InvoiceInterface $invoice): array
     {

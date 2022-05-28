@@ -24,14 +24,13 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 {
     use CanBeConsumedProperty;
 
-    /** @var \DateTime $lastRecharge The last time a recharge was done */
-    private $lastRechargeOn;
+    /** @var \DateTimeInterface $lastRecharge The last time a recharge was done */
+    private \DateTimeInterface $lastRechargeOn;
 
     /** @var int $lastRechargeQuantity The quantity of units recharged last time */
-    private $lastRechargeQuantity;
+    private int $lastRechargeQuantity;
 
-    /** @var SubscribedRechargeableFeaturePack */
-    private $rechargingPack;
+    private SubscribedRechargeableFeaturePack $rechargingPack;
 
     /** @var int $remainedQuantity The amount of remained units */
     private $remainedQuantity = 0;

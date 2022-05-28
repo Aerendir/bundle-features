@@ -32,11 +32,9 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     /** @var string $refreshPeriod */
     private $refreshPeriod;
 
-    /** @var string $taxName */
-    private $taxName;
+    private string $taxName;
 
-    /** @var float $taxRate */
-    private $taxRate;
+    private float $taxRate;
 
     public function __construct(string $name, array $details = [])
     {

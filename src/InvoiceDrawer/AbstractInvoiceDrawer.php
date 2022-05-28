@@ -21,11 +21,9 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     /** @var string */
     public $locale;
 
-    /** @var \NumberFormatter */
-    private $currencyFormatter;
+    private \NumberFormatter $currencyFormatter;
 
-    /** @var TranslatorInterface $translator */
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator, string $locale)
     {

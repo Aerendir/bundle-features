@@ -27,68 +27,42 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 abstract class Subscription implements SubscriptionInterface
 {
-    /**
-     * @var Currency
-     *
-     * @ORM\Column(name="currency", type="currency", nullable=true)
-     */
-    private $currency;
+    /** @ORM\Column(name="currency", type="currency", nullable=true) */
+    private ?Currency $currency = null;
 
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @var array|SubscribedFeaturesCollection
-     *
      * @ORM\Column(name="features", type="json", nullable=true)
      */
-    private $features;
+    private ?SubscribedFeaturesCollection $features;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="`renew_interval`", type="string", nullable=true)
-     */
-    private $renewInterval;
+    /** @ORM\Column(name="`renew_interval`", type="string", nullable=true) */
+    private ?string $renewInterval = null;
 
-    /**
-     * @var MoneyInterface
-     *
-     * @ORM\Column(name="next_renew_amount", type="money", nullable=true)
-     */
-    private $nextRenewAmount;
+    /** @ORM\Column(name="next_renew_amount", type="money", nullable=true) */
+    private ?MoneyInterface $nextRenewAmount;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="next_renew_on", type="datetime", nullable=true)
-     */
-    private $nextRenewOn;
+    /** @ORM\Column(name="next_renew_on", type="datetime", nullable=true) */
+    private ?\DateTimeInterface $nextRenewOn;
 
     /**
      * If there are countable features, this field saves the smallest refresh interval found.
      *
-     * @var string
-     *
      * @ORM\Column(name="smallest_refresh_interval", type="string", nullable=true)
      */
-    private $smallestRefreshInterval;
+    private string $smallestRefreshInterval;
 
     /**
      * If there are countable features configured, this field is used to determine when they have to be refresh based on
      * the smallest interval.
      *
-     * @var \DateTime
-     *
      * @ORM\Column(name="next_refresh_on", type="datetime", nullable=true)
      */
-    private $nextRefreshOn;
+    private ?\DateTimeInterface $nextRefreshOn;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="subscribed_on", type="datetime", nullable=true)
-     */
-    private $subscribedOn;
+    /** @ORM\Column(name="subscribed_on", type="datetime", nullable=true) */
+    private ?\DateTimeInterface $subscribedOn;
 
     /**
      * {@inheritdoc}
