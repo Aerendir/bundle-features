@@ -51,6 +51,11 @@ parameters:
 			path: src/Form/DataTransformer/RechargeableFeatureTransformer.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between null and NumberFormatter will always evaluate to false\\.$#"
+			count: 1
+			path: src/InvoiceDrawer/AbstractInvoiceDrawer.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\InvoiceDrawerInterface\\:\\:draw\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
@@ -406,6 +411,11 @@ parameters:
 			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeatureInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
+
+		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
@@ -451,17 +461,7 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
-			message: "#^PHPDoc tag @return with type DateTime\\|DateTimeImmutable is not subtype of native type DateTime\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
-
-		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:\\$activeUntil \\(DateTime\\) does not accept DateTime\\|DateTimeImmutable\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:\\$lastRefreshOn \\(DateTime\\) does not accept DateTime\\|DateTimeImmutable\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -471,7 +471,12 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between null and DateTime will always evaluate to false\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between null and DateTimeInterface will always evaluate to false\\.$#"
+			count: 2
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and int will always evaluate to false\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -561,12 +566,22 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:\\$lastRechargeOn has no type specified\\.$#"
+			message: "#^Cannot access offset '_header' on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
 			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
+			path: src/Model/Invoice.php
+
+		-
+			message: "#^Cannot access offset '_lines' on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
+			count: 1
+			path: src/Model/Invoice.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:getLine\\(\\) has parameter \\$id with no type specified\\.$#"
+			count: 1
+			path: src/Model/Invoice.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:getLine\\(\\) should return SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\|null\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
@@ -596,6 +611,11 @@ parameters:
 			path: src/Model/Invoice.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:removeSection\\(\\) should return bool\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
+			count: 1
+			path: src/Model/Invoice.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:setHeader\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
@@ -611,12 +631,7 @@ parameters:
 			path: src/Model/Invoice.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$issuedOn \\(DateTime\\) does not accept DateTime\\|false\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$sections type has no value type specified in iterable type array\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:\\$issuedOn \\(DateTimeInterface\\) does not accept DateTime\\|false\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
@@ -626,8 +641,23 @@ parameters:
 			path: src/Model/Invoice.php
 
 		-
+			message: "#^Return type \\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\) of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:removeHeader\\(\\) should be compatible with return type \\(bool\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSectionHeader\\) of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface\\:\\:removeHeader\\(\\)$#"
+			count: 1
+			path: src/Model/Invoice.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between false and true will always evaluate to false\\.$#"
 			count: 1
+			path: src/Model/Invoice.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and DateTimeInterface will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Invoice.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and SerendipityHQ\\\\Component\\\\ValueObjects\\\\Money\\\\MoneyInterface will always evaluate to false\\.$#"
+			count: 2
 			path: src/Model/Invoice.php
 
 		-
@@ -672,6 +702,11 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/InvoiceLine.php
+
+		-
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceLine\\:\\:\\$quantity \\(int\\) does not accept int\\|null\\.$#"
 			count: 1
 			path: src/Model/InvoiceLine.php
 
