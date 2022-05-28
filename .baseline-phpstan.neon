@@ -686,7 +686,7 @@ parameters:
 			path: src/Model/InvoiceInterface.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(string\\!int \\$id\\)\\: Unexpected token \"\\!int\", expected variable at offset 102$#"
+			message: "#^PHPDoc tag @param has invalid value \\(string\\!int \\$id\\)\\: Unexpected token \"\\!\", expected variable at offset 102$#"
 			count: 1
 			path: src/Model/InvoiceInterface.php
 

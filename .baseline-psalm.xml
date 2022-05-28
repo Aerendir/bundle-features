@@ -537,4 +537,13 @@
       <code>forceFeaturesUpdate</code>
     </MissingReturnType>
   </file>
+  <file src="vendor/symfony/dependency-injection/Argument/ServiceLocator.php">
+    <ParseError occurrences="5">
+      <code>,</code>
+      <code>,</code>
+      <code>,</code>
+      <code>=&gt;</code>
+      <code>}</code>
+    </ParseError>
+  </file>
 </files>
