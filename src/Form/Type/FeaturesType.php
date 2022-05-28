@@ -164,7 +164,7 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): callable
+    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): \Closure
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredCountableFeaturePack $pack */
@@ -191,7 +191,7 @@ final class FeaturesType extends AbstractType
         };
     }
 
-    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): callable
+    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): \Closure
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredRechargeableFeaturePack $pack */
