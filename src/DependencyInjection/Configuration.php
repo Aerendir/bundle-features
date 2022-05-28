@@ -51,17 +51,17 @@ final class Configuration implements ConfigurationInterface
 
     private const UNATANTUM       = 'unatantum';
 
-    /** @var array $foundDrawers The drawers found as default ones in features sets */
-    private $foundDrawers = [];
+    /** @var $foundDrawers The drawers found as default ones in features sets */
+    private array $foundDrawers = [];
 
     /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesType;
+    private string $pricesType;
 
     /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesKey;
+    private string $pricesKey;
 
     /** @var string $unitaryPriceKey The type of prices set: gross or net */
-    private $unitaryPriceKey;
+    private string $unitaryPriceKey;
 
     /**
      * {@inheritdoc}

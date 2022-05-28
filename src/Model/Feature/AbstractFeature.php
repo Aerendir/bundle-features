@@ -13,11 +13,9 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
 abstract class AbstractFeature implements FeatureInterface
 {
-    /** @var string $name */
-    private $name;
+    private string $name;
 
-    /** @var string $type */
-    private $type;
+    private string $type;
 
     public function __construct(string $name, array $details = [])
     {

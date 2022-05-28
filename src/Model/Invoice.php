@@ -25,37 +25,23 @@ abstract class Invoice implements InvoiceInterface
 {
     private const SECTION_DEFAULT = '_default';
 
-    /**
-     * @var Currency
-     * @ORM\Column(name="currency", type="currency")
-     */
-    private $currency;
+    /** @ORM\Column(name="currency", type="currency") */
+    private Currency $currency;
+
+    /** @ORM\Column(name="issued_on", type="datetime") */
+    private \DateTimeInterface $issuedOn;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(name="issued_on", type="datetime")
-     */
-    private $issuedOn;
-
-    /**
-     * @var array
+     * @var InvoiceSection[]
      * @ORM\Column(name="`sections`", type="json")
      */
-    private $sections;
+    private array $sections;
 
-    /**
-     * @var MoneyInterface
-     *
-     * @ORM\Column(name="gross_total", type="money")
-     */
-    private $grossTotal;
+    /** @ORM\Column(name="gross_total", type="money") */
+    private MoneyInterface $grossTotal;
 
-    /**
-     * @var MoneyInterface
-     *
-     * @ORM\Column(name="net_total", type="money")
-     */
-    private $netTotal;
+    /** @ORM\Column(name="net_total", type="money") */
+    private MoneyInterface $netTotal;
 
     /**
      * {@inheritdoc}
@@ -106,7 +92,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * {@inheritdoc}
      */
-    public function removeHeader()
+    public function removeHeader(): InvoiceSection
     {
         return $this->sections[self::SECTION_DEFAULT]->removeHeader();
     }

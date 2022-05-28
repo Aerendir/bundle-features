@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.19.0@a2ad69ae4f5ab1f7d225a8dc4e2ec2d9415ed599">
+<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703">
   <file src="src/DependencyInjection/Configuration.php">
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
@@ -18,6 +18,9 @@
       <code>$pricesType</code>
       <code>$unitaryPriceKey</code>
     </MissingConstructor>
+    <MissingDocblockType occurrences="1">
+      <code>private array $foundDrawers = [];</code>
+    </MissingDocblockType>
     <MissingParamType occurrences="1">
       <code>$subscriptionType</code>
     </MissingParamType>
@@ -26,12 +29,9 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>SubscribedFeaturesCollection</code>
-    </InvalidNullableReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;subscribedFeatures</code>
-    </NullableReturnStatement>
+    <PossiblyNullReference occurrences="1">
+      <code>get</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
     <MoreSpecificImplementedParamType occurrences="2">
@@ -113,6 +113,9 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$currencyFormatter</code>
     </PropertyNotSetInConstructor>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;currencyFormatter</code>
+    </TypeDoesNotContainNull>
     <UninitializedProperty occurrences="1">
       <code>$this-&gt;currencyFormatter</code>
     </UninitializedProperty>
@@ -174,6 +177,9 @@
       <code>\is_array($feature)</code>
       <code>null !== $checkingFeature</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;subscription</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="1">
       <code>getInstantPrice</code>
     </UndefinedInterfaceMethod>
@@ -314,12 +320,6 @@
       <code>$instantPrices[$currency]</code>
     </PossiblyNullArrayAssignment>
   </file>
-  <file src="src/Model/Feature/Property/HasUnatantumPricesInterface.php">
-    <UndefinedDocblockClass occurrences="2">
-      <code>Currency|string</code>
-      <code>Currency|string</code>
-    </UndefinedDocblockClass>
-  </file>
   <file src="src/Model/Feature/Property/HasUnatantumPricesProperty.php">
     <InvalidOperand occurrences="4">
       <code>$price-&gt;getBaseAmount()</code>
@@ -341,6 +341,9 @@
     <MissingReturnType occurrences="1">
       <code>setConfiguredFeature</code>
     </MissingReturnType>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $this-&gt;configuredFeature</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedBooleanFeature.php">
     <PropertyNotSetInConstructor occurrences="1">
@@ -348,19 +351,18 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
-    <MismatchingDocblockReturnType occurrences="1">
-      <code>\DateTime|\DateTimeImmutable</code>
-    </MismatchingDocblockReturnType>
     <PossiblyInvalidMethodCall occurrences="1">
       <code>toArray</code>
     </PossiblyInvalidMethodCall>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$lastRefreshOn</code>
-    </PossiblyInvalidPropertyAssignmentValue>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$lastRefreshOn</code>
       <code>SubscribedCountableFeature</code>
     </PropertyNotSetInConstructor>
+    <TypeDoesNotContainNull occurrences="3">
+      <code>null === $this-&gt;getLastRefreshOn()</code>
+      <code>null === $this-&gt;lastRefreshOn</code>
+      <code>null === $this-&gt;previousRemainedQuantity</code>
+    </TypeDoesNotContainNull>
     <TypeDoesNotContainType occurrences="1">
       <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
     </TypeDoesNotContainType>
@@ -390,17 +392,37 @@
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$this-&gt;lastRechargeOn</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>\DateTime|\DateTimeImmutable</code>
+    </MoreSpecificReturnType>
     <PropertyNotSetInConstructor occurrences="1">
       <code>$rechargingPack</code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantCondition occurrences="1">
       <code>null !== $this-&gt;rechargingPack</code>
-    </RedundantConditionGivenDocblockType>
+    </RedundantCondition>
   </file>
   <file src="src/Model/Invoice.php">
+    <InvalidNullableReturnType occurrences="1">
+      <code>InvoiceLine</code>
+    </InvalidNullableReturnType>
+    <InvalidReturnStatement occurrences="2">
+      <code>$return</code>
+      <code>$this-&gt;sections[self::SECTION_DEFAULT]-&gt;removeHeader()</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="2">
+      <code>InvoiceSection</code>
+      <code>removeSection</code>
+    </InvalidReturnType>
     <InvalidScalarArgument occurrences="1">
       <code>\microtime(true)</code>
     </InvalidScalarArgument>
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$this-&gt;issuedOn</code>
+    </LessSpecificReturnStatement>
     <MissingParamType occurrences="1">
       <code>$id</code>
     </MissingParamType>
@@ -409,6 +431,12 @@
       <code>recalculateTotal</code>
       <code>setHeader</code>
     </MissingReturnType>
+    <MoreSpecificReturnType occurrences="1">
+      <code>\DateTime|\DateTimeImmutable</code>
+    </MoreSpecificReturnType>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;sections[self::SECTION_DEFAULT]-&gt;getLine($id)</code>
+    </NullableReturnStatement>
     <PropertyNotSetInConstructor occurrences="3">
       <code>$grossTotal</code>
       <code>$issuedOn</code>
@@ -417,6 +445,15 @@
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>\is_int($id)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="3">
+      <code>null === $this-&gt;grossTotal</code>
+      <code>null === $this-&gt;issuedOn</code>
+      <code>null === $this-&gt;netTotal</code>
+    </TypeDoesNotContainNull>
+    <UndefinedMethod occurrences="2">
+      <code>$section</code>
+      <code>$section</code>
+    </UndefinedMethod>
     <UninitializedProperty occurrences="3">
       <code>$this-&gt;grossTotal</code>
       <code>$this-&gt;issuedOn</code>
@@ -436,13 +473,17 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/InvoiceLine.php">
-    <MissingConstructor occurrences="5">
+    <MissingConstructor occurrences="6">
       <code>$description</code>
       <code>$grossAmount</code>
       <code>$netAmount</code>
+      <code>$quantity</code>
       <code>$taxName</code>
       <code>$taxRate</code>
     </MissingConstructor>
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
+      <code>$quantity</code>
+    </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="src/Model/InvoiceSection.php">
     <PossiblyNullPropertyAssignmentValue occurrences="1">
@@ -451,26 +492,36 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$header</code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition occurrences="2">
       <code>null !== $this-&gt;getHeader()</code>
-    </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>\is_int($id)</code>
       <code>null !== $this-&gt;header</code>
+    </RedundantCondition>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>\is_int($id)</code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>$this-&gt;features</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
+    <InvalidNullableReturnType occurrences="1">
       <code>SubscribedFeaturesCollection</code>
-    </InvalidReturnType>
+    </InvalidNullableReturnType>
+    <LessSpecificReturnStatement occurrences="3">
+      <code>$this-&gt;nextRefreshOn</code>
+      <code>$this-&gt;nextRenewOn</code>
+      <code>$this-&gt;subscribedOn</code>
+    </LessSpecificReturnStatement>
     <MissingReturnType occurrences="3">
       <code>checkIntervalExists</code>
       <code>forceFeaturesUpdate</code>
       <code>hydrateFeatures</code>
     </MissingReturnType>
+    <MoreSpecificReturnType occurrences="3">
+      <code>\DateTimeInterface</code>
+      <code>\DateTime|\DateTimeImmutable</code>
+      <code>\DateTime|\DateTimeImmutable|null</code>
+    </MoreSpecificReturnType>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;features</code>
+    </NullableReturnStatement>
     <ParamNameMismatch occurrences="2">
       <code>$nextRenewOn</code>
       <code>$renewInterval</code>
@@ -479,14 +530,6 @@
       <code>clone $this-&gt;features</code>
       <code>clone $this-&gt;features</code>
     </PossiblyInvalidClone>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="6">
-      <code>$nextRefreshOn</code>
-      <code>$nextRenewOn</code>
-      <code>$subscribedOn</code>
-      <code>clone $this-&gt;getNextRenewOn()-&gt;modify('+1 month')</code>
-      <code>clone $this-&gt;getNextRenewOn()-&gt;modify('+1 year')</code>
-      <code>self::calculateActiveUntil($this-&gt;getRenewInterval())</code>
-    </PossiblyInvalidPropertyAssignmentValue>
   </file>
   <file src="src/Model/SubscriptionInterface.php">
     <MissingReturnType occurrences="2">

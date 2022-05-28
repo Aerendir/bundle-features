@@ -28,7 +28,7 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
     }
 
     /** @var int $freeRecharge The amount of free units of this feature recharged each time */
-    private $freeRecharge;
+    private int $freeRecharge;
 
     /**
      * {@inheritdoc}

@@ -53,20 +53,15 @@ final class FeaturesManager
         SubscriptionInterface::YEARLY   => 4,
     ];
 
-    /** @var ConfiguredFeaturesCollection $configuredFeatures */
-    private $configuredFeatures;
+    private ConfiguredFeaturesCollection $configuredFeatures;
 
-    /** @var FormFactoryInterface $formFactory */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /** @var InvoicesManager $invoicesManager */
-    private $invoicesManager;
+    private InvoicesManager $invoicesManager;
 
-    /** @var SubscriptionInterface $subscription */
-    private $subscription;
+    private SubscriptionInterface $subscription;
 
-    /** @var SubscriptionInterface $subscription This is use to calculate added and removed boolean features and the changed packs of CountableFeatures */
-    private $oldSubscription;
+    private SubscriptionInterface $oldSubscription;
 
     /** @var array $differences The added and removed features */
     private $differences = [

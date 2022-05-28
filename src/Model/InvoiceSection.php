@@ -21,20 +21,16 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoiceSection implements \JsonSerializable
 {
-    /** @var Currency $currency */
-    private $currency;
+    private Currency $currency;
 
-    /** @var InvoiceSectionHeader */
-    private $header;
+    private InvoiceSectionHeader $header;
 
     /** @var InvoiceLine[] */
-    private $lines = [];
+    private array $lines = [];
 
-    /** @var MoneyInterface $grossTotal */
-    private $grossTotal;
+    private MoneyInterface $grossTotal;
 
-    /** @var MoneyInterface $netTotal */
-    private $netTotal;
+    private MoneyInterface $netTotal;
 
     public function __construct(Currency $currency)
     {

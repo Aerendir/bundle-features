@@ -30,20 +30,16 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
  */
 final class InvoicesManager
 {
-    /** @var ArrayWriter $arrayWriter */
-    private $arrayWriter;
+    private ArrayWriter $arrayWriter;
 
-    /** @var ConfiguredFeaturesCollection $configuredFeatures */
-    private $configuredFeatures;
+    private ConfiguredFeaturesCollection $configuredFeatures;
 
-    /** @var string|null $defaultDrawer */
-    private $defaultDrawer;
+    private ?string $defaultDrawer;
 
     /** @var InvoiceDrawerInterface[] $drawers */
-    private $drawers;
+    private array $drawers;
 
-    /** @var SubscriptionInterface $subscription */
-    private $subscription;
+    private SubscriptionInterface $subscription;
 
     /**
      * @param array<string, InvoiceDrawerInterface> $drawers

@@ -19,8 +19,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeatu
  */
 abstract class AbstractSubscribedFeature extends AbstractFeature implements SubscribedFeatureInterface
 {
-    /** @var ConfiguredFeatureInterface $configuredFeature */
-    private $configuredFeature;
+    private ConfiguredFeatureInterface $configuredFeature;
 
     public function getConfiguredFeature(): ConfiguredFeatureInterface
     {
