@@ -1,6 +1,6 @@
 {
     "require-dev": {
-        "symfony/phpunit-bridge": "6.1.0",
+        "symfony/phpunit-bridge": "6.1.2",
         "vimeo/psalm": "4.23.0",
         "psalm/plugin-phpunit": "0.17.0",
         "weirdan/doctrine-psalm-plugin": "2.3.0",
