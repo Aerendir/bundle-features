@@ -11,22 +11,20 @@ return [
     // # Issue statistics:
     // PhanUndeclaredMethod : 15+ occurrences
     // PhanTypeMismatchReturn : 10+ occurrences
-    // PhanTypeMismatchArgument : 9 occurrences
     // PhanUnreferencedClosure : 9 occurrences
+    // PhanTypeMismatchArgument : 8 occurrences
     // PhanTypeMismatchDeclaredReturn : 8 occurrences
     // PhanUndeclaredProperty : 8 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
     // PhanParamSignatureMismatch : 4 occurrences
     // PhanTypeMismatchArgumentSuperType : 4 occurrences
     // PhanTypeMismatchReturnSuperType : 4 occurrences
-    // PhanTypeMismatchArgumentInternal : 3 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
     // PhanUnusedPublicFinalMethodParameter : 3 occurrences
     // PhanWriteOnlyPrivateProperty : 3 occurrences
     // PhanTypeArraySuspicious : 2 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
     // PhanTypeMismatchPropertyReal : 2 occurrences
-    // PhanTypeMismatchReturnNullable : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
@@ -34,8 +32,10 @@ return [
     // PhanPossiblyNullTypeMismatchProperty : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
+    // PhanTypeMismatchArgumentInternal : 1 occurrence
     // PhanTypeMismatchArgumentReal : 1 occurrence
     // PhanTypeMismatchDimFetch : 1 occurrence
+    // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
     // PhanUnextractableAnnotationSuffix : 1 occurrence
     // PhanUnreferencedClass : 1 occurrence
@@ -53,7 +53,6 @@ return [
         'src/Form/Type/FeaturesType.php' => ['PhanTypeMismatchArgumentSuperType', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanWriteOnlyPublicProperty'],
         'src/InvoiceDrawer/InvoiceDrawerInterface.php' => ['PhanTypeMismatchDeclaredReturn'],
-        'src/InvoiceDrawer/PlainTextDrawer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentInternal'],
         'src/Manager/FeaturesManager.php' => ['PhanUndeclaredMethod'],
         'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDeclaredReturn', 'PhanTypeMismatchDimFetch', 'PhanTypeMismatchPropertyReal', 'PhanUndeclaredMethod', 'PhanWriteOnlyPrivateProperty'],
         'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
@@ -77,7 +76,7 @@ return [
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceLine.php' => ['PhanPossiblyNullTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyReal'],
-        'src/Model/Subscription.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchArgumentReal', 'PhanTypeMismatchReturnNullable', 'PhanTypeMismatchReturnSuperType'],
+        'src/Model/Subscription.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchArgumentReal', 'PhanTypeMismatchReturnSuperType'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)

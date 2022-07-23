@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,15 +13,13 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProperty;
 
-/**
- * {@inheritdoc}
- */
+use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\sprintf;
+
 final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, CanBeConsumedInterface
 {
     use CanBeConsumedProperty;
@@ -35,9 +35,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     /** @var int $remainedQuantity The amount of remained units */
     private $remainedQuantity = 0;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type
@@ -55,8 +52,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \DateTime|\DateTimeImmutable
      */
     public function getLastRechargeOn(): \DateTimeInterface
@@ -64,17 +59,11 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this->lastRechargeOn;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLastRechargeQuantity(): int
     {
         return $this->lastRechargeQuantity;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRechargingPack(): SubscribedRechargeableFeaturePack
     {
         if (false === $this->hasRechargingPack()) {
@@ -84,17 +73,11 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this->rechargingPack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasRechargingPack(): bool
     {
         return null !== $this->rechargingPack;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function recharge(): SubscribedRechargeableFeature
     {
         $rechargeQuantity = $this->getRechargingPack()->getNumOfUnits();
@@ -105,9 +88,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setRecharginPack(SubscribedRechargeableFeaturePack $rechargingPack): SubscribedRechargeableFeature
     {
         $this->rechargingPack = $rechargingPack;
@@ -115,9 +95,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return \array_merge([

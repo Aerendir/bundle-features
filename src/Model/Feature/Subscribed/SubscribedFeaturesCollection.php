@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -19,17 +21,11 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
 {
     public const KIND = 'subscribed';
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(array $elements = [])
     {
         parent::__construct(self::KIND, $elements);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         $return = [];
@@ -40,9 +36,6 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
         return $return;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

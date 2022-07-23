@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -33,7 +35,6 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     private $refreshPeriod;
 
     private string $taxName;
-
     private float $taxRate;
 
     public function __construct(string $name, array $details = [])

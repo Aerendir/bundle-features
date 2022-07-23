@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -12,9 +14,10 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
 use Money\Currency;
-use function Safe\sprintf;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
+
+use function Safe\sprintf;
 
 /**
  * Represents a section into the Invoice.
@@ -22,14 +25,12 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 final class InvoiceSection implements \JsonSerializable
 {
     private Currency $currency;
-
     private InvoiceSectionHeader $header;
 
     /** @var InvoiceLine[] */
     private array $lines = [];
 
     private MoneyInterface $grossTotal;
-
     private MoneyInterface $netTotal;
 
     public function __construct(Currency $currency)
@@ -149,9 +150,6 @@ final class InvoiceSection implements \JsonSerializable
         return $this->netTotal;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         $return = [];

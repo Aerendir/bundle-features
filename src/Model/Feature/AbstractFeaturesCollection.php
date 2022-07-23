@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -12,7 +14,6 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\FeaturesFactory;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
@@ -22,6 +23,8 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBoole
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
+
+use function Safe\sprintf;
 
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
@@ -80,6 +83,13 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
         parent::__construct($elements);
     }
 
+    public function __clone()
+    {
+        foreach ($this as $key => $element) {
+            $this->set($key, clone $element);
+        }
+    }
+
     protected function getFilterPredictate(string $kind, string $type): callable
     {
         $featureClass = $this->getFeatureClass($kind, $type);
@@ -104,13 +114,6 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
                 return ConfiguredFeaturesCollection::KIND === $kind ? ConfiguredRechargeableFeature::class : SubscribedRechargeableFeature::class;
             default:
                 throw new \InvalidArgumentException(sprintf('Unknown feature of type "%s".', $type));
-        }
-    }
-
-    public function __clone()
-    {
-        foreach ($this as $key => $element) {
-            $this->set($key, clone $element);
         }
     }
 }

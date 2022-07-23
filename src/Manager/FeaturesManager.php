@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,7 +13,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Manager;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer\FeaturesCollectionTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Form\Type\FeaturesType;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
@@ -35,13 +36,14 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
+use function Safe\sprintf;
+
 /**
  * Contains method to manage features plans.
  */
 final class FeaturesManager
 {
     private const ADDED   = 'added';
-
     private const REMOVED = 'removed';
 
     /** @var int[] */
@@ -54,13 +56,9 @@ final class FeaturesManager
     ];
 
     private ConfiguredFeaturesCollection $configuredFeatures;
-
     private FormFactoryInterface $formFactory;
-
     private InvoicesManager $invoicesManager;
-
     private SubscriptionInterface $subscription;
-
     private SubscriptionInterface $oldSubscription;
 
     /** @var array $differences The added and removed features */
@@ -118,9 +116,6 @@ final class FeaturesManager
         return $this;
     }
 
-    /**
-     * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
-     */
     public function buildDefaultSubscriptionFeatures(string $subscriptionInterval): SubscribedFeaturesCollection
     {
         $activeUntil = Subscription::calculateActiveUntil($subscriptionInterval);
@@ -214,7 +209,7 @@ final class FeaturesManager
                         }
 
                         break;
-                    // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
+                        // A RechargeableFeature hasn't a subscription period, so it hasn't an isStillActive() method
                     case SubscribedRechargeableFeature::class:
                         /**
                          * For the moment force the code to get the pack's instant price.
@@ -461,7 +456,7 @@ final class FeaturesManager
                     }
 
                     break;
-                // If is a CountableFeature...
+                    // If is a CountableFeature...
                 case SubscribedCountableFeature::class:
                     /**
                      * ... and was in the old collection and in the new collection, too ...
@@ -507,13 +502,13 @@ final class FeaturesManager
                     $featureDetails = $newFeature->getName();
 
                     break;
-                // If is a CountableFeature...
+                    // If is a CountableFeature...
                 case SubscribedCountableFeature::class:
                     /** @var SubscribedCountableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getSubscribedPack()->getNumOfUnits()];
 
                     break;
-                // If is a CountableFeature...
+                    // If is a CountableFeature...
                 case SubscribedRechargeableFeature::class:
                     /** @var SubscribedRechargeableFeature $featureDetails */
                     $featureDetails = [$newFeature->getName() => $newFeature->getRechargingPack()->getNumOfUnits()];
@@ -545,7 +540,7 @@ final class FeaturesManager
                         }
 
                         break;
-                    // If is a CountableFeature...
+                        // If is a CountableFeature...
                     case SubscribedCountableFeature::class:
                         /** @var SubscribedCountableFeaturePack $newSubscribedPack */
                         $newSubscribedPack = $newFeature->getSubscribedPack();
@@ -560,7 +555,7 @@ final class FeaturesManager
                         }
 
                         break;
-                    // If it is a RechargeableFeature...
+                        // If it is a RechargeableFeature...
                     case SubscribedRechargeableFeature::class:
                         // ... if a rechargin pack exists...
                         if ($newFeature->hasRechargingPack()) {

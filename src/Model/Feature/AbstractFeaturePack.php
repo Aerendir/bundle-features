@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,9 +13,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 
-/**
- * {@inheritdoc}
- */
 abstract class AbstractFeaturePack implements FeaturePackInterface
 {
     /** @var int $numOfUnits How many units are contained in this Pack */
@@ -24,9 +23,6 @@ abstract class AbstractFeaturePack implements FeaturePackInterface
         $this->numOfUnits = $details[FeaturePackInterface::FIELD_NUM_OF_UNITS];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getNumOfUnits(): int
     {
         return $this->numOfUnits;

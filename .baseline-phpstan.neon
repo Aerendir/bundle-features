@@ -86,16 +86,6 @@ parameters:
 			path: src/InvoiceDrawer/PlainTextDrawer.php
 
 		-
-			message: "#^Parameter \\#1 \\$amount of method Symfony\\\\Polyfill\\\\Intl\\\\Icu\\\\NumberFormatter\\:\\:formatCurrency\\(\\) expects float, string given\\.$#"
-			count: 4
-			path: src/InvoiceDrawer/PlainTextDrawer.php
-
-		-
-			message: "#^Parameter \\#2 \\$length of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\InvoiceDrawer\\\\PlainTextDrawer\\:\\:drawSeparator\\(\\) expects int, float given\\.$#"
-			count: 1
-			path: src/InvoiceDrawer/PlainTextDrawer.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/AbstractFeature.php

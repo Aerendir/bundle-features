@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -17,7 +19,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 interface CanBeConsumedInterface
 {
     public const CONSUMED_QUANTITY = 'consumed_quantity';
-
     public const REMAINED_QUANTITY = 'remained_quantity';
 
     /**

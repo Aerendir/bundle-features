@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,8 +13,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
@@ -22,6 +22,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatur
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
+use function Safe\json_decode;
+use function Safe\json_encode;
+
 final class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, IsRecurringFeatureInterface, CanBeConsumedInterface
 {
     use IsRecurringFeatureProperty {
@@ -30,16 +33,13 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     use CanBeConsumedProperty;
 
     public const FIELD_LAST_REFRESH_ON         = 'last_refresh_on';
-
     public const FIELD_SUBSCRIBED_PACK         = 'subscribed_pack';
-
     public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
     private int $previousRemainedQuantity = 0;
 
     private \DateTimeInterface $lastRefreshOn;
-
     private SubscribedCountableFeaturePack $subscribedPack;
 
     public function __construct(string $name, array $details = [])
@@ -94,9 +94,6 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         return $this->lastRefreshOn;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRemainedQuantity(): int
     {
         return $this->remainedQuantity;

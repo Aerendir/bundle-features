@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -32,7 +34,7 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
 
         $equalsSeparator       = $this->drawSeparator('=', $this->tableWidth);
         $dashSeparator         = $this->drawSeparator('-', $this->tableWidth);
-        $equalsSeparatorShort  = $this->drawSeparator('=', $this->tableWidth - \round(35 % $this->tableWidth));
+        $equalsSeparatorShort  = $this->drawSeparator('=', $this->tableWidth - (int) \round(35 % $this->tableWidth));
         $equalsSeparatorShort  = $this->drawSeparator(' ', $this->tableWidth - \iconv_strlen($equalsSeparatorShort)) . $equalsSeparatorShort;
 
         $detailsTable = '';
@@ -48,8 +50,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
         }
 
         $totalGrossAmount = \mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
-            . ' ' . $this->getCurrencyFormatter()->formatCurrency($invoice->getNetTotal()->getHumanAmount(), $invoice->getGrossTotal()->getCurrency())
-            . ' (' . $this->getCurrencyFormatter()->formatCurrency($invoice->getGrossTotal()->getHumanAmount(), $invoice->getNetTotal()->getCurrency()) . ')';
+            . ' ' . $this->getCurrencyFormatter()->formatCurrency((float) $invoice->getNetTotal()->getHumanAmount(), $invoice->getGrossTotal()->getCurrency()->__toString())
+            . ' (' . $this->getCurrencyFormatter()->formatCurrency((float) $invoice->getGrossTotal()->getHumanAmount(), $invoice->getNetTotal()->getCurrency()->__toString()) . ')';
         /*
         $total_gross_amount = mb_strtoupper($this->getTranslator()->trans('shq_features.invoice.total.label', [], 'Invoice'))
             . ' ' . $invoice->getNetTotal()->getHumanAmount()
@@ -87,8 +89,8 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
             $lineData = [
                 'quantity'    => 0 === $line->getQuantity() ? 'N/A' : $line->getQuantity(),
                 'description' => $line->getDescription(),
-                'baseAmount'  => $this->getCurrencyFormatter()->formatCurrency($line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency())
-                . ' (' . $this->getCurrencyFormatter()->formatCurrency($line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()) . ')',
+                'baseAmount'  => $this->getCurrencyFormatter()->formatCurrency((float) $line->getNetAmount()->getHumanAmount(), $line->getNetAmount()->getCurrency()->__toString())
+                . ' (' . $this->getCurrencyFormatter()->formatCurrency((float) $line->getGrossAmount()->getHumanAmount(), $line->getGrossAmount()->getCurrency()->__toString()) . ')',
             ];
             $tableData[] = $lineData;
         }
