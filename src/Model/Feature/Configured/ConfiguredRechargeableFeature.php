@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -30,9 +32,6 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
     /** @var int $freeRecharge The amount of free units of this feature recharged each time */
     private int $freeRecharge;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $name, array $details = [])
     {
         // Set the type
@@ -55,17 +54,11 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
         parent::__construct($name, $details);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFreeRecharge(): int
     {
         return $this->freeRecharge;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFreeRecharge(int $freeRecharge): ConfiguredRechargeableFeature
     {
         $this->freeRecharge = $freeRecharge;
@@ -73,9 +66,6 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setPacks(array $packs, string $class = null): HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredRechargeableFeaturePack::class);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -15,9 +17,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeaturePack;
 
-/**
- * {@inheritdoc}
- */
 final class RechargeableFeatureTransformer extends AbstractFeatureTransformer
 {
     /**

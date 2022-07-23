@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -22,9 +24,6 @@ trait CanBeConsumedProperty
     /** @var int $remaining The num of units remained from the last subscription cycle */
     private $remainedQuantity = 0;
 
-    /**
-     * {@inheritdoc}
-     */
     public function consume(int $quantity): CanBeConsumedInterface
     {
         $this->consumedQuantity += $quantity;
@@ -34,9 +33,6 @@ trait CanBeConsumedProperty
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function consumeOne(): CanBeConsumedInterface
     {
         return $this->consume(1);

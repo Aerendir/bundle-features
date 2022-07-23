@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -14,9 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeatureInterface;
 
-/**
- * {@inheritdoc}
- */
 abstract class AbstractSubscribedFeature extends AbstractFeature implements SubscribedFeatureInterface
 {
     private ConfiguredFeatureInterface $configuredFeature;
@@ -35,9 +34,6 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
         $this->configuredFeature = $configuredFeature;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return [

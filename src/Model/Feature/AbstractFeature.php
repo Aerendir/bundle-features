@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -14,7 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 abstract class AbstractFeature implements FeatureInterface
 {
     private string $name;
-
     private string $type;
 
     public function __construct(string $name, array $details = [])

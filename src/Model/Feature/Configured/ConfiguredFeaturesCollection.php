@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -24,9 +26,6 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 
     private bool $taxSet = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(array $elements = [])
     {
         parent::__construct(self::KIND, $elements);

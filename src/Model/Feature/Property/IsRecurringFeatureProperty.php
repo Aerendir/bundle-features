@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -27,8 +29,6 @@ trait IsRecurringFeatureProperty
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @return \DateTime|\DateTimeImmutable|null
      */
     public function getActiveUntil(): ?\DateTimeInterface
@@ -46,8 +46,6 @@ trait IsRecurringFeatureProperty
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @param \DateTime|\DateTimeImmutable $activeUntil
      */
     public function setActiveUntil(\DateTimeInterface $activeUntil): IsRecurringFeatureInterface

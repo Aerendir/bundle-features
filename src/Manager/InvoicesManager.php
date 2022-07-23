@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -31,9 +33,7 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 final class InvoicesManager
 {
     private ArrayWriter $arrayWriter;
-
     private ConfiguredFeaturesCollection $configuredFeatures;
-
     private ?string $defaultDrawer;
 
     /** @var InvoiceDrawerInterface[] $drawers */

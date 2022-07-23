@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -22,7 +24,6 @@ abstract class AbstractInvoiceDrawer implements InvoiceDrawerInterface
     public $locale;
 
     private \NumberFormatter $currencyFormatter;
-
     private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator, string $locale)

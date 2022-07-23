@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -23,30 +25,32 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 final class InvoiceLine implements \JsonSerializable
 {
     private const FIELD_CURRENCY     = 'currency';
-
     private const FIELD_GROSS_AMOUNT = 'gross_amount';
-
     private const FIELD_NET_AMOUNT   = 'net_amount';
-
     private const FIELD_DESCRIPTION  = 'description';
-
     private const FIELD_QUANTITY     = 'quantity';
-
     private const FIELD_TAX_NAME     = 'tax_name';
-
     private const FIELD_TAX_RATE     = 'tax_rate';
 
     private MoneyInterface $grossAmount;
-
     private MoneyInterface $netAmount;
-
     private string $description;
-
     private int $quantity;
-
     private string $taxName;
-
     private float $taxRate;
+
+    public function __toArray(): array
+    {
+        return [
+            self::FIELD_GROSS_AMOUNT => $this->getGrossAmount()->getBaseAmount(),
+            self::FIELD_NET_AMOUNT   => $this->getNetAmount()->getBaseAmount(),
+            self::FIELD_CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
+            self::FIELD_DESCRIPTION  => $this->getDescription(),
+            self::FIELD_QUANTITY     => $this->getQuantity(),
+            self::FIELD_TAX_NAME     => $this->getTaxName(),
+            self::FIELD_TAX_RATE     => $this->getTaxRate(),
+        ];
+    }
 
     public function getGrossAmount(): MoneyInterface
     {
@@ -135,18 +139,5 @@ final class InvoiceLine implements \JsonSerializable
         $this->setQuantity((int) $data[self::FIELD_QUANTITY]);
         $this->setTaxName($data[self::FIELD_TAX_NAME]);
         $this->setTaxRate($data[self::FIELD_TAX_RATE]);
-    }
-
-    public function __toArray(): array
-    {
-        return [
-            self::FIELD_GROSS_AMOUNT => $this->getGrossAmount()->getBaseAmount(),
-            self::FIELD_NET_AMOUNT   => $this->getNetAmount()->getBaseAmount(),
-            self::FIELD_CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
-            self::FIELD_DESCRIPTION  => $this->getDescription(),
-            self::FIELD_QUANTITY     => $this->getQuantity(),
-            self::FIELD_TAX_NAME     => $this->getTaxName(),
-            self::FIELD_TAX_RATE     => $this->getTaxRate(),
-        ];
     }
 }

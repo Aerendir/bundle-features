@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -17,15 +19,10 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 interface FeatureInterface
 {
     public const TYPE_BOOLEAN      = 'boolean';
-
     public const TYPE_COUNTABLE    = 'countable';
-
     public const TYPE_RECHARGEABLE = 'rechargeable';
-
     public const PRICE_GROSS       = 'gross';
-
     public const PRICE_NET         = 'net';
-
     public const FIELD_TYPE        = 'type';
 
     public function __construct(string $name, array $details = []);

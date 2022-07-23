@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -34,26 +36,15 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * {@inheritdoc}
- */
 final class FeaturesType extends AbstractType
 {
     private const KEY_ATTR                  = 'attr';
-
     private const KEY_REQUIRED              = 'required';
-
     private const OPTION_SUBSCRIPTION       = 'subscription';
-
     private const DATA_FEATURE              = 'data-feature';
-
     private const DATA_INSTANT_AMOUNT_GROSS = 'data-gross-instant-amount';
-
     private const DATA_INSTANT_AMOUNT_NET   = 'data-net-instant-amount';
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var SubscribedFeaturesCollection $subscribedFeatures */
@@ -87,9 +78,6 @@ final class FeaturesType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
