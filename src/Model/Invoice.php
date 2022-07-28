@@ -38,7 +38,7 @@ abstract class Invoice implements InvoiceInterface
      * @var InvoiceSection[]
      * @ORM\Column(name="`sections`", type="json")
      */
-    private array $sections;
+    private array $sections = [];
 
     /** @ORM\Column(name="gross_total", type="money") */
     private MoneyInterface $grossTotal;
@@ -53,7 +53,6 @@ abstract class Invoice implements InvoiceInterface
         }
 
         $this->currency = $currency;
-        $this->sections = [];
 
         // Set the issue date
         if (null === $this->issuedOn) {
