@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -18,12 +20,18 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
  */
 final class InvoiceSectionHeader implements \JsonSerializable
 {
-    /** @var string $header */
-    private $header;
+    private string $header;
 
     public function __construct(string $header)
     {
         $this->header = $header;
+    }
+
+    public function __toArray(): array
+    {
+        return [
+            'header' => $this->getHeader(),
+        ];
     }
 
     public function getHeader(): string
@@ -39,12 +47,5 @@ final class InvoiceSectionHeader implements \JsonSerializable
     public function hydrate(array $data): void
     {
         $this->header = $data['header'];
-    }
-
-    public function __toArray(): array
-    {
-        return [
-            'header' => $this->getHeader(),
-        ];
     }
 }

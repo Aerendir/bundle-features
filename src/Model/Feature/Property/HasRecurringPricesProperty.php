@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -12,12 +14,13 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
 use Money\Currency;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Subscription;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
+
+use function Safe\sprintf;
 
 /**
  * Common properties and methods of a ConfiguredRecurringFeatureInterface.
@@ -67,8 +70,6 @@ trait HasRecurringPricesProperty
 
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     *
-     * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
@@ -186,7 +187,7 @@ trait HasRecurringPricesProperty
                             $this->grossPrices[$currency][$subscriptionInterval] = $netPrice;
 
                             break;
-                        // If currently is "gross"...
+                            // If currently is "gross"...
                         case FeatureInterface::PRICE_GROSS:
                             // ... Then we have to set net prices
                             $grossPrice                                        = (int) \round($price->getBaseAmount() / (1 + $rate));
@@ -220,6 +221,7 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::MONTHLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
+
                     $setPrices[$currency->getCode()][SubscriptionInterface::MONTHLY] = $amount;
                 }
 
@@ -230,6 +232,7 @@ trait HasRecurringPricesProperty
                             MoneyInterface::BASE_AMOUNT => $price[SubscriptionInterface::YEARLY], MoneyInterface::CURRENCY => $currency,
                         ]);
                     }
+
                     $setPrices[$currency->getCode()][SubscriptionInterface::YEARLY] = $amount;
                 }
             }
@@ -243,6 +246,7 @@ trait HasRecurringPricesProperty
         if ( ! $this->subscription instanceof SubscriptionInterface) {
             throw new \RuntimeException('Before you can get instant prices you have to set a Subscription with setSubscription().');
         }
+
         $price = $this->getPrice($currency, $subscriptionInterval, $pricesType);
 
         // If the feature is not already subscribed or if it was subscribed today

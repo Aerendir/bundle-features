@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -32,9 +34,6 @@ interface SubscriptionInterface
      */
     public static function calculateActiveUntil(string $interval): \DateTimeInterface;
 
-    /**
-     * @throws \InvalidArgumentException If the $interval does not exist
-     */
     public static function checkIntervalExists(string $interval);
 
     public static function intervalExists(string $interval): bool;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,10 +13,11 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeaturePackInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
+
+use function Safe\sprintf;
 
 /**
  * Manages packs of a Feature.
@@ -24,17 +27,11 @@ trait HasConfiguredPacksProperty
     /** @var array $packs */
     private $packs;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPack(int $numOfUnits): ?ConfiguredFeaturePackInterface
     {
         return $this->hasPack($numOfUnits) ? $this->packs[$numOfUnits] : null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPacks(): array
     {
         return $this->packs;
@@ -45,9 +42,6 @@ trait HasConfiguredPacksProperty
         return isset($this->packs[$numOfUnits]);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setPacks(array $packs, string $packClass): HasConfiguredPacksInterface
     {
         $pricesType = $packs[HasConfiguredPacksInterface::_PRICES_TYPES];

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,26 +13,21 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
-/**
- * {@inheritdoc}
- */
+use function Safe\sprintf;
+
 abstract class AbstractFeatureTransformer implements DataTransformerInterface
 {
     /** @var array|null Used only by Countable and Rechargeable features */
-    private $configuredPacks;
+    private ?array $configuredPacks = null;
 
-    /** @var string $field */
-    private $featureName;
-
-    /** @var SubscribedFeaturesCollection|null $subscribedFeatures */
-    private $subscribedFeatures;
+    private string $featureName;
+    private ?SubscribedFeaturesCollection $subscribedFeatures;
 
     public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks = null)
     {
@@ -65,7 +62,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
         return $this->getSubscribedFeatures()->get($this->getFeatureName());
     }
 
-    public function getSubscribedFeatures(): SubscribedFeaturesCollection
+    public function getSubscribedFeatures(): ?SubscribedFeaturesCollection
     {
         return $this->subscribedFeatures;
     }

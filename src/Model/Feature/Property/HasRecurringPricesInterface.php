@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -25,8 +27,6 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
 
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
-     *
-     * @throws \InvalidArgumentException If the $subscriptionInterval does not exist
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */

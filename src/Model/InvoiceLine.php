@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -30,23 +32,25 @@ final class InvoiceLine implements \JsonSerializable
     private const FIELD_TAX_NAME     = 'tax_name';
     private const FIELD_TAX_RATE     = 'tax_rate';
 
-    /** @var MoneyInterface$grossAmount */
-    private $grossAmount;
+    private MoneyInterface $grossAmount;
+    private MoneyInterface $netAmount;
+    private string $description;
+    private int $quantity;
+    private string $taxName;
+    private float $taxRate;
 
-    /** @var MoneyInterface$netAmount */
-    private $netAmount;
-
-    /** @var string $description */
-    private $description;
-
-    /** @var int|null $quantity */
-    private $quantity;
-
-    /** @var string $taxName */
-    private $taxName;
-
-    /** @var float $taxRate */
-    private $taxRate;
+    public function __toArray(): array
+    {
+        return [
+            self::FIELD_GROSS_AMOUNT => $this->getGrossAmount()->getBaseAmount(),
+            self::FIELD_NET_AMOUNT   => $this->getNetAmount()->getBaseAmount(),
+            self::FIELD_CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
+            self::FIELD_DESCRIPTION  => $this->getDescription(),
+            self::FIELD_QUANTITY     => $this->getQuantity(),
+            self::FIELD_TAX_NAME     => $this->getTaxName(),
+            self::FIELD_TAX_RATE     => $this->getTaxRate(),
+        ];
+    }
 
     public function getGrossAmount(): MoneyInterface
     {
@@ -63,7 +67,7 @@ final class InvoiceLine implements \JsonSerializable
         return $this->description;
     }
 
-    public function getQuantity(): ?int
+    public function getQuantity(): int
     {
         return $this->quantity;
     }
@@ -78,9 +82,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this->taxRate;
     }
 
-    /**
-     * @param MoneyInterface$grossAmount
-     */
     public function setGrossAmount(MoneyInterface $grossAmount): self
     {
         $this->grossAmount = $grossAmount;
@@ -88,9 +89,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @param MoneyInterface$netAmount
-     */
     public function setNetAmount(MoneyInterface $netAmount): self
     {
         $this->netAmount = $netAmount;
@@ -105,9 +103,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setQuantity(?int $quantity): self
     {
         $this->quantity = $quantity;
@@ -115,9 +110,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setTaxName(string $taxName): self
     {
         $this->taxName = $taxName;
@@ -125,9 +117,6 @@ final class InvoiceLine implements \JsonSerializable
         return $this;
     }
 
-    /**
-     * @return InvoiceLine
-     */
     public function setTaxRate(float $taxRate): self
     {
         $this->taxRate = $taxRate;
@@ -150,18 +139,5 @@ final class InvoiceLine implements \JsonSerializable
         $this->setQuantity((int) $data[self::FIELD_QUANTITY]);
         $this->setTaxName($data[self::FIELD_TAX_NAME]);
         $this->setTaxRate($data[self::FIELD_TAX_RATE]);
-    }
-
-    public function __toArray(): array
-    {
-        return [
-            self::FIELD_GROSS_AMOUNT => $this->getGrossAmount()->getBaseAmount(),
-            self::FIELD_NET_AMOUNT   => $this->getNetAmount()->getBaseAmount(),
-            self::FIELD_CURRENCY     => $this->getGrossAmount()->getCurrency()->getCode(),
-            self::FIELD_DESCRIPTION  => $this->getDescription(),
-            self::FIELD_QUANTITY     => $this->getQuantity(),
-            self::FIELD_TAX_NAME     => $this->getTaxName(),
-            self::FIELD_TAX_RATE     => $this->getTaxRate(),
-        ];
     }
 }

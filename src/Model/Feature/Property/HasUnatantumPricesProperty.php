@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -12,12 +14,13 @@
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 
 use Money\Currency;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
+
+use function Safe\sprintf;
 
 /**
  * Manages simple prices.
@@ -119,7 +122,7 @@ trait HasUnatantumPricesProperty
                         $this->grossPrices[$currency] = $netPrice;
 
                         break;
-                    // If currently is "gross"...
+                        // If currently is "gross"...
                     case FeatureInterface::PRICE_GROSS:
                         // ... Then we have to set net prices
                         $grossPrice                 = (int) \round($price->getBaseAmount() / (1 + $rate));
@@ -131,7 +134,6 @@ trait HasUnatantumPricesProperty
             }
         }
 
-        /** @var $this HasUnatantumPricesInterface */
         return $this;
     }
 

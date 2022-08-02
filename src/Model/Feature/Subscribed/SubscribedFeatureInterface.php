@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,10 +13,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredBooleanFeature;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredFeatureInterface;
-use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredRechargeableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 
 /**
@@ -22,9 +21,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
  */
 interface SubscribedFeatureInterface extends FeatureInterface
 {
-    /**
-     * @return ConfiguredBooleanFeature|ConfiguredCountableFeature|ConfiguredFeatureInterface|ConfiguredRechargeableFeature
-     */
     public function getConfiguredFeature(): ConfiguredFeatureInterface;
 
     public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature);

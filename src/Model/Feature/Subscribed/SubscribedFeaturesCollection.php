@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,6 +13,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 
@@ -18,24 +21,14 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
 {
     public const KIND = 'subscribed';
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(array $elements = [])
     {
         parent::__construct(self::KIND, $elements);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         $return = [];
-        /**
-         * @var string
-         * @var SubscribedFeatureInterface $featureDetils
-         */
         foreach (parent::toArray() as $featureName => $featureDetils) {
             $return[$featureName] = $featureDetils->toArray();
         }
@@ -43,18 +36,15 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
         return $return;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize(): array
     {
         return $this->toArray();
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedBooleanFeature[]
+     * @return SubscribedBooleanFeature[]|SubscribedFeaturesCollection
      */
-    protected function getBooleanFeatures(): \Countable
+    protected function getBooleanFeatures(): ArrayCollection
     {
         if (null === $this->booleans) {
             // Cache the result
@@ -65,9 +55,9 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedCountableFeature[]
+     * @return SubscribedCountableFeature[]|SubscribedFeaturesCollection
      */
-    protected function getCountableFeatures(): \Countable
+    protected function getCountableFeatures(): ArrayCollection
     {
         if (null === $this->countables) {
             // Cache the result
@@ -78,9 +68,9 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
     }
 
     /**
-     * @return SubscribedFeaturesCollection&SubscribedRechargeableFeature[]
+     * @return SubscribedFeaturesCollection|SubscribedRechargeableFeature[]
      */
-    protected function getRechargeableFeatures(): \Countable
+    protected function getRechargeableFeatures(): ArrayCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result

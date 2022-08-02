@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -34,9 +36,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * {@inheritdoc}
- */
 final class FeaturesType extends AbstractType
 {
     private const KEY_ATTR                  = 'attr';
@@ -46,9 +45,6 @@ final class FeaturesType extends AbstractType
     private const DATA_INSTANT_AMOUNT_GROSS = 'data-gross-instant-amount';
     private const DATA_INSTANT_AMOUNT_NET   = 'data-net-instant-amount';
 
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         /** @var SubscribedFeaturesCollection $subscribedFeatures */
@@ -82,9 +78,6 @@ final class FeaturesType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
@@ -159,7 +152,7 @@ final class FeaturesType extends AbstractType
         return $choices;
     }
 
-    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): callable
+    private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): \Closure
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredCountableFeaturePack $pack */
@@ -186,7 +179,7 @@ final class FeaturesType extends AbstractType
         };
     }
 
-    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): callable
+    private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): \Closure
     {
         return function ($val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredRechargeableFeaturePack $pack */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,12 +13,13 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
+
+use function Safe\json_decode;
+use function Safe\json_encode;
 
 final class SubscribedBooleanFeature extends AbstractSubscribedFeature implements CanBeEnabledInterface, IsRecurringFeatureInterface, SubscribedFeatureInterface
 {
@@ -43,9 +46,6 @@ final class SubscribedBooleanFeature extends AbstractSubscribedFeature implement
         parent::__construct($name, $details);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toArray(): array
     {
         return \array_merge([

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -14,9 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
-/**
- * {@inheritdoc}
- */
 final class FeaturesCollectionTransformer implements DataTransformerInterface
 {
     /**

@@ -10,7 +10,7 @@ includes:
 
 parameters:
     level: max
-
+    reportUnmatchedIgnoredErrors: false
     paths:
         - src
         - tests
@@ -21,3 +21,5 @@ parameters:
         - */src/Manager/FeaturesManager.php
         - */src/Manager/InvoicesManager.php
         - */src/Model/Subscription.php
+    ignoreErrors:
+        - '#Parameter \#1 \$value of method Symfony\\Component\\Intl\\NumberFormatter\\NumberFormatter::formatCurrency\(\) expects float, string given.#'

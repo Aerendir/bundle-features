@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -14,9 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Form\DataTransformer;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedBooleanFeature;
 
-/**
- * {@inheritdoc}
- */
 final class BooleanFeatureTransformer extends AbstractFeatureTransformer
 {
     /**
@@ -37,10 +36,8 @@ final class BooleanFeatureTransformer extends AbstractFeatureTransformer
      * Transforms a form value into a Feature object.
      *
      * @param bool $enabled
-     *
-     * @return FeatureInterface
      */
-    public function reverseTransform($enabled)
+    public function reverseTransform($enabled): SubscribedBooleanFeature
     {
         /** @var SubscribedBooleanFeature $subscribedFeature */
         $subscribedFeature = $this->getCurrentTransformingFeature();

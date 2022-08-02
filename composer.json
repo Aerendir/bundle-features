@@ -26,20 +26,21 @@
         "symfony/options-resolver": "^4.4|^5.4|^6.0",
         "symfony/routing": "^4.4|^5.4|^6.0",
         "symfony/translation": "^4.4|^5.4|^6.0",
-        "thecodingmachine/safe": "^1.0"
+        "thecodingmachine/safe": "^1.0|^2.0"
     },
     "require-dev": {
         "ext-ast": "*",
         "bamarni/composer-bin-plugin": "^1.4",
-        "phpstan/phpstan": "1.3.3",
-        "phpstan/phpstan-phpunit": "1.0.0",
-        "phpstan/phpstan-doctrine": "1.0.2",
-        "phpstan/phpstan-symfony": "1.0.6",
-        "rector/rector": "0.12.12",
+        "phpstan/phpstan": "^1.5.6",
+        "phpstan/phpstan-doctrine": "1.3.11",
+        "phpstan/phpstan-phpunit": "1.1.1",
+        "phpstan/phpstan-symfony": "1.2.8",
+        "rector/rector": "0.13.9",
         "roave/security-advisories": "dev-master",
         "serendipity_hq/component-text-matrix": "^3.0",
+        "serendipity_hq/rector-config": "^1.0",
         "symfony/var-dumper": "^4.4|^5.4|^6.0",
-        "thecodingmachine/phpstan-safe-rule": "1.1.0"
+        "thecodingmachine/phpstan-safe-rule": "1.2.0"
     },
     "autoload": {
         "psr-4": {
@@ -66,5 +67,10 @@
         "post-update-cmd": [
             "@composer bin all update --ansi"
         ]
+    },
+    "extra": {
+        "bamarni-bin": {
+            "bin-links": false
+        }
     }
 }

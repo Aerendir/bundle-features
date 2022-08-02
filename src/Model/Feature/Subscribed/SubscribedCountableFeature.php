@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,8 +13,6 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeature;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured\ConfiguredCountableFeaturePack;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
@@ -21,6 +21,9 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProp
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
+
+use function Safe\json_decode;
+use function Safe\json_encode;
 
 final class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, IsRecurringFeatureInterface, CanBeConsumedInterface
 {
@@ -34,13 +37,10 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
     /** @var int $previousRemainedQuantity Internally used by cumulate() */
-    private $previousRemainedQuantity = 0;
+    private int $previousRemainedQuantity = 0;
 
-    /** @var \DateTime $lastRefreshOn */
-    private $lastRefreshOn;
-
-    /** @var SubscribedCountableFeaturePack $subscribedPack */
-    private $subscribedPack;
+    private \DateTimeInterface $lastRefreshOn;
+    private SubscribedCountableFeaturePack $subscribedPack;
 
     public function __construct(string $name, array $details = [])
     {
@@ -78,6 +78,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         if (null === $this->previousRemainedQuantity) {
             throw new \LogicException('You cannot use cumulate() before refreshing the subscription with refresh().');
         }
+
         $this->remainedQuantity = $this->getRemainedQuantity() + $this->previousRemainedQuantity;
 
         return $this;
@@ -87,17 +88,12 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
      * The date on which the feature were renew last time.
      *
      * This can return null so it is compatible with older versions of the Bundle.
-     *
-     * @return \DateTime|\DateTimeImmutable
      */
     public function getLastRefreshOn(): \DateTimeInterface
     {
         return $this->lastRefreshOn;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getRemainedQuantity(): int
     {
         return $this->remainedQuantity;

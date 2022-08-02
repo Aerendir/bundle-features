@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -11,6 +13,7 @@
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Configured;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\AbstractFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\HasRecurringPricesInterface;
@@ -21,12 +24,8 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
 {
     public const KIND = 'configured';
 
-    /** @var bool $taxSet */
-    private $taxSet = false;
+    private bool $taxSet = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(array $elements = [])
     {
         parent::__construct(self::KIND, $elements);
@@ -66,9 +65,9 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredBooleanFeature[]
+     * @return ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection
      */
-    protected function getBooleanFeatures(): \Countable
+    protected function getBooleanFeatures(): ArrayCollection
     {
         if (null === $this->booleans) {
             // Cache the result
@@ -79,9 +78,9 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredCountableFeature[]
+     * @return ConfiguredCountableFeature[]|ConfiguredFeaturesCollection
      */
-    protected function getCountableFeatures(): \Countable
+    protected function getCountableFeatures(): ArrayCollection
     {
         if (null === $this->countables) {
             // Cache the result
@@ -92,9 +91,9 @@ final class ConfiguredFeaturesCollection extends AbstractFeaturesCollection
     }
 
     /**
-     * @return ConfiguredFeaturesCollection&ConfiguredRechargeableFeature[]
+     * @return ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]
      */
-    protected function getRechargeableFeatures(): \Countable
+    protected function getRechargeableFeatures(): ArrayCollection
     {
         if (null === $this->rechargeables) {
             // Cache the result

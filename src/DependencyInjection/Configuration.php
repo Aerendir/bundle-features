@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Serendipity HQ Features Bundle.
  *
@@ -13,7 +15,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\DependencyInjection;
 
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
-use function Safe\sprintf;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\PHPTextMatrix\PHPTextMatrix;
@@ -21,15 +22,16 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
+use function Safe\sprintf;
+
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
- *
- * {@inheritdoc}
  */
 final class Configuration implements ConfigurationInterface
 {
     /** @var string[] The allowed drawers */
     private const ALLOWED_DRAWERS = ['plain_text'];
+
     private const INVOICES        = 'invoices';
     private const DRAWERS         = 'drawers';
     private const SETS            = 'sets';
@@ -41,21 +43,18 @@ final class Configuration implements ConfigurationInterface
     private const RECURRING       = 'recurring';
     private const UNATANTUM       = 'unatantum';
 
-    /** @var array $foundDrawers The drawers found as default ones in features sets */
-    private $foundDrawers = [];
+    /** @var $foundDrawers The drawers found as default ones in features sets */
+    private array $foundDrawers = [];
 
     /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesType;
+    private string $pricesType;
 
     /** @var string $pricesKey The type of prices set: gross or net */
-    private $pricesKey;
+    private string $pricesKey;
 
     /** @var string $unitaryPriceKey The type of prices set: gross or net */
-    private $unitaryPriceKey;
+    private string $unitaryPriceKey;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('shq_features');
@@ -389,10 +388,7 @@ final class Configuration implements ConfigurationInterface
         return $features;
     }
 
-    /**
-     * @return array
-     */
-    private function processFeatureConfig(array $config)
+    private function processFeatureConfig(array $config): array
     {
         $result = [];
         switch ($config[FeatureInterface::FIELD_TYPE]) {
@@ -473,10 +469,8 @@ final class Configuration implements ConfigurationInterface
 
     /**
      * @param $subscriptionType
-     *
-     * @return array
      */
-    private function processPackages(array $packs, $subscriptionType)
+    private function processPackages(array $packs, $subscriptionType): array
     {
         $subscriptionHasFreePackage = false;
         foreach ($packs as $numOfUnits => $prices) {
