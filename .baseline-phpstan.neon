@@ -151,6 +151,16 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -236,6 +246,16 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
@@ -316,6 +336,16 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
@@ -352,6 +382,16 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
 
@@ -607,6 +647,11 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:setHeader\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/Model/Invoice.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 

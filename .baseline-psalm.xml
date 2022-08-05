@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
   <file src="src/DependencyInjection/Configuration.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </ArgumentTypeCoercion>
+    <DeprecatedFunction occurrences="5">
+      <code>sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency)</code>
+      <code>sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency)</code>
+      <code>sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits)</code>
+      <code>sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits)</code>
+      <code>sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS))</code>
+    </DeprecatedFunction>
     <InvalidOperand occurrences="2">
       <code>$numOfUnits</code>
       <code>$numOfUnits</code>
@@ -29,6 +39,9 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('The requested pack "%s" doesn\'t exist', $pack)</code>
+    </DeprecatedFunction>
     <PossiblyNullReference occurrences="1">
       <code>get</code>
     </PossiblyNullReference>
@@ -137,6 +150,9 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Manager/FeaturesManager.php">
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type)</code>
+    </DeprecatedFunction>
     <PossiblyNullReference occurrences="6">
       <code>getInstantPrice</code>
       <code>modify</code>
@@ -191,6 +207,12 @@
     </NoInterfaceProperties>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
+    <DeprecatedFunction occurrences="4">
+      <code>sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind)</code>
+      <code>sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind)</code>
+      <code>sprintf('Unknown feature of type "%s".', $details[FeatureInterface::FIELD_TYPE])</code>
+      <code>sprintf('Unknown feature of type "%s".', $type)</code>
+    </DeprecatedFunction>
     <MissingClosureParamType occurrences="1">
       <code>$element</code>
     </MissingClosureParamType>
@@ -279,6 +301,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Feature/Property/HasConfiguredPacksProperty.php">
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('Class "%s" reached the default condition in the switch and this is not managed.', $packClass)</code>
+    </DeprecatedFunction>
     <LessSpecificImplementedReturnType occurrences="1">
       <code>array</code>
     </LessSpecificImplementedReturnType>
@@ -287,6 +312,13 @@
     </UndefinedVariable>
   </file>
   <file src="src/Model/Feature/Property/HasRecurringPricesProperty.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </ArgumentTypeCoercion>
+    <DeprecatedFunction occurrences="2">
+      <code>sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type)</code>
+      <code>sprintf('The subscription interval can be only "%s" or "%s". "%s" passed.', SubscriptionInterface::MONTHLY, SubscriptionInterface::YEARLY, $subscriptionInterval)</code>
+    </DeprecatedFunction>
     <InvalidOperand occurrences="5">
       <code>$price-&gt;getBaseAmount()</code>
       <code>$price-&gt;getBaseAmount()</code>
@@ -302,6 +334,12 @@
     </PossiblyNullArrayAssignment>
   </file>
   <file src="src/Model/Feature/Property/HasUnatantumPricesProperty.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </ArgumentTypeCoercion>
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('The prices can be only "net" or "gross". You asked for "%s" prices.', $type)</code>
+    </DeprecatedFunction>
     <InvalidOperand occurrences="4">
       <code>$price-&gt;getBaseAmount()</code>
       <code>$price-&gt;getBaseAmount()</code>
@@ -373,6 +411,9 @@
     </MismatchingDocblockReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('You have not set any rechargin pack so it is not possible to get it or recharge the current rechargin feature "%s"', $this-&gt;getName())</code>
+    </DeprecatedFunction>
     <LessSpecificReturnStatement occurrences="1">
       <code>$this-&gt;lastRechargeOn</code>
     </LessSpecificReturnStatement>
@@ -387,6 +428,15 @@
     </RedundantCondition>
   </file>
   <file src="src/Model/Invoice.php">
+    <ArgumentTypeCoercion occurrences="1">
+      <code>$currency</code>
+    </ArgumentTypeCoercion>
+    <DeprecatedFunction occurrences="4">
+      <code>sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id))</code>
+      <code>sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id))</code>
+      <code>sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this-&gt;getCurrency()-&gt;getCode(), $section-&gt;getCurrency()-&gt;getCode())</code>
+      <code>sprintf('The section "%s" already exists. You cannot add it again', $id)</code>
+    </DeprecatedFunction>
     <InvalidNullableReturnType occurrences="1">
       <code>InvoiceLine</code>
     </InvalidNullableReturnType>
@@ -464,6 +514,11 @@
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="src/Model/InvoiceSection.php">
+    <DeprecatedFunction occurrences="3">
+      <code>sprintf('Invalid $id type. Accepted types are "string, "integer" and "null". You passed "%s".', \gettype($id))</code>
+      <code>sprintf('Only strings or integers are accepted as $id. "%s" passed.', \gettype($id))</code>
+      <code>sprintf('The section "%s" already exists. You cannot add it again', $id)</code>
+    </DeprecatedFunction>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -479,6 +534,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
+    <DeprecatedFunction occurrences="1">
+      <code>sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval)</code>
+    </DeprecatedFunction>
     <InvalidNullableReturnType occurrences="1">
       <code>SubscribedFeaturesCollection</code>
     </InvalidNullableReturnType>
