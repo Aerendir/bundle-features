@@ -38,16 +38,16 @@ abstract class Subscription implements SubscriptionInterface
      *
      * @ORM\Column(name="features", type="json", nullable=true)
      */
-    private ?SubscribedFeaturesCollection $features;
+    private ?SubscribedFeaturesCollection $features = null;
 
     /** @ORM\Column(name="`renew_interval`", type="string", nullable=true) */
     private ?string $renewInterval = null;
 
     /** @ORM\Column(name="next_renew_amount", type="money", nullable=true) */
-    private ?MoneyInterface $nextRenewAmount;
+    private ?MoneyInterface $nextRenewAmount = null;
 
     /** @ORM\Column(name="next_renew_on", type="datetime", nullable=true) */
-    private ?\DateTimeInterface $nextRenewOn;
+    private ?\DateTimeInterface $nextRenewOn = null;
 
     /**
      * If there are countable features, this field saves the smallest refresh interval found.
@@ -62,10 +62,10 @@ abstract class Subscription implements SubscriptionInterface
      *
      * @ORM\Column(name="next_refresh_on", type="datetime", nullable=true)
      */
-    private ?\DateTimeInterface $nextRefreshOn;
+    private ?\DateTimeInterface $nextRefreshOn = null;
 
     /** @ORM\Column(name="subscribed_on", type="datetime", nullable=true) */
-    private ?\DateTimeInterface $subscribedOn;
+    private ?\DateTimeInterface $subscribedOn = null;
 
     public function __clone()
     {

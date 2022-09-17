@@ -62,7 +62,7 @@ final class FeaturesManager
     private SubscriptionInterface $oldSubscription;
 
     /** @var array $differences The added and removed features */
-    private $differences = [
+    private array $differences = [
         self::ADDED   => [],
         self::REMOVED => [],
     ];

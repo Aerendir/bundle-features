@@ -94,9 +94,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     {
         $featureClass = $this->getFeatureClass($kind, $type);
 
-        return static function ($element) use ($featureClass): bool {
-            return $element instanceof $featureClass;
-        };
+        return static fn ($element): bool => $element instanceof $featureClass;
     }
 
     private function getFeatureClass(string $kind, string $type): string
