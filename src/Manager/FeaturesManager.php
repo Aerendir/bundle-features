@@ -447,8 +447,8 @@ final class FeaturesManager
                 case SubscribedBooleanFeature::class:
                     /** @var SubscribedBooleanFeature $oldFeature */
                     // ... and was in the old collection and was enabled and is in the new collection but is not enabled...
-                    if (true === $oldFeature->isEnabled()
-                        && true === $newFeatures->containsKey($oldFeature->getName())
+                    if (true     === $oldFeature->isEnabled()
+                        && true  === $newFeatures->containsKey($oldFeature->getName())
                         && false === $newFeatures->get($oldFeature->getName())->isEnabled()
                     ) {
                         // ... It was removed

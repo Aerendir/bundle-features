@@ -36,6 +36,7 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * @var InvoiceSection[]
+     *
      * @ORM\Column(name="`sections`", type="json")
      */
     private array $sections = [];
