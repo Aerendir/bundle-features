@@ -174,7 +174,8 @@
       <code>\is_array($feature)</code>
       <code>null !== $checkingFeature</code>
     </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull occurrences="1">
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $this-&gt;differences</code>
       <code>null === $this-&gt;subscription</code>
     </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="1">
@@ -352,9 +353,9 @@
     </MoreSpecificImplementedParamType>
   </file>
   <file src="src/Model/Feature/Property/IsRecurringFeatureProperty.php">
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$activeUntil</code>
-    </PossiblyInvalidPropertyAssignmentValue>
+    <MoreSpecificReturnType occurrences="1">
+      <code>\DateTime|\DateTimeImmutable|null</code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/AbstractSubscribedFeature.php">
     <MissingReturnType occurrences="1">
