@@ -6,7 +6,7 @@
     </ArgumentTypeCoercion>
     <DeprecatedFunction occurrences="5">
       <code>sprintf('%s.features.%s has an invalid ISO 4217 currency code "%s".', $set, $feature, $currency)</code>
-      <code>sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency)</code>
+      <code>sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at all to make the feature free.', $set, $feature, $currency)</code>
       <code>sprintf('%s.features.%s.packs.%s MUST be an integer as it has to represent the number of units in the package.', $set, $feature, $numOfUnits)</code>
       <code>sprintf('%s.features.%s.packs.%s cannot be free of charge. Free packages are allowed only for CountableFeatures. Please set a price or remove this package.', $set, $feature, $numOfUnits)</code>
       <code>sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS))</code>
