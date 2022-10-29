@@ -289,7 +289,7 @@ final class Configuration implements ConfigurationInterface
     {
         // At least one subscription period has to be set
         if (null === $subscriptions[SubscriptionInterface::MONTHLY] && null === $subscriptions[SubscriptionInterface::YEARLY]) {
-            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
+            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at all to make the feature free.', $set, $feature, $currency));
         }
     }
 
@@ -467,9 +467,6 @@ final class Configuration implements ConfigurationInterface
         return $prices;
     }
 
-    /**
-     * @param $subscriptionType
-     */
     private function processPackages(array $packs, $subscriptionType): array
     {
         $subscriptionHasFreePackage = false;
