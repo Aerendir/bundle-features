@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.26.0@6998fabb2bf528b65777bf9941920888d23c03ac">
+<files psalm-version="4.29.0@7ec5ffbd5f68ae03782d7fd33fff0c45a69f95b3">
   <file src="src/DependencyInjection/Configuration.php">
     <ArgumentTypeCoercion occurrences="1">
       <code>$currency</code>
@@ -42,6 +42,12 @@
     <DeprecatedFunction occurrences="1">
       <code>sprintf('The requested pack "%s" doesn\'t exist', $pack)</code>
     </DeprecatedFunction>
+    <InvalidNullableReturnType occurrences="1">
+      <code>SubscribedFeatureInterface</code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement occurrences="1">
+      <code>$this-&gt;getSubscribedFeatures()-&gt;get($this-&gt;getFeatureName())</code>
+    </NullableReturnStatement>
     <PossiblyNullReference occurrences="1">
       <code>get</code>
     </PossiblyNullReference>
@@ -153,8 +159,18 @@
     <DeprecatedFunction occurrences="1">
       <code>sprintf('You can only get "added" or "removed" differences or all passing "null". You asked for "%s".', $type)</code>
     </DeprecatedFunction>
-    <PossiblyNullReference occurrences="6">
+    <PossiblyNullReference occurrences="16">
+      <code>getFreePack</code>
+      <code>getFreePack</code>
+      <code>getFreeRecharge</code>
+      <code>getFreeRecharge</code>
       <code>getInstantPrice</code>
+      <code>getPrice</code>
+      <code>getSubscribedPack</code>
+      <code>getSubscribedPack</code>
+      <code>isEnabled</code>
+      <code>isEnabled</code>
+      <code>isEnabled</code>
       <code>modify</code>
       <code>modify</code>
       <code>modify</code>
@@ -192,6 +208,14 @@
     <InvalidReturnType occurrences="1">
       <code>InvoiceDrawerInterface</code>
     </InvalidReturnType>
+    <PossiblyNullReference occurrences="6">
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPack</code>
+      <code>getPrice</code>
+      <code>getPrice</code>
+    </PossiblyNullReference>
     <PropertyNotSetInConstructor occurrences="2">
       <code>$drawers</code>
       <code>$subscription</code>
@@ -567,6 +591,9 @@
       <code>clone $this-&gt;features</code>
       <code>clone $this-&gt;features</code>
     </PossiblyInvalidClone>
+    <PossiblyNullReference occurrences="1">
+      <code>isStillActive</code>
+    </PossiblyNullReference>
   </file>
   <file src="src/Model/SubscriptionInterface.php">
     <MissingReturnType occurrences="2">
