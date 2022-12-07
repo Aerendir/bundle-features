@@ -299,7 +299,7 @@ abstract class Subscription implements SubscriptionInterface
         return $this;
     }
 
-    public function forceFeaturesUpdate()
+    public function forceFeaturesUpdate(): void
     {
         $this->features = clone $this->features;
     }
@@ -307,7 +307,7 @@ abstract class Subscription implements SubscriptionInterface
     /**
      * @ORM\PostLoad()
      */
-    public function hydrateFeatures()
+    public function hydrateFeatures(): void
     {
         $this->features = new SubscribedFeaturesCollection($this->features);
     }

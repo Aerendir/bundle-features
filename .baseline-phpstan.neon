@@ -106,11 +106,6 @@ parameters:
 			path: src/Model/Feature/AbstractFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:set\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: src/Model/Feature/AbstractFeaturesCollection.php
-
-		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -142,11 +137,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
@@ -237,11 +227,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
@@ -436,11 +421,6 @@ parameters:
 			path: src/Model/Feature/Property/HasUnatantumPricesInterface.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\AbstractSubscribedFeature\\:\\:setConfiguredFeature\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\AbstractSubscribedFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
@@ -626,22 +606,7 @@ parameters:
 			path: src/Model/Invoice.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:jsonUnserialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:recalculateTotal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:removeSection\\(\\) should return bool\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:setHeader\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 

@@ -88,7 +88,7 @@ abstract class Invoice implements InvoiceInterface
         return $this->sections[self::SECTION_DEFAULT]->removeHeader();
     }
 
-    public function setHeader(InvoiceSectionHeader $header)
+    public function setHeader(InvoiceSectionHeader $header): void
     {
         $this->sections[self::SECTION_DEFAULT]->setHeader($header);
     }
@@ -229,7 +229,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * @ORM\PostLoad()
      */
-    public function jsonUnserialize()
+    public function jsonUnserialize(): void
     {
         foreach ($this->sections as $sectionId => $section) {
             $hydratingSection = new InvoiceSection($this->getCurrency());
@@ -256,7 +256,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * Recalculates the total of the invoice.
      */
-    private function recalculateTotal()
+    private function recalculateTotal(): void
     {
         $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         $this->netTotal   = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
