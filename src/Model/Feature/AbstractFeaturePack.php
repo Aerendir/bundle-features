@@ -16,7 +16,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature;
 abstract class AbstractFeaturePack implements FeaturePackInterface
 {
     /** @var int $numOfUnits How many units are contained in this Pack */
-    private $numOfUnits;
+    private int $numOfUnits;
 
     public function __construct(array $details)
     {

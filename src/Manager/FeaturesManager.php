@@ -418,10 +418,8 @@ final class FeaturesManager
      * Calculate differences between two FeaturesCollections.
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
-     *
-     * @return array
      */
-    private function findDifferences(SubscribedFeaturesCollection $newFeatures)
+    private function findDifferences(SubscribedFeaturesCollection $newFeatures): array
     {
         // Get the features from the cloned subscription
         $oldFeatures = $this->oldSubscription->getFeatures();

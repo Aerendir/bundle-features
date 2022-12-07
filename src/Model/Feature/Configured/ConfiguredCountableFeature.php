@@ -31,9 +31,7 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     /** @var array $packs */
     private $packs;
 
-    /** @var string $refreshPeriod */
-    private $refreshPeriod;
-
+    private string $refreshPeriod;
     private string $taxName;
     private float $taxRate;
 
@@ -64,7 +62,7 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
     public function setSubscription(SubscriptionInterface $subscription): self
     {
         // If there are packs, set subscription in them, too
-        if (false === empty($this->packs)) {
+        if ([] !== $this->packs) {
             /** @var ConfiguredCountableFeaturePack $pack */
             foreach ($this->packs as $pack) {
                 $pack->setSubscription($subscription);

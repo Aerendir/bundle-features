@@ -204,7 +204,7 @@ trait HasRecurringPricesProperty
         return $this;
     }
 
-    private function setPrices(array $settingPrices, string $pricesType)
+    private function setPrices(array $settingPrices, string $pricesType): void
     {
         $this->pricesType = $pricesType;
         $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';

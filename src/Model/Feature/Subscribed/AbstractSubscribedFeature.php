@@ -29,7 +29,7 @@ abstract class AbstractSubscribedFeature extends AbstractFeature implements Subs
         return $this->configuredFeature;
     }
 
-    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature)
+    public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature): void
     {
         $this->configuredFeature = $configuredFeature;
     }
