@@ -291,7 +291,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, \\(int\\|string\\)\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
@@ -531,7 +531,7 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, \\(int\\|string\\)\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
