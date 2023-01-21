@@ -108,7 +108,7 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
             'sep_h'             => ' ',
             'show_head_top_sep' => false,
             'columns'           => [
-                'quantity' => [
+                'quantity'    => [
                     'min_width' => 10,
                     'max_width' => 10,
                 ],
@@ -116,7 +116,7 @@ final class PlainTextDrawer extends AbstractInvoiceDrawer
                     'max_width' => 32,
                     'min_width' => 32,
                 ],
-                'baseAmount' => [
+                'baseAmount'  => [
                     'align'     => 'right',
                     'min_width' => 18,
                 ],
