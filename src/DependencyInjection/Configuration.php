@@ -101,10 +101,8 @@ final class Configuration implements ConfigurationInterface
                                                 ->prototype('array')
                                                     // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                     ->beforeNormalization()
-                                                        ->ifTrue(function ($price) {return is_numeric($price); })
-                                                        ->then(function ($price) {
-                                                            return ['_' => $price];
-                                                        })
+                                                        ->ifTrue(static fn ($price): bool => is_numeric($price))
+                                                        ->then(static fn ($price): array => ['_' => $price])
                                                     ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
@@ -133,8 +131,8 @@ final class Configuration implements ConfigurationInterface
                                                     ->prototype('array')
                                                         // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                         ->beforeNormalization()
-                                                            ->ifTrue(function ($price) {return is_numeric($price); })
-                                                            ->then(function ($price) {return ['_' => $price]; })
+                                                            ->ifTrue(static fn ($price): bool => is_numeric($price))
+                                                            ->then(static fn ($price): array => ['_' => $price])
                                                         ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
@@ -157,13 +155,9 @@ final class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 // Deeply validate the full config tree
-                ->ifTrue(function ($tree) {
-                    return $this->validateTree($tree);
-                })
+                ->ifTrue(fn ($tree): array => $this->validateTree($tree))
                 // Re-elaborate the tree removing unuseful values and preparing useful ones
-                ->then(function ($tree) {
-                    return $this->processTree($tree);
-                })
+                ->then(fn ($tree): array => $this->processTree($tree))
             ->end();
 
         return $treeBuilder;
