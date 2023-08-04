@@ -111,6 +111,11 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
 			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -128,6 +133,11 @@ parameters:
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 2
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:RecurringPricesConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
@@ -186,7 +196,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:\\$packs is never written, only read\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:setPacksProperty\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
@@ -197,6 +207,11 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
@@ -291,7 +306,7 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, \\(int\\|string\\)\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, int\\|string\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
@@ -311,12 +326,27 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
+			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Binary operation \"/\" between string and float results in an error\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:getPrices\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:setPacksProperty\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
@@ -432,6 +462,11 @@ parameters:
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 2
+			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
 
@@ -447,11 +482,16 @@ parameters:
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 5
+			count: 6
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
 			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeaturePack and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -531,7 +571,7 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, \\(int\\|string\\)\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, int\\|string\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
