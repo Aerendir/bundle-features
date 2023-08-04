@@ -42,7 +42,7 @@ interface InvoiceInterface extends \JsonSerializable
      *
      * @param string|null $id The ID of the line to make it identifiable so it can be retrieved with the getLine method
      */
-    public function addLine(InvoiceLine $line, ?string $id = null): InvoiceInterface;
+    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface;
 
     /**
      * Returns a specific line of the _default section of the Invoice.
