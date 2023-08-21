@@ -31,16 +31,13 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
     /** @var null */
     public const KIND = null;
 
-    /** @var ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection|SubscribedBooleanFeature[]|SubscribedFeaturesCollection|null $booleans
-     * @var null */
+    /** @var ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection|SubscribedBooleanFeature[]|SubscribedFeaturesCollection|null $booleans */
     protected $booleans;
 
-    /** @var ConfiguredCountableFeature[]|ConfiguredFeaturesCollection|SubscribedCountableFeature[]|SubscribedFeaturesCollection|null $countables
-     * @var null */
+    /** @var ConfiguredCountableFeature[]|ConfiguredFeaturesCollection|SubscribedCountableFeature[]|SubscribedFeaturesCollection|null $countables */
     protected $countables;
 
-    /** @var ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]|SubscribedFeaturesCollection|SubscribedRechargeableFeature[]|null $rechargeables
-     * @var null */
+    /** @var ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]|SubscribedFeaturesCollection|SubscribedRechargeableFeature[]|null $rechargeables */
     protected $rechargeables;
 
     public function __construct(string $kind, ?array $elements = [])
