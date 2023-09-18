@@ -99,7 +99,7 @@ abstract class Subscription implements SubscriptionInterface
         return $activeUntil;
     }
 
-    public static function checkIntervalExists(string $interval)
+    public static function checkIntervalExists(string $interval): void
     {
         if (false === self::intervalExists($interval)) {
             throw new \InvalidArgumentException(sprintf('The time interval "%s" does not exist. Use SubscriptionInterface to get the right options.', $interval));
