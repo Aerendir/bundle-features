@@ -278,3 +278,4 @@ This is
 - https://github.com/DZunke/FeatureFlagsBundle
 - https://github.com/intenseprogramming/feature-flag-bundle/blob/master/doc/USAGE.md
 - https://www.google.com/search?q=features+bundle+github
+- https://github.com/symfony/symfony/pull/51649
