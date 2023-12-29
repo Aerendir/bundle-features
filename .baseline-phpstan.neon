@@ -61,11 +61,6 @@ parameters:
 			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
 
 		-
-			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
-			count: 1
-			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
-
-		-
 			message: "#^Cannot call method getHeader\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\|null\\.$#"
 			count: 1
 			path: src/InvoiceDrawer/PlainTextDrawer.php
