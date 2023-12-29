@@ -87,9 +87,6 @@ final class InvoicesManager
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function drawInvoice(InvoiceInterface $invoice, string $drawer = null): array
     {
         return $this->getDrawer($drawer)->draw($invoice);
