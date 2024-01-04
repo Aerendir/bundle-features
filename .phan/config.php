@@ -16,9 +16,12 @@ declare(strict_types=1);
  * default configuration. Command line arguments will be applied
  * after this file is read.
  */
+
+use Phan\Issue;
+
 return [
     'target_php_version'                          => '7.4',
-    'minimum_severity'                            => \Phan\Issue::SEVERITY_LOW,
+    'minimum_severity'                            => Issue::SEVERITY_LOW,
 
     // A list of directories that should be parsed for class and
     // method information. After excluding the directories
