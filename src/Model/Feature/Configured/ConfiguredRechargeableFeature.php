@@ -66,7 +66,7 @@ final class ConfiguredRechargeableFeature extends AbstractFeature implements Con
         return $this;
     }
 
-    public function setPacks(array $packs, string $class = null): HasConfiguredPacksInterface
+    public function setPacks(array $packs, ?string $class = null): HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredRechargeableFeaturePack::class);
     }

@@ -228,7 +228,7 @@ final class FeaturesManager
         return $totalCharges;
     }
 
-    public function getDifferences(string $type = null): array
+    public function getDifferences(?string $type = null): array
     {
         if (null === $this->differences) {
             throw new \LogicException('No differences calculated. You have to first call findDifferences().');
@@ -318,7 +318,7 @@ final class FeaturesManager
      *
      * It updates the next payment amount and the dates until the features are active.
      */
-    public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null): void
+    public function updateSubscription(?SubscribedFeaturesCollection $newFeatures = null): void
     {
         if (null !== $newFeatures) {
             /**
