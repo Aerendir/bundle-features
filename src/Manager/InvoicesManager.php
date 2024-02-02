@@ -44,7 +44,7 @@ final class InvoicesManager
     /**
      * @param array<string, InvoiceDrawerInterface> $drawers
      */
-    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, string $defaultFormatter = null, array $drawers = [])
+    public function __construct(array $configuredFeatures, ArrayWriter $arrayWriter, ?string $defaultFormatter = null, array $drawers = [])
     {
         $this->arrayWriter        = $arrayWriter;
         $this->defaultDrawer      = $defaultFormatter;
@@ -87,12 +87,12 @@ final class InvoicesManager
         return $this;
     }
 
-    public function drawInvoice(InvoiceInterface $invoice, string $drawer = null): array
+    public function drawInvoice(InvoiceInterface $invoice, ?string $drawer = null): array
     {
         return $this->getDrawer($drawer)->draw($invoice);
     }
 
-    public function getDrawer(string $drawer = null): InvoiceDrawerInterface
+    public function getDrawer(?string $drawer = null): InvoiceDrawerInterface
     {
         // If a Drawer were passed and it exists
         if (null !== $drawer && \in_array($drawer, $this->drawers)) {
@@ -122,7 +122,7 @@ final class InvoicesManager
      * IsRecurringFeature(s).
      * This is useful to show the user his next invoice amount.
      */
-    public function populateInvoice(InvoiceInterface $invoice, array $addedFeatures = null): InvoiceInterface
+    public function populateInvoice(InvoiceInterface $invoice, ?array $addedFeatures = null): InvoiceInterface
     {
         $this->populateSection($invoice->getSection('_default'), $addedFeatures);
 
@@ -138,7 +138,7 @@ final class InvoicesManager
      * The two cases MUST be keep distinguished as in the first we have to add to the InvoiceSection only the newly
      * added features; in the second, instead, we have to add all the subscribed features.
      */
-    public function populateSection(InvoiceSection $section, array $addedFeatures = null): void
+    public function populateSection(InvoiceSection $section, ?array $addedFeatures = null): void
     {
         /** @var SubscribedBooleanFeature $feature */
         foreach ($this->buildPopulatingFeatures($addedFeatures) as $feature) {

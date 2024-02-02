@@ -54,7 +54,7 @@ final class ConfiguredCountableFeature extends AbstractFeature implements HasCon
         return $this->refreshPeriod;
     }
 
-    public function setPacks(array $packs, string $class = null): HasConfiguredPacksInterface
+    public function setPacks(array $packs, ?string $class = null): HasConfiguredPacksInterface
     {
         return $this->setPacksProperty($packs, ConfiguredCountableFeaturePack::class);
     }

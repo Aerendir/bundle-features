@@ -88,7 +88,7 @@ final class FeaturesType extends AbstractType
         ]);
     }
 
-    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, SubscribedBooleanFeature $subscribedFeature = null): array
+    private function getBooleanFeatureOptions(SubscriptionInterface $subscription, ?SubscribedBooleanFeature $subscribedFeature = null): array
     {
         return [
             self::KEY_REQUIRED => false,

@@ -93,7 +93,7 @@ abstract class Invoice implements InvoiceInterface
         $this->sections[self::SECTION_DEFAULT]->setHeader($header);
     }
 
-    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface
+    public function addLine(InvoiceLine $line, ?string $id = null): InvoiceInterface
     {
         if (false === isset($this->sections[self::SECTION_DEFAULT])) {
             $this->sections[self::SECTION_DEFAULT] = new InvoiceSection($this->getCurrency());
@@ -130,7 +130,7 @@ abstract class Invoice implements InvoiceInterface
         return $return;
     }
 
-    public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface
+    public function addSection(InvoiceSection $section, ?string $id = null): InvoiceInterface
     {
         if ($this->getCurrency()->getCode() !== $section->getCurrency()->getCode()) {
             throw new \LogicException(sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this->getCurrency()->getCode(), $section->getCurrency()->getCode()));

@@ -25,9 +25,9 @@ interface HasUnatantumPricesInterface
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getPrice($currency, string $type = null): ?MoneyInterface;
+    public function getPrice($currency, ?string $type = null): ?MoneyInterface;
 
-    public function getPrices(string $type = null): array;
+    public function getPrices(?string $type = null): array;
 
     public function getTaxName(): string;
 
@@ -36,7 +36,7 @@ interface HasUnatantumPricesInterface
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function hasPrice($currency, string $type = null): bool;
+    public function hasPrice($currency, ?string $type = null): bool;
 
     public function setTax(float $rate, string $name): HasUnatantumPricesInterface;
 }
