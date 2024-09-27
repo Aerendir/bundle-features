@@ -77,11 +77,6 @@ final class InvoicesManager
 
     public function addDrawer(string $name, InvoiceDrawerInterface $drawer): self
     {
-        // If this is the default drawer
-        if ($this->defaultDrawer === $name) {
-            $this->defaultDrawer = $drawer;
-        }
-
         $this->drawers[$name] = $drawer;
 
         return $this;
@@ -95,7 +90,7 @@ final class InvoicesManager
     public function getDrawer(?string $drawer = null): InvoiceDrawerInterface
     {
         // If a Drawer were passed and it exists
-        if (null !== $drawer && \in_array($drawer, $this->drawers)) {
+        if (null !== $drawer && \in_array($drawer, array_keys($this->drawers))) {
             // Use it
             $drawer = $this->drawers[$drawer];
         }
@@ -103,12 +98,12 @@ final class InvoicesManager
         // If a drawer were not passed...
         if (null === $drawer) {
             // ... check for the existence of a default one and it doesn't exist...
-            if (null === $this->defaultDrawer) {
+            if (false === is_string($this->defaultDrawer)) {
                 // ... Throw an error
                 throw new \LogicException('To draw an Invoice you have to pass an InvoiceDrawerInterface drawer or either set a default drawer in the features set.');
             }
 
-            $drawer = $this->defaultDrawer;
+            $drawer = $this->drawers[$this->defaultDrawer];
         }
 
         return $drawer;
