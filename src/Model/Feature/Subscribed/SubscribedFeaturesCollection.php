@@ -21,7 +21,7 @@ final class SubscribedFeaturesCollection extends AbstractFeaturesCollection impl
 {
     public const KIND = 'subscribed';
 
-    public function __construct(array $elements = [])
+    public function __construct(?array $elements = [])
     {
         parent::__construct(self::KIND, $elements);
     }
