@@ -49,7 +49,7 @@ trait HasUnatantumPricesProperty
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getPrice($currency, string $type = null): ?MoneyInterface
+    public function getPrice($currency, ?string $type = null): ?MoneyInterface
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();
@@ -72,7 +72,7 @@ trait HasUnatantumPricesProperty
         return $this->taxRate;
     }
 
-    public function getPrices(string $type = null): array
+    public function getPrices(?string $type = null): array
     {
         if (null === $type) {
             $type = $this->pricesType;
@@ -91,7 +91,7 @@ trait HasUnatantumPricesProperty
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function hasPrice($currency, string $type = null): bool
+    public function hasPrice($currency, ?string $type = null): bool
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();

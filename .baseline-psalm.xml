@@ -1,518 +1,529 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="5.24.0@462c80e31c34e58cc4f750c656be3927e80e550e">
   <file src="src/DependencyInjection/Configuration.php">
-    <InvalidOperand occurrences="2">
-      <code>$numOfUnits</code>
-      <code>$numOfUnits</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$currency]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidOperand>
+      <code><![CDATA[$numOfUnits]]></code>
+      <code><![CDATA[$numOfUnits]]></code>
     </InvalidOperand>
-    <MissingClosureParamType occurrences="6">
-      <code>$price</code>
-      <code>$price</code>
-      <code>$price</code>
-      <code>$price</code>
-      <code>$tree</code>
-      <code>$tree</code>
+    <MissingClosureParamType>
+      <code><![CDATA[$price]]></code>
+      <code><![CDATA[$price]]></code>
+      <code><![CDATA[$price]]></code>
+      <code><![CDATA[$price]]></code>
+      <code><![CDATA[$tree]]></code>
+      <code><![CDATA[$tree]]></code>
     </MissingClosureParamType>
-    <MissingConstructor occurrences="3">
-      <code>$pricesKey</code>
-      <code>$pricesType</code>
-      <code>$unitaryPriceKey</code>
+    <MissingConstructor>
+      <code><![CDATA[$pricesKey]]></code>
+      <code><![CDATA[$pricesType]]></code>
+      <code><![CDATA[$unitaryPriceKey]]></code>
     </MissingConstructor>
-    <MissingDocblockType occurrences="1">
-      <code>private array $foundDrawers = [];</code>
+    <MissingDocblockType>
+      <code><![CDATA[private array $foundDrawers = [];]]></code>
     </MissingDocblockType>
-    <MissingParamType occurrences="1">
-      <code>$subscriptionType</code>
-    </MissingParamType>
-    <PossiblyUndefinedMethod occurrences="1">
-      <code>children</code>
-    </PossiblyUndefinedMethod>
+    <UndefinedMethod>
+      <code><![CDATA[children]]></code>
+    </UndefinedMethod>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
-    <PossiblyNullReference occurrences="1">
-      <code>get</code>
+    <MissingTemplateParam>
+      <code><![CDATA[DataTransformerInterface]]></code>
+    </MissingTemplateParam>
+    <PossiblyNullReference>
+      <code><![CDATA[get]]></code>
     </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
-    <MoreSpecificImplementedParamType occurrences="2">
-      <code>$enabled</code>
-      <code>$feature</code>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$enabled]]></code>
+      <code><![CDATA[$feature]]></code>
     </MoreSpecificImplementedParamType>
-    <ParamNameMismatch occurrences="2">
-      <code>$enabled</code>
-      <code>$feature</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$enabled]]></code>
+      <code><![CDATA[$feature]]></code>
     </ParamNameMismatch>
-    <RedundantCondition occurrences="1">
-      <code>false</code>
+    <RedundantCondition>
+      <code><![CDATA[false]]></code>
     </RedundantCondition>
   </file>
   <file src="src/Form/DataTransformer/CountableFeatureTransformer.php">
-    <MoreSpecificImplementedParamType occurrences="2">
-      <code>$feature</code>
-      <code>$pack</code>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$feature]]></code>
+      <code><![CDATA[$pack]]></code>
     </MoreSpecificImplementedParamType>
-    <ParamNameMismatch occurrences="2">
-      <code>$feature</code>
-      <code>$pack</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$feature]]></code>
+      <code><![CDATA[$pack]]></code>
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
-    <MoreSpecificImplementedParamType occurrences="2">
-      <code>$features</code>
-      <code>$features</code>
+    <MissingTemplateParam>
+      <code><![CDATA[DataTransformerInterface]]></code>
+    </MissingTemplateParam>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$features]]></code>
+      <code><![CDATA[$features]]></code>
     </MoreSpecificImplementedParamType>
-    <ParamNameMismatch occurrences="2">
-      <code>$features</code>
-      <code>$features</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$features]]></code>
+      <code><![CDATA[$features]]></code>
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
-    <MoreSpecificImplementedParamType occurrences="2">
-      <code>$feature</code>
-      <code>$pack</code>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$feature]]></code>
+      <code><![CDATA[$pack]]></code>
     </MoreSpecificImplementedParamType>
-    <ParamNameMismatch occurrences="2">
-      <code>$feature</code>
-      <code>$pack</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$feature]]></code>
+      <code><![CDATA[$pack]]></code>
     </ParamNameMismatch>
   </file>
   <file src="src/Form/Type/FeaturesType.php">
-    <ArgumentTypeCoercion occurrences="7">
-      <code>$subscribedFeature</code>
-      <code>$subscribedFeature</code>
-      <code>$subscribedFeature</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
-      <code>$subscribedFeature-&gt;getConfiguredFeature()</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$subscribedFeature]]></code>
+      <code><![CDATA[$subscribedFeature]]></code>
+      <code><![CDATA[$subscribedFeature]]></code>
+      <code><![CDATA[$subscribedFeature->getConfiguredFeature()]]></code>
+      <code><![CDATA[$subscribedFeature->getConfiguredFeature()]]></code>
+      <code><![CDATA[$subscribedFeature->getConfiguredFeature()]]></code>
+      <code><![CDATA[$subscribedFeature->getConfiguredFeature()]]></code>
     </ArgumentTypeCoercion>
-    <InvalidOperand occurrences="1">
-      <code>$result += (float) $sum</code>
+    <InvalidOperand>
+      <code><![CDATA[$result += (float) $sum]]></code>
     </InvalidOperand>
-    <MissingClosureParamType occurrences="2">
-      <code>$val</code>
-      <code>$val</code>
+    <MissingClosureParamType>
+      <code><![CDATA[$val]]></code>
+      <code><![CDATA[$val]]></code>
     </MissingClosureParamType>
-    <PossiblyNullReference occurrences="1">
-      <code>isStillActive</code>
+    <PossiblyNullReference>
+      <code><![CDATA[isStillActive]]></code>
     </PossiblyNullReference>
-    <TypeDoesNotContainType occurrences="1">
-      <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$subscribedPack instanceof ConfiguredCountableFeaturePack]]></code>
     </TypeDoesNotContainType>
-    <UndefinedInterfaceMethod occurrences="4">
-      <code>getInstantPrice</code>
-      <code>getInstantPrice</code>
-      <code>getPrice</code>
-      <code>getPrice</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[getInstantPrice]]></code>
+      <code><![CDATA[getInstantPrice]]></code>
+      <code><![CDATA[getPrice]]></code>
+      <code><![CDATA[getPrice]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/InvoiceDrawer/AbstractInvoiceDrawer.php">
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$currencyFormatter</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$currencyFormatter]]></code>
     </PropertyNotSetInConstructor>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>null === $this-&gt;currencyFormatter</code>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[null === $this->currencyFormatter]]></code>
     </TypeDoesNotContainNull>
-    <UninitializedProperty occurrences="1">
-      <code>$this-&gt;currencyFormatter</code>
+    <UninitializedProperty>
+      <code><![CDATA[$this->currencyFormatter]]></code>
     </UninitializedProperty>
   </file>
   <file src="src/InvoiceDrawer/PlainTextDrawer.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>$return</code>
+    <InvalidReturnStatement>
+      <code><![CDATA[$return]]></code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>string</code>
+    <InvalidReturnType>
+      <code><![CDATA[string]]></code>
     </InvalidReturnType>
-    <PossiblyFalseOperand occurrences="2">
-      <code>\iconv_strlen($equalsSeparatorShort)</code>
-      <code>\iconv_strlen($totalGrossAmount)</code>
+    <PossiblyFalseOperand>
+      <code><![CDATA[\iconv_strlen($equalsSeparatorShort)]]></code>
+      <code><![CDATA[\iconv_strlen($totalGrossAmount)]]></code>
     </PossiblyFalseOperand>
-    <PossiblyNullReference occurrences="2">
-      <code>getHeader</code>
-      <code>hasHeader</code>
+    <PossiblyNullReference>
+      <code><![CDATA[getHeader]]></code>
+      <code><![CDATA[hasHeader]]></code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$tableWidth</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$tableWidth]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Manager/FeaturesManager.php">
-    <PossiblyNullReference occurrences="6">
-      <code>getInstantPrice</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
-      <code>modify</code>
+    <PossiblyNullReference>
+      <code><![CDATA[getInstantPrice]]></code>
+      <code><![CDATA[modify]]></code>
+      <code><![CDATA[modify]]></code>
+      <code><![CDATA[modify]]></code>
+      <code><![CDATA[modify]]></code>
+      <code><![CDATA[modify]]></code>
     </PossiblyNullReference>
-    <PossiblyUndefinedMethod occurrences="2">
-      <code>getInstantPrice</code>
-      <code>getPack</code>
+    <PossiblyUndefinedMethod>
+      <code><![CDATA[getInstantPrice]]></code>
+      <code><![CDATA[getPack]]></code>
     </PossiblyUndefinedMethod>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$oldSubscription</code>
-      <code>$subscription</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$oldSubscription]]></code>
+      <code><![CDATA[$subscription]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>$feature instanceof SubscribedCountableFeature</code>
-      <code>\is_array($feature)</code>
-      <code>null !== $checkingFeature</code>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[$feature instanceof SubscribedCountableFeature]]></code>
+      <code><![CDATA[\is_array($feature)]]></code>
+      <code><![CDATA[null !== $checkingFeature]]></code>
     </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>null === $this-&gt;subscription</code>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[null === $this->differences]]></code>
+      <code><![CDATA[null === $this->subscription]]></code>
     </TypeDoesNotContainNull>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getInstantPrice</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[getInstantPrice]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Manager/InvoicesManager.php">
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$drawer</code>
+    <InvalidPropertyAssignmentValue>
+      <code><![CDATA[$drawer]]></code>
     </InvalidPropertyAssignmentValue>
-    <InvalidReturnStatement occurrences="1">
-      <code>$drawer</code>
+    <InvalidReturnStatement>
+      <code><![CDATA[$drawer]]></code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>InvoiceDrawerInterface</code>
+    <InvalidReturnType>
+      <code><![CDATA[InvoiceDrawerInterface]]></code>
     </InvalidReturnType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$drawers</code>
-      <code>$subscription</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$drawers]]></code>
+      <code><![CDATA[$subscription]]></code>
     </PropertyNotSetInConstructor>
-    <UndefinedInterfaceMethod occurrences="2">
-      <code>getTaxName</code>
-      <code>getTaxRate</code>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[getTaxName]]></code>
+      <code><![CDATA[getTaxRate]]></code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Model/Feature/AbstractFeature.php">
-    <NoInterfaceProperties occurrences="2">
-      <code>$this-&gt;name</code>
-      <code>$this-&gt;type</code>
+    <NoInterfaceProperties>
+      <code><![CDATA[$this->name]]></code>
+      <code><![CDATA[$this->type]]></code>
     </NoInterfaceProperties>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
-    <MissingClosureParamType occurrences="1">
-      <code>$element</code>
+    <MissingClosureParamType>
+      <code><![CDATA[$element]]></code>
     </MissingClosureParamType>
+    <MissingTemplateParam>
+      <code><![CDATA[AbstractFeaturesCollection]]></code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredBooleanFeature.php">
-    <PropertyNotSetInConstructor occurrences="8">
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
-      <code>ConfiguredBooleanFeature</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
+      <code><![CDATA[ConfiguredBooleanFeature]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredCountableFeature.php">
-    <NoInterfaceProperties occurrences="1">
-      <code>$this-&gt;refreshPeriod</code>
+    <NoInterfaceProperties>
+      <code><![CDATA[$this->refreshPeriod]]></code>
     </NoInterfaceProperties>
-    <ParamNameMismatch occurrences="1">
-      <code>$class</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$class]]></code>
     </ParamNameMismatch>
-    <PropertyNotSetInConstructor occurrences="5">
-      <code>$packs</code>
-      <code>$refreshPeriod</code>
-      <code>$taxName</code>
-      <code>$taxRate</code>
-      <code>ConfiguredCountableFeature</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$packs]]></code>
+      <code><![CDATA[$refreshPeriod]]></code>
+      <code><![CDATA[$taxName]]></code>
+      <code><![CDATA[$taxRate]]></code>
+      <code><![CDATA[ConfiguredCountableFeature]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php">
-    <PropertyNotSetInConstructor occurrences="7">
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
-      <code>ConfiguredCountableFeaturePack</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
-    <ConstructorSignatureMismatch occurrences="1">
-      <code>$elements</code>
+    <ConstructorSignatureMismatch>
+      <code><![CDATA[$elements]]></code>
     </ConstructorSignatureMismatch>
-    <ImplementedParamTypeMismatch occurrences="1">
-      <code>$elements</code>
+    <ImplementedParamTypeMismatch>
+      <code><![CDATA[$elements]]></code>
     </ImplementedParamTypeMismatch>
-    <MethodSignatureMismatch occurrences="1">
-      <code>public function __construct(array $elements = [])</code>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __construct(array $elements = [])]]></code>
     </MethodSignatureMismatch>
-    <MismatchingDocblockReturnType occurrences="3">
-      <code>ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection</code>
-      <code>ConfiguredCountableFeature[]|ConfiguredFeaturesCollection</code>
-      <code>ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection]]></code>
+      <code><![CDATA[ConfiguredCountableFeature[]|ConfiguredFeaturesCollection]]></code>
+      <code><![CDATA[ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]]]></code>
     </MismatchingDocblockReturnType>
+    <ParamNameMismatch>
+      <code><![CDATA[$elements]]></code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeature.php">
-    <ParamNameMismatch occurrences="1">
-      <code>$class</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$class]]></code>
     </ParamNameMismatch>
-    <PropertyNotSetInConstructor occurrences="5">
-      <code>$freeRecharge</code>
-      <code>ConfiguredRechargeableFeature</code>
-      <code>ConfiguredRechargeableFeature</code>
-      <code>ConfiguredRechargeableFeature</code>
-      <code>ConfiguredRechargeableFeature</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$freeRecharge]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeature]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeature]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeature]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeature]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php">
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>ConfiguredRechargeableFeaturePack</code>
-      <code>ConfiguredRechargeableFeaturePack</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[ConfiguredRechargeableFeaturePack]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeaturePack]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Property/CanBeFreeProperty.php">
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>null !== $this-&gt;grossPrices</code>
-      <code>null !== $this-&gt;netPrices</code>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[null !== $this->grossPrices]]></code>
+      <code><![CDATA[null !== $this->netPrices]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Feature/Property/CanHaveFreePackProperty.php">
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>null !== $this-&gt;freePack</code>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[null !== $this->freePack]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Feature/Property/HasConfiguredPacksProperty.php">
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>array</code>
+    <LessSpecificImplementedReturnType>
+      <code><![CDATA[array]]></code>
     </LessSpecificImplementedReturnType>
-    <UndefinedVariable occurrences="1">
-      <code>$packClass</code>
+    <UndefinedVariable>
+      <code><![CDATA[$packClass]]></code>
     </UndefinedVariable>
   </file>
   <file src="src/Model/Feature/Property/HasRecurringPricesProperty.php">
-    <InvalidOperand occurrences="5">
-      <code>$price-&gt;getBaseAmount()</code>
-      <code>$price-&gt;getBaseAmount()</code>
-      <code>$price-&gt;getBaseAmount()</code>
-      <code>1 + $rate</code>
-      <code>1 + $rate</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$currency]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidOperand>
+      <code><![CDATA[$price->getBaseAmount()]]></code>
+      <code><![CDATA[$price->getBaseAmount()]]></code>
+      <code><![CDATA[$price->getBaseAmount()]]></code>
+      <code><![CDATA[1 + $rate]]></code>
+      <code><![CDATA[1 + $rate]]></code>
     </InvalidOperand>
-    <MissingReturnType occurrences="1">
-      <code>setPrices</code>
-    </MissingReturnType>
-    <PossiblyNullArrayAssignment occurrences="1">
-      <code>$instantPrices[$currency]</code>
+    <PossiblyNullArrayAssignment>
+      <code><![CDATA[$instantPrices[$currency]]]></code>
     </PossiblyNullArrayAssignment>
   </file>
   <file src="src/Model/Feature/Property/HasUnatantumPricesProperty.php">
-    <InvalidOperand occurrences="4">
-      <code>$price-&gt;getBaseAmount()</code>
-      <code>$price-&gt;getBaseAmount()</code>
-      <code>1 + $rate</code>
-      <code>1 + $rate</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$currency]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidOperand>
+      <code><![CDATA[$price->getBaseAmount()]]></code>
+      <code><![CDATA[$price->getBaseAmount()]]></code>
+      <code><![CDATA[1 + $rate]]></code>
+      <code><![CDATA[1 + $rate]]></code>
     </InvalidOperand>
-    <MoreSpecificImplementedParamType occurrences="2">
-      <code>$currency</code>
-      <code>$currency</code>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$currency]]></code>
+      <code><![CDATA[$currency]]></code>
     </MoreSpecificImplementedParamType>
   </file>
   <file src="src/Model/Feature/Property/IsRecurringFeatureProperty.php">
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$activeUntil</code>
-    </PossiblyInvalidPropertyAssignmentValue>
+    <MoreSpecificReturnType>
+      <code><![CDATA[\DateTime|\DateTimeImmutable|null]]></code>
+    </MoreSpecificReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/AbstractSubscribedFeature.php">
-    <MissingReturnType occurrences="1">
-      <code>setConfiguredFeature</code>
-    </MissingReturnType>
-    <TypeDoesNotContainNull occurrences="1">
-      <code>null === $this-&gt;configuredFeature</code>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[null === $this->configuredFeature]]></code>
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedBooleanFeature.php">
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>SubscribedBooleanFeature</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[SubscribedBooleanFeature]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
-    <PossiblyInvalidMethodCall occurrences="1">
-      <code>toArray</code>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[toArray]]></code>
     </PossiblyInvalidMethodCall>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$lastRefreshOn</code>
-      <code>SubscribedCountableFeature</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$lastRefreshOn]]></code>
+      <code><![CDATA[SubscribedCountableFeature]]></code>
     </PropertyNotSetInConstructor>
-    <TypeDoesNotContainNull occurrences="3">
-      <code>null === $this-&gt;getLastRefreshOn()</code>
-      <code>null === $this-&gt;lastRefreshOn</code>
-      <code>null === $this-&gt;previousRemainedQuantity</code>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[null === $this->getLastRefreshOn()]]></code>
+      <code><![CDATA[null === $this->lastRefreshOn]]></code>
+      <code><![CDATA[null === $this->previousRemainedQuantity]]></code>
     </TypeDoesNotContainNull>
-    <TypeDoesNotContainType occurrences="1">
-      <code>$subscribedPack instanceof ConfiguredCountableFeaturePack</code>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$subscribedPack instanceof ConfiguredCountableFeaturePack]]></code>
     </TypeDoesNotContainType>
-    <UninitializedProperty occurrences="1">
-      <code>$this-&gt;lastRefreshOn</code>
+    <UninitializedProperty>
+      <code><![CDATA[$this->lastRefreshOn]]></code>
     </UninitializedProperty>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeatureInterface.php">
-    <MissingReturnType occurrences="1">
-      <code>setConfiguredFeature</code>
+    <MissingReturnType>
+      <code><![CDATA[setConfiguredFeature]]></code>
     </MissingReturnType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
-    <ConstructorSignatureMismatch occurrences="1">
-      <code>$elements</code>
+    <ConstructorSignatureMismatch>
+      <code><![CDATA[$elements]]></code>
     </ConstructorSignatureMismatch>
-    <ImplementedParamTypeMismatch occurrences="1">
-      <code>$elements</code>
+    <ImplementedParamTypeMismatch>
+      <code><![CDATA[$elements]]></code>
     </ImplementedParamTypeMismatch>
-    <MethodSignatureMismatch occurrences="1">
-      <code>public function __construct(array $elements = [])</code>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __construct(array $elements = [])]]></code>
     </MethodSignatureMismatch>
-    <MismatchingDocblockReturnType occurrences="3">
-      <code>SubscribedBooleanFeature[]|SubscribedFeaturesCollection</code>
-      <code>SubscribedCountableFeature[]|SubscribedFeaturesCollection</code>
-      <code>SubscribedFeaturesCollection|SubscribedRechargeableFeature[]</code>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[SubscribedBooleanFeature[]|SubscribedFeaturesCollection]]></code>
+      <code><![CDATA[SubscribedCountableFeature[]|SubscribedFeaturesCollection]]></code>
+      <code><![CDATA[SubscribedFeaturesCollection|SubscribedRechargeableFeature[]]]></code>
     </MismatchingDocblockReturnType>
+    <ParamNameMismatch>
+      <code><![CDATA[$elements]]></code>
+    </ParamNameMismatch>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$this-&gt;lastRechargeOn</code>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this->lastRechargeOn]]></code>
     </LessSpecificReturnStatement>
-    <MoreSpecificReturnType occurrences="1">
-      <code>\DateTime|\DateTimeImmutable</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
     </MoreSpecificReturnType>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$rechargingPack</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$rechargingPack]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="1">
-      <code>null !== $this-&gt;rechargingPack</code>
+    <RedundantCondition>
+      <code><![CDATA[null !== $this->rechargingPack]]></code>
     </RedundantCondition>
   </file>
   <file src="src/Model/Invoice.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>InvoiceLine</code>
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$currency]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidNullableReturnType>
+      <code><![CDATA[InvoiceLine]]></code>
     </InvalidNullableReturnType>
-    <InvalidReturnStatement occurrences="2">
-      <code>$return</code>
-      <code>$this-&gt;sections[self::SECTION_DEFAULT]-&gt;removeHeader()</code>
+    <InvalidReturnStatement>
+      <code><![CDATA[$return]]></code>
     </InvalidReturnStatement>
-    <InvalidReturnType occurrences="2">
-      <code>InvoiceSection</code>
-      <code>removeSection</code>
+    <InvalidReturnType>
+      <code><![CDATA[removeSection]]></code>
     </InvalidReturnType>
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$this-&gt;issuedOn</code>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this->issuedOn]]></code>
     </LessSpecificReturnStatement>
-    <MissingParamType occurrences="1">
-      <code>$id</code>
+    <MissingParamType>
+      <code><![CDATA[$id]]></code>
     </MissingParamType>
-    <MissingReturnType occurrences="3">
-      <code>jsonUnserialize</code>
-      <code>recalculateTotal</code>
-      <code>setHeader</code>
-    </MissingReturnType>
-    <MoreSpecificReturnType occurrences="1">
-      <code>\DateTime|\DateTimeImmutable</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;sections[self::SECTION_DEFAULT]-&gt;getLine($id)</code>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->sections[self::SECTION_DEFAULT]->getLine($id)]]></code>
     </NullableReturnStatement>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$grossTotal</code>
-      <code>$issuedOn</code>
-      <code>$netTotal</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$grossTotal]]></code>
+      <code><![CDATA[$issuedOn]]></code>
+      <code><![CDATA[$netTotal]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>\is_int($id)</code>
+    <RedundantCondition>
+      <code><![CDATA['string']]></code>
+    </RedundantCondition>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[\is_int($id)]]></code>
     </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull occurrences="3">
-      <code>null === $this-&gt;grossTotal</code>
-      <code>null === $this-&gt;issuedOn</code>
-      <code>null === $this-&gt;netTotal</code>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[null === $this->grossTotal]]></code>
+      <code><![CDATA[null === $this->issuedOn]]></code>
+      <code><![CDATA[null === $this->netTotal]]></code>
     </TypeDoesNotContainNull>
-    <UndefinedMethod occurrences="2">
-      <code>$section</code>
-      <code>$section</code>
+    <UndefinedMethod>
+      <code><![CDATA[$section]]></code>
+      <code><![CDATA[$section]]></code>
     </UndefinedMethod>
-    <UninitializedProperty occurrences="3">
-      <code>$this-&gt;grossTotal</code>
-      <code>$this-&gt;issuedOn</code>
-      <code>$this-&gt;netTotal</code>
+    <UninitializedProperty>
+      <code><![CDATA[$this->grossTotal]]></code>
+      <code><![CDATA[$this->issuedOn]]></code>
+      <code><![CDATA[$this->netTotal]]></code>
     </UninitializedProperty>
   </file>
   <file src="src/Model/InvoiceInterface.php">
-    <InvalidDocblock occurrences="1">
-      <code>string!int</code>
+    <InvalidDocblock>
+      <code><![CDATA[string!int]]></code>
     </InvalidDocblock>
-    <MissingParamType occurrences="1">
-      <code>$id</code>
+    <MissingParamType>
+      <code><![CDATA[$id]]></code>
     </MissingParamType>
-    <MissingReturnType occurrences="2">
-      <code>jsonUnserialize</code>
-      <code>setHeader</code>
+    <MissingReturnType>
+      <code><![CDATA[jsonUnserialize]]></code>
+      <code><![CDATA[setHeader]]></code>
     </MissingReturnType>
   </file>
   <file src="src/Model/InvoiceLine.php">
-    <MissingConstructor occurrences="6">
-      <code>$description</code>
-      <code>$grossAmount</code>
-      <code>$netAmount</code>
-      <code>$quantity</code>
-      <code>$taxName</code>
-      <code>$taxRate</code>
+    <MissingConstructor>
+      <code><![CDATA[$description]]></code>
+      <code><![CDATA[$grossAmount]]></code>
+      <code><![CDATA[$netAmount]]></code>
+      <code><![CDATA[$quantity]]></code>
+      <code><![CDATA[$taxName]]></code>
+      <code><![CDATA[$taxRate]]></code>
     </MissingConstructor>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$quantity</code>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[$quantity]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="src/Model/InvoiceSection.php">
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$header</code>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[$header]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition occurrences="2">
-      <code>null !== $this-&gt;getHeader()</code>
-      <code>null !== $this-&gt;header</code>
+    <RedundantCondition>
+      <code><![CDATA['string']]></code>
+      <code><![CDATA[null !== $this->getHeader()]]></code>
+      <code><![CDATA[null !== $this->header]]></code>
     </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>\is_int($id)</code>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[\is_int($id)]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
-    <InvalidNullableReturnType occurrences="1">
-      <code>SubscribedFeaturesCollection</code>
+    <InvalidNullableReturnType>
+      <code><![CDATA[SubscribedFeaturesCollection]]></code>
     </InvalidNullableReturnType>
-    <LessSpecificReturnStatement occurrences="3">
-      <code>$this-&gt;nextRefreshOn</code>
-      <code>$this-&gt;nextRenewOn</code>
-      <code>$this-&gt;subscribedOn</code>
+    <LessSpecificReturnStatement>
+      <code><![CDATA[$this->nextRefreshOn]]></code>
+      <code><![CDATA[$this->nextRenewOn]]></code>
+      <code><![CDATA[$this->subscribedOn]]></code>
     </LessSpecificReturnStatement>
-    <MissingReturnType occurrences="3">
-      <code>checkIntervalExists</code>
-      <code>forceFeaturesUpdate</code>
-      <code>hydrateFeatures</code>
-    </MissingReturnType>
-    <MoreSpecificReturnType occurrences="3">
-      <code>\DateTimeInterface</code>
-      <code>\DateTime|\DateTimeImmutable</code>
-      <code>\DateTime|\DateTimeImmutable|null</code>
+    <MoreSpecificReturnType>
+      <code><![CDATA[\DateTimeInterface]]></code>
+      <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
+      <code><![CDATA[\DateTime|\DateTimeImmutable|null]]></code>
     </MoreSpecificReturnType>
-    <NullableReturnStatement occurrences="1">
-      <code>$this-&gt;features</code>
+    <NullableReturnStatement>
+      <code><![CDATA[$this->features]]></code>
     </NullableReturnStatement>
-    <ParamNameMismatch occurrences="2">
-      <code>$nextRenewOn</code>
-      <code>$renewInterval</code>
+    <ParamNameMismatch>
+      <code><![CDATA[$nextRenewOn]]></code>
+      <code><![CDATA[$renewInterval]]></code>
     </ParamNameMismatch>
-    <PossiblyInvalidClone occurrences="2">
-      <code>clone $this-&gt;features</code>
-      <code>clone $this-&gt;features</code>
+    <PossiblyInvalidClone>
+      <code><![CDATA[clone $this->features]]></code>
+      <code><![CDATA[clone $this->features]]></code>
     </PossiblyInvalidClone>
   </file>
   <file src="src/Model/SubscriptionInterface.php">
-    <MissingReturnType occurrences="2">
-      <code>checkIntervalExists</code>
-      <code>forceFeaturesUpdate</code>
+    <MissingReturnType>
+      <code><![CDATA[checkIntervalExists]]></code>
+      <code><![CDATA[forceFeaturesUpdate]]></code>
     </MissingReturnType>
   </file>
 </files>

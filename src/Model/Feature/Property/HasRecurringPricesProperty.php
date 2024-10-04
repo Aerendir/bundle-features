@@ -73,7 +73,7 @@ trait HasRecurringPricesProperty
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): ?MoneyInterface
+    public function getInstantPrice($currency, string $subscriptionInterval, ?string $type = null): ?MoneyInterface
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();
@@ -101,7 +101,7 @@ trait HasRecurringPricesProperty
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function getPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface
+    public function getPrice($currency, string $subscriptionInterval, ?string $type = null): MoneyInterface
     {
         if ($currency instanceof Currency) {
             $currency = $currency->getCode();
@@ -116,7 +116,7 @@ trait HasRecurringPricesProperty
         return $this->getPrices($type)[$currency][$subscriptionInterval] ?? new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => new Currency($currency)]);
     }
 
-    public function getPrices(string $type = null): ?array
+    public function getPrices(?string $type = null): ?array
     {
         if (null === $type) {
             $type = $this->pricesType;
@@ -145,7 +145,7 @@ trait HasRecurringPricesProperty
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function hasPrice($currency, string $subscriptionInterval, string $type = null): bool
+    public function hasPrice($currency, string $subscriptionInterval, ?string $type = null): bool
     {
         Subscription::checkIntervalExists($subscriptionInterval);
 
@@ -204,7 +204,7 @@ trait HasRecurringPricesProperty
         return $this;
     }
 
-    private function setPrices(array $settingPrices, string $pricesType)
+    private function setPrices(array $settingPrices, string $pricesType): void
     {
         $this->pricesType = $pricesType;
         $priceProperty    = FeatureInterface::PRICE_NET === $this->pricesType ? 'netPrices' : 'grossPrices';

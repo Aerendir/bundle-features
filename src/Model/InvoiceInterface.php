@@ -65,7 +65,7 @@ interface InvoiceInterface extends \JsonSerializable
      */
     public function removeLine($id);
 
-    public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface;
+    public function addSection(InvoiceSection $section, ?string $id = null): InvoiceInterface;
 
     /**
      * @param int|string $id

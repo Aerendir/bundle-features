@@ -101,10 +101,8 @@ final class Configuration implements ConfigurationInterface
                                                 ->prototype('array')
                                                     // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                     ->beforeNormalization()
-                                                        ->ifTrue(function ($price) {return is_numeric($price); })
-                                                        ->then(function ($price) {
-                                                            return ['_' => $price];
-                                                        })
+                                                        ->ifTrue(static fn ($price): bool => is_numeric($price))
+                                                        ->then(static fn ($price): array => ['_' => $price])
                                                     ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
@@ -133,8 +131,8 @@ final class Configuration implements ConfigurationInterface
                                                     ->prototype('array')
                                                         // As we expect anyway an array, here we convert 'EUR'=>100 to 'EUR'=>['_'=>100]
                                                         ->beforeNormalization()
-                                                            ->ifTrue(function ($price) {return is_numeric($price); })
-                                                            ->then(function ($price) {return ['_' => $price]; })
+                                                            ->ifTrue(static fn ($price): bool => is_numeric($price))
+                                                            ->then(static fn ($price): array => ['_' => $price])
                                                         ->end()
                                                     ->children()
                                                         // Define acceptable subscription periods, including the artificial one '_' for scalars
@@ -157,13 +155,9 @@ final class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 // Deeply validate the full config tree
-                ->ifTrue(function ($tree) {
-                    return $this->validateTree($tree);
-                })
+                ->ifTrue(fn ($tree): array => $this->validateTree($tree))
                 // Re-elaborate the tree removing unuseful values and preparing useful ones
-                ->then(function ($tree) {
-                    return $this->processTree($tree);
-                })
+                ->then(fn ($tree): array => $this->processTree($tree))
             ->end();
 
         return $treeBuilder;
@@ -264,7 +258,7 @@ final class Configuration implements ConfigurationInterface
     private function validateRecurringPrice(string $set, string $feature, array $price): void
     {
         // If emmpty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
-        if (false === empty($price)) {
+        if ([] !== $price) {
             // ... It contains Currency codes: validate each one of them and their subscription periods
             foreach ($price as $currency => $subscriptions) {
                 // Validate the currency
@@ -289,14 +283,14 @@ final class Configuration implements ConfigurationInterface
     {
         // At least one subscription period has to be set
         if (null === $subscriptions[SubscriptionInterface::MONTHLY] && null === $subscriptions[SubscriptionInterface::YEARLY]) {
-            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at' . ' least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at' . ' all to make the feature free.', $set, $feature, $currency));
+            throw new InvalidConfigurationException(sprintf('%s.features.%s.%s has no subscription period. To create a valid price, you have to set at least one subscription period choosing between "monthly" and "yearly" or don\'t set the price at all to make the feature free.', $set, $feature, $currency));
         }
     }
 
     private function validatePackages(string $set, string $feature, array $packs, string $subscriptionType): void
     {
         // If empty, may be because it doesn't exist and the TreeBuilder created it as an empty array, else...
-        if (false === empty($packs)) {
+        if ([] !== $packs) {
             // ... It contains packages: validate the number of units and their prices
             foreach ($packs as $numOfUnits => $price) {
                 // The key has to be an integer
@@ -332,7 +326,7 @@ final class Configuration implements ConfigurationInterface
 
     private function validateUnatantumPrice(string $set, string $feature, array $price): void
     {
-        if (false === empty($price)) {
+        if ([] !== $price) {
             $currency = \key($price);
 
             // Validate the currency
@@ -456,7 +450,7 @@ final class Configuration implements ConfigurationInterface
     private function processRecurringPrice(array $prices): array
     {
         // If no prices are specified, the feature is free
-        if (false === empty($prices)) {
+        if ([] !== $prices) {
             foreach (\array_keys($prices) as $currency) {
                 unset(
                     $prices[$currency]['_']
@@ -467,10 +461,7 @@ final class Configuration implements ConfigurationInterface
         return $prices;
     }
 
-    /**
-     * @param $subscriptionType
-     */
-    private function processPackages(array $packs, $subscriptionType): array
+    private function processPackages(array $packs, string $subscriptionType): array
     {
         $subscriptionHasFreePackage = false;
         foreach ($packs as $numOfUnits => $prices) {

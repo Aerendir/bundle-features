@@ -36,6 +36,7 @@ abstract class Invoice implements InvoiceInterface
 
     /**
      * @var InvoiceSection[]
+     *
      * @ORM\Column(name="`sections`", type="json")
      */
     private array $sections = [];
@@ -87,12 +88,12 @@ abstract class Invoice implements InvoiceInterface
         return $this->sections[self::SECTION_DEFAULT]->removeHeader();
     }
 
-    public function setHeader(InvoiceSectionHeader $header)
+    public function setHeader(InvoiceSectionHeader $header): void
     {
         $this->sections[self::SECTION_DEFAULT]->setHeader($header);
     }
 
-    public function addLine(InvoiceLine $line, string $id = null): InvoiceInterface
+    public function addLine(InvoiceLine $line, ?string $id = null): InvoiceInterface
     {
         if (false === isset($this->sections[self::SECTION_DEFAULT])) {
             $this->sections[self::SECTION_DEFAULT] = new InvoiceSection($this->getCurrency());
@@ -129,7 +130,7 @@ abstract class Invoice implements InvoiceInterface
         return $return;
     }
 
-    public function addSection(InvoiceSection $section, string $id = null): InvoiceInterface
+    public function addSection(InvoiceSection $section, ?string $id = null): InvoiceInterface
     {
         if ($this->getCurrency()->getCode() !== $section->getCurrency()->getCode()) {
             throw new \LogicException(sprintf('The Sections and the Invoice to which you add it MUST have the same currency code. Invoice has code "%s" while Section has code "%s".', $this->getCurrency()->getCode(), $section->getCurrency()->getCode()));
@@ -228,7 +229,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * @ORM\PostLoad()
      */
-    public function jsonUnserialize()
+    public function jsonUnserialize(): void
     {
         foreach ($this->sections as $sectionId => $section) {
             $hydratingSection = new InvoiceSection($this->getCurrency());
@@ -255,7 +256,7 @@ abstract class Invoice implements InvoiceInterface
     /**
      * Recalculates the total of the invoice.
      */
-    private function recalculateTotal()
+    private function recalculateTotal(): void
     {
         $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         $this->netTotal   = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);

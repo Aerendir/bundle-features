@@ -30,14 +30,14 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
      *
      * @return MoneyInterface|null if the price is not set in the required currency
      */
-    public function getInstantPrice($currency, string $subscriptionInterval, string $type = null): ?MoneyInterface;
+    public function getInstantPrice($currency, string $subscriptionInterval, ?string $type = null): ?MoneyInterface;
 
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function getPrice($currency, string $subscriptionInterval, string $type = null): MoneyInterface;
+    public function getPrice($currency, string $subscriptionInterval, ?string $type = null): MoneyInterface;
 
-    public function getPrices(string $type = null): ?array;
+    public function getPrices(?string $type = null): ?array;
 
     public function getTaxName(): string;
 
@@ -46,7 +46,7 @@ interface HasRecurringPricesInterface extends CanBeFreeInterface
     /**
      * @param Currency|string $currency This is not typecasted so the method can be called from inside Twig templates simply passing a string
      */
-    public function hasPrice($currency, string $subscriptionInterval, string $type = null): bool;
+    public function hasPrice($currency, string $subscriptionInterval, ?string $type = null): bool;
 
     public function setSubscription(SubscriptionInterface $subscription): HasRecurringPricesInterface;
 

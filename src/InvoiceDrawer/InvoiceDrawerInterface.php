@@ -20,8 +20,5 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\InvoiceInterface;
  */
 interface InvoiceDrawerInterface
 {
-    /**
-     * @return mixed
-     */
     public function draw(InvoiceInterface $invoice): array;
 }

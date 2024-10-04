@@ -29,7 +29,7 @@ abstract class AbstractFeatureTransformer implements DataTransformerInterface
     private string $featureName;
     private ?SubscribedFeaturesCollection $subscribedFeatures;
 
-    public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, array $configuredPacks = null)
+    public function __construct(string $featureName, SubscribedFeaturesCollection $subscribedFeatures, ?array $configuredPacks = null)
     {
         $this->configuredPacks    = $configuredPacks;
         $this->featureName        = $featureName;

@@ -39,5 +39,5 @@ interface HasConfiguredPacksInterface
     /**
      * @param ConfiguredCountableFeaturePack[]|ConfiguredFeaturePackInterface[]|ConfiguredRechargeableFeaturePack[] $packs
      */
-    public function setPacks(array $packs, string $packClass = null): HasConfiguredPacksInterface;
+    public function setPacks(array $packs, ?string $packClass = null): HasConfiguredPacksInterface;
 }

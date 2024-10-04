@@ -62,7 +62,7 @@ final class FeaturesManager
     private SubscriptionInterface $oldSubscription;
 
     /** @var array $differences The added and removed features */
-    private $differences = [
+    private array $differences = [
         self::ADDED   => [],
         self::REMOVED => [],
     ];
@@ -228,7 +228,7 @@ final class FeaturesManager
         return $totalCharges;
     }
 
-    public function getDifferences(string $type = null): array
+    public function getDifferences(?string $type = null): array
     {
         if (null === $this->differences) {
             throw new \LogicException('No differences calculated. You have to first call findDifferences().');
@@ -318,7 +318,7 @@ final class FeaturesManager
      *
      * It updates the next payment amount and the dates until the features are active.
      */
-    public function updateSubscription(SubscribedFeaturesCollection $newFeatures = null): void
+    public function updateSubscription(?SubscribedFeaturesCollection $newFeatures = null): void
     {
         if (null !== $newFeatures) {
             /**
@@ -418,10 +418,8 @@ final class FeaturesManager
      * Calculate differences between two FeaturesCollections.
      *
      * Calculates the added and removed features in the $newFeatures comparing it with $oldFeatures
-     *
-     * @return array
      */
-    private function findDifferences(SubscribedFeaturesCollection $newFeatures)
+    private function findDifferences(SubscribedFeaturesCollection $newFeatures): array
     {
         // Get the features from the cloned subscription
         $oldFeatures = $this->oldSubscription->getFeatures();
@@ -447,8 +445,8 @@ final class FeaturesManager
                 case SubscribedBooleanFeature::class:
                     /** @var SubscribedBooleanFeature $oldFeature */
                     // ... and was in the old collection and was enabled and is in the new collection but is not enabled...
-                    if (true === $oldFeature->isEnabled()
-                        && true === $newFeatures->containsKey($oldFeature->getName())
+                    if (true     === $oldFeature->isEnabled()
+                        && true  === $newFeatures->containsKey($oldFeature->getName())
                         && false === $newFeatures->get($oldFeature->getName())->isEnabled()
                     ) {
                         // ... It was removed

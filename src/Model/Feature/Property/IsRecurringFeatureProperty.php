@@ -18,7 +18,7 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
  */
 trait IsRecurringFeatureProperty
 {
-    /** @var \DateTime $activeUntil */
+    /** @var \DateTimeInterface $activeUntil */
     private $activeUntil;
 
     public function __construct(array $details = [])

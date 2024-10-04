@@ -69,7 +69,7 @@ final class InvoiceSection implements \JsonSerializable
         return $this;
     }
 
-    public function addLine(InvoiceLine $line, string $id = null): self
+    public function addLine(InvoiceLine $line, ?string $id = null): self
     {
         switch (\gettype($id)) {
             case 'string':

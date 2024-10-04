@@ -61,11 +61,6 @@ parameters:
 			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
 
 		-
-			message: "#^PHPDoc tag @return with type mixed is not subtype of native type array\\.$#"
-			count: 1
-			path: src/InvoiceDrawer/InvoiceDrawerInterface.php
-
-		-
 			message: "#^Cannot call method getHeader\\(\\) on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\|null\\.$#"
 			count: 1
 			path: src/InvoiceDrawer/PlainTextDrawer.php
@@ -111,6 +106,11 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
 			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -131,6 +131,11 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:RecurringPricesConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -141,12 +146,17 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has no return type specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
@@ -176,12 +186,17 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
+			message: "#^Call to function property_exists\\(\\) with \\$this\\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\) and 'subscription' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:\\$packs is never written, only read\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\:\\:setPacksProperty\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeature.php
 
@@ -192,6 +207,11 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type array\\|Countable supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
@@ -226,12 +246,17 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has no return type specified\\.$#"
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack\\:\\:setPrices\\(\\) has parameter \\$settingPrices with no value type specified in iterable type array\\.$#"
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
@@ -281,24 +306,39 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, int\\|string\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredFeaturesCollection.php
+
+		-
+			message: "#^Binary operation \"\\*\" between string and float results in an error\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Binary operation \"/\" between string and float results in an error\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Call to function property_exists\\(\\) with \\$this\\(SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\) and 'subscription' will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
@@ -311,7 +351,22 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
 		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:setPacksProperty\\(\\) has parameter \\$packs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\:\\:setPrices\\(\\) has parameter \\$prices with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeature.php
 
@@ -356,6 +411,16 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
 
 		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, \\(int\\|string\\) given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
+
+		-
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
+
+		-
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeaturePack\\:\\:\\$grossPrices type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php
@@ -391,11 +456,6 @@ parameters:
 			path: src/Model/Feature/Property/HasUnatantumPricesInterface.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\AbstractSubscribedFeature\\:\\:setConfiguredFeature\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\AbstractSubscribedFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
@@ -407,6 +467,11 @@ parameters:
 
 		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 2
+			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
 
@@ -421,17 +486,17 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\:\\:\\$activeUntil \\(DateTime\\) does not accept DateTime\\|DateTimeImmutable\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
-
-		-
 			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 5
+			count: 6
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
 			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeaturePack and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -447,11 +512,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
-
-		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:\\$activeUntil \\(DateTime\\) does not accept DateTime\\|DateTimeImmutable\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
@@ -516,22 +576,22 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed, int\\|string\\)\\: bool, callable\\(\\)\\: mixed given\\.$#"
 			count: 3
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$booleans \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$countables \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
+			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
@@ -591,27 +651,12 @@ parameters:
 			path: src/Model/Invoice.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:jsonUnserialize\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:recalculateTotal\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:removeSection\\(\\) should return bool\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceInterface but returns SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
 		-
-			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:setHeader\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Invoice\\:\\:hasSection\\(\\) expects int\\|string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$code of class Money\\\\Currency constructor expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 
@@ -707,11 +752,6 @@ parameters:
 
 		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:jsonSerialize\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Model/InvoiceSection.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\:\\:hasLine\\(\\) expects int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/Model/InvoiceSection.php
 
