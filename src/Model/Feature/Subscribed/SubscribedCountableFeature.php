@@ -53,7 +53,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         $this->setRemainedQuantity($details[SubscribedCountableFeature::REMAINED_QUANTITY]);
 
         // If is null we need to set it to NOW
-        if (null === $this->lastRefreshOn) {
+        if (false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn) {
             $this->lastRefreshOn = new \DateTime();
         }
 
@@ -201,9 +201,9 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
         }
 
         return \array_merge([
-            IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL    => json_decode(json_encode($this->getActiveUntil(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
-            self::FIELD_SUBSCRIBED_PACK                        => $subscribedPack->toArray(),
-            self::FIELD_LAST_REFRESH_ON                        => json_decode(json_encode($this->getLastRefreshOn(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
-        ], parent::toArray(), $this->consumedToArray());
+                                IsRecurringFeatureInterface::FIELD_ACTIVE_UNTIL    => json_decode(json_encode($this->getActiveUntil(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
+                                self::FIELD_SUBSCRIBED_PACK                        => $subscribedPack->toArray(),
+                                self::FIELD_LAST_REFRESH_ON                        => json_decode(json_encode($this->getLastRefreshOn(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
+                            ], parent::toArray(), $this->consumedToArray());
     }
 }
