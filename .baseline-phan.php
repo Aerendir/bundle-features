@@ -11,13 +11,13 @@ return [
     // # Issue statistics:
     // PhanDeprecatedFunction : 20+ occurrences
     // PhanUndeclaredMethod : 15+ occurrences
+    // PhanParamSignatureMismatch : 10+ occurrences
     // PhanTypeMismatchReturn : 10+ occurrences
     // PhanUnreferencedClosure : 9 occurrences
     // PhanTypeMismatchArgument : 8 occurrences
     // PhanUndeclaredProperty : 8 occurrences
     // PhanTypeMismatchDeclaredReturn : 6 occurrences
     // PhanUnreferencedProtectedMethod : 6 occurrences
-    // PhanParamSignatureMismatch : 4 occurrences
     // PhanTypeMismatchArgumentSuperType : 4 occurrences
     // PhanTypeMismatchReturnSuperType : 4 occurrences
     // PhanTypeMismatchArgumentNullable : 3 occurrences
@@ -25,17 +25,17 @@ return [
     // PhanWriteOnlyPrivateProperty : 3 occurrences
     // PhanTypeArraySuspicious : 2 occurrences
     // PhanTypeMismatchDimAssignment : 2 occurrences
-    // PhanTypeMismatchPropertyReal : 2 occurrences
     // PhanUndeclaredTypeParameter : 2 occurrences
     // PhanUnusedVariable : 2 occurrences
     // ConstReferenceClassNotImported : 1 occurrence
+    // PhanAccessClassInternal : 1 occurrence
     // PhanCompatiblePHP7 : 1 occurrence
     // PhanPossiblyNullTypeMismatchProperty : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
     // PhanTypeMismatchArgumentInternal : 1 occurrence
     // PhanTypeMismatchArgumentReal : 1 occurrence
-    // PhanTypeMismatchDimFetch : 1 occurrence
+    // PhanTypeMismatchPropertyReal : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
     // PhanUnextractableAnnotationSuffix : 1 occurrence
@@ -47,15 +47,16 @@ return [
     // Currently, file_suppressions and directory_suppressions are the only supported suppressions
     'file_suppressions' => [
         'src/DependencyInjection/Configuration.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure', 'PhanUnusedVariable'],
-        'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanUnreferencedClass'],
+        'src/DependencyInjection/SHQFeaturesExtension.php' => ['PhanAccessClassInternal', 'PhanUnreferencedClass'],
         'src/Form/DataTransformer/AbstractFeatureTransformer.php' => ['PhanDeprecatedFunction'],
-        'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod'],
-        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod'],
-        'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
+        'src/Form/DataTransformer/BooleanFeatureTransformer.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod'],
+        'src/Form/DataTransformer/CountableFeatureTransformer.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod'],
+        'src/Form/DataTransformer/FeaturesCollectionTransformer.php' => ['PhanParamSignatureMismatch'],
+        'src/Form/DataTransformer/RechargeableFeatureTransformer.php' => ['PhanParamSignatureMismatch', 'PhanTypeMismatchArgument', 'PhanTypeMismatchReturnSuperType', 'PhanUndeclaredMethod', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Form/Type/FeaturesType.php' => ['PhanTypeMismatchArgumentSuperType', 'PhanUndeclaredMethod', 'PhanUnreferencedClosure'],
         'src/InvoiceDrawer/AbstractInvoiceDrawer.php' => ['PhanWriteOnlyPublicProperty'],
         'src/Manager/FeaturesManager.php' => ['PhanDeprecatedFunction', 'PhanUndeclaredMethod'],
-        'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimFetch', 'PhanTypeMismatchPropertyReal', 'PhanUndeclaredMethod', 'PhanWriteOnlyPrivateProperty'],
+        'src/Manager/InvoicesManager.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchArgumentNullable', 'PhanUndeclaredMethod', 'PhanWriteOnlyPrivateProperty'],
         'src/Model/Feature/AbstractFeaturesCollection.php' => ['PhanDeprecatedFunction', 'PhanUnreferencedClosure', 'PhanUnreferencedPublicClassConstant'],
         'src/Model/Feature/Configured/ConfiguredCountableFeature.php' => ['PhanReadOnlyPrivateProperty', 'PhanUnusedPublicFinalMethodParameter'],
         'src/Model/Feature/Configured/ConfiguredFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedProtectedMethod'],
