@@ -147,6 +147,7 @@ final class InvoicesManager
                      */
                     $grossPrice = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_GROSS);
                     $netPrice   = $this->getConfiguredFeatures()->get($feature->getName())->getPrice($this->getSubscription()->getCurrency(), $this->getSubscription()->getRenewInterval(), FeatureInterface::PRICE_NET);
+                    $quantity   = 1;
 
                     break;
                 case SubscribedCountableFeature::class:

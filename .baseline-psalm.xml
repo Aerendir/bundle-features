@@ -367,20 +367,18 @@
       <code><![CDATA[toArray]]></code>
     </PossiblyInvalidMethodCall>
     <PropertyNotSetInConstructor>
-      <code><![CDATA[$lastRefreshOn]]></code>
       <code><![CDATA[SubscribedCountableFeature]]></code>
     </PropertyNotSetInConstructor>
     <TypeDoesNotContainNull>
+      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->getLastRefreshOn()]]></code>
       <code><![CDATA[null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->previousRemainedQuantity]]></code>
     </TypeDoesNotContainNull>
     <TypeDoesNotContainType>
       <code><![CDATA[$subscribedPack instanceof ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
     </TypeDoesNotContainType>
-    <UninitializedProperty>
-      <code><![CDATA[$this->lastRefreshOn]]></code>
-    </UninitializedProperty>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeatureInterface.php">
     <MissingReturnType>
@@ -513,9 +511,12 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
-    <InvalidNullableReturnType>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->features]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
       <code><![CDATA[SubscribedFeaturesCollection]]></code>
-    </InvalidNullableReturnType>
+    </InvalidReturnType>
     <LessSpecificReturnStatement>
       <code><![CDATA[$this->nextRefreshOn]]></code>
       <code><![CDATA[$this->nextRenewOn]]></code>
@@ -533,6 +534,9 @@
       <code><![CDATA[$nextRenewOn]]></code>
       <code><![CDATA[$renewInterval]]></code>
     </ParamNameMismatch>
+    <ParseError>
+      <code><![CDATA[array|SubscribedFeaturesCollection|null]]></code>
+    </ParseError>
     <PossiblyInvalidClone>
       <code><![CDATA[clone $this->features]]></code>
       <code><![CDATA[clone $this->features]]></code>
