@@ -38,7 +38,7 @@ abstract class Subscription implements SubscriptionInterface
      *
      * @ORM\Column(name="features", type="json", nullable=true)
      */
-    private null|array|SubscribedFeaturesCollection $features = null;
+    private array|SubscribedFeaturesCollection|null $features = null;
 
     /** @ORM\Column(name="`renew_interval`", type="string", nullable=true) */
     private ?string $renewInterval = null;

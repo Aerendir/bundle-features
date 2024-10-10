@@ -30,11 +30,11 @@ return [
     // ConstReferenceClassNotImported : 1 occurrence
     // PhanAccessClassInternal : 1 occurrence
     // PhanCompatiblePHP7 : 1 occurrence
+    // PhanCompatibleUnionType : 1 occurrence
     // PhanPossiblyNullTypeMismatchProperty : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
     // PhanTypeMismatchArgumentInternal : 1 occurrence
-    // PhanTypeMismatchArgumentReal : 1 occurrence
     // PhanTypeMismatchPropertyReal : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
@@ -78,7 +78,7 @@ return [
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceLine.php' => ['PhanPossiblyNullTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanDeprecatedFunction', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyReal'],
-        'src/Model/Subscription.php' => ['PhanDeprecatedFunction', 'PhanParamSignatureMismatch', 'PhanTypeMismatchArgumentReal', 'PhanTypeMismatchReturnSuperType'],
+        'src/Model/Subscription.php' => ['PhanCompatibleUnionType', 'PhanDeprecatedFunction', 'PhanParamSignatureMismatch', 'PhanTypeMismatchReturnSuperType'],
     ],
     // 'directory_suppressions' => ['src/directory_name' => ['PhanIssueName1', 'PhanIssueName2']] can be manually added if needed.
     // (directory_suppressions will currently be ignored by subsequent calls to --save-baseline, but may be preserved in future Phan releases)
