@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.24.0@462c80e31c34e58cc4f750c656be3927e80e550e">
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
   <file src="src/DependencyInjection/Configuration.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$currency]]></code>
@@ -28,6 +28,11 @@
       <code><![CDATA[children]]></code>
     </UndefinedMethod>
   </file>
+  <file src="src/DependencyInjection/SHQFeaturesExtension.php">
+    <InternalClass>
+      <code><![CDATA[Extension]]></code>
+    </InternalClass>
+  </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
     <MissingTemplateParam>
       <code><![CDATA[DataTransformerInterface]]></code>
@@ -37,6 +42,10 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[BooleanFeatureTransformer]]></code>
+      <code><![CDATA[BooleanFeatureTransformer]]></code>
+    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$enabled]]></code>
       <code><![CDATA[$feature]]></code>
@@ -50,6 +59,10 @@
     </RedundantCondition>
   </file>
   <file src="src/Form/DataTransformer/CountableFeatureTransformer.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[CountableFeatureTransformer]]></code>
+      <code><![CDATA[CountableFeatureTransformer]]></code>
+    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
@@ -60,6 +73,10 @@
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[FeaturesCollectionTransformer]]></code>
+      <code><![CDATA[FeaturesCollectionTransformer]]></code>
+    </MethodSignatureMismatch>
     <MissingTemplateParam>
       <code><![CDATA[DataTransformerInterface]]></code>
     </MissingTemplateParam>
@@ -73,6 +90,10 @@
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[RechargeableFeatureTransformer]]></code>
+      <code><![CDATA[RechargeableFeatureTransformer]]></code>
+    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
@@ -173,9 +194,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Manager/InvoicesManager.php">
-    <InvalidPropertyAssignmentValue>
-      <code><![CDATA[$drawer]]></code>
-    </InvalidPropertyAssignmentValue>
     <InvalidReturnStatement>
       <code><![CDATA[$drawer]]></code>
     </InvalidReturnStatement>
@@ -349,20 +367,18 @@
       <code><![CDATA[toArray]]></code>
     </PossiblyInvalidMethodCall>
     <PropertyNotSetInConstructor>
-      <code><![CDATA[$lastRefreshOn]]></code>
       <code><![CDATA[SubscribedCountableFeature]]></code>
     </PropertyNotSetInConstructor>
     <TypeDoesNotContainNull>
+      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->getLastRefreshOn()]]></code>
       <code><![CDATA[null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->previousRemainedQuantity]]></code>
     </TypeDoesNotContainNull>
     <TypeDoesNotContainType>
       <code><![CDATA[$subscribedPack instanceof ConfiguredCountableFeaturePack]]></code>
+      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
     </TypeDoesNotContainType>
-    <UninitializedProperty>
-      <code><![CDATA[$this->lastRefreshOn]]></code>
-    </UninitializedProperty>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeatureInterface.php">
     <MissingReturnType>
@@ -377,7 +393,7 @@
       <code><![CDATA[$elements]]></code>
     </ImplementedParamTypeMismatch>
     <MethodSignatureMismatch>
-      <code><![CDATA[public function __construct(array $elements = [])]]></code>
+      <code><![CDATA[public function __construct(?array $elements = [])]]></code>
     </MethodSignatureMismatch>
     <MismatchingDocblockReturnType>
       <code><![CDATA[SubscribedBooleanFeature[]|SubscribedFeaturesCollection]]></code>
@@ -495,9 +511,12 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/Subscription.php">
-    <InvalidNullableReturnType>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->features]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
       <code><![CDATA[SubscribedFeaturesCollection]]></code>
-    </InvalidNullableReturnType>
+    </InvalidReturnType>
     <LessSpecificReturnStatement>
       <code><![CDATA[$this->nextRefreshOn]]></code>
       <code><![CDATA[$this->nextRenewOn]]></code>
@@ -515,6 +534,9 @@
       <code><![CDATA[$nextRenewOn]]></code>
       <code><![CDATA[$renewInterval]]></code>
     </ParamNameMismatch>
+    <ParseError>
+      <code><![CDATA[array|SubscribedFeaturesCollection|null]]></code>
+    </ParseError>
     <PossiblyInvalidClone>
       <code><![CDATA[clone $this->features]]></code>
       <code><![CDATA[clone $this->features]]></code>
