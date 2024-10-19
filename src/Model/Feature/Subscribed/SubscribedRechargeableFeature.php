@@ -95,7 +95,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this;
     }
 
-    public function setRecharginPack(SubscribedRechargeableFeaturePack $rechargingPack): SubscribedRechargeableFeature
+    public function setRechargingPack(SubscribedRechargeableFeaturePack $rechargingPack): SubscribedRechargeableFeature
     {
         $this->rechargingPack = $rechargingPack;
 
