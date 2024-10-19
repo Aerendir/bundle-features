@@ -82,7 +82,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 
     public function hasRechargingPack(): bool
     {
-        return null !== $this->rechargingPack;
+        return isset($this->rechargingPack);
     }
 
     public function recharge(): SubscribedRechargeableFeature
