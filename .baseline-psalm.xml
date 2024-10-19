@@ -406,6 +406,9 @@
     <InvalidNullableReturnType>
       <code><![CDATA[InvoiceLine]]></code>
     </InvalidNullableReturnType>
+    <InvalidOperand>
+      <code><![CDATA[\microtime(true)]]></code>
+    </InvalidOperand>
     <InvalidReturnStatement>
       <code><![CDATA[$return]]></code>
     </InvalidReturnStatement>
@@ -424,31 +427,21 @@
     <NullableReturnStatement>
       <code><![CDATA[$this->sections[self::SECTION_DEFAULT]->getLine($id)]]></code>
     </NullableReturnStatement>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$grossTotal]]></code>
-      <code><![CDATA[$issuedOn]]></code>
-      <code><![CDATA[$netTotal]]></code>
-    </PropertyNotSetInConstructor>
     <RedundantCondition>
       <code><![CDATA['string']]></code>
     </RedundantCondition>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[\is_int($id)]]></code>
     </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainNull>
-      <code><![CDATA[null === $this->grossTotal]]></code>
-      <code><![CDATA[null === $this->issuedOn]]></code>
-      <code><![CDATA[null === $this->netTotal]]></code>
-    </TypeDoesNotContainNull>
+    <RedundantPropertyInitializationCheck>
+      <code><![CDATA[false === isset($this->grossTotal)]]></code>
+      <code><![CDATA[false === isset($this->issuedOn)]]></code>
+      <code><![CDATA[false === isset($this->netTotal)]]></code>
+    </RedundantPropertyInitializationCheck>
     <UndefinedMethod>
       <code><![CDATA[$section]]></code>
       <code><![CDATA[$section]]></code>
     </UndefinedMethod>
-    <UninitializedProperty>
-      <code><![CDATA[$this->grossTotal]]></code>
-      <code><![CDATA[$this->issuedOn]]></code>
-      <code><![CDATA[$this->netTotal]]></code>
-    </UninitializedProperty>
   </file>
   <file src="src/Model/InvoiceInterface.php">
     <InvalidDocblock>

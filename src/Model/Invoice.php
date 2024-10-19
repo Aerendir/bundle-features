@@ -56,16 +56,16 @@ abstract class Invoice implements InvoiceInterface
         $this->currency = $currency;
 
         // Set the issue date
-        if (null === $this->issuedOn) {
+        if (false === isset($this->issuedOn)) {
             // Create it with microseconds, so it is possible to use the createdOn to create a unique invoice number (http://stackoverflow.com/a/28937386/1399706)
-            $this->issuedOn = \DateTime::createFromFormat('U.u', \microtime(true));
+            $this->issuedOn = new \DateTime('@' . \microtime(true));
         }
 
-        if (null === $this->grossTotal) {
+        if (false === isset($this->grossTotal)) {
             $this->grossTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         }
 
-        if (null === $this->netTotal) {
+        if (false === isset($this->netTotal)) {
             $this->netTotal = new Money([MoneyInterface::BASE_AMOUNT => 0, MoneyInterface::CURRENCY => $this->getCurrency()]);
         }
 
