@@ -461,6 +461,46 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
 
 		-
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 6
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeaturePack and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:consumedToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and DateTimeInterface will always evaluate to false\\.$#"
+			count: 2
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between null and int will always evaluate to false\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
+
+		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturePack\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturePack.php
@@ -514,6 +554,31 @@ parameters:
 			message: "#^Property SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\AbstractFeaturesCollection\\:\\:\\$rechargeables \\(\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredFeaturesCollection\\)\\|\\(iterable\\<SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredRechargeableFeature\\|SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\>&SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedFeaturesCollection\\)\\|null\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\), mixed\\>\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
+
+		-
+			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
+			count: 2
+			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:consumedToArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:setLastRechargedOn\\(\\) has parameter \\$lastRechargeOn with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
+
+		-
+			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
 
 		-
 			message: "#^Cannot access offset '_header' on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
