@@ -31,9 +31,6 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 
     private SubscribedRechargeableFeaturePack $rechargingPack;
 
-    /** @var int $remainedQuantity The amount of remained units */
-    private int $remainedQuantity = 0;
-
     public function __construct(string $name, array $details = [])
     {
         // Set the type

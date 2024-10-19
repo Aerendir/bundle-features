@@ -36,9 +36,7 @@ final class SubscribedCountableFeature extends AbstractSubscribedFeature impleme
     public const FIELD_SUBSCRIBED_PACK         = 'subscribed_pack';
     public const FIELD_SUBSCRIBED_NUM_OF_UNITS = 'num_of_units';
 
-    /** @var int $previousRemainedQuantity Internally used by cumulate() */
-    private int $previousRemainedQuantity = 0;
-
+    public int $previousRemainedQuantity = 0;
     private \DateTimeInterface $lastRefreshOn;
     private SubscribedCountableFeaturePack $subscribedPack;
 
