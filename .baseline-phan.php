@@ -34,7 +34,6 @@ return [
     // PhanPossiblyNullTypeMismatchProperty : 1 occurrence
     // PhanReadOnlyPrivateProperty : 1 occurrence
     // PhanTypeInvalidLeftOperandOfNumericOp : 1 occurrence
-    // PhanTypeMismatchArgumentInternal : 1 occurrence
     // PhanTypeMismatchPropertyReal : 1 occurrence
     // PhanTypeMismatchReturnNullable : 1 occurrence
     // PhanUnextractableAnnotationElementName : 1 occurrence
@@ -74,7 +73,7 @@ return [
         'src/Model/Feature/Subscribed/SubscribedCountableFeature.php' => ['ConstReferenceClassNotImported', 'PhanUndeclaredMethod'],
         'src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php' => ['PhanTypeMismatchArgument', 'PhanTypeMismatchDeclaredReturn', 'PhanUnreferencedProtectedMethod'],
         'src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php' => ['PhanCompatibleUnionType', 'PhanTypeMismatchReturnSuperType'],
-        'src/Model/Invoice.php' => ['PhanDeprecatedFunction', 'PhanParamSignatureMismatch', 'PhanTypeArraySuspicious', 'PhanTypeMismatchArgumentInternal', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnNullable'],
+        'src/Model/Invoice.php' => ['PhanDeprecatedFunction', 'PhanParamSignatureMismatch', 'PhanTypeArraySuspicious', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchReturn', 'PhanTypeMismatchReturnNullable'],
         'src/Model/InvoiceInterface.php' => ['PhanUnextractableAnnotationElementName', 'PhanUnextractableAnnotationSuffix'],
         'src/Model/InvoiceLine.php' => ['PhanPossiblyNullTypeMismatchProperty'],
         'src/Model/InvoiceSection.php' => ['PhanDeprecatedFunction', 'PhanTypeMismatchArgumentNullable', 'PhanTypeMismatchDimAssignment', 'PhanTypeMismatchPropertyReal'],
