@@ -58,7 +58,7 @@ abstract class Invoice implements InvoiceInterface
         // Set the issue date
         if (null === $this->issuedOn) {
             // Create it with microseconds, so it is possible to use the createdOn to create a unique invoice number (http://stackoverflow.com/a/28937386/1399706)
-            $this->issuedOn = \DateTime::createFromFormat('U.u', \microtime(true));
+            $this->issuedOn = new \DateTime('@' . \microtime(true));
         }
 
         if (null === $this->grossTotal) {
