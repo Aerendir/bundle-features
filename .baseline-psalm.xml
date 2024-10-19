@@ -398,9 +398,6 @@
     <PropertyNotSetInConstructor>
       <code><![CDATA[$rechargingPack]]></code>
     </PropertyNotSetInConstructor>
-    <RedundantCondition>
-      <code><![CDATA[null !== $this->rechargingPack]]></code>
-    </RedundantCondition>
   </file>
   <file src="src/Model/Invoice.php">
     <ArgumentTypeCoercion>

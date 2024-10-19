@@ -19,10 +19,10 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property;
 trait CanBeConsumedProperty
 {
     /** @var int $consumedQuantity How many units are consumed at this time */
-    private $consumedQuantity = 0;
+    private int $consumedQuantity = 0;
 
     /** @var int $remaining The num of units remained from the last subscription cycle */
-    private $remainedQuantity = 0;
+    private int $remainedQuantity = 0;
 
     public function consume(int $quantity): CanBeConsumedInterface
     {
