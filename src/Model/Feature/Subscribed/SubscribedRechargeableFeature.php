@@ -18,7 +18,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProp
 
 use function Safe\json_decode;
 use function Safe\json_encode;
-use function Safe\sprintf;
 
 final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, CanBeConsumedInterface
 {
@@ -33,20 +32,28 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
     private SubscribedRechargeableFeaturePack $rechargingPack;
 
     /** @var int $remainedQuantity The amount of remained units */
-    private $remainedQuantity = 0;
+    private int $remainedQuantity = 0;
 
     public function __construct(string $name, array $details = [])
     {
         // Set the type
         $details[self::FIELD_TYPE] = self::TYPE_RECHARGEABLE;
 
-        $this->setRemainedQuantity($details['remained_quantity']);
-        $this->lastRechargeOn       = $details['last_recharge_on'];
-        $this->lastRechargeQuantity = $details['last_recharge_quantity'];
-
-        if (null !== $this->lastRechargeOn && ! $this->lastRechargeOn instanceof \DateTime) {
-            $this->lastRechargeOn = new \DateTime($this->lastRechargeOn['date'], new \DateTimeZone($this->lastRechargeOn['timezone']));
+        if (false === array_key_exists('remained_quantity', $details) || null === $details['remained_quantity']) {
+            throw new \InvalidArgumentException('The key "remained_quantity" is mandatory for a subscribed rechargeable feature. You must provide it.');
         }
+
+        if (false === array_key_exists('last_recharge_on', $details) || null === $details['last_recharge_on']) {
+            throw new \InvalidArgumentException('The key "last_recharge_on" is mandatory for a subscribed rechargeable feature. You must provide it.');
+        }
+
+        if (false === array_key_exists('last_recharge_quantity', $details) || null === $details['last_recharge_quantity']) {
+            throw new \InvalidArgumentException('The key "last_recharge_quantity" is mandatory for a subscribed rechargeable feature. You must provide it.');
+        }
+
+        $this->setRemainedQuantity($details['remained_quantity']);
+        $this->setLastRechargedOn($details['last_recharge_on']);
+        $this->lastRechargeQuantity = $details['last_recharge_quantity'];
 
         parent::__construct($name, $details);
     }
@@ -75,7 +82,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
 
     public function hasRechargingPack(): bool
     {
-        return null !== $this->rechargingPack;
+        return isset($this->rechargingPack);
     }
 
     public function recharge(): SubscribedRechargeableFeature
@@ -88,7 +95,7 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
         return $this;
     }
 
-    public function setRecharginPack(SubscribedRechargeableFeaturePack $rechargingPack): SubscribedRechargeableFeature
+    public function setRechargingPack(SubscribedRechargeableFeaturePack $rechargingPack): SubscribedRechargeableFeature
     {
         $this->rechargingPack = $rechargingPack;
 
@@ -101,5 +108,15 @@ final class SubscribedRechargeableFeature extends AbstractSubscribedFeature impl
             'last_recharge_on'       => json_decode(json_encode($this->getLastRechargeOn(), JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR),
             'last_recharge_quantity' => $this->getLastRechargeQuantity(),
         ], parent::toArray(), $this->consumedToArray());
+    }
+
+    private function setLastRechargedOn(\DateTimeInterface|array $lastRechargeOn): SubscribedRechargeableFeature
+    {
+        if (is_array($lastRechargeOn)) {
+            $lastRechargeOn = new \DateTime($lastRechargeOn['date'], new \DateTimeZone($lastRechargeOn['timezone']));
+        }
+        $this->lastRechargeOn = $lastRechargeOn;
+
+        return $this;
     }
 }

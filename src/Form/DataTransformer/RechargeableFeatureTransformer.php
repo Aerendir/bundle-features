@@ -44,7 +44,7 @@ final class RechargeableFeatureTransformer extends AbstractFeatureTransformer
 
         /** @var SubscribedRechargeableFeature $subscribedFeature */
         $subscribedFeature = $this->getCurrentTransformingFeature();
-        $subscribedFeature->setRecharginPack($subscribedPack);
+        $subscribedFeature->setRechargingPack($subscribedPack);
 
         // Call recharge, so the form can automatically update the feature
         $subscribedFeature->recharge();

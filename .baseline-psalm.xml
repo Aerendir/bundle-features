@@ -42,10 +42,6 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
-    <MethodSignatureMismatch>
-      <code><![CDATA[BooleanFeatureTransformer]]></code>
-      <code><![CDATA[BooleanFeatureTransformer]]></code>
-    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$enabled]]></code>
       <code><![CDATA[$feature]]></code>
@@ -59,10 +55,6 @@
     </RedundantCondition>
   </file>
   <file src="src/Form/DataTransformer/CountableFeatureTransformer.php">
-    <MethodSignatureMismatch>
-      <code><![CDATA[CountableFeatureTransformer]]></code>
-      <code><![CDATA[CountableFeatureTransformer]]></code>
-    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
@@ -73,10 +65,6 @@
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
-    <MethodSignatureMismatch>
-      <code><![CDATA[FeaturesCollectionTransformer]]></code>
-      <code><![CDATA[FeaturesCollectionTransformer]]></code>
-    </MethodSignatureMismatch>
     <MissingTemplateParam>
       <code><![CDATA[DataTransformerInterface]]></code>
     </MissingTemplateParam>
@@ -90,10 +78,6 @@
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
-    <MethodSignatureMismatch>
-      <code><![CDATA[RechargeableFeatureTransformer]]></code>
-      <code><![CDATA[RechargeableFeatureTransformer]]></code>
-    </MethodSignatureMismatch>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
@@ -534,9 +518,6 @@
       <code><![CDATA[$nextRenewOn]]></code>
       <code><![CDATA[$renewInterval]]></code>
     </ParamNameMismatch>
-    <ParseError>
-      <code><![CDATA[array|SubscribedFeaturesCollection|null]]></code>
-    </ParseError>
     <PossiblyInvalidClone>
       <code><![CDATA[clone $this->features]]></code>
       <code><![CDATA[clone $this->features]]></code>
