@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
@@ -25,46 +26,48 @@ use function Safe\sprintf;
 /**
  * Basic properties and methods to manage a subscription.
  *
- * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
  */
+#[ORM\MappedSuperclass]
+#[ORM\HasLifecycleCallbacks]
 abstract class Subscription implements SubscriptionInterface
 {
-    /** @ORM\Column(name="currency", type="currency", nullable=true) */
+
+    #[ORM\Column( type: 'currency', nullable: true)]
     private ?Currency $currency = null;
 
     /**
      * Contains the $featuresArray as a FeatureCollection.
      *
-     * @ORM\Column(name="features", type="json", nullable=true)
      */
+    #[ORM\Column( type: Types::JSON, nullable: true)]
     private array|SubscribedFeaturesCollection|null $features = null;
 
-    /** @ORM\Column(name="`renew_interval`", type="string", nullable=true) */
+    #[ORM\Column( type: Types::STRING, nullable: true)]
     private ?string $renewInterval = null;
 
-    /** @ORM\Column(name="next_renew_amount", type="money", nullable=true) */
+    #[ORM\Column( type: 'money', nullable: true)]
     private ?MoneyInterface $nextRenewAmount = null;
 
-    /** @ORM\Column(name="next_renew_on", type="datetime", nullable=true) */
+    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $nextRenewOn = null;
 
     /**
      * If there are countable features, this field saves the smallest refresh interval found.
      *
-     * @ORM\Column(name="smallest_refresh_interval", type="string", nullable=true)
      */
+    #[ORM\Column( type: Types::STRING, nullable: true)]
     private string $smallestRefreshInterval;
 
     /**
      * If there are countable features configured, this field is used to determine when they have to be refresh based on
      * the smallest interval.
      *
-     * @ORM\Column(name="next_refresh_on", type="datetime", nullable=true)
      */
+    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $nextRefreshOn = null;
 
-    /** @ORM\Column(name="subscribed_on", type="datetime", nullable=true) */
+
+    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $subscribedOn = null;
 
     public function __clone()
@@ -304,9 +307,7 @@ abstract class Subscription implements SubscriptionInterface
         $this->features = clone $this->features;
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
+    #[ORM\PostLoad]
     public function hydrateFeatures(): void
     {
         $this->features = new SubscribedFeaturesCollection($this->features);

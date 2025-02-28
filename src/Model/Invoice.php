@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace SerendipityHQ\Bundle\FeaturesBundle\Model;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
@@ -20,31 +21,29 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 use function Safe\sprintf;
 
-/**
- * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
- */
+#[ORM\MappedSuperclass]
+#[ORM\HasLifecycleCallbacks]
 abstract class Invoice implements InvoiceInterface
 {
     private const SECTION_DEFAULT = '_default';
 
-    /** @ORM\Column(name="currency", type="currency") */
+    #[ORM\Column(type: 'currency')]
     private Currency $currency;
 
-    /** @ORM\Column(name="issued_on", type="datetime") */
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $issuedOn;
 
     /**
      * @var InvoiceSection[]
      *
-     * @ORM\Column(name="`sections`", type="json")
      */
+    #[ORM\Column(type: Types::JSON)]
     private array $sections = [];
 
-    /** @ORM\Column(name="gross_total", type="money") */
+    #[ORM\Column(type: 'money')]
     private MoneyInterface $grossTotal;
 
-    /** @ORM\Column(name="net_total", type="money") */
+    #[ORM\Column(type: 'money')]
     private MoneyInterface $netTotal;
 
     public function __construct($currency)
@@ -203,9 +202,6 @@ abstract class Invoice implements InvoiceInterface
         return $this->currency;
     }
 
-    /**
-     * @return \DateTime|\DateTimeImmutable
-     */
     public function getIssuedOn(): \DateTimeInterface
     {
         return $this->issuedOn;
@@ -226,9 +222,7 @@ abstract class Invoice implements InvoiceInterface
         return $this->sections;
     }
 
-    /**
-     * @ORM\PostLoad()
-     */
+    #[ORM\PostLoad]
     public function jsonUnserialize(): void
     {
         foreach ($this->sections as $sectionId => $section) {
