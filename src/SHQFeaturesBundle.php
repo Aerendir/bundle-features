@@ -26,6 +26,6 @@ final class SHQFeaturesBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [realpath(__DIR__ . '/Model')]), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [realpath(__DIR__ . '/Model')], reportFieldsWhereDeclared: true), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
     }
 }
