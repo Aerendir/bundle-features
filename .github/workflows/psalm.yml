@@ -54,6 +54,11 @@ jobs:
                 with:
                     working-directory: './vendor-bin/phpunit'
 
+            -   name: Remove Kernel.php
+                # Flex installs the recipe of symfony/framework-bundle, which creates src/Kernel.php
+                run: |
+                    rm -f ./src/Kernel.php
+
             -   name: Run PSalm
                 run: |
                     ./vendor-bin/phpunit/vendor/bin/psalm
