@@ -24,8 +24,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCount
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 
-use function Safe\sprintf;
-
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
@@ -42,7 +40,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
 
     public function __construct(string $kind, ?array $elements = [])
     {
-        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
+        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND], true)) {
             throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 
@@ -96,7 +94,7 @@ abstract class AbstractFeaturesCollection extends ArrayCollection
 
     private function getFeatureClass(string $kind, string $type): string
     {
-        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND])) {
+        if (false === \in_array($kind, [ConfiguredFeaturesCollection::KIND, SubscribedFeaturesCollection::KIND], true)) {
             throw new \InvalidArgumentException(sprintf('Features kind can be only "configured" or "subscribed". You passed "%s".', $kind));
         }
 

@@ -36,8 +36,6 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
-use function Safe\sprintf;
-
 /**
  * Contains method to manage features plans.
  */

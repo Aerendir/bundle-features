@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="7.6.0@4303c7dbbc23efaac3d988707b4acf4d5508a9cc">
   <file src="src/DependencyInjection/Configuration.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$currency]]></code>
     </ArgumentTypeCoercion>
-    <InvalidOperand>
-      <code><![CDATA[$numOfUnits]]></code>
-      <code><![CDATA[$numOfUnits]]></code>
-    </InvalidOperand>
+    <InvalidPropertyAssignmentValue>
+      <code><![CDATA[[]]]></code>
+    </InvalidPropertyAssignmentValue>
+    <MismatchingDocblockPropertyType>
+      <code><![CDATA[The]]></code>
+    </MismatchingDocblockPropertyType>
     <MissingClosureParamType>
       <code><![CDATA[$price]]></code>
       <code><![CDATA[$price]]></code>
       <code><![CDATA[$price]]></code>
       <code><![CDATA[$price]]></code>
-      <code><![CDATA[$tree]]></code>
-      <code><![CDATA[$tree]]></code>
     </MissingClosureParamType>
     <MissingConstructor>
       <code><![CDATA[$pricesKey]]></code>
       <code><![CDATA[$pricesType]]></code>
       <code><![CDATA[$unitaryPriceKey]]></code>
     </MissingConstructor>
-    <MissingDocblockType>
-      <code><![CDATA[private array $foundDrawers = [];]]></code>
-    </MissingDocblockType>
-    <UndefinedMethod>
-      <code><![CDATA[children]]></code>
-    </UndefinedMethod>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getConfigTreeBuilder(): TreeBuilder]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyNullReference>
+      <code><![CDATA[end]]></code>
+    </PossiblyNullReference>
+    <RedundantCondition>
+      <code><![CDATA['plain_text' === $drawer]]></code>
+    </RedundantCondition>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[end]]></code>
+    </UndefinedInterfaceMethod>
+    <UnusedVariable>
+      <code><![CDATA[$currency]]></code>
+    </UnusedVariable>
   </file>
   <file src="src/DependencyInjection/SHQFeaturesExtension.php">
-    <InternalClass>
-      <code><![CDATA[Extension]]></code>
-    </InternalClass>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function load(array $configs, ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[SHQFeaturesExtension]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Form/DataTransformer/AbstractFeatureTransformer.php">
     <MissingTemplateParam>
@@ -42,10 +54,10 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Form/DataTransformer/BooleanFeatureTransformer.php">
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$enabled]]></code>
-      <code><![CDATA[$feature]]></code>
-    </MoreSpecificImplementedParamType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function reverseTransform($enabled): SubscribedBooleanFeature]]></code>
+      <code><![CDATA[public function transform($feature): bool]]></code>
+    </MissingOverrideAttribute>
     <ParamNameMismatch>
       <code><![CDATA[$enabled]]></code>
       <code><![CDATA[$feature]]></code>
@@ -55,33 +67,36 @@
     </RedundantCondition>
   </file>
   <file src="src/Form/DataTransformer/CountableFeatureTransformer.php">
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$feature]]></code>
-      <code><![CDATA[$pack]]></code>
-    </MoreSpecificImplementedParamType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function reverseTransform($pack): SubscribedCountableFeature]]></code>
+      <code><![CDATA[public function transform($feature): int]]></code>
+    </MissingOverrideAttribute>
     <ParamNameMismatch>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
     </ParamNameMismatch>
   </file>
   <file src="src/Form/DataTransformer/FeaturesCollectionTransformer.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function reverseTransform($features): SubscribedFeaturesCollection]]></code>
+      <code><![CDATA[public function transform($features): SubscribedFeaturesCollection]]></code>
+    </MissingOverrideAttribute>
     <MissingTemplateParam>
       <code><![CDATA[DataTransformerInterface]]></code>
     </MissingTemplateParam>
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$features]]></code>
-      <code><![CDATA[$features]]></code>
-    </MoreSpecificImplementedParamType>
     <ParamNameMismatch>
       <code><![CDATA[$features]]></code>
       <code><![CDATA[$features]]></code>
     </ParamNameMismatch>
+    <UnusedClass>
+      <code><![CDATA[FeaturesCollectionTransformer]]></code>
+    </UnusedClass>
   </file>
   <file src="src/Form/DataTransformer/RechargeableFeatureTransformer.php">
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$feature]]></code>
-      <code><![CDATA[$pack]]></code>
-    </MoreSpecificImplementedParamType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function reverseTransform($pack): SubscribedRechargeableFeature]]></code>
+      <code><![CDATA[public function transform($feature): int]]></code>
+    </MissingOverrideAttribute>
     <ParamNameMismatch>
       <code><![CDATA[$feature]]></code>
       <code><![CDATA[$pack]]></code>
@@ -100,10 +115,13 @@
     <InvalidOperand>
       <code><![CDATA[$result += (float) $sum]]></code>
     </InvalidOperand>
-    <MissingClosureParamType>
-      <code><![CDATA[$val]]></code>
-      <code><![CDATA[$val]]></code>
-    </MissingClosureParamType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function buildForm(FormBuilderInterface $builder, array $options): void]]></code>
+      <code><![CDATA[public function configureOptions(OptionsResolver $resolver): void]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[FeaturesType]]></code>
+    </MissingTemplateParam>
     <PossiblyNullReference>
       <code><![CDATA[isStillActive]]></code>
     </PossiblyNullReference>
@@ -116,8 +134,22 @@
       <code><![CDATA[getPrice]]></code>
       <code><![CDATA[getPrice]]></code>
     </UndefinedInterfaceMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[ConfiguredCountableFeature]]></code>
+      <code><![CDATA[ConfiguredRechargeableFeature]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedClass>
+      <code><![CDATA[FeaturesType]]></code>
+    </UnusedClass>
   </file>
   <file src="src/InvoiceDrawer/AbstractInvoiceDrawer.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getCurrencyFormatter]]></code>
+      <code><![CDATA[getTranslator]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$locale]]></code>
+    </PossiblyUnusedProperty>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$currencyFormatter]]></code>
     </PropertyNotSetInConstructor>
@@ -127,14 +159,26 @@
     <UninitializedProperty>
       <code><![CDATA[$this->currencyFormatter]]></code>
     </UninitializedProperty>
+    <UnusedProperty>
+      <code><![CDATA[$currencyFormatter]]></code>
+      <code><![CDATA[$translator]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/InvoiceDrawer/InvoiceDrawerInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[draw]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/InvoiceDrawer/PlainTextDrawer.php">
-    <InvalidReturnStatement>
+    <FalsableReturnStatement>
       <code><![CDATA[$return]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
       <code><![CDATA[string]]></code>
-    </InvalidReturnType>
+    </InvalidFalsableReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function draw(InvoiceInterface $invoice): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyFalseOperand>
       <code><![CDATA[\iconv_strlen($equalsSeparatorShort)]]></code>
       <code><![CDATA[\iconv_strlen($totalGrossAmount)]]></code>
@@ -143,9 +187,19 @@
       <code><![CDATA[getHeader]]></code>
       <code><![CDATA[hasHeader]]></code>
     </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getTableWidth]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$tableWidth]]></code>
     </PropertyNotSetInConstructor>
+    <UnusedMethod>
+      <code><![CDATA[buildInvoiceTextTable]]></code>
+      <code><![CDATA[drawSeparator]]></code>
+    </UnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$tableWidth]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Manager/FeaturesManager.php">
     <PossiblyNullReference>
@@ -160,6 +214,23 @@
       <code><![CDATA[getInstantPrice]]></code>
       <code><![CDATA[getPack]]></code>
     </PossiblyUndefinedMethod>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[buildDefaultSubscriptionFeatures]]></code>
+      <code><![CDATA[calculateTotalChargesForNewFeatures]]></code>
+      <code><![CDATA[getConfiguredFeatures]]></code>
+      <code><![CDATA[getDifferences]]></code>
+      <code><![CDATA[getFeaturesFormBuilder]]></code>
+      <code><![CDATA[getInvoicesManager]]></code>
+      <code><![CDATA[getPremiumFeaturesReview]]></code>
+      <code><![CDATA[getSubscription]]></code>
+      <code><![CDATA[refreshSubscription]]></code>
+      <code><![CDATA[rollbackSubscription]]></code>
+      <code><![CDATA[setSubscription]]></code>
+      <code><![CDATA[setTax]]></code>
+      <code><![CDATA[syncSubscription]]></code>
+      <code><![CDATA[updateSubscription]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$oldSubscription]]></code>
       <code><![CDATA[$subscription]]></code>
@@ -176,6 +247,26 @@
     <UndefinedInterfaceMethod>
       <code><![CDATA[getInstantPrice]]></code>
     </UndefinedInterfaceMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[SubscribedBooleanFeature]]></code>
+      <code><![CDATA[SubscribedCountableFeature]]></code>
+      <code><![CDATA[SubscribedCountableFeaturePack]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedMethod>
+      <code><![CDATA[calculateSubscriptionAmount]]></code>
+      <code><![CDATA[findDifferences]]></code>
+      <code><![CDATA[refreshCountableFeatures]]></code>
+      <code><![CDATA[updateNextPaymentAmount]]></code>
+      <code><![CDATA[updateUntilDates]]></code>
+    </UnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$configuredFeatures]]></code>
+      <code><![CDATA[$differences]]></code>
+      <code><![CDATA[$formFactory]]></code>
+      <code><![CDATA[$invoicesManager]]></code>
+      <code><![CDATA[$oldSubscription]]></code>
+      <code><![CDATA[$subscription]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Manager/InvoicesManager.php">
     <InvalidReturnStatement>
@@ -184,6 +275,17 @@
     <InvalidReturnType>
       <code><![CDATA[InvoiceDrawerInterface]]></code>
     </InvalidReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[addDrawer]]></code>
+      <code><![CDATA[drawInvoice]]></code>
+      <code><![CDATA[getConfiguredFeatures]]></code>
+      <code><![CDATA[getDrawer]]></code>
+      <code><![CDATA[getSubscription]]></code>
+      <code><![CDATA[populateInvoice]]></code>
+      <code><![CDATA[populateSection]]></code>
+      <code><![CDATA[setSubscription]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$drawers]]></code>
       <code><![CDATA[$subscription]]></code>
@@ -192,12 +294,27 @@
       <code><![CDATA[getTaxName]]></code>
       <code><![CDATA[getTaxRate]]></code>
     </UndefinedInterfaceMethod>
+    <UnusedMethod>
+      <code><![CDATA[buildPopulatingFeatures]]></code>
+    </UnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$arrayWriter]]></code>
+      <code><![CDATA[$configuredFeatures]]></code>
+      <code><![CDATA[$defaultDrawer]]></code>
+      <code><![CDATA[$drawers]]></code>
+      <code><![CDATA[$subscription]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/Feature/AbstractFeature.php">
-    <NoInterfaceProperties>
-      <code><![CDATA[$this->name]]></code>
-      <code><![CDATA[$this->type]]></code>
-    </NoInterfaceProperties>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getName(): string]]></code>
+      <code><![CDATA[public function getType(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Model/Feature/AbstractFeaturePack.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getNumOfUnits(): int]]></code>
+    </MissingOverrideAttribute>
   </file>
   <file src="src/Model/Feature/AbstractFeaturesCollection.php">
     <MissingClosureParamType>
@@ -206,6 +323,17 @@
     <MissingTemplateParam>
       <code><![CDATA[AbstractFeaturesCollection]]></code>
     </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getFilterPredictate]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$booleans]]></code>
+      <code><![CDATA[$countables]]></code>
+      <code><![CDATA[$rechargeables]]></code>
+    </PossiblyUnusedProperty>
+    <UnusedMethod>
+      <code><![CDATA[getFeatureClass]]></code>
+    </UnusedMethod>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredBooleanFeature.php">
     <PropertyNotSetInConstructor>
@@ -220,21 +348,35 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredCountableFeature.php">
-    <NoInterfaceProperties>
-      <code><![CDATA[$this->refreshPeriod]]></code>
-    </NoInterfaceProperties>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function setPacks(array $packs, ?string $class = null): HasConfiguredPacksInterface]]></code>
+    </MissingOverrideAttribute>
     <ParamNameMismatch>
       <code><![CDATA[$class]]></code>
     </ParamNameMismatch>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getRefreshPeriod]]></code>
+      <code><![CDATA[getTaxName]]></code>
+      <code><![CDATA[getTaxRate]]></code>
+      <code><![CDATA[setSubscription]]></code>
+      <code><![CDATA[setTax]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$packs]]></code>
-      <code><![CDATA[$refreshPeriod]]></code>
       <code><![CDATA[$taxName]]></code>
       <code><![CDATA[$taxRate]]></code>
       <code><![CDATA[ConfiguredCountableFeature]]></code>
     </PropertyNotSetInConstructor>
+    <UnusedProperty>
+      <code><![CDATA[$refreshPeriod]]></code>
+      <code><![CDATA[$taxName]]></code>
+      <code><![CDATA[$taxRate]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
       <code><![CDATA[ConfiguredCountableFeaturePack]]></code>
@@ -246,60 +388,120 @@
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredFeaturesCollection.php">
-    <ConstructorSignatureMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ConstructorSignatureMismatch>
-    <ImplementedParamTypeMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ImplementedParamTypeMismatch>
-    <MethodSignatureMismatch>
-      <code><![CDATA[public function __construct(array $elements = [])]]></code>
-    </MethodSignatureMismatch>
     <MismatchingDocblockReturnType>
       <code><![CDATA[ConfiguredBooleanFeature[]|ConfiguredFeaturesCollection]]></code>
       <code><![CDATA[ConfiguredCountableFeature[]|ConfiguredFeaturesCollection]]></code>
       <code><![CDATA[ConfiguredFeaturesCollection|ConfiguredRechargeableFeature[]]]></code>
     </MismatchingDocblockReturnType>
-    <ParamNameMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ParamNameMismatch>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[getBooleanFeatures]]></code>
+      <code><![CDATA[getCountableFeatures]]></code>
+      <code><![CDATA[getRechargeableFeatures]]></code>
+      <code><![CDATA[isTaxSet]]></code>
+      <code><![CDATA[setSubscription]]></code>
+      <code><![CDATA[setTax]]></code>
+    </PossiblyUnusedMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[ConfiguredCountableFeature|HasRecurringPricesInterface|HasUnatantumPricesInterface]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedProperty>
+      <code><![CDATA[$taxSet]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeature.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function setPacks(array $packs, ?string $class = null): HasConfiguredPacksInterface]]></code>
+      <code><![CDATA[public function setTax(float $rate, string $name): HasUnatantumPricesInterface]]></code>
+    </MissingOverrideAttribute>
     <ParamNameMismatch>
       <code><![CDATA[$class]]></code>
     </ParamNameMismatch>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getFreeRecharge]]></code>
+      <code><![CDATA[setFreeRecharge]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
-      <code><![CDATA[$freeRecharge]]></code>
       <code><![CDATA[ConfiguredRechargeableFeature]]></code>
       <code><![CDATA[ConfiguredRechargeableFeature]]></code>
       <code><![CDATA[ConfiguredRechargeableFeature]]></code>
       <code><![CDATA[ConfiguredRechargeableFeature]]></code>
     </PropertyNotSetInConstructor>
+    <UnusedProperty>
+      <code><![CDATA[$freeRecharge]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/Feature/Configured/ConfiguredRechargeableFeaturePack.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[ConfiguredRechargeableFeaturePack]]></code>
       <code><![CDATA[ConfiguredRechargeableFeaturePack]]></code>
     </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Model/Feature/FeatureInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getType]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Model/Feature/Property/CanBeConsumedInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[consume]]></code>
+      <code><![CDATA[consumeOne]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Model/Feature/Property/CanBeEnabledInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[CanBeEnabledInterface]]></code>
+      <code><![CDATA[CanBeEnabledInterface]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Model/Feature/Property/CanBeFreeInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[isFree]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Property/CanBeFreeProperty.php">
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[null !== $this->grossPrices]]></code>
       <code><![CDATA[null !== $this->netPrices]]></code>
     </RedundantConditionGivenDocblockType>
+    <UnusedVariable>
+      <code><![CDATA[$currency]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Model/Feature/Property/CanHaveFreePackInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getFreePack]]></code>
+      <code><![CDATA[hasFreePack]]></code>
+      <code><![CDATA[setFreePack]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Property/CanHaveFreePackProperty.php">
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[null !== $this->freePack]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
+  <file src="src/Model/Feature/Property/HasConfiguredPacksInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[HasConfiguredPacksInterface]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
   <file src="src/Model/Feature/Property/HasConfiguredPacksProperty.php">
-    <LessSpecificImplementedReturnType>
-      <code><![CDATA[array]]></code>
-    </LessSpecificImplementedReturnType>
-    <UndefinedVariable>
+    <PossiblyUnusedParam>
       <code><![CDATA[$packClass]]></code>
-    </UndefinedVariable>
+      <code><![CDATA[$packs]]></code>
+    </PossiblyUnusedParam>
+  </file>
+  <file src="src/Model/Feature/Property/HasRecurringPricesInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getTaxName]]></code>
+      <code><![CDATA[getTaxRate]]></code>
+      <code><![CDATA[hasPrice]]></code>
+      <code><![CDATA[setSubscription]]></code>
+      <code><![CDATA[setTax]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Property/HasRecurringPricesProperty.php">
     <ArgumentTypeCoercion>
@@ -315,6 +517,24 @@
     <PossiblyNullArrayAssignment>
       <code><![CDATA[$instantPrices[$currency]]]></code>
     </PossiblyNullArrayAssignment>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$details]]></code>
+    </PossiblyUnusedParam>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[\DateInterval]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedMethod>
+      <code><![CDATA[setPrices]]></code>
+      <code><![CDATA[setPrices]]></code>
+    </UnusedMethod>
+  </file>
+  <file src="src/Model/Feature/Property/HasUnatantumPricesInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getTaxName]]></code>
+      <code><![CDATA[getTaxRate]]></code>
+      <code><![CDATA[hasPrice]]></code>
+      <code><![CDATA[setTax]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Property/HasUnatantumPricesProperty.php">
     <ArgumentTypeCoercion>
@@ -330,68 +550,107 @@
       <code><![CDATA[$currency]]></code>
       <code><![CDATA[$currency]]></code>
     </MoreSpecificImplementedParamType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setTax]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Model/Feature/Property/IsRecurringFeatureInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setActiveUntil]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Property/IsRecurringFeatureProperty.php">
     <MoreSpecificReturnType>
       <code><![CDATA[\DateTime|\DateTimeImmutable|null]]></code>
     </MoreSpecificReturnType>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$details]]></code>
+    </PossiblyUnusedParam>
   </file>
   <file src="src/Model/Feature/Subscribed/AbstractSubscribedFeature.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getConfiguredFeature(): ConfiguredFeatureInterface]]></code>
+      <code><![CDATA[public function setConfiguredFeature(ConfiguredFeatureInterface $configuredFeature): void]]></code>
+      <code><![CDATA[public function toArray(): array]]></code>
+    </MissingOverrideAttribute>
     <TypeDoesNotContainNull>
       <code><![CDATA[null === $this->configuredFeature]]></code>
     </TypeDoesNotContainNull>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedBooleanFeature.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(): array]]></code>
+    </MissingOverrideAttribute>
     <PropertyNotSetInConstructor>
       <code><![CDATA[SubscribedBooleanFeature]]></code>
     </PropertyNotSetInConstructor>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedCountableFeature.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getRemainedQuantity(): int]]></code>
+      <code><![CDATA[public function toArray(): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyInvalidMethodCall>
       <code><![CDATA[toArray]]></code>
     </PossiblyInvalidMethodCall>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[cumulate]]></code>
+      <code><![CDATA[isRefreshPeriodElapsed]]></code>
+      <code><![CDATA[refresh]]></code>
+      <code><![CDATA[setLastRefreshOn]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$previousRemainedQuantity]]></code>
+    </PossiblyUnusedProperty>
     <PropertyNotSetInConstructor>
       <code><![CDATA[SubscribedCountableFeature]]></code>
     </PropertyNotSetInConstructor>
     <TypeDoesNotContainNull>
-      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->getLastRefreshOn()]]></code>
       <code><![CDATA[null === $this->lastRefreshOn]]></code>
       <code><![CDATA[null === $this->previousRemainedQuantity]]></code>
     </TypeDoesNotContainNull>
     <TypeDoesNotContainType>
       <code><![CDATA[$subscribedPack instanceof ConfiguredCountableFeaturePack]]></code>
-      <code><![CDATA[false === isset($this->lastRefreshOn) || null === $this->lastRefreshOn]]></code>
     </TypeDoesNotContainType>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeatureInterface.php">
     <MissingReturnType>
       <code><![CDATA[setConfiguredFeature]]></code>
     </MissingReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setConfiguredFeature]]></code>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Model/Feature/Subscribed/SubscribedFeaturePack.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php">
-    <ConstructorSignatureMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ConstructorSignatureMismatch>
-    <ImplementedParamTypeMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ImplementedParamTypeMismatch>
-    <MethodSignatureMismatch>
-      <code><![CDATA[public function __construct(?array $elements = [])]]></code>
-    </MethodSignatureMismatch>
     <MismatchingDocblockReturnType>
       <code><![CDATA[SubscribedBooleanFeature[]|SubscribedFeaturesCollection]]></code>
       <code><![CDATA[SubscribedCountableFeature[]|SubscribedFeaturesCollection]]></code>
       <code><![CDATA[SubscribedFeaturesCollection|SubscribedRechargeableFeature[]]]></code>
     </MismatchingDocblockReturnType>
-    <ParamNameMismatch>
-      <code><![CDATA[$elements]]></code>
-    </ParamNameMismatch>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+      <code><![CDATA[public function toArray(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getBooleanFeatures]]></code>
+      <code><![CDATA[getCountableFeatures]]></code>
+      <code><![CDATA[getRechargeableFeatures]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php">
     <LessSpecificReturnStatement>
       <code><![CDATA[$this->lastRechargeOn]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(): array]]></code>
+    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
       <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
     </MoreSpecificReturnType>
@@ -403,6 +662,9 @@
     <ArgumentTypeCoercion>
       <code><![CDATA[$currency]]></code>
     </ArgumentTypeCoercion>
+    <DeprecatedConstant>
+      <code><![CDATA[Types::DATETIME_MUTABLE]]></code>
+    </DeprecatedConstant>
     <InvalidNullableReturnType>
       <code><![CDATA[InvoiceLine]]></code>
     </InvalidNullableReturnType>
@@ -418,11 +680,33 @@
     <LessSpecificReturnStatement>
       <code><![CDATA[$this->issuedOn]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[#[ORM\PostLoad]]]></code>
+      <code><![CDATA[public function addLine(InvoiceLine $line, ?string $id = null): InvoiceInterface]]></code>
+      <code><![CDATA[public function addSection(InvoiceSection $section, ?string $id = null): InvoiceInterface]]></code>
+      <code><![CDATA[public function getCurrency(): Currency]]></code>
+      <code><![CDATA[public function getGrossTotal(): MoneyInterface]]></code>
+      <code><![CDATA[public function getHeader(): ?InvoiceSectionHeader]]></code>
+      <code><![CDATA[public function getIssuedOn(): \DateTimeInterface]]></code>
+      <code><![CDATA[public function getLine($id): InvoiceLine]]></code>
+      <code><![CDATA[public function getLines(): array]]></code>
+      <code><![CDATA[public function getNetTotal(): MoneyInterface]]></code>
+      <code><![CDATA[public function getSection($id): ?InvoiceSection]]></code>
+      <code><![CDATA[public function getSections(): array]]></code>
+      <code><![CDATA[public function hasHeader(): bool]]></code>
+      <code><![CDATA[public function hasLine($id): bool]]></code>
+      <code><![CDATA[public function hasSection($id): bool]]></code>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+      <code><![CDATA[public function removeHeader(): InvoiceSection]]></code>
+      <code><![CDATA[public function removeLine($id)]]></code>
+      <code><![CDATA[public function removeSection($id)]]></code>
+      <code><![CDATA[public function setHeader(InvoiceSectionHeader $header): void]]></code>
+    </MissingOverrideAttribute>
     <MissingParamType>
       <code><![CDATA[$id]]></code>
     </MissingParamType>
     <MoreSpecificReturnType>
-      <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
+      <code><![CDATA[\DateTimeInterface]]></code>
     </MoreSpecificReturnType>
     <NullableReturnStatement>
       <code><![CDATA[$this->sections[self::SECTION_DEFAULT]->getLine($id)]]></code>
@@ -433,15 +717,13 @@
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[\is_int($id)]]></code>
     </RedundantConditionGivenDocblockType>
-    <RedundantPropertyInitializationCheck>
-      <code><![CDATA[false === isset($this->grossTotal)]]></code>
-      <code><![CDATA[false === isset($this->issuedOn)]]></code>
-      <code><![CDATA[false === isset($this->netTotal)]]></code>
-    </RedundantPropertyInitializationCheck>
     <UndefinedMethod>
       <code><![CDATA[$section]]></code>
       <code><![CDATA[$section]]></code>
     </UndefinedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$issuedOn]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/InvoiceInterface.php">
     <InvalidDocblock>
@@ -454,6 +736,26 @@
       <code><![CDATA[jsonUnserialize]]></code>
       <code><![CDATA[setHeader]]></code>
     </MissingReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[addLine]]></code>
+      <code><![CDATA[addSection]]></code>
+      <code><![CDATA[generateNumber]]></code>
+      <code><![CDATA[getGrossTotal]]></code>
+      <code><![CDATA[getHeader]]></code>
+      <code><![CDATA[getIssuedOn]]></code>
+      <code><![CDATA[getLine]]></code>
+      <code><![CDATA[getLines]]></code>
+      <code><![CDATA[getNetTotal]]></code>
+      <code><![CDATA[getSection]]></code>
+      <code><![CDATA[hasHeader]]></code>
+      <code><![CDATA[hasLine]]></code>
+      <code><![CDATA[hasSection]]></code>
+      <code><![CDATA[removeHeader]]></code>
+      <code><![CDATA[removeLine]]></code>
+      <code><![CDATA[removeSection]]></code>
+      <code><![CDATA[setHeader]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/InvoiceLine.php">
     <MissingConstructor>
@@ -464,14 +766,27 @@
       <code><![CDATA[$taxName]]></code>
       <code><![CDATA[$taxRate]]></code>
     </MissingConstructor>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyNullPropertyAssignmentValue>
       <code><![CDATA[$quantity]]></code>
     </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="src/Model/InvoiceSection.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+    </MissingOverrideAttribute>
     <PossiblyNullPropertyAssignmentValue>
       <code><![CDATA[null]]></code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getCurrency]]></code>
+      <code><![CDATA[getLine]]></code>
+      <code><![CDATA[hasHeader]]></code>
+      <code><![CDATA[removeHeader]]></code>
+      <code><![CDATA[removeLine]]></code>
+    </PossiblyUnusedMethod>
     <PropertyNotSetInConstructor>
       <code><![CDATA[$header]]></code>
     </PropertyNotSetInConstructor>
@@ -483,8 +798,27 @@
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[\is_int($id)]]></code>
     </RedundantConditionGivenDocblockType>
+    <UnusedMethod>
+      <code><![CDATA[recalculateTotal]]></code>
+    </UnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$currency]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="src/Model/InvoiceSectionHeader.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function jsonSerialize(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[hydrate]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/Subscription.php">
+    <DeprecatedConstant>
+      <code><![CDATA[Types::DATETIME_MUTABLE]]></code>
+      <code><![CDATA[Types::DATETIME_MUTABLE]]></code>
+      <code><![CDATA[Types::DATETIME_MUTABLE]]></code>
+    </DeprecatedConstant>
     <InvalidReturnStatement>
       <code><![CDATA[$this->features]]></code>
     </InvalidReturnStatement>
@@ -496,6 +830,35 @@
       <code><![CDATA[$this->nextRenewOn]]></code>
       <code><![CDATA[$this->subscribedOn]]></code>
     </LessSpecificReturnStatement>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function addFeature(string $featureName, FeatureInterface $feature): SubscriptionInterface]]></code>
+      <code><![CDATA[public function forceFeaturesUpdate(): void]]></code>
+      <code><![CDATA[public function getCurrency(): Currency]]></code>
+      <code><![CDATA[public function getFeatures(): SubscribedFeaturesCollection]]></code>
+      <code><![CDATA[public function getNextRefreshOn(): ?\DateTimeInterface]]></code>
+      <code><![CDATA[public function getNextRenewAmount(): MoneyInterface]]></code>
+      <code><![CDATA[public function getNextRenewOn(): \DateTimeInterface]]></code>
+      <code><![CDATA[public function getRenewInterval(): string]]></code>
+      <code><![CDATA[public function getSmallestRefreshInterval(): ?string]]></code>
+      <code><![CDATA[public function getSubscribedOn(): \DateTimeInterface]]></code>
+      <code><![CDATA[public function has(string $feature): bool]]></code>
+      <code><![CDATA[public function isStillActive(string $feature): bool]]></code>
+      <code><![CDATA[public function setCurrency(Currency $currency): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setFeatures(SubscribedFeaturesCollection $features): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setMonthly(): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setNextPaymentInOneMonth(): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setNextPaymentInOneYear(): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setNextRefreshOn(\DateTimeInterface $nextRefreshOn): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setNextRenewAmount(MoneyInterface $amount): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setNextRenewOn(\DateTimeInterface $nextRenewOn): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setRenewInterval(string $renewInterval): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setSmallestRefreshInterval(string $refreshInterval): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setSubscribedOn(\DateTimeInterface $subscribedOn): SubscriptionInterface]]></code>
+      <code><![CDATA[public function setYearly(): SubscriptionInterface]]></code>
+      <code><![CDATA[public static function calculateActiveUntil(string $interval): \DateTimeInterface]]></code>
+      <code><![CDATA[public static function checkIntervalExists(string $interval): void]]></code>
+      <code><![CDATA[public static function intervalExists(string $interval): bool]]></code>
+    </MissingOverrideAttribute>
     <MoreSpecificReturnType>
       <code><![CDATA[\DateTimeInterface]]></code>
       <code><![CDATA[\DateTime|\DateTimeImmutable]]></code>
@@ -512,11 +875,45 @@
       <code><![CDATA[clone $this->features]]></code>
       <code><![CDATA[clone $this->features]]></code>
     </PossiblyInvalidClone>
+    <UnusedProperty>
+      <code><![CDATA[$nextRefreshOn]]></code>
+      <code><![CDATA[$nextRenewAmount]]></code>
+      <code><![CDATA[$smallestRefreshInterval]]></code>
+    </UnusedProperty>
   </file>
   <file src="src/Model/SubscriptionInterface.php">
     <MissingReturnType>
       <code><![CDATA[checkIntervalExists]]></code>
       <code><![CDATA[forceFeaturesUpdate]]></code>
     </MissingReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[addFeature]]></code>
+      <code><![CDATA[forceFeaturesUpdate]]></code>
+      <code><![CDATA[getNextRefreshOn]]></code>
+      <code><![CDATA[getNextRenewAmount]]></code>
+      <code><![CDATA[getSmallestRefreshInterval]]></code>
+      <code><![CDATA[has]]></code>
+      <code><![CDATA[isStillActive]]></code>
+      <code><![CDATA[setCurrency]]></code>
+      <code><![CDATA[setFeatures]]></code>
+      <code><![CDATA[setMonthly]]></code>
+      <code><![CDATA[setNextPaymentInOneMonth]]></code>
+      <code><![CDATA[setNextPaymentInOneYear]]></code>
+      <code><![CDATA[setNextRefreshOn]]></code>
+      <code><![CDATA[setNextRenewAmount]]></code>
+      <code><![CDATA[setNextRenewOn]]></code>
+      <code><![CDATA[setRenewInterval]]></code>
+      <code><![CDATA[setSmallestRefreshInterval]]></code>
+      <code><![CDATA[setSubscribedOn]]></code>
+      <code><![CDATA[setYearly]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/SHQFeaturesBundle.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function build(ContainerBuilder $container): void]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[SHQFeaturesBundle]]></code>
+    </UnusedClass>
   </file>
 </files>

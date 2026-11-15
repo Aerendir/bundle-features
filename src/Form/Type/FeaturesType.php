@@ -154,7 +154,7 @@ final class FeaturesType extends AbstractType
 
     private function setCountableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredCountableFeature $configuredFeature): \Closure
     {
-        return function ($val) use ($subscription, $configuredFeature): array {
+        return function (int $val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredCountableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
@@ -181,7 +181,7 @@ final class FeaturesType extends AbstractType
 
     private function setRechargeableFeaturePacksPrices(SubscriptionInterface $subscription, ConfiguredRechargeableFeature $configuredFeature): \Closure
     {
-        return function ($val) use ($subscription, $configuredFeature): array {
+        return function (int $val) use ($subscription, $configuredFeature): array {
             /** @var ConfiguredRechargeableFeaturePack $pack */
             $pack = $configuredFeature->getPack($val);
 
@@ -194,10 +194,8 @@ final class FeaturesType extends AbstractType
 
     /**
      * A really dirty way of getting a float or an integer removing the trailing 0s if float.
-     *
-     * @return float|int
      */
-    private function formatPriceForDataAttribute(MoneyInterface $amount)
+    private function formatPriceForDataAttribute(MoneyInterface $amount): int|float
     {
         $splitted = \explode('.', $amount->getHumanAmount());
 

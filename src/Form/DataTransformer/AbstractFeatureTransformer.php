@@ -19,8 +19,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeatu
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 
-use function Safe\sprintf;
-
 abstract class AbstractFeatureTransformer implements DataTransformerInterface
 {
     /** @var array|null Used only by Countable and Rechargeable features */

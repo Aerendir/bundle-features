@@ -20,8 +20,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
-use function Safe\sprintf;
-
 /**
  * Common properties and methods of a ConfiguredRecurringFeatureInterface.
  *

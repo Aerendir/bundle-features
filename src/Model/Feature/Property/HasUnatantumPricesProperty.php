@@ -20,8 +20,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\FeatureInterface;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
-use function Safe\sprintf;
-
 /**
  * Manages simple prices.
  *
