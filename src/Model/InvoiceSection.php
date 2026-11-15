@@ -17,8 +17,6 @@ use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
-use function Safe\sprintf;
-
 /**
  * Represents a section into the Invoice.
  */

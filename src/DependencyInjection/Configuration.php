@@ -22,8 +22,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-use function Safe\sprintf;
-
 /**
  * @author Adamo Aerendir Crespi <hello@aerendir.me>
  */

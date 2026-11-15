@@ -106,11 +106,6 @@ parameters:
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredBooleanFeature\\:\\:RecurringPricesConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Configured/ConfiguredBooleanFeature.php
@@ -208,11 +203,6 @@ parameters:
 		-
 			message: "#^Binary operation \"/\" between string and float results in an error\\.$#"
 			count: 1
-			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
 			path: src/Model/Feature/Configured/ConfiguredCountableFeaturePack.php
 
 		-
@@ -441,11 +431,6 @@ parameters:
 			path: src/Model/Feature/Subscribed/AbstractSubscribedFeature.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\:\\:RecurringFeatureConstruct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
@@ -459,11 +444,6 @@ parameters:
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedBooleanFeature\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedBooleanFeature.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 6
-			path: src/Model/Feature/Subscribed/SubscribedCountableFeature.php
 
 		-
 			message: "#^Instanceof between SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedCountableFeaturePack and SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Configured\\\\ConfiguredCountableFeaturePack will always evaluate to false\\.$#"
@@ -556,11 +536,6 @@ parameters:
 			path: src/Model/Feature/Subscribed/SubscribedFeaturesCollection.php
 
 		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
-			count: 2
-			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
-
-		-
 			message: "#^Method SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\Feature\\\\Subscribed\\\\SubscribedRechargeableFeature\\:\\:__construct\\(\\) has parameter \\$details with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Model/Feature/Subscribed/SubscribedRechargeableFeature.php
@@ -587,11 +562,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset '_lines' on SerendipityHQ\\\\Bundle\\\\FeaturesBundle\\\\Model\\\\InvoiceSection\\.$#"
-			count: 1
-			path: src/Model/Invoice.php
-
-		-
-			message: "#^Class DateTime is unsafe to use\\. Its methods can return FALSE instead of throwing an exception\\. Please add 'use Safe\\\\DateTime;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library\\.$#"
 			count: 1
 			path: src/Model/Invoice.php
 

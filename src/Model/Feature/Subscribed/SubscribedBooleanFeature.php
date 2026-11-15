@@ -18,9 +18,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeEnabledPrope
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
-
 final class SubscribedBooleanFeature extends AbstractSubscribedFeature implements CanBeEnabledInterface, IsRecurringFeatureInterface, SubscribedFeatureInterface
 {
     use CanBeEnabledProperty;

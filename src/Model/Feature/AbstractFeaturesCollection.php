@@ -24,8 +24,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedCount
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedFeaturesCollection;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRechargeableFeature;
 
-use function Safe\sprintf;
-
 abstract class AbstractFeaturesCollection extends ArrayCollection
 {
     /** @var null */
