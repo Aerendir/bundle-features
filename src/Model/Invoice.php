@@ -31,10 +31,7 @@ abstract class Invoice implements InvoiceInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $issuedOn;
 
-    /**
-     * @var InvoiceSection[]
-     *
-     */
+    /** @var InvoiceSection[] */
     #[ORM\Column(type: Types::JSON)]
     private array $sections = [];
 

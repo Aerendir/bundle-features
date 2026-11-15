@@ -23,49 +23,39 @@ use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
 /**
  * Basic properties and methods to manage a subscription.
- *
  */
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
 abstract class Subscription implements SubscriptionInterface
 {
-
-    #[ORM\Column( type: 'currency', nullable: true)]
+    #[ORM\Column(type: 'currency', nullable: true)]
     private ?Currency $currency = null;
 
-    /**
-     * Contains the $featuresArray as a FeatureCollection.
-     *
-     */
-    #[ORM\Column( type: Types::JSON, nullable: true)]
+    /** Contains the $featuresArray as a FeatureCollection. */
+    #[ORM\Column(type: Types::JSON, nullable: true)]
     private array|SubscribedFeaturesCollection|null $features = null;
 
-    #[ORM\Column( type: Types::STRING, nullable: true)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $renewInterval = null;
 
-    #[ORM\Column( type: 'money', nullable: true)]
+    #[ORM\Column(type: 'money', nullable: true)]
     private ?MoneyInterface $nextRenewAmount = null;
 
-    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $nextRenewOn = null;
 
-    /**
-     * If there are countable features, this field saves the smallest refresh interval found.
-     *
-     */
-    #[ORM\Column( type: Types::STRING, nullable: true)]
+    /** If there are countable features, this field saves the smallest refresh interval found. */
+    #[ORM\Column(type: Types::STRING, nullable: true)]
     private string $smallestRefreshInterval;
 
     /**
      * If there are countable features configured, this field is used to determine when they have to be refresh based on
      * the smallest interval.
-     *
      */
-    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $nextRefreshOn = null;
 
-
-    #[ORM\Column( type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $subscribedOn = null;
 
     public function __clone()
@@ -115,7 +105,8 @@ abstract class Subscription implements SubscriptionInterface
             SubscriptionInterface::BIWEEKLY,
             SubscriptionInterface::MONTHLY,
             SubscriptionInterface::YEARLY,
-        ]);
+        ],
+            true);
     }
 
     public function getCurrency(): Currency

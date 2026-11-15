@@ -41,7 +41,7 @@ final class Configuration implements ConfigurationInterface
     private const RECURRING       = 'recurring';
     private const UNATANTUM       = 'unatantum';
 
-    /** @var $foundDrawers The drawers found as default ones in features sets */
+    /** @var The $foundDrawers drawers found as default ones in features sets */
     private array $foundDrawers = [];
 
     /** @var string $pricesKey The type of prices set: gross or net */
@@ -153,9 +153,9 @@ final class Configuration implements ConfigurationInterface
             ->end()
             ->validate()
                 // Deeply validate the full config tree
-                ->ifTrue(fn ($tree): array => $this->validateTree($tree))
+                ->ifTrue(fn (array $tree): array => $this->validateTree($tree))
                 // Re-elaborate the tree removing unuseful values and preparing useful ones
-                ->then(fn ($tree): array => $this->processTree($tree))
+                ->then(fn (array $tree): array => $this->processTree($tree))
             ->end();
 
         return $treeBuilder;
@@ -178,7 +178,7 @@ final class Configuration implements ConfigurationInterface
 
     private function validateInvoiceDrawer(string $drawer): void
     {
-        if (false === \in_array($drawer, self::ALLOWED_DRAWERS)) {
+        if (false === \in_array($drawer, self::ALLOWED_DRAWERS, true)) {
             throw new InvalidConfigurationException(sprintf('The invoice drawer "%s" is not supported. Allowed invoice drawers are: %s.', $drawer, \implode(', ', self::ALLOWED_DRAWERS)));
         }
 
