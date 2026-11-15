@@ -18,14 +18,17 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use function Safe\realpath;
-
 final class SHQFeaturesBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {
         parent::build($container);
 
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [realpath(__DIR__ . '/Model')], reportFieldsWhereDeclared: true), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
+        $modelDir = realpath(__DIR__ . '/Model');
+        if (false === $modelDir) {
+            throw new \RuntimeException(sprintf('Impossible to resolve the path of the directory "%s".', __DIR__ . '/Model'));
+        }
+
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createAttributeMappingDriver(['SerendipityHQ\Bundle\FeaturesBundle\Model'], [$modelDir], reportFieldsWhereDeclared: true), PassConfig::TYPE_BEFORE_OPTIMIZATION, 0);
     }
 }

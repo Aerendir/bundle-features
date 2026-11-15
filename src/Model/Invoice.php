@@ -19,8 +19,6 @@ use Money\Currency;
 use SerendipityHQ\Component\ValueObjects\Money\Money;
 use SerendipityHQ\Component\ValueObjects\Money\MoneyInterface;
 
-use function Safe\sprintf;
-
 #[ORM\MappedSuperclass]
 #[ORM\HasLifecycleCallbacks]
 abstract class Invoice implements InvoiceInterface
@@ -33,10 +31,7 @@ abstract class Invoice implements InvoiceInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $issuedOn;
 
-    /**
-     * @var InvoiceSection[]
-     *
-     */
+    /** @var InvoiceSection[] */
     #[ORM\Column(type: Types::JSON)]
     private array $sections = [];
 

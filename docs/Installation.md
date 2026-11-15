@@ -12,29 +12,16 @@ This library follows the http://semver.org/ versioning conventions.
 Step 2: Enable the Bundle
 -------------------------
 
-Then, enable the bundle by adding the following line in the `app/AppKernel.php`
-file of your project:
+Then, enable the bundle by adding it to the list of registered bundles in the `config/bundles.php` file of your project:
 
 ```php
 <?php
-// app/AppKernel.php
+// config/bundles.php
 
-// ...
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = array(
-            // ...
-
-            new SerendipityHQ\Bundle\SHQFeaturesBundle\SHQFeaturesBundle(),
-        );
-
-        // ...
-    }
-
+return [
     // ...
-}
+    SerendipityHQ\Bundle\FeaturesBundle\SHQFeaturesBundle::class => ['all' => true],
+];
 ```
 
 <hr />

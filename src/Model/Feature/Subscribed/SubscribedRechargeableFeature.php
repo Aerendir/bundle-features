@@ -16,9 +16,6 @@ namespace SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedInterface;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\CanBeConsumedProperty;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
-
 final class SubscribedRechargeableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, CanBeConsumedInterface
 {
     use CanBeConsumedProperty;

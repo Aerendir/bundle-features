@@ -27,10 +27,7 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Subscribed\SubscribedRecha
  */
 final class FeaturesFactory
 {
-    /**
-     * @return ConfiguredBooleanFeature|SubscribedBooleanFeature|null
-     */
-    public static function createBoolean(string $kind, string $name, array $details = [])
+    public static function createBoolean(string $kind, string $name, array $details = []): ConfiguredBooleanFeature|SubscribedBooleanFeature|null
     {
         switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:
@@ -42,10 +39,7 @@ final class FeaturesFactory
         return null;
     }
 
-    /**
-     * @return ConfiguredCountableFeature|SubscribedCountableFeature|null
-     */
-    public static function createCountable(string $kind, string $name, array $details = [])
+    public static function createCountable(string $kind, string $name, array $details = []): ConfiguredCountableFeature|SubscribedCountableFeature|null
     {
         switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:
@@ -57,10 +51,7 @@ final class FeaturesFactory
         return null;
     }
 
-    /**
-     * @return ConfiguredRechargeableFeature|SubscribedRechargeableFeature|null
-     */
-    public static function createRechargeable(string $kind, string $name, array $details = [])
+    public static function createRechargeable(string $kind, string $name, array $details = []): ConfiguredRechargeableFeature|SubscribedRechargeableFeature|null
     {
         switch ($kind) {
             case ConfiguredFeaturesCollection::KIND:

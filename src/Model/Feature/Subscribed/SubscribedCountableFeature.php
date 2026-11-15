@@ -22,9 +22,6 @@ use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatur
 use SerendipityHQ\Bundle\FeaturesBundle\Model\Feature\Property\IsRecurringFeatureProperty;
 use SerendipityHQ\Bundle\FeaturesBundle\Model\SubscriptionInterface;
 
-use function Safe\json_decode;
-use function Safe\json_encode;
-
 final class SubscribedCountableFeature extends AbstractSubscribedFeature implements SubscribedFeatureInterface, IsRecurringFeatureInterface, CanBeConsumedInterface
 {
     use IsRecurringFeatureProperty {
